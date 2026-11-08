@@ -1,0 +1,27 @@
+---
+// A document shell built without BaseLayout: it brings its own head, Skip and
+// main. Needs `site` in astro.config.mjs and the `--font-inter` font config
+// (BaseHead renders the font and the canonical URL).
+import "@/styles/global.css";
+import BaseHead from "@/components/utility/BaseHead.astro";
+import Skip from "@/components/global/Skip.astro";
+import type { SeoProps } from "@/types.ts";
+
+type Props = SeoProps;
+const seo = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead {...seo} />
+  </head>
+  <body>
+    <Skip />
+    <slot name="header" />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>

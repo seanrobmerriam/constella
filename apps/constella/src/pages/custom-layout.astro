@@ -1,0 +1,14 @@
+---
+import Layout from "@/layouts/CustomLayoutExample.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+---
+
+<Layout title="Custom layout" description="A document without BaseLayout.">
+  <Section>
+    <ContentWrapper>
+      <Heading tag="h1">Custom layout</Heading>
+    </ContentWrapper>
+  </Section>
+</Layout>

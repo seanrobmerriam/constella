@@ -1,0 +1,16 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+---
+
+<Layout title="Minimal" description="BaseLayout with no navbar or footer.">
+  <Section>
+    <ContentWrapper>
+      <Heading tag="h1">Minimal</Heading>
+      <Paragraph>No header or footer slot is filled.</Paragraph>
+    </ContentWrapper>
+  </Section>
+</Layout>

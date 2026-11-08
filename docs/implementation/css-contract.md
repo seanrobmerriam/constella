@@ -33,3 +33,11 @@
 - The eyebrow resets the heading margins (it carried none before), and a `.text` directly after it keeps its own top margin.
 - Migrated: `Card`, the homepage badge and every `example-components` use. `.stacki/components.json` and `CONSTELLA.md` updated. The Webflow-import skill docs still describe `Typography/Eyebrow`; they are Webflow-mapping notes and were not rewritten.
 - Tests: `tests/components/heading.spec.ts` against `/heading-regression`; the baseline test confirms identical computed section height.
+
+## Layout composition (Task 6)
+
+- `BaseLayout` takes SEO inputs and `theme`, keeps the `head` slot, and exposes `header` and `footer` slots directly under `<body>`, outside `<main id="main" tabindex="-1">` (the default slot). It no longer renders a navbar or footer and no longer accepts `overlap`. Skip is automatic.
+- `SkipLink` is now `Skip` (`.skip-link` class kept; stylesheet `skip.css`).
+- `CustomLayoutExample.astro` is the BaseHead recipe: it imports `global.css`, `BaseHead` and `Skip`, and supplies its own `main`. It needs `site` and the `--font-inter` `fonts` entry from `apps/constella/astro.config.mjs`, since BaseHead renders `<Font>` and the canonical URL.
+- Pages place `<Nav slot="header" />` / `<Footer slot="footer" />` explicitly. `Nav` still has its own `overlap` prop (the 404 page passes it there); Task 7 replaces it with sticky semantics. `Section` is untouched.
+- Examples: `/minimal` (no header/footer), `/full` (explicit navbar and footer), `/custom-layout`. Tests: `tests/components/layout.spec.ts`.

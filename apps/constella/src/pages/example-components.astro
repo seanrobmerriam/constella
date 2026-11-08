@@ -1,5 +1,7 @@
 ---
 import Layout from "@/layouts/BaseLayout.astro";
+import Nav from "@/components/global/Nav.astro";
+import Footer from "@/components/global/Footer.astro";
 import Section from "@/components/wrapper/Section.astro";
 import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
 import Heading from "@/components/typography/Heading.astro";
@@ -48,6 +50,7 @@ const lorem =
   description="Every layout variant, side by side."
   theme="dark"
 >
+  <Nav slot="header" />
   <!-- stack -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
@@ -1000,4 +1003,5 @@ const lorem =
       </InputWrapper>
     </ContentWrapper>
   </Modal>
+  <Footer slot="footer" />
 </Layout>

@@ -1,5 +1,7 @@
 ---
 import Layout from "@/layouts/BaseLayout.astro";
+import Nav from "@/components/global/Nav.astro";
+import Footer from "@/components/global/Footer.astro";
 import Section from "@/components/wrapper/Section.astro";
 import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
@@ -11,8 +13,8 @@ import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
 <Layout
   title="Page not found"
   description="The page you're looking for doesn't exist."
-  overlap={true}
 >
+  <Nav slot="header" overlap={true} />
   <Section paddingTop="navoverlap" paddingBottom="navoverlap" class="flex-grow">
     <ContentWrapper centered={true}>
       <Heading variant="h3" tag="h1" maxWidth={17}>
@@ -29,4 +31,5 @@ import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
       </InputWrapper>
     </ContentWrapper>
   </Section>
+  <Footer slot="footer" />
 </Layout>

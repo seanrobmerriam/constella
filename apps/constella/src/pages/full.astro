@@ -1,0 +1,25 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Nav from "@/components/global/Nav.astro";
+import Footer from "@/components/global/Footer.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+---
+
+<Layout
+  title="Full"
+  description="BaseLayout with an explicit navbar and footer."
+>
+  <Nav slot="header" />
+  <Section>
+    <ContentWrapper>
+      <Heading tag="h1">Full</Heading>
+      <Paragraph>
+        Navbar and footer are placed explicitly, outside main.
+      </Paragraph>
+    </ContentWrapper>
+  </Section>
+  <Footer slot="footer" />
+</Layout>

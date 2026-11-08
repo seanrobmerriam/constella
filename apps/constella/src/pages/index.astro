@@ -1,5 +1,7 @@
 ---
 import Layout from "@/layouts/BaseLayout.astro";
+import Nav from "@/components/global/Nav.astro";
+import Footer from "@/components/global/Footer.astro";
 import Section from "@/components/wrapper/Section.astro";
 import Heading from "@/components/typography/Heading.astro";
 import Img from "@/components/media/Img.astro";
@@ -10,6 +12,7 @@ import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
 ---
 
 <Layout theme="dark">
+  <Nav slot="header" />
   <Section
     paddingBottom="even"
     containerClass="flex-grow"
@@ -37,4 +40,5 @@ import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
       />
     </ContentWrapper>
   </Section>
+  <Footer slot="footer" />
 </Layout>
