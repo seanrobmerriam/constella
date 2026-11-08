@@ -1,0 +1,24 @@
+{
+  "name": "constella",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.4.4",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "bun run --filter '@constella/site' --filter '@constella/docs' dev",
+    "dev:site": "bun run --filter '@constella/site' dev",
+    "dev:docs": "bun run --filter '@constella/docs' dev",
+    "build": "bun run --filter '@constella/site' --filter '@constella/docs' build",
+    "build:site": "bun run --filter '@constella/site' build",
+    "build:docs": "bun run --filter '@constella/docs' build",
+    "check": "bun run --filter '*' check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.2"
+  }
+}

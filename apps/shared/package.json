@@ -1,0 +1,25 @@
+{
+  "name": "@constella/shared",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Components, layouts, styles, config and utilities shared by the Constella apps.",
+  "exports": {
+    "./components/*": "./src/components/*",
+    "./layouts/*": "./src/layouts/*",
+    "./styles/*": "./src/styles/*",
+    "./config/*": "./src/config/*",
+    "./utils/*": "./src/utils/*"
+  },
+  "scripts": {
+    "check": "astro check"
+  },
+  "peerDependencies": {
+    "astro": "^7.4.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "astro": "^7.4.4",
+    "typescript": "^6.0.3"
+  }
+}

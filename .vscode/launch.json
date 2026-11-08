@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "command": "bun run dev:site",
+      "name": "Site dev server",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
+      "command": "bun run dev:docs",
+      "name": "Docs dev server",
+      "request": "launch",
+      "type": "node-terminal"
+    }
+  ]
+}

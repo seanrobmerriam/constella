@@ -1,0 +1,5 @@
+[install]
+# Hoist dependencies to the root node_modules. Astro's prerender bundle resolves
+# some deps (e.g. `cookie`) by walking up parent directories; with the isolated
+# linker nothing is found at the repo root and resolution can escape the repo.
+linker = "hoisted"

@@ -1,0 +1,6 @@
+{
+  "css.styleSheets": ["apps/constella/src/styles/global.css"],
+  "css.enabledLanguages": ["html", "astro"],
+  "cssvar.files": ["apps/constella/src/styles/global.css"],
+  "cssvar.ignore": ["**/node_modules/**", "**/dist/**"]
+}
