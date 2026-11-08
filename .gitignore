@@ -27,3 +27,5 @@ pnpm-debug.log*
 # Constella skill scratch output
 .constella-upgrade/
 .constella-webflow/
+test-results/
+playwright-report/

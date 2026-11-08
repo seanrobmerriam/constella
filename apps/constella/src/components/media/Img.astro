@@ -79,7 +79,9 @@ const {
 const alt = altProp ?? "";
 
 if (import.meta.env.DEV && !src) {
-  console.warn("[constella] <Img> rendered without a `src`; nothing was output.");
+  console.warn(
+    "[constella] <Img> rendered without a `src`; nothing was output.",
+  );
 }
 
 const isSvg =

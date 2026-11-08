@@ -1,49 +1,45 @@
-# Starlight Starter Kit: Basics
+<p align="center">
+  <img src=".github/assets/banner.png" alt="Lumos For Astro" width="720">
+</p>
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+<p align="center">
+  <a href="https://www.npmjs.com/package/create-lumos"><img alt="npm version" src="https://img.shields.io/npm/v/create-lumos?labelColor=1E1E1E&color=C6FB50"></a>
+  <a href="LICENSE"><img alt="license" src="https://img.shields.io/npm/l/create-lumos?labelColor=1E1E1E&color=C6FB50"></a>
+  <a href="https://github.com/lumosframework/lumos-for-astro/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/lumosframework/lumos-for-astro/actions/workflows/ci.yml/badge.svg"></a>
+</p>
 
-```
-bun create astro@latest -- --template starlight
-```
+A component and styling framework for building Astro sites, designed around
+efficiency, scalability and accessibility.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Documentation lives at **[lumosframework.com](https://lumosframework.com)**.
 
-## 🚀 Project Structure
+## Getting started
 
-Inside of your Astro + Starlight project, you'll see the following folders and files:
-
-```
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+```sh
+npm create lumos@latest my-site
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+That scaffolds a new site from this repository and installs its dependencies
+with whichever package manager you ran it with. Then:
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+```sh
+cd my-site
+npm run dev
+```
 
-Static assets, like favicons, can be placed in the `public/` directory.
+| Script            | What it does                      |
+| ----------------- | --------------------------------- |
+| `npm run dev`     | Starts the dev server             |
+| `npm run build`   | Builds the site to `dist/`        |
+| `npm run preview` | Serves the built site             |
+| `npm run check`   | Type-checks every `.astro` file   |
+| `npm run format`  | Formats the project with Prettier |
 
-## 🧞 Commands
+## Documentation
 
-All commands are run from the root of the project, from a terminal:
+Component reference, styling guides and examples are at
+[lumosframework.com](https://lumosframework.com).
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+## License
 
-## 👀 Want to learn more?
-
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+[MIT](LICENSE)

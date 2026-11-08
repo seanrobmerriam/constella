@@ -21,7 +21,9 @@ const {
 const labelled = Boolean(rest["aria-label"] ?? rest["aria-labelledby"]);
 
 if (import.meta.env.DEV && render && !Svg) {
-  console.warn("[constella] <Icon> rendered without a `src`; nothing was output.");
+  console.warn(
+    "[constella] <Icon> rendered without a `src`; nothing was output.",
+  );
 }
 ---
 

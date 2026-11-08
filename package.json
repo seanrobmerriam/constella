@@ -15,10 +15,16 @@
     "build:docs": "bun run --filter '@constella/docs' build",
     "check": "bun run --filter '*' check",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test:components": "playwright test tests/components",
+    "test:docs": "playwright test tests/docs"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^1.1.2"
+  },
+  "dependencies": {
+    "astro": "^7.4.7"
   }
 }
