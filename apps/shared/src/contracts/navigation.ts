@@ -27,3 +27,19 @@ export interface NavbarConfig {
   links: SiteLink[];
   search?: SearchConfig;
 }
+
+export interface FooterGroup {
+  label: string;
+  links: SiteLink[];
+}
+
+export interface FooterConfig {
+  brand: Brand;
+  description?: string;
+  links: SiteLink[];
+  groups: FooterGroup[];
+  socialLinks: IconLink[];
+  legalLinks: SiteLink[];
+  /** Text after the year, e.g. the company name. */
+  copyright: string;
+}

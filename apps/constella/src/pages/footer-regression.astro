@@ -1,0 +1,54 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Footer from "@/components/global/Footer.astro";
+import Section from "@/components/wrapper/Section.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+
+const long = Array.from({ length: 14 }, (_, i) => ({
+  label: `A fairly long link label number ${i + 1}`,
+  href: `/l${i + 1}`,
+}));
+const bare = {
+  brand: { mode: "custom" as const, text: "Bare Co" },
+  links: [],
+  groups: [],
+  socialLinks: [],
+  legalLinks: [],
+  copyright: "Bare Co",
+};
+const full = {
+  brand: { mode: "site-name" as const },
+  description: "Describes the brand.",
+  links: [{ label: "Home", href: "/" }],
+  groups: [
+    { label: "Group A", links: long },
+    { label: "Group B", links: [{ label: "B1", href: "/b1" }] },
+  ],
+  socialLinks: [
+    { label: "GitHub", href: "https://github.com", icon: "github" },
+  ],
+  legalLinks: [{ label: "Privacy", href: "/privacy" }],
+  copyright: "Full Co",
+};
+---
+
+<Layout title="Footer regression" description="Regression fixtures." noindex>
+  <Section>
+    <Paragraph>Footer fixtures.</Paragraph>
+  </Section>
+  <Footer slot="footer" />
+  <Footer slot="footer" variant="columns" config={full} />
+  <Footer slot="footer" config={bare} />
+  <Footer slot="footer" variant="columns" config={bare} />
+  <Footer slot="footer" config={full} theme="dark" spacing="large">
+    <p slot="brand" id="custom-brand">
+      Custom brand
+    </p>
+    <p slot="cta" id="custom-cta">
+      Custom CTA
+    </p>
+    <p slot="bottom" id="custom-bottom">
+      Custom bottom
+    </p>
+  </Footer>
+</Layout>

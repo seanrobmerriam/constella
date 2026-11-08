@@ -2,51 +2,141 @@
 import Icon from "@/components/media/Icon.astro";
 import logo from "@/assets/logo/logo.svg";
 import { SITE_NAME } from "@/consts.ts";
+import { footerConfig } from "@/config/footer.ts";
+import { iconFor } from "@/config/icons.ts";
+import type { FooterConfig } from "@constella/shared/contracts/navigation.ts";
 
 interface Props {
   /** Set to `false` to omit the component. */
   render?: boolean;
+  /** Layout. `simple` shows one row of links; `columns` shows link groups. */
+  variant?: "simple" | "columns";
+  /** Brand, links, groups, social and legal links, copyright. Defaults to `src/config/footer.ts`. */
+  config?: FooterConfig;
+  /** Theme for the footer only. `inherit` follows the page. */
+  theme?: "inherit" | "light" | "dark" | "brand";
+  /** Vertical padding, from the section spacing scale. */
+  spacing?: "small" | "medium" | "large";
 }
 
-const { render = true } = Astro.props;
+const {
+  render = true,
+  variant = "simple",
+  config = footerConfig,
+  theme = "inherit",
+  spacing = "small",
+} = Astro.props;
+
+const { brand } = config;
+const brandLabel = brand.mode === "custom" ? brand.text : SITE_NAME;
+const social = config.socialLinks.map((link) => ({
+  ...link,
+  svg: iconFor(link.icon),
+}));
+const year = new Date().getFullYear();
 ---
 
 {render && (
-  <footer class="footer_wrap">
+  <footer
+    class:list={[
+      "footer_wrap",
+      variant,
+      `spacing-${spacing}`,
+      theme !== "inherit" && `theme-${theme}`,
+    ]}
+  >
     <div class="footer_inner">
       <div class="footer_top">
-        <a class="footer_logo" href="/" aria-label={SITE_NAME}>
-          <Icon src={logo} variant="full-width" />
-        </a>
-        <nav aria-label="Footer">
-          <ul class="footer_links">
-            <li>
-              <a class="footer_link" href="/">
-                Home
-              </a>
-            </li>
-            <li>
-              <a class="footer_link" href="/example-components">
-                Example Components
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <div class="footer_brand">
+          <slot name="brand">
+            <a class="footer_logo" href="/" aria-label={brandLabel}>
+              {brand.mode === "site-name" && (
+                <Icon src={logo} variant="full-width" />
+              )}
+              {brand.mode === "custom" && brand.logo && (
+                <img src={brand.logo.src} alt={brand.logo.alt} />
+              )}
+              {brand.mode === "custom" && !brand.logo && (
+                <span class="footer_brand_text">{brand.text}</span>
+              )}
+            </a>
+            {variant === "columns" && config.description && (
+              <p class="footer_description text-style-small">
+                {config.description}
+              </p>
+            )}
+          </slot>
+        </div>
+        {variant === "simple" && config.links.length > 0 && (
+          <nav aria-label="Footer">
+            <ul class="footer_links">
+              {config.links.map((link) => (
+                <li>
+                  <a class="footer_link" href={link.href}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+        {variant === "columns" && config.groups.length > 0 && (
+          <div class="footer_groups">
+            {config.groups.map((group) => (
+              <nav class="footer_group" aria-label={group.label}>
+                <p class="footer_group_label text-style-small">{group.label}</p>
+                <ul class="footer_links">
+                  {group.links.map((link) => (
+                    <li>
+                      <a class="footer_link" href={link.href}>
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+          </div>
+        )}
       </div>
+      {Astro.slots.has("cta") && (
+        <div class="footer_cta">
+          <slot name="cta" />
+        </div>
+      )}
       <div class="footer_bottom">
-        <p class="footer_copyright text-style-small">
-          &copy; <span id="year">{new Date().getFullYear()}</span>&#160;
-          {SITE_NAME}
-        </p>
+        <slot name="bottom">
+          <p class="footer_copyright text-style-small">
+            &copy; {year}&#160;{config.copyright}
+          </p>
+          {config.legalLinks.length > 0 && (
+            <ul class="footer_legal text-style-small">
+              {config.legalLinks.map((link) => (
+                <li>
+                  <a class="footer_link" href={link.href}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+          {social.length > 0 && (
+            <ul class="footer_social">
+              {social.map((link) => (
+                <li>
+                  <a
+                    class="footer_link"
+                    href={link.href}
+                    aria-label={link.label}
+                  >
+                    <Icon src={link.svg} variant="small" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </slot>
       </div>
     </div>
   </footer>
 )}
-
-<script>
-  const year = document.querySelector<HTMLSpanElement>("#year");
-
-  if (year) {
-    year.textContent = new Date().getFullYear().toString();
-  }
-</script>

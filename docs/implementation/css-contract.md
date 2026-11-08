@@ -52,3 +52,11 @@
 - Behaviors: `initNavbar(root)` and `initThemeToggle(root)` are root-scoped and return cleanup; the Astro script rebinds on `astro:page-load` and cleans up on `astro:before-swap`. Control IDs are per instance (`navbar-N-menu`, `navbar-N-search`). No-script fallback keeps the links visible.
 - Known limit: the site does not use Astro's client router, so repeated-navigation behavior is covered by the cleanup/rebind design and not by a browser test. Astro's dev toolbar throws on blocked storage; the test ignores that source only.
 - Tests: `tests/components/navbar.spec.ts`, `theme.spec.ts`; fixtures `/navbar-regression`, `/theme-locked`, `/search-example`.
+
+## Footer variants (Task 8)
+
+- `Footer` props: `render`, `variant="simple"` (`simple | columns`), `config` (default `src/config/footer.ts`), `theme` (`inherit` by default; adds `theme-*` to the footer only), `spacing` (`small` default, `medium`, `large`, from the section spacing scale). Slots `brand`, `cta`, `bottom` replace their default regions (brand logo and description, nothing, copyright/legal/social); `cta` renders only when supplied.
+- `FooterConfig` (shared contract): `brand`, `description?`, `links`, `groups: { label, links }[]`, `socialLinks: IconLink[]`, `legalLinks`, `copyright` (text after the year). Social icons reuse the Navbar icon registry. Empty collections render no empty nav/list.
+- `simple` shows `links` in one row; `columns` shows brand with description and one `nav` per group (each labelled by its group name). The footer sits outside `main`.
+- The year is rendered on the server; the old client script and its `#year` ID were removed, so repeated footers cannot collide.
+- Tests: `tests/components/footer.spec.ts` against `/footer-regression` (variants, empty collections, slots, 320px wrap, no duplicate IDs, theme/spacing).
