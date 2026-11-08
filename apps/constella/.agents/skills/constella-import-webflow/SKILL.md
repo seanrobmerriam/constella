@@ -215,7 +215,7 @@ edit that brings the page across.
 | ---------------------------------------------------------------------- | -------------------------------------------------------------- |
 | `u-section` + `u-container` + `u-section-spacer` + `u-background-slot` | one `Wrapper/Section` — it renders all four                    |
 | `u-content-wrapper`, `u-layout-column-*`                               | `Wrapper/ContentWrapper` and a `variant`                       |
-| `u-button-wrapper`                                                     | `Wrapper/ButtonWrapper`                                        |
+| `u-input-wrapper`                                                     | `Wrapper/InputWrapper`                                        |
 | `button_main_wrap`, `clickable`                                        | `Button`                                                       |
 | `u-heading` wrapping `<h1>`–`<h6>`                                     | `Typography/Heading`, inner tag → `tag`, attribute → `variant` |
 | `u-text`                                                               | `Typography/Paragraph`                                         |
@@ -230,7 +230,7 @@ could have produced, and it puts the site through an intermediate form where a
 run that stops early has shipped Webflow classes as the deliverable.
 
 **Their CSS goes to the framework component, not into the page.** The rules
-under `u-heading`, `u-button-wrapper` and the eyebrow family are that
+under `u-heading`, `u-input-wrapper` and the eyebrow family are that
 component's design — `split-css --prefix eyebrow`, then into
 `Typography/Eyebrow.astro`'s `<style is:global>` and inside its
 `@layer components`, replacing what ships there and coming out of the site
@@ -264,7 +264,7 @@ The system is five rules in `patterns.css`:
   margin-top: 0;
   margin-bottom: 0;
 }
-.button-wrapper {
+.input-wrapper {
   margin-top: var(--space-6);
 }
 ```
@@ -278,7 +278,7 @@ is a token: `--h1-margin-top` … `--h6-margin-bottom`, `--display-*`,
 | `margin-bottom` on `u-eyebrow-wrapper`          | `--h*-margin-top` on the heading below — `Eyebrow` carries no margin     |
 | `margin-bottom` on `u-heading`                  | `--h*-margin-bottom`, and only when `.heading:has(+ .text)` matches      |
 | `margin-top` on `u-text` under a heading        | nothing — `.heading + .text` zeroes it; the heading's bottom margin wins |
-| `margin-top` on `u-button-wrapper`              | `.button-wrapper`'s own, or `ButtonWrapper`'s `marginTop` prop           |
+| `margin-top` on `u-input-wrapper`              | `.input-wrapper`'s own, or `InputWrapper`'s `marginTop` prop           |
 | margins between the blocks inside `u-container` | `Section`'s `gap` — the container zeroes its children's margins          |
 
 **Port the number, not the declaration.** Read the value off the Webflow rule,
@@ -445,7 +445,7 @@ merely matched. Screenshots should overlay. **This is the baseline.**
 And on a upstream Webflow framework site, the table's classes are already gone:
 
 ```bash
-grep -rn "u-section\|u-heading\|u-text\|u-eyebrow\|u-button-wrapper\|u-content-wrapper\|u-rich-text\|u-svg\|button_main_wrap\|clickable" src/pages src/components
+grep -rn "u-section\|u-heading\|u-text\|u-eyebrow\|u-input-wrapper\|u-content-wrapper\|u-rich-text\|u-svg\|button_main_wrap\|clickable" src/pages src/components
 ```
 
 Anything it finds is a swap that was skipped, and it is cheaper to finish now
@@ -535,7 +535,7 @@ leaves the site with no component, no reuse, and the Webflow class still in it
 — the design survived and the substitution did not.
 
 The framework's components are placeholders, exactly like `BaseLayout` was.
-`Button.astro`, `Typography/Eyebrow.astro`, `Wrapper/ButtonWrapper.astro` ship
+`Button.astro`, `Typography/Eyebrow.astro`, `Wrapper/InputWrapper.astro` ship
 with defaults meant to be replaced by the site being imported. Change them.
 Every instance across every page then inherits the design, which is the whole
 reason to use a component.
@@ -698,7 +698,7 @@ the prop values:
 | `spacer` `none`/`small`/`main`/`large`/`page-top`                              | `Section` padding (`main`→`medium`, `page-top`→`navoverlap`) |
 | `layout` `stack`/`columns`/`contain`/`breakout`/`card`/`auto-width`/`sticky-*` | `Wrapper/ContentWrapper` `variant`, `-reversed` → `reverse`  |
 | `button-main` `primary`/`secondary`/`tertiary`/`link*`                         | `Button` `emphasis` and `variant`                            |
-| `button-wrapper`                                                               | `Wrapper/ButtonWrapper`                                      |
+| `input-wrapper`                                                               | `Wrapper/InputWrapper`                                      |
 | `form-input`, `form-label-text` `hidden`                                       | `Form/Input`, `labelHidden`                                  |
 | `data-{xsmall,small,medium,large}-columns`                                     | `Wrapper/Grid`'s four column props                           |
 | `u-text-style-*`                                                               | the `text-style-*` utilities, same names                     |
@@ -822,7 +822,7 @@ component markup, `webflow.js`, and any rule a Constella token or component now
 expresses.
 
 Grep for it. A page still containing `u-eyebrow-wrapper`, `u-heading` or
-`u-button-wrapper` is a component that was never swapped — the design will look
+`u-input-wrapper` is a component that was never swapped — the design will look
 right, which is why this is worth checking rather than eyeballing. The same
 goes for `--_trigger`, `--_state`, `--_responsive`, `data-trigger`,
 `data-state` and `@container`: each is a selector or a media query that was

@@ -54,8 +54,8 @@
   }
 
   /* Buttons closing a card sit on its floor, however tall the row around it
-     grows. This outranks the margin `.button-wrapper` sets for itself. */
-  .card_content > .button-wrapper:last-child {
+     grows. This outranks the margin `.input-wrapper` sets for itself. */
+  .card_content > .input-wrapper:last-child {
     margin-top: auto;
     padding-top: var(--space-6);
   }

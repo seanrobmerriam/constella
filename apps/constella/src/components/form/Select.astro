@@ -1,5 +1,9 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import type {
+  ControlRadius,
+  ControlSize,
+} from "@constella/shared/contracts/controls.ts";
 import { slug } from "@/utils/slug.ts";
 import Icon from "@/components/media/Icon.astro";
 import arrow from "@/assets/icons/arrow.svg";
@@ -7,6 +11,10 @@ import arrow from "@/assets/icons/arrow.svg";
 type SelectOption = string | { value: string; label: string };
 
 type Base = {
+  /** Opt-in control size. Omit to keep the default. */
+  size?: ControlSize;
+  /** Opt-in corner radius. Omit to keep the default. */
+  radius?: ControlRadius;
   /** Set to `false` to omit the component. */
   render?: boolean;
   /** Field label. Defaults to the variant name. */
@@ -74,6 +82,8 @@ const {
   placeholder,
   required = false,
   labelHidden = false,
+  size,
+  radius,
   class: className,
   ...rest
 } = Astro.props as AllProps;
@@ -166,7 +176,11 @@ const text = label ?? wording.label;
 ---
 
 {render && entries.length > 0 && (
-  <label class:list={["field", "form-select", className]}>
+  <label
+    class:list={["field", "form-select", className]}
+    data-size={size}
+    data-radius={radius}
+  >
     <span
       class:list={["field-label text-style-main", labelHidden && "sr-only"]}
     >

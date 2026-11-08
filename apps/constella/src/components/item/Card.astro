@@ -4,7 +4,7 @@ import Eyebrow from "@/components/typography/Eyebrow.astro";
 import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
 import Button from "@/components/Button.astro";
-import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import InputWrapper from "@/components/wrapper/InputWrapper.astro";
 import Img from "@/components/media/Img.astro";
 import Overlay from "@/components/media/Overlay.astro";
 
@@ -134,7 +134,7 @@ if (import.meta.env.DEV && render) {
         <Paragraph>
           <Fragment set:html={text} />
         </Paragraph>
-        <ButtonWrapper>
+        <InputWrapper>
           {buttonHref ? (
             <Button element="link" href={buttonHref} {...buttonKind}>
               {buttonLabel}
@@ -142,7 +142,7 @@ if (import.meta.env.DEV && render) {
           ) : (
             <Button {...buttonKind}>{buttonLabel}</Button>
           )}
-        </ButtonWrapper>
+        </InputWrapper>
       </div>
     )}
   </div>

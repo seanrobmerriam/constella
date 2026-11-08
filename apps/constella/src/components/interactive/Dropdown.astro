@@ -1,5 +1,9 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import type {
+  ControlSize,
+  ControlRadius,
+} from "@constella/shared/contracts/controls.ts";
 import Icon from "@/components/media/Icon.astro";
 import arrow from "@/assets/icons/arrow.svg";
 import { slotContent } from "@/utils/slots.ts";
@@ -11,12 +15,18 @@ type Props = HTMLAttributes<"div"> & {
   label?: string;
   /** Keep the panel open in design mode. */
   preview?: boolean;
+  /** Opt-in control size. Omit to keep the default. */
+  size?: ControlSize;
+  /** Opt-in corner radius. Omit to keep the default. */
+  radius?: ControlRadius;
 };
 
 const {
   render = true,
   label,
   preview = false,
+  size,
+  radius,
   class: className,
   ...rest
 } = Astro.props;
@@ -27,6 +37,8 @@ const content = await slotContent(Astro.slots);
 {render && label && content && (
   <details
     class:list={["dropdown_wrap", preview && "preview", className]}
+    data-size={size}
+    data-radius={radius}
     {...rest}
   >
     <summary class="dropdown_toggle">

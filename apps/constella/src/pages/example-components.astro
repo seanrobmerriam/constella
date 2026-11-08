@@ -5,7 +5,7 @@ import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
 import Eyebrow from "@/components/typography/Eyebrow.astro";
 import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
-import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import InputWrapper from "@/components/wrapper/InputWrapper.astro";
 import Button from "@/components/Button.astro";
 import Img from "@/components/media/Img.astro";
 import constella_background from "@/assets/graphics/constella-background.svg";
@@ -56,14 +56,14 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
         <Dropdown label="Dropdown">
           <Paragraph>Some text</Paragraph>
         </Dropdown>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img src={constella_background} slot="column2" />
     </ContentWrapper>
   </Section>
@@ -75,12 +75,12 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
         <Button emphasis="secondary">Button Text</Button>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img src={constella_background} slot="column2" />
     </ContentWrapper>
   </Section>
@@ -94,11 +94,11 @@ const lorem =
       <Paragraph maxWidth={28} slot="column2">
         {text}
       </Paragraph>
-      <ButtonWrapper slot="column2" marginTop="4">
+      <InputWrapper slot="column2" marginTop="4">
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
     </ContentWrapper>
   </Section>
   <!-- columns -->
@@ -109,11 +109,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img
         slot="column2"
         src={constella_background}
@@ -130,11 +130,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img
         slot="column2"
         src={constella_background}
@@ -151,11 +151,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img
         slot="column2"
         src={constella_background}
@@ -172,11 +172,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img
         slot="column2"
         src={constella_background}
@@ -193,11 +193,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img
         slot="column2"
         src={constella_background}
@@ -214,11 +214,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img
         slot="column2"
         src={constella_background}
@@ -235,11 +235,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img
         slot="column2"
         src={constella_background}
@@ -283,11 +283,11 @@ const lorem =
         semper vel class aptent taciti sociosqu. Ad litora torquent per conubia
         nostra inceptos himenaeos.
       </Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img
         slot="column2"
         src={constella_background}
@@ -304,11 +304,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
       <Img
         slot="column2"
         src={constella_background}
@@ -327,11 +327,11 @@ const lorem =
       <Paragraph maxWidth={28} slot="column2">
         {text}
       </Paragraph>
-      <ButtonWrapper slot="column2" marginTop="4">
+      <InputWrapper slot="column2" marginTop="4">
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
     </ContentWrapper>
     <Grid medium={3}>
       <Card
@@ -423,9 +423,9 @@ const lorem =
         />
       </Fieldset>
 
-      <ButtonWrapper marginTop="4">
+      <InputWrapper marginTop="4">
         <Button type="submit">Submit</Button>
-      </ButtonWrapper>
+      </InputWrapper>
     </Form>
   </Section>
   <!-- buttons -->
@@ -435,27 +435,27 @@ const lorem =
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
         <Button emphasis="secondary">Button Text</Button>
         <Button variant="link">Button Text</Button>
-      </ButtonWrapper>
-      <ButtonWrapper>
+      </InputWrapper>
+      <InputWrapper>
         <Button variant="arrow" direction="back" />
         <Button variant="arrow" />
         <Button variant="play" />
         <Button variant="play" pressed={true} />
         <Button variant="close" />
-      </ButtonWrapper>
-      <ButtonWrapper>
+      </InputWrapper>
+      <InputWrapper>
         <Button variant="arrow" emphasis="secondary" direction="back" />
         <Button variant="arrow" emphasis="secondary" />
         <Button variant="play" emphasis="secondary" />
         <Button variant="play" emphasis="secondary" pressed />
         <Button variant="close" emphasis="secondary" />
-      </ButtonWrapper>
+      </InputWrapper>
     </ContentWrapper>
   </Section>
   <!-- tabs horizontal -->
@@ -477,11 +477,11 @@ const lorem =
           "Strategy"
         </Heading>
         <Paragraph maxWidth={36}>{text}</Paragraph>
-        <ButtonWrapper>
+        <InputWrapper>
           <Button element="link" href="/about">
             Button Text
           </Button>
-        </ButtonWrapper>
+        </InputWrapper>
         <Img
           slot="column2"
           src={constella_background}
@@ -494,11 +494,11 @@ const lorem =
           "Design"
         </Heading>
         <Paragraph maxWidth={36}>{text}</Paragraph>
-        <ButtonWrapper>
+        <InputWrapper>
           <Button element="link" href="/about">
             Button Text
           </Button>
-        </ButtonWrapper>
+        </InputWrapper>
         <Img
           slot="column2"
           src={constella_background}
@@ -511,11 +511,11 @@ const lorem =
           "Development"
         </Heading>
         <Paragraph maxWidth={36}>{text}</Paragraph>
-        <ButtonWrapper>
+        <InputWrapper>
           <Button element="link" href="/about">
             Button Text
           </Button>
-        </ButtonWrapper>
+        </InputWrapper>
         <Img
           slot="column2"
           src={constella_background}
@@ -587,11 +587,11 @@ const lorem =
           "Tab Content 1"
         </Heading>
         <Paragraph maxWidth={36}>{text}</Paragraph>
-        <ButtonWrapper>
+        <InputWrapper>
           <Button element="link" href="/about">
             Button Text
           </Button>
-        </ButtonWrapper>
+        </InputWrapper>
         <Img
           slot="column2"
           src={constella_background}
@@ -604,11 +604,11 @@ const lorem =
           "Tab Content 2"
         </Heading>
         <Paragraph maxWidth={36}>{text}</Paragraph>
-        <ButtonWrapper>
+        <InputWrapper>
           <Button element="link" href="/about">
             Button Text
           </Button>
-        </ButtonWrapper>
+        </InputWrapper>
         <Img
           slot="column2"
           src={constella_background}
@@ -621,11 +621,11 @@ const lorem =
           "Tab Content 3"
         </Heading>
         <Paragraph maxWidth={36}>{text}</Paragraph>
-        <ButtonWrapper>
+        <InputWrapper>
           <Button element="link" href="/about">
             Button Text
           </Button>
-        </ButtonWrapper>
+        </InputWrapper>
         <Img
           slot="column2"
           src={constella_background}
@@ -817,14 +817,14 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
         <Dropdown label="Dropdown">
           <Paragraph />
         </Dropdown>
-      </ButtonWrapper>
+      </InputWrapper>
     </ContentWrapper>
   </Section>
   <!-- video -->
@@ -877,12 +877,12 @@ const lorem =
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
-      <ButtonWrapper>
+      <InputWrapper>
         <Icon src={arrow} variant="small" />
         <Icon src={play} variant="medium" />
         <Icon src={close} variant="large" />
         <Icon src={check} variant="medium" />
-      </ButtonWrapper>
+      </InputWrapper>
     </ContentWrapper>
   </Section>
   <!-- accordion -->
@@ -919,7 +919,7 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph maxWidth={36}>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button data-modal-open="modal-small">Open Modal</Button>
         <Button data-modal-open="modal-side" emphasis="secondary">
           Open Side Panel
@@ -927,7 +927,7 @@ const lorem =
         <Button data-modal-open="modal-full" emphasis="secondary">
           Open Full Screen
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
     </ContentWrapper>
   </Section>
   <!-- small -->
@@ -938,11 +938,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
     </ContentWrapper>
   </Modal>
   <!-- side panel -->
@@ -953,11 +953,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
     </ContentWrapper>
   </Modal>
   <!-- full screen -->
@@ -968,11 +968,11 @@ const lorem =
         {heading}
       </Heading>
       <Paragraph>{text}</Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/about">
           Button Text
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
     </ContentWrapper>
   </Modal>
 </Layout>

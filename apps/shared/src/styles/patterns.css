@@ -40,7 +40,7 @@
   }
 }
 
-.button-wrapper {
+.input-wrapper {
   margin-top: var(--space-6);
   display: flex;
   flex-flow: wrap;

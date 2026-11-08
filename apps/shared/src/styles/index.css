@@ -28,4 +28,5 @@
 @import "./components/slider.css";
 @import "./components/tabs.css";
 @import "./components/textarea.css";
+@import "./controls.css";
 @import "./utilities.css" layer(utilities);

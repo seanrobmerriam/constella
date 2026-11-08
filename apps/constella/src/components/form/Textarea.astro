@@ -1,8 +1,16 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import type {
+  ControlRadius,
+  ControlSize,
+} from "@constella/shared/contracts/controls.ts";
 import { slug } from "@/utils/slug.ts";
 
 interface Props extends Omit<HTMLAttributes<"textarea">, "rows"> {
+  /** Opt-in control size. Omit to keep the default. */
+  size?: ControlSize;
+  /** Opt-in corner radius. Omit to keep the default. */
+  radius?: ControlRadius;
   /** Set to `false` to omit the component. */
   render?: boolean;
   /** Field label. */
@@ -36,6 +44,8 @@ const {
   minLines = 3,
   maxLines = 12,
   required = false,
+  size,
+  radius,
   class: className,
   ...rest
 } = Astro.props;
@@ -44,6 +54,8 @@ const {
 {render && label && (
   <label
     class:list={["field", "form-textarea", className]}
+    data-size={size}
+    data-radius={radius}
     style={`--_min-lines: ${minLines}; --_max-lines: ${maxLines};`}
   >
     <span class="field-label text-style-main">

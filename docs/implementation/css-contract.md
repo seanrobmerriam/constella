@@ -6,3 +6,13 @@
 - Selector order inside the components layer is now alphabetical by file instead of import order. The baseline computed-style test passes unchanged.
 - Verification: `tests/components/plain-html.spec.ts` loads `tests/fixtures/plain-html/index.html` with no scripts and checks that the Button styles apply and no request fails.
 - Control metrics (size/radius values) are recorded here in Task 3.
+
+## Control size and radius (Task 3)
+
+- API: `ControlSize = small | main | large`, `ControlRadius = none | small | main | round` (`@constella/shared/contracts/controls.ts`). Components take optional `size`/`radius`; the HTML equivalents are `data-size` / `data-radius` on the component root (`.button_wrap`, `.dropdown_wrap`, and the `label.field` root of Input/Select/Textarea).
+- Size sets the control font size to `--text-small` (14–16px fluid), `--text-main` (16–18px) or `--text-large` (18–20px). Existing paddings are in `em`, so they scale with it. Omitted size changes nothing.
+- Radius maps to `0`, `--radius-small` (0.5rem), `--radius-main` (1rem), `--radius-round` (100vw). Omitted radius keeps per-variant defaults. The Button `link` variant ignores radius (it is an underline with no box). Dropdown radius applies to the panel; the trigger has no box.
+- Dropdown size scales trigger and panel text/padding through inheritance. The panel stays a disclosure panel, not a select/listbox or ARIA menu.
+- Checkbox, radio and range are not resized.
+- `InputWrapper` replaces `ButtonWrapper` (class `.input-wrapper`); behaviour unchanged. The unused-by-site copy in `apps/docs` is replaced in Task 9.
+- Tests in `tests/components/controls.spec.ts` run against `apps/shared/dist/constella.css`, so rebuild it first (`bun run build` in `apps/shared`).

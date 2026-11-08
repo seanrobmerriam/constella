@@ -3,7 +3,7 @@ import Layout from "@/layouts/BaseLayout.astro";
 import Section from "@/components/wrapper/Section.astro";
 import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
-import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+import InputWrapper from "@/components/wrapper/InputWrapper.astro";
 import Button from "@/components/Button.astro";
 import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
 ---
@@ -22,11 +22,11 @@ import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
         The page you're looking for may have moved, or the link that brought you
         here might be out of date.
       </Paragraph>
-      <ButtonWrapper>
+      <InputWrapper>
         <Button element="link" href="/">
           Back to home
         </Button>
-      </ButtonWrapper>
+      </InputWrapper>
     </ContentWrapper>
   </Section>
 </Layout>

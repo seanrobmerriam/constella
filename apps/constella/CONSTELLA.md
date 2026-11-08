@@ -7,7 +7,7 @@ How to build pages in this project so they stay consistent and cheap to change. 
 - Compose the page directly from existing components. Use `Section`, `Grid`,
   `Slider` and the other layout components instead of hiding an ordinary layout
   inside a custom component.
-- Most sections can be built without creating new components: a `Section`, a `ContentWrapper` inside it, the `Eyebrow`, `Heading`, `Paragraph` and `ButtonWrapper` inside that. Prefer `ContentWrapper` to a plain `div` for holding content: it ties text and flex alignment to one `--_alignment` variable that `ButtonWrapper` and everything else inside reads, so `centered` on the default `stack` variant moves the whole block together.
+- Most sections can be built without creating new components: a `Section`, a `ContentWrapper` inside it, the `Eyebrow`, `Heading`, `Paragraph` and `InputWrapper` inside that. Prefer `ContentWrapper` to a plain `div` for holding content: it ties text and flex alignment to one `--_alignment` variable that `InputWrapper` and everything else inside reads, so `centered` on the default `stack` variant moves the whole block together.
 - Do not create a `<Fragment>` just to group or extract markup. Use one only
   when a named slot needs multiple siblings and a real element would change the
   layout or semantics.

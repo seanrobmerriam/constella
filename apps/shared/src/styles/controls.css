@@ -1,0 +1,44 @@
+/* Opt-in control size and radius. Omitted data attributes leave each
+   component's own defaults untouched. Size sets the control's font size;
+   paddings are in em, so they scale with it. */
+@layer components {
+  [data-size="small"] {
+    --_control-font-size: var(--text-small);
+  }
+  [data-size="main"] {
+    --_control-font-size: var(--text-main);
+  }
+  [data-size="large"] {
+    --_control-font-size: var(--text-large);
+  }
+  [data-radius="none"] {
+    --_control-radius: 0;
+  }
+  [data-radius="small"] {
+    --_control-radius: var(--radius-small);
+  }
+  [data-radius="main"] {
+    --_control-radius: var(--radius-main);
+  }
+  [data-radius="round"] {
+    --_control-radius: var(--radius-round);
+  }
+
+  .button_wrap[data-size],
+  .dropdown_wrap[data-size] {
+    font-size: var(--_control-font-size);
+  }
+  [data-size] > .field-label,
+  [data-size] .field-control {
+    font-size: var(--_control-font-size);
+  }
+
+  /* The link variant is an underline with no box to round. */
+  .button_wrap[data-radius]:not(.link) {
+    border-radius: var(--_control-radius);
+  }
+  .dropdown_wrap[data-radius] .dropdown_content,
+  [data-radius] .field-control {
+    border-radius: var(--_control-radius);
+  }
+}

@@ -1,5 +1,9 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import type {
+  ControlRadius,
+  ControlSize,
+} from "@constella/shared/contracts/controls.ts";
 import Icon from "@/components/media/Icon.astro";
 import arrow from "@/assets/icons/arrow-full.svg";
 import close from "@/assets/icons/close.svg";
@@ -75,12 +79,18 @@ type Kind =
 type Props = {
   /** Set to `false` to omit the component. */
   render?: boolean;
+  /** Opt-in control size. Omit to keep the default. */
+  size?: ControlSize;
+  /** Opt-in corner radius. Omit to keep the default. */
+  radius?: ControlRadius;
 } & Tag &
   Kind;
 
 type AllProps = HTMLAttributes<"button"> &
   Omit<HTMLAttributes<"a">, "type"> & {
     render?: boolean;
+    size?: ControlSize;
+    radius?: ControlRadius;
     variant?: "main" | "link" | "play" | "close" | "arrow";
     emphasis?: Emphasis;
     label?: string;
@@ -101,6 +111,8 @@ const {
   element = "button",
   href,
   type = "button",
+  size,
+  radius,
   class: className,
   ...rest
 } = Astro.props as AllProps;
@@ -132,6 +144,8 @@ const named = {
       variant === "arrow" && direction === "back" && "back",
       className,
     ]}
+    data-size={size}
+    data-radius={radius}
     aria-label={isWritten ? undefined : (label ?? named[variant])}
     aria-pressed={variant === "play" ? pressed : undefined}
     {...tagAttrs}
