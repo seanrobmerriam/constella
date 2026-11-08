@@ -29,3 +29,4 @@ pnpm-debug.log*
 .constella-webflow/
 test-results/
 playwright-report/
+apps/shared/dist/

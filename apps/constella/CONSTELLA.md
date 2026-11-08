@@ -53,7 +53,7 @@ Every box has to be ticked before new styling is accepted.
 - [ ] Keeps custom selectors off library components, including beneath a custom
       root. Custom CSS belongs to the plain HTML owned by that component.
 - [ ] Doesn't repeat the same utility, prop value or attribute on every instance of an element — that means the default is wrong. Fix it at the source rather than in the markup: a token in `src/styles/base.css`, the prop's default in the component, or a new prop defaulting to whichever version is used more often.
-- [ ] Ships with the component that owns it, in that component's own `<style is:global>` under `@layer components`. A page carries no CSS.
+- [ ] Ships with the component that owns it. Portable library components keep their canonical CSS in `apps/shared/src/styles/components/<name>.css` under `@layer components`; custom site components keep a `<style is:global>` under `@layer components` in their own file. A page carries no CSS.
 - [ ] Ends its root class in `_wrap` — `.blog-gallery_wrap`, `.hero-condensed_wrap`, `.cta-impact_wrap` — and prefixes every child with the family name: `.blog-gallery_layout`, `.blog-gallery_title`, `.blog-gallery_text`. A variant is a bare class beside the root (`.tabs_wrap.side`), so the two share a namespace: without `_wrap`, a variant named for a component — `button`, `card` — quietly inherits that component's styles.
 - [ ] Skips `_wrap` only when the class belongs in `patterns.css` or `utilities.css`. Every component root otherwise ends in `_wrap`, even when it has no children.
 - [ ] Names children for their role, never their mechanism: `_layout` or `_list`, not `_grid` or `_flex`, since the property behind them changes.

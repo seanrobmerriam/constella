@@ -22,19 +22,3 @@ const {
     {label}
   </Button>
 )}
-
-<style is:global>
-  @layer components {
-    .skip-link {
-      position: fixed;
-      top: var(--space-2);
-      inset-inline-start: var(--space-2);
-      z-index: 100;
-      translate: 0 calc(-100% - var(--space-2) * 2);
-
-      &:focus {
-        translate: 0 0;
-      }
-    }
-  }
-</style>

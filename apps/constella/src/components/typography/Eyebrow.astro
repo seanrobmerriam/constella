@@ -35,27 +35,3 @@ const content = await slotContent(Astro.slots);
     </Tag>
   </div>
 )}
-
-<style is:global>
-  @layer components {
-    .eyebrow_wrap {
-      display: inline-flex;
-      align-items: center;
-      justify-content: var(--_alignment, start);
-      gap: var(--space-2);
-
-      &.tag {
-        background-color: var(--text);
-        color: var(--background);
-        padding: var(--space-1) var(--space-2);
-        border-radius: var(--radius-small);
-      }
-      .eyebrow_marker {
-        flex: none;
-        width: var(--border-width);
-        height: 0.75rem;
-        background-color: currentcolor;
-      }
-    }
-  }
-</style>

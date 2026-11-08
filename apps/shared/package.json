@@ -9,10 +9,13 @@
     "./layouts/*": "./src/layouts/*",
     "./styles/*": "./src/styles/*",
     "./config/*": "./src/config/*",
-    "./utils/*": "./src/utils/*"
+    "./utils/*": "./src/utils/*",
+    "./dist/*": "./dist/*",
+    "./styles/index.css": "./src/styles/index.css"
   },
   "scripts": {
-    "check": "astro check"
+    "check": "astro check",
+    "build": "bun scripts/build-css.ts"
   },
   "peerDependencies": {
     "astro": "^7.4.4"
@@ -20,6 +23,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "astro": "^7.4.4",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vite": "^8.3.6"
   }
 }
