@@ -16,3 +16,12 @@
 - Checkbox, radio and range are not resized.
 - `InputWrapper` replaces `ButtonWrapper` (class `.input-wrapper`); behaviour unchanged. The unused-by-site copy in `apps/docs` is replaced in Task 9.
 - Tests in `tests/components/controls.spec.ts` run against `apps/shared/dist/constella.css`, so rebuild it first (`bun run build` in `apps/shared`).
+
+## Details, Summary, Accordion (Task 4)
+
+- `Details` (`.details_wrap`) forwards native `<details>` attributes (`open`, `name`) and has a named `summary` slot plus a default body slot (`.details_body`). `Summary` (`.details_summary`) emits the native `<summary>` as the first child; no nested button. `AccordionItem` is removed; its styles moved to `details.css` (`.accordion_item`→`.details_wrap`, `.accordion_toggle`→`.details_summary`, `.accordion_icon`→`.details_icon`, `.accordion_body`→`.details_body`).
+- `Accordion` no longer rewrites child HTML. It renders `data-accordion` with `data-single`, `data-open-first`, `data-group` and `data-preview`. `initAccordion(root)` (`@constella/shared/behaviors/accordion.ts`) returns a cleanup function and only touches items whose nearest `details`/accordion ancestor is the root, so nested accordions and plain nested disclosures stay independent.
+- Without a `group`, the browser generates a collision-checked name (`accordion-N`); nothing random is rendered on the server. For no-script native grouping, set the same `name` on each `Details`, or pass `group` and add `name` yourself.
+- Initial-open precedence: `openFirst` opens the first owned item and closes the others; otherwise a single group keeps only its first initially-open item. `single={false}` leaves items independent.
+- Design-mode preview removes grouping names and restores them when the preview ends; cleanup disconnects the observer and removes names it added.
+- Tests: `tests/components/disclosures.spec.ts` against `/disclosure-regression` (a noindex fixture page).

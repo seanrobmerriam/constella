@@ -17,7 +17,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:components": "playwright test tests/components",
-    "test:docs": "playwright test tests/docs"
+    "test:docs": "PW_DOCS=1 playwright test tests/docs"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0",

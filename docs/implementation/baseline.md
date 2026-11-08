@@ -10,3 +10,7 @@
 - Browser tests: `@playwright/test` at root, `test:components` and `test:docs` scripts, dev servers as webServer (4321 site, 4322 docs). Viewport 1280x800, font Inter (site-configured).
 - Baseline fixture: `tests/fixtures/baseline.json` holds computed styles for Section, written/secondary Button, Dropdown summary, Heading, Input, Select and Textarea. Regenerate only deliberately with `UPDATE_BASELINE=1`.
 - Environment note: `bunx playwright install` fails here (bun run with scripts ignored); use `node node_modules/@playwright/test/cli.js install chromium`.
+
+## Correction (found during Task 4)
+
+The first `baseline.json` was captured against a dev server on port 4321 that belonged to a different project (`~/workspace/lumos-skills`), because the Playwright config reused whatever was listening. It was regenerated from the original component code (commit `672763e`, checked out in a scratch worktree) and the current code produces byte-identical values, so Tasks 2–3 preserved defaults. The config now starts the site on its own port (4331) with `reuseExistingServer: false`. Astro 7 backgrounds `astro dev` in agent environments, which makes Playwright think the server exited, so the command passes `--ignore-lock`. Docs tests start docs on 4332 only when `PW_DOCS` is set (`test:docs` sets it).

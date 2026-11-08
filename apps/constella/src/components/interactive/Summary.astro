@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Icon from "@/components/media/Icon.astro";
+import arrow from "@/assets/icons/arrow.svg";
+
+type Props = HTMLAttributes<"summary"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Show the open/close arrow. */
+  icon?: boolean;
+};
+
+const { render = true, icon = true, class: className, ...rest } = Astro.props;
+---
+
+{render && (
+  <summary class:list={["details_summary", className]} {...rest}>
+    <slot />
+    {icon && <Icon class="details_icon" src={arrow} variant="small" />}
+  </summary>
+)}

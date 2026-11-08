@@ -1,0 +1,88 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import Accordion from "@/components/interactive/Accordion.astro";
+import Details from "@/components/interactive/Details.astro";
+import Summary from "@/components/interactive/Summary.astro";
+---
+
+<Layout
+  title="Disclosure regression"
+  description="Regression fixtures."
+  noindex
+>
+  <Section>
+    <Details id="standalone">
+      <Summary slot="summary">Standalone</Summary>
+      <p>Standalone body</p>
+    </Details>
+
+    <Accordion id="a1" openFirst>
+      <Details>
+        <Summary slot="summary">A1-1</Summary>
+        <p>x</p>
+      </Details>
+      <Details>
+        <Summary slot="summary">A1-2</Summary>
+        <p>x</p>
+      </Details>
+    </Accordion>
+
+    <Accordion id="a2">
+      <Details>
+        <Summary slot="summary">A2-1</Summary>
+        <p>x</p>
+      </Details>
+      <Details>
+        <Summary slot="summary">A2-2</Summary>
+        <p>x</p>
+      </Details>
+    </Accordion>
+
+    <Accordion id="nested">
+      <Details id="outer1">
+        <Summary slot="summary">N-1</Summary>
+        <Accordion id="inner">
+          <Details id="in1">
+            <Summary slot="summary">I-1</Summary>
+            <p>x</p>
+          </Details>
+          <Details id="in2">
+            <Summary slot="summary">I-2</Summary>
+            <p>x</p>
+          </Details>
+        </Accordion>
+        <Details id="plain-nested">
+          <Summary slot="summary">Plain</Summary>
+          <p>x</p>
+        </Details>
+      </Details>
+      <Details id="outer2">
+        <Summary slot="summary">N-2</Summary>
+        <p>x</p>
+      </Details>
+    </Accordion>
+
+    <Accordion id="multi" single={false}>
+      <Details open>
+        <Summary slot="summary">M-1</Summary>
+        <p>x</p>
+      </Details>
+      <Details open>
+        <Summary slot="summary">M-2</Summary>
+        <p>x</p>
+      </Details>
+    </Accordion>
+
+    <Accordion id="initial">
+      <Details open>
+        <Summary slot="summary">T-1</Summary>
+        <p>x</p>
+      </Details>
+      <Details open>
+        <Summary slot="summary">T-2</Summary>
+        <p>x</p>
+      </Details>
+    </Accordion>
+  </Section>
+</Layout>

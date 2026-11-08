@@ -27,7 +27,8 @@ import Modal from "@/components/interactive/Modal.astro";
 import Slider from "@/components/interactive/Slider.astro";
 import Accordion from "@/components/interactive/Accordion.astro";
 import Marquee from "@/components/interactive/Marquee.astro";
-import AccordionItem from "@/components/interactive/AccordionItem.astro";
+import Details from "@/components/interactive/Details.astro";
+import Summary from "@/components/interactive/Summary.astro";
 import Video from "@/components/media/Video.astro";
 import Icon from "@/components/media/Icon.astro";
 import RichText from "@/components/typography/RichText.astro";
@@ -893,21 +894,46 @@ const lorem =
         {heading}
       </Heading>
       <Accordion slot="column2" openFirst={true}>
-        <AccordionItem heading="This is some text inside of a div block.">
+        <Details>
+          <Summary slot="summary">
+            <Heading tag="h3" variant="h5" class="details_title">
+              This is some text inside of a div block.
+            </Heading>
+          </Summary>
           <Paragraph>{lorem}</Paragraph>
-        </AccordionItem>
-        <AccordionItem heading="This is some text inside of a div block.">
+        </Details>
+        <Details>
+          <Summary slot="summary">
+            <Heading tag="h3" variant="h5" class="details_title">
+              This is some text inside of a div block.
+            </Heading>
+          </Summary>
           <Paragraph>{lorem}</Paragraph>
-        </AccordionItem>
-        <AccordionItem heading="This is some text inside of a div block.">
+        </Details>
+        <Details>
+          <Summary slot="summary">
+            <Heading tag="h3" variant="h5" class="details_title">
+              This is some text inside of a div block.
+            </Heading>
+          </Summary>
           <Paragraph>{lorem}</Paragraph>
-        </AccordionItem>
-        <AccordionItem heading="This is some text inside of a div block.">
+        </Details>
+        <Details>
+          <Summary slot="summary">
+            <Heading tag="h3" variant="h5" class="details_title">
+              This is some text inside of a div block.
+            </Heading>
+          </Summary>
           <Paragraph>{lorem}</Paragraph>
-        </AccordionItem>
-        <AccordionItem heading="This is some text inside of a div block.">
+        </Details>
+        <Details>
+          <Summary slot="summary">
+            <Heading tag="h3" variant="h5" class="details_title">
+              This is some text inside of a div block.
+            </Heading>
+          </Summary>
           <Paragraph>{lorem}</Paragraph>
-        </AccordionItem>
+        </Details>
       </Accordion>
     </ContentWrapper>
   </Section>

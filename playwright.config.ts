@@ -6,18 +6,23 @@ export default defineConfig({
   testDir: "./tests",
   fullyParallel: true,
   reporter: "list",
-  use: { baseURL: "http://localhost:4321", viewport },
+  use: { baseURL: "http://localhost:4331", viewport },
   webServer: [
     {
-      command: "bun run dev:site",
-      url: "http://localhost:4321",
-      reuseExistingServer: true,
+      // Own port, never reused: another project may hold 4321.
+      command: "bun run dev:site -- --port 4331 --ignore-lock",
+      url: "http://localhost:4331",
+      reuseExistingServer: false,
     },
-    {
-      command: "bun run dev:docs",
-      url: "http://localhost:4322",
-      reuseExistingServer: true,
-    },
+    ...(process.env.PW_DOCS
+      ? [
+          {
+            command: "bun run dev:docs -- --port 4332 --ignore-lock",
+            url: "http://localhost:4332",
+            reuseExistingServer: false,
+          },
+        ]
+      : []),
   ],
   projects: [{ name: "chromium", use: { browserName: "chromium" } }],
 });

@@ -5,7 +5,7 @@
 @import "./base.css" layer(base);
 @import "./patterns.css" layer(patterns);
 @import "./components/accordion.css";
-@import "./components/accordion-item.css";
+@import "./components/details.css";
 @import "./components/button.css";
 @import "./components/card.css";
 @import "./components/choice.css";

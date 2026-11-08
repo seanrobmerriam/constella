@@ -1,5 +1,5 @@
 @layer components {
-  .accordion_item {
+  .details_wrap {
     interpolate-size: allow-keywords;
     border-bottom: var(--border-width) solid var(--border);
     transition: border-color var(--hover-duration) var(--hover-ease);
@@ -10,7 +10,7 @@
     }
   }
 
-  .accordion_toggle {
+  .details_summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -23,41 +23,41 @@
     }
   }
 
-  .accordion_title {
+  .details_title {
     margin-block: 0;
   }
 
-  .accordion_icon {
+  .details_icon {
     rotate: 90deg;
     transition: rotate var(--open-duration) var(--open-ease);
   }
 
-  .accordion_item:is([open], .stacki-opened) .accordion_icon,
-  .stacki-designer .accordion_wrap.preview .accordion_icon {
+  .details_wrap:is([open], .stacki-opened) .details_icon,
+  .stacki-designer .accordion_wrap.preview .details_icon {
     rotate: -90deg;
   }
 
-  .accordion_item::details-content {
+  .details_wrap::details-content {
     block-size: 0;
     overflow: hidden;
     content-visibility: hidden;
   }
 
   @supports (interpolate-size: allow-keywords) {
-    .accordion_item::details-content {
+    .details_wrap::details-content {
       transition:
         block-size var(--open-duration) var(--open-ease),
         content-visibility var(--open-duration) var(--open-ease) allow-discrete;
     }
   }
 
-  .accordion_item:is([open], .stacki-opened)::details-content,
-  .stacki-designer .accordion_wrap.preview .accordion_item::details-content {
+  .details_wrap:is([open], .stacki-opened)::details-content,
+  .stacki-designer .accordion_wrap.preview .details_wrap::details-content {
     block-size: auto;
     content-visibility: visible;
   }
 
-  .accordion_body {
+  .details_body {
     padding-bottom: var(--space-5);
   }
 }

@@ -1,0 +1,23 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"details"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Open on load. */
+  open?: boolean;
+  /** Native exclusive group: details sharing a name open one at a time. */
+  name?: string;
+};
+
+const { render = true, class: className, ...rest } = Astro.props;
+---
+
+{render && (
+  <details class:list={["details_wrap", className]} {...rest}>
+    <slot name="summary" />
+    <div class="details_body margin-trim">
+      <slot />
+    </div>
+  </details>
+)}
