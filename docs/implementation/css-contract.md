@@ -60,3 +60,7 @@
 - `simple` shows `links` in one row; `columns` shows brand with description and one `nav` per group (each labelled by its group name). The footer sits outside `main`.
 - The year is rendered on the server; the old client script and its `#year` ID were removed, so repeated footers cannot collide.
 - Tests: `tests/components/footer.spec.ts` against `/footer-regression` (variants, empty collections, slots, 320px wrap, no duplicate IDs, theme/spacing).
+
+## Guideline review (docs/project-guidelines.md)
+
+Checked Tasks 1–8 against the new guidelines. One violation fixed: `example-components` passed `class="details_title"` (a `Details` internal) to `Heading`, which §7 forbids. `Summary`'s own CSS now zeroes the margin of a heading placed directly inside it (`.details_summary > :is(h1…h6)`), and the `.details_title` class is gone. `Summary` also no longer forwards the `slot` attribute to the rendered `<summary>`. Other points checked and fine: layer wiring (component files carry their own `@layer components` and are imported once), `_wrap` roots with root-qualified variants, rem-only layout values, prop ordering, per-theme `color-scheme`.

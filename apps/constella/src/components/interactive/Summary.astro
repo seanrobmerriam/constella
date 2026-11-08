@@ -10,7 +10,14 @@ type Props = HTMLAttributes<"summary"> & {
   icon?: boolean;
 };
 
-const { render = true, icon = true, class: className, ...rest } = Astro.props;
+// `slot` is consumed by Details; do not forward it to the element.
+const {
+  render = true,
+  icon = true,
+  class: className,
+  slot: _slot,
+  ...rest
+} = Astro.props;
 ---
 
 {render && (
