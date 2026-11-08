@@ -17,7 +17,8 @@ export default defineConfig({
     ...(process.env.PW_DOCS
       ? [
           {
-            command: "bun run dev:docs -- --port 4332 --ignore-lock",
+            command:
+              "bun run --cwd apps/docs astro dev --port 4332 --ignore-lock",
             url: "http://localhost:4332",
             reuseExistingServer: false,
           },

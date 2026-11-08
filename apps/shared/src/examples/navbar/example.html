@@ -1,0 +1,33 @@
+<header class="nav_wrap" data-navbar>
+  <div class="nav_inner">
+    <a class="nav_logo" href="/" aria-label="Acme"
+      ><span class="nav_brand_text">Acme</span></a
+    >
+    <button
+      class="nav_toggle"
+      type="button"
+      aria-label="Menu"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      data-navbar-toggle
+    >
+      <span class="nav_toggle_icon"></span>
+    </button>
+    <nav class="nav_menu" id="site-menu" aria-label="Main" data-navbar-menu>
+      <div class="nav_menu_inner">
+        <ul class="nav_links">
+          <li><a class="nav_link" href="/" aria-current="page">Home</a></li>
+          <li><a class="nav_link" href="/docs">Docs</a></li>
+          <li><a class="nav_link" href="/about">About</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script type="module">
+  import { initNavbar } from "./behaviors/navbar.js";
+  document
+    .querySelectorAll("[data-navbar]")
+    .forEach((root) => initNavbar(root));
+</script>

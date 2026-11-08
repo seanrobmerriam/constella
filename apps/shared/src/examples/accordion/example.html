@@ -1,0 +1,80 @@
+<div class="accordion_wrap single" data-accordion data-open-first>
+  <details class="details_wrap">
+    <summary class="details_summary">
+      <h3 class="heading text-style-h5">Is it accessible?</h3>
+      <svg
+        width="66"
+        height="70"
+        viewBox="0 0 66 70"
+        fill="none"
+        aria-hidden="true"
+        class="icon small details_icon"
+      >
+        <path
+          d="M17 2L50 34.9999L17 68"
+          stroke="currentColor"
+          vector-effect="non-scaling-stroke"
+          style="stroke-width: var(--border-width)"
+        />
+      </svg>
+    </summary>
+    <div class="details_body margin-trim">
+      <p class="text">
+        Native details and summary keep keyboard and screen reader behavior.
+      </p>
+    </div>
+  </details>
+  <details class="details_wrap">
+    <summary class="details_summary">
+      <h3 class="heading text-style-h5">Does it need JavaScript?</h3>
+      <svg
+        width="66"
+        height="70"
+        viewBox="0 0 66 70"
+        fill="none"
+        aria-hidden="true"
+        class="icon small details_icon"
+      >
+        <path
+          d="M17 2L50 34.9999L17 68"
+          stroke="currentColor"
+          vector-effect="non-scaling-stroke"
+          style="stroke-width: var(--border-width)"
+        />
+      </svg>
+    </summary>
+    <div class="details_body margin-trim">
+      <p class="text">Only to group items so one opens at a time.</p>
+    </div>
+  </details>
+  <details class="details_wrap">
+    <summary class="details_summary">
+      <h3 class="heading text-style-h5">Can I nest them?</h3>
+      <svg
+        width="66"
+        height="70"
+        viewBox="0 0 66 70"
+        fill="none"
+        aria-hidden="true"
+        class="icon small details_icon"
+      >
+        <path
+          d="M17 2L50 34.9999L17 68"
+          stroke="currentColor"
+          vector-effect="non-scaling-stroke"
+          style="stroke-width: var(--border-width)"
+        />
+      </svg>
+    </summary>
+    <div class="details_body margin-trim">
+      <p class="text">Yes. Each accordion owns only its direct items.</p>
+    </div>
+  </details>
+</div>
+
+<script type="module">
+  import { initAccordion } from "./behaviors/accordion.js";
+  document
+    .querySelectorAll("[data-accordion]")
+    .forEach((root) => initAccordion(root));
+</script>

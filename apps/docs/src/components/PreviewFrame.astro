@@ -1,0 +1,20 @@
+---
+interface Props {
+  /** Registry id of the example to preview. */
+  id: string;
+  title: string;
+  /** Height in rem. */
+  height: number;
+}
+
+const { id, title, height } = Astro.props;
+const src = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/previews/${id}/`;
+---
+
+<iframe
+  class="example-preview"
+  src={src}
+  title={`${title} preview`}
+  loading="lazy"
+  style={`height: ${height}rem`}
+></iframe>

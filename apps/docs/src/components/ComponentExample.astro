@@ -1,0 +1,128 @@
+---
+import PreviewFrame from "./PreviewFrame.astro";
+import { getExample } from "@constella/shared/examples/index.ts";
+
+interface Props {
+  /** Registry id. Unknown ids fail the build. */
+  id: string;
+}
+
+const { id } = Astro.props;
+const example = getExample(id);
+if (!example) throw new Error(`Unknown example "${id}"`);
+
+const uid = `example-${id}`;
+const tabs = [
+  { key: "html", label: "HTML / CSS", code: example.html },
+  { key: "tsx", label: "React TSX", code: example.tsx },
+] as const;
+---
+
+<div class="example" data-example={id}>
+  <PreviewFrame id={id} title={example.title} height={example.previewHeight} />
+
+  <div
+    class="example-tabs"
+    role="tablist"
+    aria-label={`${example.title} source`}
+  >
+    {tabs.map((tab, index) => (
+      <button
+        class="example-tab"
+        type="button"
+        role="tab"
+        id={`${uid}-tab-${tab.key}`}
+        aria-controls={`${uid}-panel-${tab.key}`}
+        aria-selected={index === 0 ? "true" : "false"}
+        tabindex={index === 0 ? 0 : -1}
+        data-tab={tab.key}
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+
+  {tabs.map((tab, index) => (
+    <div
+      class="example-panel"
+      role="tabpanel"
+      id={`${uid}-panel-${tab.key}`}
+      aria-labelledby={`${uid}-tab-${tab.key}`}
+      hidden={index !== 0}
+      tabindex="0"
+      data-panel={tab.key}
+    >
+      <button class="example-copy" type="button" data-copy>
+        Copy
+      </button>
+      <pre><code data-source>{tab.code}</code></pre>
+    </div>
+  ))}
+
+  <ul class="example-requires">
+    <li>
+      Stylesheet: <code>constella.css</code> (see Installation).
+    </li>
+    {example.behaviorEntry && (
+      <li>
+        Behavior: <code>behaviors/{example.behaviorEntry}.js</code> (HTML) or{" "}
+        <code>constella/behaviors/{example.behaviorEntry}</code> (React).
+      </li>
+    )}
+    {!example.behaviorEntry && <li>No script required.</li>}
+  </ul>
+</div>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>("[data-example]")) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];
+    const select = (tab: HTMLButtonElement, focus = false) => {
+      for (const other of tabs) {
+        const on = other === tab;
+        other.setAttribute("aria-selected", String(on));
+        other.tabIndex = on ? 0 : -1;
+        const panel = root.querySelector<HTMLElement>(
+          `#${other.getAttribute("aria-controls")}`,
+        );
+        if (panel) panel.hidden = !on;
+      }
+      if (focus) tab.focus();
+    };
+    for (const [index, tab] of tabs.entries()) {
+      tab.addEventListener("click", () => select(tab));
+      tab.addEventListener("keydown", (event) => {
+        const last = tabs.length - 1;
+        const target =
+          event.key === "ArrowRight"
+            ? tabs[index === last ? 0 : index + 1]
+            : event.key === "ArrowLeft"
+              ? tabs[index === 0 ? last : index - 1]
+              : event.key === "Home"
+                ? tabs[0]
+                : event.key === "End"
+                  ? tabs[last]
+                  : null;
+        if (target) {
+          event.preventDefault();
+          select(target, true);
+        }
+      });
+    }
+    for (const button of root.querySelectorAll<HTMLButtonElement>(
+      "[data-copy]",
+    )) {
+      button.addEventListener("click", async () => {
+        const text =
+          button.parentElement?.querySelector("[data-source]")?.textContent ??
+          "";
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = "Copied";
+        } catch {
+          button.textContent = "Copy failed";
+        }
+        setTimeout(() => (button.textContent = "Copy"), 1500);
+      });
+    }
+  }
+</script>

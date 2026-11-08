@@ -13,7 +13,8 @@
     "./dist/*": "./dist/*",
     "./styles/index.css": "./src/styles/index.css",
     "./contracts/*": "./src/contracts/*",
-    "./behaviors/*": "./src/behaviors/*"
+    "./behaviors/*": "./src/behaviors/*",
+    "./examples/*": "./src/examples/*"
   },
   "scripts": {
     "check": "astro check",

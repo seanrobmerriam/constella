@@ -17,12 +17,18 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:components": "playwright test tests/components",
-    "test:docs": "PW_DOCS=1 playwright test tests/docs"
+    "test:docs": "bun run check:examples && PW_DOCS=1 playwright test tests/docs",
+    "check:examples": "tsc -p tests/fixtures/react/tsconfig.json && bun --tsconfig-override tests/fixtures/react/tsconfig.json tests/fixtures/react/render.tsx"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0",
+    "@types/react": "19",
+    "@types/react-dom": "19",
     "prettier": "^3.9.10",
-    "prettier-plugin-astro": "^1.1.2"
+    "prettier-plugin-astro": "^1.1.2",
+    "react": "19",
+    "react-dom": "19",
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "astro": "^7.4.7"

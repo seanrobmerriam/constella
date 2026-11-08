@@ -1,0 +1,38 @@
+---
+import "@constella/shared/styles/index.css";
+import { examples, getExample } from "@constella/shared/examples/index.ts";
+
+export function getStaticPaths() {
+  return examples.map((example) => ({ params: { example: example.id } }));
+}
+
+const example = getExample(Astro.params.example as string)!;
+// The registry is trusted source. Its copyable HTML carries a module script that
+// imports the built behavior file; here the same shared behavior is bundled below.
+const markup = example.html.replace(/<script[\s\S]*?<\/script>/g, "");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{example.title} preview</title>
+    {example.css && <style set:html={example.css} />}
+  </head>
+  <body style="padding: 1.5rem" data-behavior={example.behaviorEntry}>
+    <Fragment set:html={markup} />
+  </body>
+</html>
+
+<script>
+  import { initAccordion } from "@constella/shared/behaviors/accordion.ts";
+  import { initNavbar } from "@constella/shared/behaviors/navbar.ts";
+
+  const entry = document.body.dataset.behavior;
+  const roots = (selector: string) =>
+    document.querySelectorAll<HTMLElement>(selector);
+  if (entry === "accordion") roots("[data-accordion]").forEach(initAccordion);
+  if (entry === "navbar") roots("[data-navbar]").forEach(initNavbar);
+</script>

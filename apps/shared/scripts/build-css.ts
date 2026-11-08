@@ -23,3 +23,18 @@ await rename(`${tmp}/unused.css`, `${root}dist/constella.css`);
 await rm(tmp, { recursive: true, force: true });
 await rm(`${root}dist-entry.ts`);
 console.log("wrote dist/constella.css");
+
+// Optional behavior entry points, built as standalone ES modules next to the CSS.
+const behaviors = ["accordion", "navbar", "theme"];
+const result = await Bun.build({
+  entrypoints: behaviors.map((name) => `${root}src/behaviors/${name}.ts`),
+  outdir: `${root}dist/behaviors`,
+  format: "esm",
+  target: "browser",
+  minify: false,
+});
+if (!result.success) {
+  for (const log of result.logs) console.error(log);
+  process.exit(1);
+}
+console.log(`wrote dist/behaviors/{${behaviors.join(",")}}.js`);
