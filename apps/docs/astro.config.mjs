@@ -1,31 +1,32 @@
 // @ts-check
-import { defineConfig, fontProviders } from "astro/config";
-import sitemap from "@astrojs/sitemap";
-import { SITE_URL } from "./src/consts.ts";
-import { isNoindexRoute } from "./src/utils/seo.ts";
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
 
+// https://astro.build/config
 export default defineConfig({
-  site: SITE_URL,
   integrations: [
-    sitemap({
-      filter: (page) => !isNoindexRoute(new URL(page).pathname),
+    starlight({
+      title: "My Docs",
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/withastro/starlight",
+        },
+      ],
+      sidebar: [
+        {
+          label: "Guides",
+          items: [
+            // Each item here is one entry in the navigation menu.
+            { label: "Example Guide", slug: "guides/example" },
+          ],
+        },
+        {
+          label: "Reference",
+          items: [{ autogenerate: { directory: "reference" } }],
+        },
+      ],
     }),
   ],
-  fonts: [
-    {
-      name: "Inter",
-      cssVariable: "--font-inter",
-      provider: fontProviders.local(),
-      options: {
-        variants: [
-          {
-            weight: 400,
-            style: "normal",
-            src: ["./src/assets/fonts/inter-regular.woff2"],
-          },
-        ],
-      },
-    },
-  ],
-  vite: { build: { cssTarget: "safari15.4" } },
 });
