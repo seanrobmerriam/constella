@@ -13,9 +13,13 @@ const { theme = "inherit", ...seo } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class:list={[theme !== "inherit" && `theme-${theme}`]}>
+<html
+  lang="en"
+  class:list={[theme !== "inherit" && `theme-${theme}`]}
+  data-theme-locked={theme !== "inherit" ? "" : undefined}
+>
   <head>
-    <BaseHead {...seo} />
+    <BaseHead {...seo} theme={theme} />
     <slot name="head" />
   </head>
   <body>

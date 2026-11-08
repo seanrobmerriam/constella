@@ -1,0 +1,200 @@
+---
+import Icon from "@/components/media/Icon.astro";
+import NavLink from "@/components/global/NavLink.astro";
+import logo from "@/assets/logo/logo.svg";
+import { SITE_NAME } from "@/consts.ts";
+import { navbarConfig } from "@/config/navbar.ts";
+import { iconFor } from "@/config/icons.ts";
+import { uid } from "@/utils/unique-id.ts";
+import type {
+  IconLink,
+  NavbarConfig,
+} from "@constella/shared/contracts/navigation.ts";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Stick to the top while scrolling. `false` leaves the bar in normal flow. */
+  sticky?: boolean;
+  /** Show the search form. Needs `config.search` or a `search` slot. */
+  search?: boolean;
+  /** Show the light/dark toggle. Hidden when the layout locks a theme. */
+  themeToggle?: boolean;
+  /** Icon links, e.g. `{ label: "GitHub", href, icon: "github" }`. */
+  icons?: IconLink[];
+  /** Brand, links and search. Defaults to `src/config/navbar.ts`. */
+  config?: NavbarConfig;
+}
+
+const {
+  render = true,
+  sticky = true,
+  search = false,
+  themeToggle = false,
+  icons = [],
+  config = navbarConfig,
+} = Astro.props;
+
+const hasSearchSlot = Astro.slots.has("search");
+if (render && search && !config.search && !hasSearchSlot) {
+  throw new Error(
+    "[constella] <Navbar search> needs `config.search` (action, name, label) or a `search` slot.",
+  );
+}
+const iconLinks = icons.map((link) => ({ ...link, svg: iconFor(link.icon) }));
+
+const id = uid("navbar");
+const { brand } = config;
+const brandLabel = brand.mode === "custom" ? brand.text : SITE_NAME;
+---
+
+{render && (
+  <header class:list={["nav_wrap", !sticky && "static"]} data-navbar>
+    <div class="nav_inner">
+      <a class="nav_logo" href="/" aria-label={brandLabel}>
+        {brand.mode === "site-name" && <Icon src={logo} variant="full-width" />}
+        {brand.mode === "custom" && brand.logo && (
+          <img
+            class="nav_brand_logo"
+            src={brand.logo.src}
+            alt={brand.logo.alt}
+          />
+        )}
+        {brand.mode === "custom" && !brand.logo && (
+          <span class="nav_brand_text">{brand.text}</span>
+        )}
+      </a>
+      <button
+        class="nav_toggle"
+        type="button"
+        aria-label="Menu"
+        aria-expanded="false"
+        aria-controls={`${id}-menu`}
+        data-navbar-toggle
+      >
+        <span class="nav_toggle_icon" />
+      </button>
+      <nav
+        class="nav_menu"
+        id={`${id}-menu`}
+        aria-label="Main"
+        data-navbar-menu
+      >
+        <div class="nav_menu_inner">
+          <ul class="nav_links">
+            {config.links.map((link) => (
+              <NavLink href={link.href}>{link.label}</NavLink>
+            ))}
+          </ul>
+          {(search || iconLinks.length > 0 || themeToggle) && (
+            <div class="nav_tools">
+              {search && (
+                <div class="nav_search">
+                  {hasSearchSlot ? (
+                    <slot name="search" />
+                  ) : (
+                    <form
+                      role="search"
+                      method="get"
+                      action={config.search!.action}
+                    >
+                      <label class="sr-only" for={`${id}-search`}>
+                        {config.search!.label}
+                      </label>
+                      <input
+                        id={`${id}-search`}
+                        class="nav_search_input"
+                        type="search"
+                        name={config.search!.name}
+                        placeholder={config.search!.placeholder}
+                      />
+                      <button class="nav_search_submit" type="submit">
+                        {config.search!.label}
+                      </button>
+                    </form>
+                  )}
+                </div>
+              )}
+              {iconLinks.length > 0 && (
+                <ul class="nav_icons">
+                  {iconLinks.map((link) => (
+                    <li>
+                      <a
+                        class="nav_icon"
+                        href={link.href}
+                        aria-label={link.label}
+                      >
+                        <Icon src={link.svg} variant="small" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {themeToggle && (
+                <button
+                  class="nav_theme"
+                  type="button"
+                  aria-pressed="false"
+                  data-theme-toggle
+                >
+                  Dark mode
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      </nav>
+    </div>
+  </header>
+)}
+
+{/* No-JS fallback */}
+<noscript>
+  <style>
+    .nav_toggle {
+      display: none;
+    }
+    .nav_menu {
+      grid-template-rows: 1fr;
+      visibility: visible;
+    }
+    .nav_menu_inner {
+      opacity: 1;
+    }
+    .nav_theme {
+      display: none;
+    }
+  </style>
+</noscript>
+
+<script>
+  import { initNavbar } from "@constella/shared/behaviors/navbar.ts";
+  import { initThemeToggle } from "@constella/shared/behaviors/theme.ts";
+
+  const cleanups = new Map<HTMLElement, () => void>();
+  const bind = () => {
+    for (const [root, cleanup] of cleanups) {
+      if (!root.isConnected) {
+        cleanup();
+        cleanups.delete(root);
+      }
+    }
+    for (const root of document.querySelectorAll<HTMLElement>(
+      "[data-navbar]",
+    )) {
+      if (cleanups.has(root)) continue;
+      const stopNav = initNavbar(root);
+      const stopTheme = initThemeToggle(root);
+      cleanups.set(root, () => {
+        stopNav();
+        stopTheme();
+      });
+    }
+  };
+  bind();
+  document.addEventListener("astro:page-load", bind);
+  document.addEventListener("astro:before-swap", () => {
+    for (const cleanup of cleanups.values()) cleanup();
+    cleanups.clear();
+  });
+</script>

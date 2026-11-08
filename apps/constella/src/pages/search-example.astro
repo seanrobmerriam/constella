@@ -1,0 +1,35 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/global/Navbar.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Heading from "@/components/typography/Heading.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+---
+
+<Layout
+  title="Search example"
+  description="Demonstration search destination."
+  noindex
+>
+  <Navbar slot="header" search />
+  <Section>
+    <ContentWrapper>
+      <Heading tag="h1">Search example</Heading>
+      <Paragraph>
+        This is a demonstration destination, not a search index. The navbar form
+        submits a GET request here, and this page echoes the query it received.
+      </Paragraph>
+      <Paragraph>
+        Query: <strong id="search-query" data-search-query></strong>
+      </Paragraph>
+    </ContentWrapper>
+  </Section>
+</Layout>
+
+<script>
+  const target = document.querySelector("[data-search-query]");
+  const query = new URLSearchParams(location.search).get("q");
+  // textContent escapes the value; it is never parsed as HTML.
+  if (target) target.textContent = query ?? "(none)";
+</script>

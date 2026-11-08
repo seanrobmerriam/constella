@@ -10,9 +10,8 @@
     color: var(--text);
     border-bottom: var(--border-width) solid var(--border);
 
-    &.overlap {
-      position: fixed;
-      inset-inline: 0;
+    &.static {
+      position: static;
     }
   }
 
@@ -190,6 +189,81 @@
       &[aria-current="page"] {
         text-decoration: underline;
       }
+    }
+  }
+
+  .nav_brand_logo {
+    display: block;
+    max-height: 2.5rem;
+    width: auto;
+  }
+
+  .nav_brand_text {
+    font-weight: var(--primary-medium);
+  }
+
+  .nav_tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-4);
+    padding: var(--space-2) var(--site-margin) var(--space-4);
+  }
+
+  .nav_search form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .nav_search_input,
+  .nav_search_submit {
+    padding: var(--space-2) var(--space-3);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--radius-small);
+    background-color: transparent;
+    color: inherit;
+    font-size: var(--text-small);
+  }
+
+  .nav_icons {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .nav_icon {
+    display: inline-flex;
+    padding: var(--space-2);
+    color: inherit;
+    border-radius: var(--radius-small);
+  }
+
+  .nav_theme {
+    padding: var(--space-2) var(--space-3);
+    border: var(--border-width) solid var(--border);
+    border-radius: var(--radius-small);
+    background-color: transparent;
+    color: inherit;
+    font-size: var(--text-small);
+    &[aria-pressed="true"] {
+      background-color: var(--text);
+      color: var(--background);
+    }
+  }
+
+  /* A locked layout theme makes the toggle ineffective, so it is not shown. */
+  :root[data-theme-locked] .nav_theme {
+    display: none;
+  }
+
+  @media (width >= 48rem) {
+    .nav_menu_inner {
+      display: flex;
+      align-items: center;
+      gap: var(--space-6);
+    }
+    .nav_tools {
+      padding: 0;
     }
   }
 }

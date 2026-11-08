@@ -1,0 +1,35 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/global/Navbar.astro";
+import Section from "@/components/wrapper/Section.astro";
+import Paragraph from "@/components/typography/Paragraph.astro";
+
+const config = {
+  brand: { mode: "custom", text: "Custom Brand" },
+  links: [
+    { label: "One", href: "/one" },
+    { label: "Two", href: "/two" },
+  ],
+} as const;
+---
+
+<Layout title="Navbar regression" description="Regression fixtures." noindex>
+  <Navbar
+    slot="header"
+    search
+    themeToggle
+    icons={[
+      { label: "GitHub", href: "https://github.com", icon: "github" },
+      { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
+    ]}
+  />
+  <Navbar
+    slot="header"
+    sticky={false}
+    config={{ ...config, links: [...config.links] }}
+  />
+  <Section>
+    <Paragraph>Tall content so the page scrolls.</Paragraph>
+    <div style="height: 3000px"></div>
+  </Section>
+</Layout>

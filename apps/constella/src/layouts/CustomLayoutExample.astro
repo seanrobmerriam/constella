@@ -7,14 +7,18 @@ import BaseHead from "@/components/utility/BaseHead.astro";
 import Skip from "@/components/global/Skip.astro";
 import type { SeoProps } from "@/types.ts";
 
-type Props = SeoProps;
-const seo = Astro.props;
+type Props = SeoProps & { theme?: "inherit" | "light" | "dark" | "brand" };
+const { theme = "inherit", ...seo } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html
+  lang="en"
+  class:list={[theme !== "inherit" && `theme-${theme}`]}
+  data-theme-locked={theme !== "inherit" ? "" : undefined}
+>
   <head>
-    <BaseHead {...seo} />
+    <BaseHead {...seo} theme={theme} />
   </head>
   <body>
     <Skip />
