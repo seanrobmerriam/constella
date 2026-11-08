@@ -14,3 +14,7 @@
 ## Correction (found during Task 4)
 
 The first `baseline.json` was captured against a dev server on port 4321 that belonged to a different project (`~/workspace/lumos-skills`), because the Playwright config reused whatever was listening. It was regenerated from the original component code (commit `672763e`, checked out in a scratch worktree) and the current code produces byte-identical values, so Tasks 2–3 preserved defaults. The config now starts the site on its own port (4331) with `reuseExistingServer: false`. Astro 7 backgrounds `astro dev` in agent environments, which makes Playwright think the server exited, so the command passes `--ignore-lock`. Docs tests start docs on 4332 only when `PW_DOCS` is set (`test:docs` sets it).
+
+## Docs app reset (found during Task 4)
+
+While Task 4 was in progress, `apps/docs` was replaced outside the plan work with a fresh Starlight starter (empty package name, no `check` script, nested lockfile, "My Docs" branding), matching the baseline the plan describes. The previous Lumos-flavoured scaffold is in git history (commit `672763e`). The Task 1 fixes were re-applied to the new app: name `@constella/docs`, private, `check` script with `@astrojs/check` and `typescript`, port 4322, nested lockfile removed. Build and check pass (0 errors). Task 9 builds on Starlight as the plan assumes.

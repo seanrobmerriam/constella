@@ -1,17 +1,21 @@
 {
-  "name": "",
+  "name": "@constella/docs",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "astro dev --port 4322",
+    "start": "astro dev --port 4322",
+    "check": "astro check",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "astro preview --port 4322",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.42.10",
     "astro": "^7.3.6",
-    "sharp": "^0.35.3"
-  }
+    "sharp": "^0.35.3",
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3"
+  },
+  "private": true
 }
