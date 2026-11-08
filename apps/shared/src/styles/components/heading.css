@@ -1,0 +1,38 @@
+@layer components {
+  /* The eyebrow stays a block container, not a flex one: the global text trim
+     only reaches the text of a block. The marker is positioned instead. */
+  .heading {
+    &.eyebrow,
+    &.eyebrow-tag {
+      margin-block: 0;
+      display: block;
+      width: fit-content;
+    }
+    &.eyebrow {
+      position: relative;
+      min-height: 0.75rem;
+      padding-inline-start: calc(var(--border-width) + var(--space-2));
+      &::before {
+        content: "";
+        position: absolute;
+        inset-inline-start: 0;
+        top: 50%;
+        translate: 0 -50%;
+        width: var(--border-width);
+        height: 0.75rem;
+        background-color: currentcolor;
+      }
+    }
+    &.eyebrow-tag {
+      background-color: var(--text);
+      color: var(--background);
+      padding: var(--space-1) var(--space-2);
+      border-radius: var(--radius-small);
+    }
+  }
+
+  /* An eyebrow is not a heading for spacing: text after it keeps its own top margin. */
+  .heading:is(.eyebrow, .eyebrow-tag) + .text {
+    margin-top: var(--_margin-top);
+  }
+}

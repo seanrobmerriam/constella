@@ -2,7 +2,6 @@
 import Layout from "@/layouts/BaseLayout.astro";
 import Section from "@/components/wrapper/Section.astro";
 import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
-import Eyebrow from "@/components/typography/Eyebrow.astro";
 import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
 import InputWrapper from "@/components/wrapper/InputWrapper.astro";
@@ -52,7 +51,7 @@ const lorem =
   <!-- stack -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>stack</Eyebrow>
+      <Heading variant="eyebrow">stack</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -71,7 +70,7 @@ const lorem =
   <!-- stack centered -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper centered={true}>
-      <Eyebrow>stack · centered</Eyebrow>
+      <Heading variant="eyebrow">stack · centered</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -88,7 +87,7 @@ const lorem =
   <!-- auto-width -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="auto-width">
-      <Eyebrow>auto-width</Eyebrow>
+      <Heading variant="eyebrow">auto-width</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -105,7 +104,7 @@ const lorem =
   <!-- columns -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="columns">
-      <Eyebrow>columns</Eyebrow>
+      <Heading variant="eyebrow">columns</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -126,7 +125,7 @@ const lorem =
   <!-- columns reverse -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="columns" reverse>
-      <Eyebrow>columns · reverse</Eyebrow>
+      <Heading variant="eyebrow">columns · reverse</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -147,7 +146,7 @@ const lorem =
   <!-- breakout -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="breakout">
-      <Eyebrow>breakout</Eyebrow>
+      <Heading variant="eyebrow">breakout</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -168,7 +167,7 @@ const lorem =
   <!-- breakout reverse -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="breakout" reverse>
-      <Eyebrow>breakout · reverse</Eyebrow>
+      <Heading variant="eyebrow">breakout · reverse</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -189,7 +188,7 @@ const lorem =
   <!-- contain -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="contain">
-      <Eyebrow>contain</Eyebrow>
+      <Heading variant="eyebrow">contain</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -210,7 +209,7 @@ const lorem =
   <!-- contain reverse -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="contain" reverse>
-      <Eyebrow>contain · reverse</Eyebrow>
+      <Heading variant="eyebrow">contain · reverse</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -231,7 +230,7 @@ const lorem =
   <!-- sticky-content -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="sticky-content">
-      <Eyebrow>sticky-content</Eyebrow>
+      <Heading variant="eyebrow">sticky-content</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -252,7 +251,7 @@ const lorem =
   <!-- sticky-visual -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="sticky-visual">
-      <Eyebrow>sticky-visual</Eyebrow>
+      <Heading variant="eyebrow">sticky-visual</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -300,7 +299,7 @@ const lorem =
   <!-- card -->
   <Section paddingTop="small" paddingBottom="large">
     <ContentWrapper variant="card" mediaOpacity={50}>
-      <Eyebrow variant="tag">card</Eyebrow>
+      <Heading variant="eyebrow-tag">card</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -321,7 +320,7 @@ const lorem =
   <!-- grid -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="auto-width">
-      <Eyebrow>auto-width</Eyebrow>
+      <Heading variant="eyebrow">auto-width</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -362,7 +361,7 @@ const lorem =
   <!-- form -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>form</Eyebrow>
+      <Heading variant="eyebrow">form</Heading>
     </ContentWrapper>
     <Form name="contact">
       <Fieldset legend="Contact Details" variant="columns">
@@ -432,7 +431,7 @@ const lorem =
   <!-- buttons -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>buttons</Eyebrow>
+      <Heading variant="eyebrow">buttons</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -462,7 +461,7 @@ const lorem =
   <!-- tabs horizontal -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>tabs · horizontal</Eyebrow>
+      <Heading variant="eyebrow">tabs · horizontal</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -529,7 +528,7 @@ const lorem =
   <!-- tabs side -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>tabs · side</Eyebrow>
+      <Heading variant="eyebrow">tabs · side</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         Services
       </Heading>
@@ -572,7 +571,7 @@ const lorem =
   <!-- tabs auto -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>tabs · auto playback</Eyebrow>
+      <Heading variant="eyebrow">tabs · auto playback</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -639,7 +638,7 @@ const lorem =
   <!-- slider -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>slider · bleed</Eyebrow>
+      <Heading variant="eyebrow">slider · bleed</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -680,7 +679,7 @@ const lorem =
   <!-- slider bleed -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>slider · crop-start</Eyebrow>
+      <Heading variant="eyebrow">slider · crop-start</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -742,7 +741,7 @@ const lorem =
   <!-- slider contained -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>slider · contained</Eyebrow>
+      <Heading variant="eyebrow">slider · contained</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -783,7 +782,7 @@ const lorem =
   <!-- marquee -->
   <Section>
     <ContentWrapper>
-      <Eyebrow>marquee</Eyebrow>
+      <Heading variant="eyebrow">marquee</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -831,7 +830,7 @@ const lorem =
   <!-- video -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>video</Eyebrow>
+      <Heading variant="eyebrow">video</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -849,7 +848,7 @@ const lorem =
   <!-- rich-text -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>rich-text</Eyebrow>
+      <Heading variant="eyebrow">rich-text</Heading>
       <RichText maxWidth={60}>
         <h2>A heading the editor wrote</h2>
         <p>
@@ -874,7 +873,7 @@ const lorem =
   <!-- icon -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper>
-      <Eyebrow>icon</Eyebrow>
+      <Heading variant="eyebrow">icon</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -889,7 +888,7 @@ const lorem =
   <!-- accordion -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper variant="sticky-content">
-      <Eyebrow>accordion</Eyebrow>
+      <Heading variant="eyebrow">accordion</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>
@@ -940,7 +939,7 @@ const lorem =
   <!-- modal -->
   <Section paddingTop="small" paddingBottom="small">
     <ContentWrapper centered={true}>
-      <Eyebrow>modal</Eyebrow>
+      <Heading variant="eyebrow">modal</Heading>
       <Heading tag="h2" variant="h3" maxWidth={17}>
         {heading}
       </Heading>

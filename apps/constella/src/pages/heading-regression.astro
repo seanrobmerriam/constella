@@ -1,0 +1,29 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import Heading from "@/components/typography/Heading.astro";
+---
+
+<Layout title="Heading regression" description="Regression fixtures." noindex>
+  <Section>
+    <Heading id="plain">Plain</Heading>
+    <Heading id="eyebrow" variant="eyebrow">
+      Eyebrow
+    </Heading>
+    <Heading id="eyebrow-tag" variant="eyebrow-tag">
+      Eyebrow tag
+    </Heading>
+    <Heading id="eyebrow-h3" variant="eyebrow" tag="h3">
+      Eyebrow h3
+    </Heading>
+    <Heading id="span" variant="eyebrow" tag="span">
+      Span
+    </Heading>
+    <Heading id="h4" tag="h4">
+      H4
+    </Heading>
+    <Heading id="mw" variant="eyebrow" maxWidth={10} data-x="1">
+      Max width
+    </Heading>
+  </Section>
+</Layout>

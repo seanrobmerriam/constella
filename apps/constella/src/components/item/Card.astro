@@ -1,6 +1,5 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import Eyebrow from "@/components/typography/Eyebrow.astro";
 import Heading from "@/components/typography/Heading.astro";
 import Paragraph from "@/components/typography/Paragraph.astro";
 import Button from "@/components/Button.astro";
@@ -125,9 +124,9 @@ if (import.meta.env.DEV && render) {
     )}
     {hasContent && (
       <div class="card_content margin-trim">
-        <Eyebrow>
+        <Heading variant="eyebrow">
           <Fragment set:html={eyebrow} />
-        </Eyebrow>
+        </Heading>
         <Heading tag={headingTag} variant="h5">
           <Fragment set:html={heading} />
         </Heading>

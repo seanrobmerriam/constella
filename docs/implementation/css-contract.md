@@ -25,3 +25,11 @@
 - Initial-open precedence: `openFirst` opens the first owned item and closes the others; otherwise a single group keeps only its first initially-open item. `single={false}` leaves items independent.
 - Design-mode preview removes grouping names and restores them when the preview ends; cleanup disconnects the observer and removes names it added.
 - Tests: `tests/components/disclosures.spec.ts` against `/disclosure-regression` (a noindex fixture page).
+
+## Heading eyebrow variants (Task 5)
+
+- `Eyebrow` is removed. `Heading` gains `variant="eyebrow"` (marker) and `variant="eyebrow-tag"` (filled pill), and `tag` now also accepts `p` and `span`. With an eyebrow variant and no `tag`, the element is a `p`; an explicit `tag` is kept. Ordinary headings are unchanged (`h2` default, style follows the tag). Both eyebrow variants use the `small` text style and render as one element: `.heading.eyebrow` / `.heading.eyebrow-tag` (no wrapper, no `.eyebrow_wrap`).
+- The eyebrow is a block (`width: fit-content`), not a flex container, because the global `text-box: trim-both` only trims block text; a flex heading made the first section 11.6px taller than baseline. The marker is an absolutely positioned `::before`.
+- The eyebrow resets the heading margins (it carried none before), and a `.text` directly after it keeps its own top margin.
+- Migrated: `Card`, the homepage badge and every `example-components` use. `.stacki/components.json` and `CONSTELLA.md` updated. The Webflow-import skill docs still describe `Typography/Eyebrow`; they are Webflow-mapping notes and were not rewritten.
+- Tests: `tests/components/heading.spec.ts` against `/heading-regression`; the baseline test confirms identical computed section height.

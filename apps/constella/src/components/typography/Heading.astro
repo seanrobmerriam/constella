@@ -13,13 +13,15 @@ type HeadingStyle =
   | "h6"
   | "large"
   | "main"
-  | "small";
+  | "small"
+  | "eyebrow"
+  | "eyebrow-tag";
 
 interface Props extends HTMLAttributes<"div"> {
   /** Set to `false` to omit the component. */
   render?: boolean;
-  /** Heading level. */
-  tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  /** HTML element. Defaults to `h2`, or `p` for the eyebrow variants. */
+  tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
   /** Type style. */
   variant?: HeadingStyle;
   /**
@@ -33,12 +35,17 @@ interface Props extends HTMLAttributes<"div"> {
 
 const {
   render = true,
-  tag: Tag = "h2",
-  variant = Tag,
+  tag,
+  variant: given,
   maxWidth,
   class: className,
   ...rest
 } = Astro.props;
+
+const isEyebrow = given === "eyebrow" || given === "eyebrow-tag";
+const Tag = tag ?? (isEyebrow ? "p" : "h2");
+const variant = given ?? (Tag === "p" || Tag === "span" ? "inherit" : Tag);
+const style = isEyebrow ? "small" : variant;
 
 const content = await slotContent(Astro.slots);
 ---
@@ -47,7 +54,8 @@ const content = await slotContent(Astro.slots);
   <Tag
     class:list={[
       "heading",
-      variant !== "inherit" && `text-style-${variant}`,
+      isEyebrow && given,
+      style !== "inherit" && `text-style-${style}`,
       className,
     ]}
     style={maxWidth ? `--_mw: ${maxWidth}ch;` : undefined}
