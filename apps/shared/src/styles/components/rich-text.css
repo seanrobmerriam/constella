@@ -6,7 +6,7 @@
  * Variants:  none
  * State:     none
  * Tokens:    --border, --border-width, --space-2, --space-4
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/rich-text/
  */
 @layer components {
   .rich-text {

@@ -1,0 +1,67 @@
+---
+title: Paragraph
+description: Body text in any text style, with its spacing and an optional line-length limit.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A block of body text. It takes its size and spacing from a [text style](/foundations/typography/), `main` by default, and can limit its line length for readability. For several paragraphs, lists or HTML from a CMS, use [RichText](/components/rich-text/).
+
+## Example
+
+<ComponentExample id="paragraph" />
+
+## Markup
+
+```html
+<p class="text">Body text.</p>
+<p class="text text-style-large">An introduction.</p>
+<p class="text text-style-small" style="--_mw: 45ch">A caption.</p>
+```
+
+- `text` applies the text style's top margin and the optional line-length limit.
+- Without a `text-style-*` class, the paragraph inherits the style around it, which is `main` on the page body.
+- Directly after a `heading`, the top margin is dropped so the heading and its text stay together.
+
+## Variants and props
+
+| Astro prop | HTML equivalent             | Values                                                    | Default   | Effect                                                           |
+| ---------- | --------------------------- | --------------------------------------------------------- | --------- | ---------------------------------------------------------------- |
+| `variant`  | `text-style-*` class        | `inherit`, `display`, `h1`–`h6`, `large`, `main`, `small` | `inherit` | The text style. `inherit` adds no class.                         |
+| `tag`      | the element                 | `p`, `span`, `div`                                        | `p`       | Use `div` when the content contains block elements.              |
+| `maxWidth` | `--_mw` in `style`, in `ch` | whole number                                              | none      | Limits the line length in characters.                            |
+| `render`   | none                        | `true`, `false`                                           | `true`    | `false` omits the component. It also renders nothing when empty. |
+
+## States
+
+None.
+
+## Accessibility
+
+- Line lengths of roughly 45 to 75 characters are easiest to read. Use `maxWidth` on long text in wide layouts.
+- Paragraphs wrap with `text-wrap: pretty`, which avoids a single word on the last line where the browser supports it.
+- A heading-style paragraph (`variant="h3"`) only looks like a heading. If it introduces a section, use [Heading](/components/heading/) so it appears in the outline.
+
+## Behavior
+
+None: native HTML.
+
+## Tokens
+
+<ComponentTokens
+  id="paragraph"
+  also={[
+    "--text-main",
+    "--text-main-line-height",
+    "--text-main-margin-top",
+    "--text-main-margin-bottom",
+  ]}
+/>
+
+Other text styles read the matching tokens, for example `--text-small`. They're listed on the [Typography](/foundations/typography/) page.
+
+## Related
+
+- [Heading](/components/heading/) and [RichText](/components/rich-text/).
+- [Typography](/foundations/typography/).
