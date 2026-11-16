@@ -236,11 +236,12 @@ export const components: readonly ComponentEntry[] = [
   }),
 
   // Interactive
-  planned("modal", {
+  documented("modal", {
     name: "Modal",
     astro: ["interactive/Modal.astro"],
     root: ".modal_wrap",
     styles: ["components/modal.css"],
+    behaviors: ["modal"],
   }),
   planned("tabs", {
     name: "Tabs",

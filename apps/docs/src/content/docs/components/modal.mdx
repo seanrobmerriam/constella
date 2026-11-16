@@ -1,0 +1,104 @@
+---
+title: Modal
+description: A dialog over the page, as a centered box, a side panel or a full screen, built on the native dialog element.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A dialog that opens over the page and blocks the page behind it until it closes: for a short form, a confirmation, or details you don't want to navigate away for. It's a native `<dialog>` opened with `showModal()`, so the backdrop, Escape to close and blocking the rest of the page come from the browser. The behavior connects buttons and links to it.
+
+Use it sparingly. Content people need to compare or come back to belongs on the page, for example in a [Details](/components/details/).
+
+## Example
+
+<ComponentExample id="modal" />
+
+## Markup
+
+```html
+<button class="button_wrap" type="button" data-modal-open="newsletter">
+  …
+</button>
+
+<dialog id="newsletter" class="modal_wrap" aria-labelledby="newsletter-title">
+  <div class="modal_content">
+    <button
+      class="button_wrap secondary close modal_close"
+      type="button"
+      aria-label="Close"
+      data-modal-close
+    >
+      …
+    </button>
+    <div class="modal_scroll" data-modal-scroll>
+      <div class="modal_body margin-trim">
+        <h2 id="newsletter-title">…</h2>
+        …
+      </div>
+    </div>
+  </div>
+</dialog>
+```
+
+- The dialog needs an `id`: triggers point at it.
+- Name the dialog. Point `aria-labelledby` at its heading, or give it an `aria-label`.
+- `modal_content` is the visible box. `modal_scroll` scrolls when the content is taller than the screen, and it returns to the top each time the modal opens. `modal_body` pads the content and leaves room for the close button.
+- **Triggers:** any element with `data-modal-open="<id>"`, or a link to `#<id>`.
+- **Close buttons:** any element inside with `data-modal-close`.
+
+## Variants and props
+
+| Astro prop | HTML equivalent                     | Values                               | Default  | Effect                                                                             |
+| ---------- | ----------------------------------- | ------------------------------------ | -------- | ---------------------------------------------------------------------------------- |
+| `id`       | `id`                                | text                                 | required | Renders nothing without it.                                                        |
+| `label`    | `aria-label`                        | text                                 | none     | The dialog's name. Or use `aria-labelledby` on a heading.                          |
+| `variant`  | `side-panel` or `full-screen` class | `small`, `side-panel`, `full-screen` | `small`  | A centered box up to 34rem wide, a 28rem panel from the side, or the whole screen. |
+| `preview`  | `preview` class                     | `true`, `false`                      | `false`  | Shows it open in the Astro design tool. No effect on a live site.                  |
+| `render`   | none                                | `true`, `false`                      | `true`   | `false` omits the component.                                                       |
+
+The Astro component adds the close button and the scroll and body wrappers for you. Its content is the default slot.
+
+## States
+
+- **Open** (`[open]`): the backdrop fades in, the box slides in from below (from the side for `side-panel`), and the page behind stops scrolling.
+- **Closing**: the same, reversed and slightly faster.
+
+Visitors who ask for reduced motion get no animation.
+
+## Accessibility
+
+- `showModal()` makes everything outside the dialog inert. Tab cycles through the dialog's controls, and screen readers only see the dialog, until it closes. As with any modal dialog, Tab can also move to the browser's own toolbar, but never to the page behind.
+- Escape closes it, which is native dialog behavior.
+- When it closes, focus returns to the button or link that opened it.
+- Clicking the backdrop closes it. A drag that starts inside the box, such as selecting text, doesn't.
+- Always keep a visible close button. Not everyone can use Escape or click outside.
+
+## Behavior
+
+`behaviors/modal.js` connects the triggers and close buttons:
+
+```html
+<script type="module">
+  import { initModal } from "./behaviors/modal.js";
+  document.querySelectorAll(".modal_wrap").forEach((root) => initModal(root));
+</script>
+```
+
+- **Opens** from `[data-modal-open="<id>"]` and `a[href="#<id>"]` anywhere on the page, and on load when the URL has `?modal=<id>`. The parameter is then removed from the address bar.
+- **Closes** from `[data-modal-close]`, the backdrop and Escape.
+- **Returns focus** to the opener.
+- **Events:** `modal-open` and `modal-close` bubble from the dialog, for analytics or for pausing media inside it.
+
+`initModal(root)` returns a cleanup function that removes its listeners.
+
+**Without the script**, nothing opens the dialog. If the content must be reachable without JavaScript, link to a page with the same content instead.
+
+## Tokens
+
+<ComponentTokens id="modal" />
+
+## Related
+
+- [Button](/components/button/): the triggers and the close button.
+- [Form](/components/form/): a short form is a common modal body.

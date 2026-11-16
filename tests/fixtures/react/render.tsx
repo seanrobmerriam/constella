@@ -27,6 +27,7 @@ import { ChoiceExample } from "../../../apps/shared/src/examples/choice/Example"
 import { RangeExample } from "../../../apps/shared/src/examples/range/Example";
 import { SkipExample } from "../../../apps/shared/src/examples/skip/Example";
 import { DropdownExample } from "../../../apps/shared/src/examples/dropdown/Example";
+import { ModalExample } from "../../../apps/shared/src/examples/modal/Example";
 
 const rendered = {
   button: renderToString(<ButtonExample />),
@@ -55,6 +56,7 @@ const rendered = {
   range: renderToString(<RangeExample />),
   skip: renderToString(<SkipExample />),
   dropdown: renderToString(<DropdownExample />),
+  modal: renderToString(<ModalExample />),
 };
 
 for (const [name, html] of Object.entries(rendered)) {
