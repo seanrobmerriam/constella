@@ -227,11 +227,12 @@ export const components: readonly ComponentEntry[] = [
     styles: ["components/details.css"],
     behaviors: ["accordion"],
   }),
-  planned("dropdown", {
+  documented("dropdown", {
     name: "Dropdown",
     astro: ["interactive/Dropdown.astro"],
     root: ".dropdown_wrap",
     styles: ["components/dropdown.css", "controls.css"],
+    behaviors: ["dropdown"],
   }),
 
   // Interactive
