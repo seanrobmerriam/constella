@@ -47,6 +47,8 @@ import choiceHtml from "./choice/example.html?raw";
 import choiceTsx from "./choice/Example.tsx?raw";
 import rangeHtml from "./range/example.html?raw";
 import rangeTsx from "./range/Example.tsx?raw";
+import skipHtml from "./skip/example.html?raw";
+import skipTsx from "./skip/Example.tsx?raw";
 
 /**
  * The closed registry. Only these entries can be previewed; the preview route
@@ -266,6 +268,15 @@ export const examples: readonly ExampleDefinition[] = [
     tsx: rangeTsx,
     behaviorEntry: "range",
     previewHeight: 10,
+  },
+  {
+    id: "skip",
+    title: "Skip",
+    description:
+      "A skip link, hidden until focused. Click into the preview and press Tab.",
+    html: skipHtml,
+    tsx: skipTsx,
+    previewHeight: 12,
   },
 ];
 

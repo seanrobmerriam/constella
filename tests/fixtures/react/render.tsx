@@ -25,6 +25,7 @@ import { TextareaExample } from "../../../apps/shared/src/examples/textarea/Exam
 import { SelectExample } from "../../../apps/shared/src/examples/select/Example";
 import { ChoiceExample } from "../../../apps/shared/src/examples/choice/Example";
 import { RangeExample } from "../../../apps/shared/src/examples/range/Example";
+import { SkipExample } from "../../../apps/shared/src/examples/skip/Example";
 
 const rendered = {
   button: renderToString(<ButtonExample />),
@@ -51,6 +52,7 @@ const rendered = {
   select: renderToString(<SelectExample />),
   choice: renderToString(<ChoiceExample />),
   range: renderToString(<RangeExample />),
+  skip: renderToString(<SkipExample />),
 };
 
 for (const [name, html] of Object.entries(rendered)) {
