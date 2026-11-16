@@ -1,0 +1,59 @@
+---
+title: Typography
+description: Ten fluid text styles, applied by element or by class.
+sidebar:
+  order: 4
+---
+
+import TokenTable from "../../../components/foundations/TokenTable.astro";
+
+Constella has ten text styles: `display`, `h1` to `h6`, `large`, `main` and `small`. Each one is a set of tokens covering size, line height, letter spacing, weight, family, text transform, wrapping and the margins around it.
+
+## Applying a style
+
+Headings `h1` to `h6` get their matching style automatically, and `<body>` uses `main`. Any element can take any style with a `text-style-*` class, which separates how text looks from what it means:
+
+```html
+<h2 class="text-style-h4">A second-level heading that looks smaller</h2>
+<p class="text-style-large">An introductory paragraph.</p>
+```
+
+In Astro, `Heading` and `Paragraph` pick the style for you, and `Heading` can change the tag and the look separately.
+
+## Sizes
+
+Every size is fluid between the viewport widths on the [Tokens](/foundations/tokens/#fluid-values) page.
+
+<TokenTable pattern="^--(display|h[1-6]|text-(large|main|small))$" />
+
+## Spacing between text
+
+Each style also carries a top and bottom margin, for example `--h2-margin-top`. The `.heading` and `.text` patterns apply those margins, and a paragraph that directly follows a heading drops its top margin so the pair stays together.
+
+Direct children of a `.container` that have a class lose their margins, so spacing between blocks comes from the container's `gap` and margins don't add up. Inside a `.heading` or `.text` element, and inside a `.margin-trim` element, the first child loses its top margin and the last loses its bottom margin.
+
+## Text trimming
+
+Headings, paragraphs and anything with a `text-style-*` class use [`text-box: trim-both`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-box). It trims the empty space above capital letters and below the baseline, so text lines up with neighboring boxes exactly. Browsers without support ignore it.
+
+## Accent words
+
+Inside `.heading-accent`, a `<strong>` takes the theme's `--heading-accent` color instead of becoming bold:
+
+```html
+<h1 class="heading-accent">Build <strong>faster</strong></h1>
+```
+
+## Customizing
+
+Override the size inputs or any property token:
+
+```css
+:root {
+  --h1-min: 40;
+  --h1-max: 72;
+  --h1-font-weight: var(--primary-bold);
+}
+```
+
+The family is set once in `--primary-family`, and every style reads it.

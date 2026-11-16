@@ -1,0 +1,63 @@
+---
+title: Tokens
+description: The custom properties every component reads, generated from base.css.
+sidebar:
+  order: 2
+---
+
+import TokenTable from "../../../components/foundations/TokenTable.astro";
+
+Tokens are CSS custom properties declared on `:root` in the `base` layer. Components never hard-code a color, size or duration. They read a token, so changing a token changes every component that uses it.
+
+The tables on this page are read from `base.css` when the docs are built, so they always match the stylesheet.
+
+## Fluid values
+
+Many sizes are fluid: they grow smoothly from a minimum at a narrow viewport to a maximum at a wide one, and stay fixed outside that range. Each fluid token has two inputs in plain pixel numbers, `-min` and `-max`. The token itself is a `clamp()` built from them. To change a fluid size, change its inputs:
+
+```css
+:root {
+  --space-4-min: 16;
+  --space-4-max: 32;
+}
+```
+
+The fluid range runs between these two viewport widths:
+
+<TokenTable pattern="^--viewport-" />
+
+## Color primitives
+
+The raw palette. Components don't use these directly. They go through the role tokens on the [Themes](/foundations/themes/) page, so that one change to a primitive updates every theme that uses it.
+
+<TokenTable pattern="^--(light|dark|brand)-" swatches />
+
+## Spacing
+
+The general spacing scale, used for gaps, margins and padding inside components.
+
+<TokenTable pattern="^--space-\d" />
+
+Vertical section padding, used by Section and Footer:
+
+<TokenTable pattern="^--section-space-" />
+
+## Page layout
+
+<TokenTable pattern="^--(site-|max-width-|nav-height)" />
+
+## Radius, borders and focus
+
+<TokenTable pattern="^--(radius-|border-width|focus-)" />
+
+## Motion
+
+`--hover-*` controls hover transitions. `--open-*` controls opening and closing disclosures, dropdowns, menus and modals. Both are switched off when the visitor asks for reduced motion.
+
+<TokenTable pattern="^--(hover|open)-" />
+
+## Typography
+
+Font family, weights, letter spacing and line heights. The full set of text styles built from them is on the [Typography](/foundations/typography/) page.
+
+<TokenTable pattern="^--(primary-|letter-spacing-|line-height-)" />

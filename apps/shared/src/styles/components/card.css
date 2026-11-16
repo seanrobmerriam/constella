@@ -1,3 +1,14 @@
+/*
+ * Component: Card
+ * Astro:     apps/constella/src/components/item/Card.astro
+ * Root:      .card_wrap
+ * Children:  .card_visual, .card_content
+ * Variants:  .stacked
+ * State:     none
+ * Tokens:    --background-2, --hover-duration, --hover-ease, --radius-main,
+ *            --space-6
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .card_wrap {
     --_padding: var(--space-6);

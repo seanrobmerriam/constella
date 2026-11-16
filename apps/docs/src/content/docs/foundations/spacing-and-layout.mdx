@@ -1,0 +1,64 @@
+---
+title: Spacing and layout
+description: Sections, containers, the spacing scale and the layout patterns built on them.
+sidebar:
+  order: 5
+---
+
+Page structure is built from a few shared patterns in the `patterns` layer. The sizes they use come from the spacing tokens on the [Tokens](/foundations/tokens/#spacing) page.
+
+## Section and container
+
+A page is a stack of sections. Each `.section` sets the vertical padding and theme background. Its `.container` centers the content, limits its width and spaces the blocks inside it:
+
+```html
+<section class="section">
+  <div class="container">
+    <h2>Title</h2>
+    <p>Body text.</p>
+  </div>
+</section>
+```
+
+| Pattern      | What it does                                                                                                                                    |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.section`   | Vertical padding of `--section-space-medium`, theme background and text color, `position: relative`.                                            |
+| `.container` | Width of `--site-width` (the viewport minus `--site-margin` each side), at most `--max-width-main`, centered, `--space-8` gap between children. |
+
+Any other direct child of `.section` becomes a full-size background layer behind the container. Use one for a background image or an overlay.
+
+### Spacing a section
+
+Change the padding with utilities. These sizes come from the section spacing scale:
+
+```html
+<section class="section padding-top-large padding-bottom-small">…</section>
+```
+
+In Astro, `Section` exposes these as `paddingTop`, `paddingBottom` and `gap` props.
+
+## Alignment
+
+Layouts that need alignment read one private custom property, `--_alignment` (`start`, `center` or `end`). The alignment utilities set it, and children inherit it, so one class centers a container and everything that follows the same rule inside it:
+
+```html
+<div class="container alignment-center">…</div>
+```
+
+## Layout patterns
+
+| Pattern                                            | Use it for                                                                                                                                |
+| -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `.flex-horizontal-wrap`, `.flex-horizontal-nowrap` | A row of items, wrapping or not, aligned by `--_alignment`.                                                                               |
+| `.flex-vertical-wrap`, `.flex-vertical-nowrap`     | A column of items.                                                                                                                        |
+| `.grid-autofit`, `.grid-autofill`                  | A responsive grid with at most `--_column-count` columns (12 by default). A column is never narrower than 8rem unless the grid itself is. |
+| `.input-wrapper`                                   | A row of buttons or form controls that wraps on narrow screens. See [InputWrapper](/components/input-wrapper/).                           |
+| `.margin-trim`                                     | Removes the top margin of the first child and the bottom margin of the last.                                                              |
+| `.cover-absolute`                                  | Fills the nearest positioned ancestor.                                                                                                    |
+| `.display-contents`                                | Removes a wrapper box from layout while keeping its alignment.                                                                            |
+
+The Grid and ContentWrapper components add their own column options on top of these patterns.
+
+## Units
+
+Layout values are in `rem`, so they follow the visitor's font-size setting. Padding inside controls is in `em`, so a control scales with its own text, which is what `data-size` relies on. Fluid tokens use `clamp()` and need no media queries.

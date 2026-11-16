@@ -1,0 +1,35 @@
+---
+/** Role tokens and their value in each theme, read from base.css. */
+import { themeNames, themeRoles } from "../../lib/css-source.ts";
+
+const { roles, values } = themeRoles();
+---
+
+<div class="token-scroll">
+  <table class="token-table">
+    <thead>
+      <tr>
+        <th>Role token</th>
+        {themeNames.map((t) => (
+          <th>
+            <code>.theme-{t}</code>
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {roles.map((role) => (
+        <tr>
+          <td>
+            <code>{role}</code>
+          </td>
+          {themeNames.map((t) => (
+            <td>
+              <code>{values[t].get(role) ?? "—"}</code>
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

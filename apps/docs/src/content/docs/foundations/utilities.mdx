@@ -1,0 +1,42 @@
+---
+title: Utilities
+description: Single-purpose classes for one-off adjustments, generated from utilities.css.
+sidebar:
+  order: 6
+---
+
+import UtilityList from "../../../components/foundations/UtilityList.astro";
+
+Utilities make one small change to one element: `padding-4`, `gap-2`, `radius-round`, `display-none`. They're in the last layer, so a utility always wins over the component it's applied to, without `!important` and whatever the selector specificity.
+
+```html
+<div class="card_wrap padding-2 radius-none">…</div>
+```
+
+## When to use one
+
+Use a utility for a single, local adjustment. Reach for something else when:
+
+- **The same group of utilities keeps appearing together.** It's a design choice, so it belongs in a component variant.
+- **The same utility is on every instance.** Change the component's default or the token instead.
+- **Two utilities set the same property on one element,** like `padding-2 padding-4`. The result depends on source order, not class order, so pick one.
+
+Utilities aren't responsive. There are no breakpoint prefixes such as `md:`. Responsive behavior lives in components and in fluid tokens.
+
+## Scales
+
+Number suffixes `0` to `8` map to the `--space-*` scale. Named suffixes map to tokens of the same name:
+
+| Suffix                     | Token                                 |
+| -------------------------- | ------------------------------------- |
+| `gutter`                   | `--site-gutter`                       |
+| `sitemargin`               | `--site-margin`                       |
+| `small`, `medium`, `large` | `--section-space-*` (padding and gap) |
+| `navoverlap`               | `--section-space-nav-overlap`         |
+| `text`                     | The element's own text-style margin   |
+
+## Every utility class
+
+Generated from `utilities.css` when the docs are built. `{a, b}` lists the suffixes available for a class family.
+
+<UtilityList />

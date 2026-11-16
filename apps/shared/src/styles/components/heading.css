@@ -1,3 +1,14 @@
+/*
+ * Component: Heading
+ * Astro:     apps/constella/src/components/typography/Heading.astro
+ * Root:      .heading
+ * Children:  none
+ * Variants:  .eyebrow, .eyebrow-tag
+ * State:     none
+ * Tokens:    --background, --border-width, --radius-small, --space-1,
+ *            --space-2, --text
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   /* The eyebrow stays a block container, not a flex one: the global text trim
      only reaches the text of a block. The marker is positioned instead. */

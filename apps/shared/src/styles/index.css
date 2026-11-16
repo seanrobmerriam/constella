@@ -1,25 +1,41 @@
-/* Cascade order, lowest priority first */
+/*
+ * Constella stylesheet entry point. Load this file (or the built
+ * dist/constella.css) and nothing else; it pulls in every other file once.
+ *
+ * 1. The layer order is declared first, so it holds even if a page loads
+ *    other CSS before this file.
+ * 2. base, patterns and utilities are assigned to their layer here.
+ * 3. Each components/*.css file wraps itself in @layer components, so it is
+ *    imported without a layer() to avoid nesting. One file per component
+ *    family, in alphabetical order.
+ * 4. controls.css is cross-cutting (data-size / data-radius for any control)
+ *    and must stay after the component files: it shares their layer, so
+ *    later source order is what lets it override per-component defaults.
+ *
+ * Explained in the docs page foundations/styles-architecture and in
+ * docs/completion-plan.md §1.
+ */
 
 @layer base, patterns, components, utilities;
 
 @import "./base.css" layer(base);
 @import "./patterns.css" layer(patterns);
-@import "./components/accordion.css";
-@import "./components/details.css";
+
 @import "./components/button.css";
 @import "./components/card.css";
 @import "./components/choice.css";
 @import "./components/content-wrapper.css";
+@import "./components/details.css";
 @import "./components/dropdown.css";
-@import "./components/heading.css";
 @import "./components/fieldset.css";
 @import "./components/footer.css";
 @import "./components/form.css";
 @import "./components/grid.css";
+@import "./components/heading.css";
 @import "./components/icon.css";
 @import "./components/marquee.css";
 @import "./components/modal.css";
-@import "./components/nav.css";
+@import "./components/navbar.css";
 @import "./components/overlay.css";
 @import "./components/range.css";
 @import "./components/rich-text.css";
@@ -28,5 +44,6 @@
 @import "./components/slider.css";
 @import "./components/tabs.css";
 @import "./components/textarea.css";
+
 @import "./controls.css";
 @import "./utilities.css" layer(utilities);

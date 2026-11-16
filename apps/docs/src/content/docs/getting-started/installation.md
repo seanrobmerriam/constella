@@ -15,6 +15,8 @@ This writes `apps/shared/dist/`:
 - `constella.css`: the complete stylesheet. It declares `@layer base, patterns, components, utilities;` itself, so it does not depend on any framework.
 - `behaviors/accordion.js`, `behaviors/navbar.js`, `behaviors/theme.js`: optional ES modules.
 
+`constella.css` is the only supported entry point. The per-component source files are not meant to be loaded on their own; [How the stylesheets work](/foundations/styles-architecture/) explains why.
+
 ## Plain HTML
 
 Copy the files next to your page and link the stylesheet:

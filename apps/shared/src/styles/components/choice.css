@@ -1,3 +1,17 @@
+/*
+ * Component: Choice
+ * Astro:     apps/constella/src/components/form/Choice.astro (checkbox and
+ *            radio)
+ * Root:      .form-choice
+ * Children:  .form-choice_input, .form-choice_mark, .form-choice_dot, .form-
+ *            choice_tick
+ * Variants:  .toggle, .chip
+ * State:     none (not resized by data-size)
+ * Tokens:    --background, --background-2, --background-3, --border-width,
+ *            --focus-offset, --focus-width, --hover-duration, --hover-ease,
+ *            --radius-round, --radius-small, --text
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .form-choice {
     display: inline-flex;

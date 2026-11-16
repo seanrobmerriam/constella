@@ -1,3 +1,14 @@
+/*
+ * Component: Form
+ * Astro:     apps/constella/src/components/form/Form.astro
+ * Root:      .form_wrap
+ * Children:  .form_fields, .form_note, .form_note-sent, .form_note-failed
+ * Variants:  none
+ * State:     [data-state="sent" | "failed"] set by the form script
+ * Tokens:    --border, --border-width, --radius-small, --space-4, --space-5,
+ *            --space-8, --text
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .form_wrap {
     display: flex;

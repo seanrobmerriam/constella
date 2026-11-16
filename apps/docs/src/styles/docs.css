@@ -67,3 +67,35 @@
   border-top: 1px solid var(--sl-color-gray-5);
   font-size: var(--sl-text-sm);
 }
+
+/* Foundations tables, generated from the shared CSS source. */
+.token-table td:first-child code {
+  white-space: nowrap;
+}
+.token-table td:not(:first-child) code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.token-table td {
+  vertical-align: top;
+}
+.token-note {
+  color: var(--sl-color-gray-3);
+  font-size: var(--sl-text-sm);
+}
+.token-swatch {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-inline-end: 0.4em;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.2em;
+  vertical-align: -0.15em;
+}
+.token-scroll {
+  overflow-x: auto;
+}
+.utility-family {
+  display: inline-block;
+  margin: 0 0.4em 0.3em 0;
+}

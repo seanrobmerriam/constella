@@ -1,3 +1,14 @@
+/*
+ * Component: Textarea
+ * Astro:     apps/constella/src/components/form/Textarea.astro (with the
+ *            shared .field pattern)
+ * Root:      .form-textarea
+ * Children:  .form-textarea_field
+ * Variants:  none
+ * State:     data-size, data-radius (controls.css)
+ * Tokens:    --border-width
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .form-textarea_field {
     field-sizing: content;

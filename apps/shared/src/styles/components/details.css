@@ -1,3 +1,18 @@
+/*
+ * Component: Details, Summary, Accordion
+ * Astro:     apps/constella/src/components/interactive/Details.astro,
+ *            interactive/Summary.astro, interactive/Accordion.astro
+ * Root:      .details_wrap (Details), .accordion_wrap (Accordion)
+ * Children:  .details_summary, .details_icon, .details_body
+ * Variants:  none
+ * State:     Accordion root carries data-accordion, data-single, data-open-
+ *            first, data-group; behavior in behaviors/accordion.ts
+ * Tokens:    --border, --border-width, --hover-duration, --hover-ease, --open-
+ *            duration, --open-ease, --space-4, --space-5
+ * Docs:      /components/details/, /components/accordion/
+ * Also styles Astro designer-preview hooks (.preview, .stacki-*), which plain
+ * HTML users can ignore.
+ */
 @layer components {
   .details_wrap {
     interpolate-size: allow-keywords;
@@ -59,5 +74,10 @@
 
   .details_body {
     padding-bottom: var(--space-5);
+  }
+
+  /* Accordion: a group of Details */
+  .accordion_wrap {
+    width: 100%;
   }
 }

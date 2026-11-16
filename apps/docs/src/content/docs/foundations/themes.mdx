@@ -1,0 +1,84 @@
+---
+title: Themes
+description: Light, dark and brand color themes, and the role tokens each one sets.
+sidebar:
+  order: 3
+---
+
+import ThemeTable from "../../../components/foundations/ThemeTable.astro";
+
+A theme is a class that sets a group of **role tokens**: `--background`, `--text`, `--border`, button colors and so on. Components read only role tokens, so the same markup looks right in any theme.
+
+| Class           | Effect                                                                                                   |
+| --------------- | -------------------------------------------------------------------------------------------------------- |
+| _(none)_        | The page uses the light theme by default.                                                                |
+| `.theme-light`  | Light background, dark text.                                                                             |
+| `.theme-dark`   | Dark background, light text.                                                                             |
+| `.theme-brand`  | Brand-colored background.                                                                                |
+| `.theme-invert` | Inside `.theme-dark` or `.theme-brand`, switches back to light. Inside `.theme-light`, switches to dark. |
+
+Any element with a `theme-` class also gets that theme's background and text color, and sets `color-scheme` so native controls and scrollbars match. Themes nest, so a dark section can sit on a light page:
+
+```html
+<section class="section theme-dark">
+  <div class="container">…</div>
+</section>
+```
+
+In Astro, `Section` and `Footer` take a `theme` prop that adds this class.
+
+## Role tokens
+
+Read from `base.css` when the docs are built.
+
+<ThemeTable />
+
+## Customizing colors
+
+Change a **color primitive** to restyle every theme that uses it:
+
+```css
+:root {
+  --brand-500: #4f7cff;
+  --brand-text: #ffffff;
+}
+```
+
+To change one role in one theme, redeclare it on that theme's selector, for example `.theme-dark { --border: … }`. Put these overrides in your own stylesheet, loaded after Constella's.
+
+## Theme toggle
+
+The optional theme behavior, `behaviors/theme.js`, has two parts.
+
+**1. Apply the visitor's theme on load.** `bootstrapTheme` sets `theme-light` or `theme-dark` on `<html>` from the visitor's saved choice, or from the system setting if they haven't chosen. Run it as early in `<head>` as you can:
+
+```html
+<script type="module">
+  import {
+    bootstrapTheme,
+    resolveTheme,
+    THEME_KEY,
+  } from "./behaviors/theme.js";
+  bootstrapTheme("inherit", resolveTheme, THEME_KEY);
+</script>
+```
+
+A module script runs only after the page is parsed, so a dark-mode visitor can briefly see the light theme. To avoid that, the Astro `BaseHead` inlines the same function as a classic script.
+
+**2. Wire the toggle buttons.** `initThemeToggle(root)` finds every `[data-theme-toggle]` button inside `root`. Clicking one switches between light and dark and saves the choice. The function keeps `aria-pressed` in sync, follows system changes while nothing is saved, and returns a cleanup function.
+
+```html
+<button type="button" data-theme-toggle aria-pressed="false">Dark mode</button>
+<script type="module">
+  import { initThemeToggle } from "./behaviors/theme.js";
+  initThemeToggle(document.body);
+</script>
+```
+
+Precedence, highest first:
+
+1. **A locked theme.** Put the theme class and `data-theme-locked` on `<html>` yourself, and skip the bootstrap. `initThemeToggle` then does nothing, and the Navbar hides its toggle. Hide any toggle buttons of your own.
+2. **The visitor's saved choice.** If storage is blocked, it's skipped.
+3. **The system light or dark setting.**
+
+The [Navbar](/components/navbar/) includes a toggle button when its `themeToggle` option is on.

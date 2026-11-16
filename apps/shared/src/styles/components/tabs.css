@@ -1,3 +1,20 @@
+/*
+ * Component: Tabs, TabLink
+ * Astro:     apps/constella/src/components/interactive/Tabs.astro,
+ *            interactive/TabLink.astro
+ * Root:      .tabs_wrap
+ * Children:  .tabs_bar, .tabs_controls, .tabs_links, .tabs_link, .tabs_panels,
+ *            .tabs_steps
+ * Variants:  .side, .auto
+ * State:     .is-ready, .is-active, .is-leaving, .is-paused, .running and
+ *            [data-moved] are set by the tabs script
+ * Tokens:    --background, --border, --border-width, --hover-duration,
+ *            --hover-ease, --open-duration, --open-ease, --radius-round,
+ *            --space-2, --space-3, --space-4, --space-5, --space-6, --text
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Also styles Astro designer-preview hooks (.preview, .stacki-*), which plain
+ * HTML users can ignore.
+ */
 @layer components {
   .tabs_wrap {
     --_dir: 1;

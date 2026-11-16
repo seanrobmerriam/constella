@@ -1,3 +1,23 @@
+/*
+ * Component: Navbar
+ * Astro:     apps/constella/src/components/global/Navbar.astro,
+ *            global/NavLink.astro
+ * Root:      .nav_wrap
+ * Children:  .nav_inner, .nav_logo, .nav_brand_logo, .nav_brand_text,
+ *            .nav_menu, .nav_menu_inner, .nav_links, .nav_link, .nav_tools,
+ *            .nav_search, .nav_search_input, .nav_search_submit, .nav_icons,
+ *            .nav_icon, .nav_theme, .nav_toggle, .nav_toggle_icon
+ * Variants:  .static (not sticky); .open (menu open state)
+ * State:     [aria-current="page"] on links; [aria-pressed] on the theme
+ *            toggle; html[data-theme-locked] hides the toggle. Behavior in
+ *            behaviors/navbar.ts and behaviors/theme.ts
+ * Tokens:    --background, --border, --border-width, --hover-duration,
+ *            --hover-ease, --max-width-main, --nav-height, --open-duration,
+ *            --open-ease, --primary-medium, --radius-small, --site-margin,
+ *            --space-2, --space-3, --space-4, --space-6, --text, --text-main,
+ *            --text-small
+ * Docs:      /components/navbar/
+ */
 @layer components {
   .nav_wrap {
     position: sticky;

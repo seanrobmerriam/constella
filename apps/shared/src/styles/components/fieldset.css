@@ -1,3 +1,14 @@
+/*
+ * Component: Fieldset
+ * Astro:     apps/constella/src/components/form/Fieldset.astro
+ * Root:      .form-fieldset
+ * Children:  .form-fieldset_legend, .form-fieldset_legend-heading, .form-
+ *            fieldset_fields
+ * Variants:  .inline, .columns, .thirds
+ * State:     none
+ * Tokens:    --space-2, --space-3, --space-5
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .form-fieldset {
     width: 100%;

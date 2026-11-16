@@ -1,0 +1,80 @@
+---
+title: How the stylesheets work
+description: One entry point, four cascade layers, one file per component, and why the classes are global.
+sidebar:
+  order: 1
+---
+
+import StylesheetMap from "../../../components/foundations/StylesheetMap.astro";
+
+Constella is one stylesheet. You load it once, and every component class works anywhere on the page:
+
+```html
+<link rel="stylesheet" href="constella.css" />
+```
+
+`constella.css` is built from the source files described below. You don't need to know about those files to use Constella. This page is for when you want to know where a style comes from, or you're changing Constella itself.
+
+## The four layers
+
+Every rule belongs to one of four [cascade layers](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer). The stylesheet declares their order on its first line:
+
+```css
+@layer base, patterns, components, utilities;
+```
+
+| Layer        | What it holds                                                                  |
+| ------------ | ------------------------------------------------------------------------------ |
+| `base`       | Design tokens, the three themes, the reset, element defaults and text styles.  |
+| `patterns`   | Reusable layouts shared by several components: section, container, form field. |
+| `components` | Each component's own appearance, variants and states.                          |
+| `utilities`  | Small single-purpose classes for one-off changes, such as `padding-4`.         |
+
+A later layer wins over an earlier one, whatever the selectors' specificity. In practice:
+
+- A component can refine a pattern without a more specific selector.
+- A utility always beats the component it's applied to. `class="card_wrap padding-2"` gets the smaller padding even though `.card_wrap` is styled in a more detailed rule.
+- The order of classes in your HTML never matters.
+
+Your own CSS, if you don't put it in a layer, beats all four layers. That's convenient for overrides, but it also means a broad unlayered rule like `a { color: red }` will override every component's links. Put site-wide rules in `@layer base` (or another of the four) when you want them to sit under the components instead.
+
+## The source files
+
+```text
+apps/shared/src/styles/
+├── index.css          the entry point: declares the layer order, imports everything once
+├── base.css           → @layer base
+├── patterns.css       → @layer patterns
+├── components/*.css   → @layer components, one file per component family
+├── controls.css       → @layer components, data-size and data-radius for any control
+└── utilities.css      → @layer utilities
+```
+
+`dist/constella.css` is `index.css` with every import inlined into one file. Build it from the repository root with `bun run --cwd apps/shared build`.
+
+### Why one file per component?
+
+The split is for maintainers. Each component family has one stylesheet, one Astro component and one docs page, so a change to Dropdown touches `dropdown.css` and nothing else, and a review shows only that component's CSS. Each file starts with a comment naming its component, root class, children, variants, the tokens it reads and its docs page.
+
+Loading individual component files on their own isn't supported yet. They depend on the tokens in `base.css` and the layouts in `patterns.css`, and that dependency isn't a stable public contract. Use the single stylesheet.
+
+### Are these CSS Modules?
+
+No, and they won't become CSS Modules. The class names are the public interface: plain HTML, React and Astro all write the same `class="button_wrap secondary"`. CSS Modules rename classes at build time, so the markup in these docs would stop matching the stylesheet, and pages without a bundler couldn't use Constella at all.
+
+Global class names are safe here for two reasons:
+
+- **Naming.** Every component's classes share a prefix: the root ends in `_wrap`, and children use the same family name, as in `dropdown_toggle` and `dropdown_body`. Variants are always qualified by the root (`.button_wrap.secondary`, never a bare `.secondary`), so they can't collide.
+- **Layers.** Specificity wars are settled by the layer order, not by longer selectors.
+
+## Which file styles which component
+
+Not every component has its own file. Some only arrange shared patterns. This table is generated from the stylesheet header comments when the docs are built.
+
+<StylesheetMap />
+
+## Related
+
+- [Tokens](/foundations/tokens/) and [Themes](/foundations/themes/): the values every layer reads.
+- [Utilities](/foundations/utilities/): the full list of utility classes.
+- [Authoring conventions](/foundations/authoring/): naming rules for adding a component.

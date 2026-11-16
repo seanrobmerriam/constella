@@ -1,3 +1,14 @@
+/*
+ * Component: Marquee
+ * Astro:     apps/constella/src/components/interactive/Marquee.astro
+ * Root:      .marquee_wrap
+ * Children:  .marquee_viewport, .marquee_track, .marquee_panel,
+ *            .marquee_toggle
+ * Variants:  .backwards
+ * State:     [data-state="playing" | "paused"] set by the marquee script
+ * Tokens:    --space-4, --space-6
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .marquee_wrap {
     --_gap-size: var(--space-6);
