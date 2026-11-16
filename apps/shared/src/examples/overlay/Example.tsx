@@ -1,0 +1,22 @@
+import type { CSSProperties } from "react";
+
+const background =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Cdefs%3E%3ClinearGradient id='s' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23c6fb50'/%3E%3Cstop offset='1' stop-color='%23453e42'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='600' height='400' fill='url(%23s)'/%3E%3Cpath d='M0 300 L170 170 L300 270 L420 190 L600 320 V400 H0Z' fill='%231f1d1e'/%3E%3C/svg%3E";
+
+export function OverlayExample() {
+  return (
+    <section className="section theme-dark padding-top-small padding-bottom-small">
+      <img className="image" src={background} alt="" />
+      <div
+        className="overlay gradient"
+        style={{ "--_strength": 80 } as CSSProperties}
+      />
+      <div className="container">
+        <h2 className="heading text-style-h3">Text over an image</h2>
+        <p className="text">
+          The overlay darkens the image so the text stays readable.
+        </p>
+      </div>
+    </section>
+  );
+}

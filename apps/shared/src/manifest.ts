@@ -113,25 +113,25 @@ export const components: readonly ComponentEntry[] = [
   }),
 
   // Media
-  planned("img", {
+  documented("img", {
     name: "Img",
     astro: ["media/Img.astro"],
     root: ".image",
     styles: ["patterns.css"],
   }),
-  planned("video", {
+  documented("video", {
     name: "Video",
     astro: ["media/Video.astro"],
     root: ".video",
     styles: ["patterns.css"],
   }),
-  planned("icon", {
+  documented("icon", {
     name: "Icon",
     astro: ["media/Icon.astro"],
     root: ".icon",
     styles: ["components/icon.css"],
   }),
-  planned("overlay", {
+  documented("overlay", {
     name: "Overlay",
     astro: ["media/Overlay.astro"],
     root: ".overlay",

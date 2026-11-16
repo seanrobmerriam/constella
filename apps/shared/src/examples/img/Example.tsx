@@ -1,0 +1,29 @@
+import type { CSSProperties } from "react";
+
+const landscape =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Cdefs%3E%3ClinearGradient id='s' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23c6fb50'/%3E%3Cstop offset='1' stop-color='%23453e42'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='600' height='400' fill='url(%23s)'/%3E%3Cpath d='M0 300 L170 170 L300 270 L420 190 L600 320 V400 H0Z' fill='%231f1d1e'/%3E%3C/svg%3E";
+const logo =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Ccircle cx='20' cy='20' r='16' fill='%231f1d1e'/%3E%3Crect x='44' y='12' width='70' height='16' rx='8' fill='%231f1d1e'/%3E%3C/svg%3E";
+
+export function ImgExample() {
+  return (
+    <div className="grid" style={{ "--_cols-sm": 2 } as CSSProperties}>
+      <img
+        className="image ratio-3-2"
+        src={landscape}
+        alt="Dark hills under a green sky"
+        width={600}
+        height={400}
+        loading="lazy"
+      />
+      <img
+        className="image transparent ratio-3-2"
+        src={logo}
+        alt="Acme logo"
+        width={120}
+        height={40}
+        loading="lazy"
+      />
+    </div>
+  );
+}

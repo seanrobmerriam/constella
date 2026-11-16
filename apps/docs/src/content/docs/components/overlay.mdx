@@ -1,0 +1,64 @@
+---
+title: Overlay
+description: A dark layer over an image or video that keeps text on top readable.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A black layer that darkens an image or video behind text. It's either even (`solid`) or heavier toward the bottom (`gradient`), and its strength is adjustable.
+
+## Example
+
+<ComponentExample id="overlay" />
+
+## Markup
+
+```html
+<section class="section theme-dark">
+  <img class="image" src="hero.jpg" alt="" />
+  <div class="overlay gradient" style="--_strength: 70"></div>
+  <div class="container">…</div>
+</section>
+```
+
+The overlay is absolutely positioned and fills its nearest positioned ancestor, so it needs one:
+
+- inside a [Section](/components/section/), where it becomes a background layer like the image;
+- inside a [ContentWrapper](/components/content-wrapper/) visual, alongside the image or video;
+- anywhere else, inside an element with `position-relative`.
+
+Put it after the media it covers and before the content, which must also be positioned to sit on top. A section's container already is.
+
+## Variants and props
+
+| Astro prop | HTML equivalent          | Values              | Default | Effect                                                                                     |
+| ---------- | ------------------------ | ------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| `variant`  | `gradient` class         | `solid`, `gradient` | `solid` | `solid` is even. `gradient` adds a darker fade toward the bottom, where text usually sits. |
+| `strength` | `--_strength` in `style` | 0 to 100            | `50`    | How dark it is. At 100, `solid` is 80% black.                                              |
+| `render`   | none                     | `true`, `false`     | `true`  | `false` omits the component.                                                               |
+
+## States
+
+None.
+
+## Accessibility
+
+- The overlay is decorative and has no content, so screen readers ignore it.
+- It exists for contrast. Check light text against the darkest and lightest parts of the image at the strength you choose, and raise it for busy or bright images.
+- It's always black, whatever the theme. Pair it with `theme-dark` content, as in the example.
+
+## Behavior
+
+None: native HTML.
+
+## Tokens
+
+<ComponentTokens id="overlay" />
+
+The color is fixed black, and `--_strength` is a per-instance setting.
+
+## Related
+
+- [Section](/components/section/) and [ContentWrapper](/components/content-wrapper/): the two usual places for an overlay.
+- [Img](/components/img/) and [Video](/components/video/).

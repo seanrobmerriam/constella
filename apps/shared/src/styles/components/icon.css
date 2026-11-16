@@ -3,10 +3,11 @@
  * Astro:     apps/constella/src/components/media/Icon.astro
  * Root:      .icon
  * Children:  none
- * Variants:  .small, .large, .full-width
+ * Variants:  .small (1em), .medium (1.5em, the default), .large (2em),
+ *            .full-width
  * State:     none
  * Tokens:    none
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/icon/
  */
 @layer components {
   .icon {
