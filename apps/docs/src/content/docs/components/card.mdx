@@ -1,0 +1,79 @@
+---
+title: Card
+description: A clickable summary of something, with an optional image, in three layouts.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A short summary that leads somewhere: an article, a product or a case study. A card has an eyebrow, a title, some text and one action, plus an image in the `cover` and `stacked` layouts. When it has an action, the whole card is clickable. Put cards in a [Grid](/components/grid/).
+
+## Example
+
+<ComponentExample id="card" />
+
+## Markup
+
+```html
+<li class="card_wrap">
+  <div class="card_content margin-trim">
+    <p class="heading eyebrow text-style-small">Guide</p>
+    <h3 class="heading text-style-h5">Title</h3>
+    <p class="text">Summary.</p>
+    <div class="input-wrapper">
+      <a class="button_wrap secondary" href="/guide">
+        <span class="button_text text-style-trim">Read the guide</span>
+      </a>
+    </div>
+  </div>
+</li>
+```
+
+- `card_content` holds the text and the action. The action row sits at the bottom of the card, so a row of cards lines its buttons up however long each text is.
+- `card_visual` holds the image, and comes before the content. In `cover` it also holds an Overlay.
+- A list of cards is a list. Use `<ul class="grid">` with `<li class="card_wrap">`, as in the example.
+
+## Variants and props
+
+| Astro prop                   | HTML equivalent             | Values                                        | Default   | Effect                                                    |
+| ---------------------------- | --------------------------- | --------------------------------------------- | --------- | --------------------------------------------------------- |
+| `variant`                    | `cover` or `stacked` class  | `default`, `cover`, `stacked`                 | `default` | See below.                                                |
+| `theme`                      | `theme-*` class on the card | `inherit`, `light`, `dark`, `brand`, `invert` | `inherit` | Colors the card. Not for `stacked`, which has no surface. |
+| `eyebrow`, `heading`, `text` | the content elements        | text, inline markup allowed                   | none      | Each is left out when empty.                              |
+| `headingTag`                 | the heading element         | `h1`–`h6`                                     | `h3`      | The level in the page outline. The look is always `h5`.   |
+| `buttonLabel`, `buttonHref`  | the action                  | text, URL                                     | none      | No label, no button. No href renders a `<button>`.        |
+| `image`, `imageAlt`          | the `img` in `card_visual`  | image source, text                            | none      | `cover` and `stacked` only.                               |
+| `render`                     | none                        | `true`, `false`                               | `true`    | `false` omits the component.                              |
+
+| Variant   | Layout                                                                                                                                        | Its button  |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `default` | A tinted `--background-2` surface with rounded corners.                                                                                       | `secondary` |
+| `cover`   | The image fills the card behind the text, darkened by a gradient Overlay. At least 20rem tall. Use it with `theme-dark` so the text is light. | primary     |
+| `stacked` | No surface. A 3:2 image band on top, the text below it, aligned with the image edges.                                                         | `link`      |
+
+The Astro component picks the button style for each variant, so a set of cards stays consistent. In HTML, use the matching button classes yourself.
+
+## States
+
+- **Hover** (pointer devices only): a card with an action zooms its image slightly.
+- **Focus**: the focus outline is on the action button. The whole card isn't focusable on its own.
+
+## Accessibility
+
+- **The whole card is clickable** through the "stretched link" pattern: the action's `::after` is stretched over the card. Screen readers and the keyboard still see only the button, so make its label say where it goes on its own: "Read the guide", not "Learn more".
+- Other links inside `card_content` stay clickable above the stretched area.
+- The image is usually decorative, since the title and text describe the card, so `alt=""` is typical. Give it real alt text only if it adds information.
+- `headingTag` sets the level. In a section titled with an `h2`, the default `h3` is right.
+
+## Behavior
+
+None: native HTML and CSS.
+
+## Tokens
+
+<ComponentTokens id="card" />
+
+## Related
+
+- [Grid](/components/grid/): the usual container for cards.
+- [Button](/components/button/), [Heading](/components/heading/), [Img](/components/img/) and [Overlay](/components/overlay/): the parts a card is made of.

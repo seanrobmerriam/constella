@@ -17,6 +17,7 @@ import { ImgExample } from "../../../apps/shared/src/examples/img/Example";
 import { VideoExample } from "../../../apps/shared/src/examples/video/Example";
 import { IconExample } from "../../../apps/shared/src/examples/icon/Example";
 import { OverlayExample } from "../../../apps/shared/src/examples/overlay/Example";
+import { CardExample } from "../../../apps/shared/src/examples/card/Example";
 
 const rendered = {
   button: renderToString(<ButtonExample />),
@@ -35,6 +36,7 @@ const rendered = {
   video: renderToString(<VideoExample />),
   icon: renderToString(<IconExample />),
   overlay: renderToString(<OverlayExample />),
+  card: renderToString(<CardExample />),
 };
 
 for (const [name, html] of Object.entries(rendered)) {

@@ -139,7 +139,7 @@ export const components: readonly ComponentEntry[] = [
   }),
 
   // Content
-  planned("card", {
+  documented("card", {
     name: "Card",
     astro: ["item/Card.astro"],
     root: ".card_wrap",
