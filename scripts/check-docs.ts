@@ -153,6 +153,14 @@ for (const c of components) {
       fail(`${c.id}: missing examples/${c.example}/${f}`);
 }
 
+// Every example's TSX is compiled and server-rendered by check:examples.
+const reactFixture = readFileSync(p("tests/fixtures/react/render.tsx"), "utf8");
+for (const id of registryIds)
+  if (!reactFixture.includes(`/examples/${id}/Example"`))
+    fail(
+      `example "${id}" is not rendered by tests/fixtures/react/render.tsx (check:examples)`,
+    );
+
 // Docs pages.
 const docsPages = new Set(
   walk(join(DOCS, "components"), ".mdx").map((f) =>

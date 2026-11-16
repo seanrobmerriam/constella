@@ -11,6 +11,12 @@ import navbarHtml from "./navbar/example.html?raw";
 import navbarTsx from "./navbar/Example.tsx?raw";
 import footerHtml from "./footer/example.html?raw";
 import footerTsx from "./footer/Example.tsx?raw";
+import sectionHtml from "./section/example.html?raw";
+import sectionTsx from "./section/Example.tsx?raw";
+import contentWrapperHtml from "./content-wrapper/example.html?raw";
+import contentWrapperTsx from "./content-wrapper/Example.tsx?raw";
+import gridHtml from "./grid/example.html?raw";
+import gridTsx from "./grid/Example.tsx?raw";
 
 /**
  * The closed registry. Only these entries can be previewed; the preview route
@@ -69,6 +75,32 @@ export const examples: readonly ExampleDefinition[] = [
     description: "The simple footer variant with legal links.",
     html: footerHtml,
     tsx: footerTsx,
+    previewHeight: 18,
+  },
+  {
+    id: "section",
+    title: "Section",
+    description:
+      "A dark, centered section with small padding: theme, spacing and alignment from classes.",
+    html: sectionHtml,
+    tsx: sectionTsx,
+    previewHeight: 22,
+  },
+  {
+    id: "content-wrapper",
+    title: "ContentWrapper",
+    description: "Text beside a visual. Two columns from 64rem; stacked below.",
+    html: contentWrapperHtml,
+    tsx: contentWrapperTsx,
+    previewHeight: 44,
+  },
+  {
+    id: "grid",
+    title: "Grid",
+    description:
+      "A breakpoint grid (1, 2, then 3 columns) and an auto-fit grid.",
+    html: gridHtml,
+    tsx: gridTsx,
     previewHeight: 18,
   },
 ];

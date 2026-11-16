@@ -1,0 +1,84 @@
+---
+title: Section
+description: A full-width band of the page with its own padding, theme and a centered container.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+The building block of a page. A section is a full-width band that sets the vertical padding and theme; its container centers the content, limits its width and spaces the blocks inside. Build pages as a stack of sections.
+
+## Example
+
+<ComponentExample id="section" />
+
+## Markup
+
+```html
+<section class="section">
+  <div class="container">
+    <h2 class="heading text-style-h2">Title</h2>
+    <p class="text">Body text.</p>
+  </div>
+</section>
+```
+
+- `container` is the only content child. Its classed children lose their margins, so the space between them is the container's gap: `--space-8`, or a `gap-*` class.
+- Any other direct child of `section` becomes a full-size layer behind the container. Use it for a background image, video or overlay. It ignores the pointer, so content above stays clickable.
+
+```html
+<section class="section theme-dark">
+  <img class="image object-fit-cover" src="hero.jpg" alt="" />
+  <div class="container">…</div>
+</section>
+```
+
+## Variants and props
+
+| Astro prop       | HTML equivalent                  | Values                                                   | Default   | Effect                                                                          |
+| ---------------- | -------------------------------- | -------------------------------------------------------- | --------- | ------------------------------------------------------------------------------- |
+| `theme`          | `theme-*` class on `section`     | `inherit`, `light`, `dark`, `brand`                      | `inherit` | Colors the section and everything in it.                                        |
+| `paddingTop`     | `padding-top-*` class            | `none`, `even`, `small`, `medium`, `large`, `navoverlap` | `medium`  | `none` is `0`, `even` is the site margin, the rest use `--section-space-*`.     |
+| `paddingBottom`  | `padding-bottom-*` class         | the same                                                 | `medium`  | The same, for the bottom.                                                       |
+| `gap`            | `gap-*` class on `container`     | `0`–`8`, `small`, `medium`, `large`                      | `8`       | Space between the container's children.                                         |
+| `align`          | `alignment-*` class on `section` | `start`, `center`, `end`                                 | none      | Aligns the container's children and their text.                                 |
+| `fullHeight`     | `min-height-screen` class        | `true`, `false`                                          | `false`   | At least the full viewport height.                                              |
+| `containerClass` | classes on `container`           | text                                                     | none      | Extra classes for the container, usually utilities.                             |
+| `containerAttrs` | attributes on `container`        | attributes                                               | none      | Extra attributes for the container.                                             |
+| `render`         | none                             | `true`, `false`                                          | `true`    | `false` omits the component. It also renders nothing when both slots are empty. |
+
+**Slots:** the default slot is the container's content. The `background` slot renders before the container, as the background layer.
+
+## States
+
+None.
+
+## Accessibility
+
+- A `<section>` is only announced as a landmark region when it has an accessible name. If a section should be a navigation target, label it with its heading: `<section aria-labelledby="pricing-title">`.
+- Start each section's content with a heading, at the right level for the page outline.
+- Background images in a section are decorative. Give them `alt=""`, and make sure the text keeps enough contrast over them, for example with an Overlay.
+
+## Behavior
+
+None: native HTML.
+
+## Tokens
+
+<ComponentTokens
+  id="section"
+  also={[
+    "--section-space-medium",
+    "--background",
+    "--text",
+    "--site-width",
+    "--max-width-main",
+    "--space-8",
+  ]}
+/>
+
+## Related
+
+- [Spacing and layout](/foundations/spacing-and-layout/): the section and container patterns in depth.
+- [ContentWrapper](/components/content-wrapper/) and [Grid](/components/grid/): layouts that go inside a container.
+- [Themes](/foundations/themes/).

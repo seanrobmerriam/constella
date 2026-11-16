@@ -7,6 +7,9 @@ import { DetailsExample } from "../../../apps/shared/src/examples/details/Exampl
 import { AccordionExample } from "../../../apps/shared/src/examples/accordion/Example";
 import { NavbarExample } from "../../../apps/shared/src/examples/navbar/Example";
 import { FooterExample } from "../../../apps/shared/src/examples/footer/Example";
+import { SectionExample } from "../../../apps/shared/src/examples/section/Example";
+import { ContentWrapperExample } from "../../../apps/shared/src/examples/content-wrapper/Example";
+import { GridExample } from "../../../apps/shared/src/examples/grid/Example";
 
 const rendered = {
   button: renderToString(<ButtonExample />),
@@ -15,6 +18,9 @@ const rendered = {
   accordion: renderToString(<AccordionExample />),
   navbar: renderToString(<NavbarExample />),
   footer: renderToString(<FooterExample year={2026} />),
+  section: renderToString(<SectionExample />),
+  contentWrapper: renderToString(<ContentWrapperExample />),
+  grid: renderToString(<GridExample />),
 };
 
 for (const [name, html] of Object.entries(rendered)) {
