@@ -1,0 +1,58 @@
+---
+title: ComponentName
+description: One sentence saying what it is for.
+---
+
+{/*
+  Copy to <id>.mdx (the manifest id). The ## sections below are required, in
+  this order; `bun run check:docs` fails otherwise. Write "None." under a
+  section that doesn't apply rather than deleting it.
+*/}
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+
+One or two sentences: what it is, when to use it, and when to use something else.
+
+## Example
+
+<ComponentExample id="id" />
+
+## Markup
+
+The structure a consumer writes. Name the root class, each child class and the
+native element it must be. Say which attributes are required.
+
+```html
+<div class="name_wrap">
+  <div class="name_child">…</div>
+</div>
+```
+
+## Variants and props
+
+| Astro prop | HTML equivalent  | Values           | Default | Effect |
+| ---------- | ---------------- | ---------------- | ------- | ------ |
+| `variant`  | class on root    | `a`, `b`         | `a`     | …      |
+
+## States
+
+Hover, focus, open, disabled, current, empty: what each looks like and what sets it.
+
+## Accessibility
+
+Native semantics used, required labels, keyboard behavior, focus order, reduced
+motion, and anything the consumer must supply.
+
+## Behavior
+
+"None: native HTML." or the behavior module, its `init…(root)` call, what it
+does, its cleanup, and what still works without it.
+
+## Tokens
+
+The tokens it reads (copy from the stylesheet header comment) and which ones
+are useful to override.
+
+## Related
+
+Links to related components and foundation pages.

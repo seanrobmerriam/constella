@@ -1,10 +1,83 @@
 ---
 title: Button
-description: Primary, secondary and link buttons.
+description: Primary, secondary and link buttons, plus icon-only play, close and arrow buttons.
 ---
 
 import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
 
-Buttons render as `<a>` or `<button>` with the `button_wrap` class. `secondary` and `link` are variants. `data-size` (`small`, `main`, `large`) and `data-radius` (`none`, `small`, `main`, `round`) are opt-in; omit them to keep the default.
+A button for actions and calls to action. It renders as a `<button>` for actions on the page, or as an `<a>` when it goes somewhere. To lay several buttons out in a row, put them in an [InputWrapper](/components/input-wrapper/).
+
+## Example
 
 <ComponentExample id="button" />
+
+## Markup
+
+The root is a `<button>` or `<a>` with the `button_wrap` class. Written buttons wrap their label in a `<span>`:
+
+```html
+<button class="button_wrap" type="button">
+  <span class="button_text text-style-trim">Save</span>
+</button>
+
+<a class="button_wrap secondary" href="/pricing">
+  <span class="button_text text-style-trim">See pricing</span>
+</a>
+```
+
+`button_text` has no styles of its own; it marks the label. `text-style-trim` trims the space above and below the label text so it sits optically centered. It works because `base.css` trims any element with a `text-style-` class.
+
+Icon-only buttons (`play`, `close`, `arrow`) have no visible text, so they must have an `aria-label`. Their icon is an `<svg>` with the `button_mark` class.
+
+```html
+<button class="button_wrap close" type="button" aria-label="Close">
+  <svg class="icon small button_mark" aria-hidden="true">…</svg>
+</button>
+```
+
+## Variants and props
+
+| Astro prop  | HTML equivalent                        | Values                                   | Default     | Effect                                                                |
+| ----------- | -------------------------------------- | ---------------------------------------- | ----------- | --------------------------------------------------------------------- |
+| `element`   | `<button>` or `<a>`                    | `button`, `link`                         | `button`    | `link` renders `<a href>` (`#` if `href` is missing).                 |
+| `emphasis`  | `secondary` class                      | `primary`, `secondary`                   | `primary`   | Secondary is outlined with a transparent background.                  |
+| `variant`   | `link`, `play`, `close`, `arrow` class | `main`, `link`, `play`, `close`, `arrow` | `main`      | `link` is an underlined text link. The others are round icon buttons. |
+| `direction` | `back` class with `arrow`              | `forward`, `back`                        | `forward`   | Points the arrow backwards.                                           |
+| `pressed`   | `aria-pressed="true"` with `play`      | `true`, `false`                          | `false`     | Shows the pause icon instead of play.                                 |
+| `label`     | `aria-label`                           | text                                     | per variant | Icon buttons default to Play/Pause, Close, Next/Previous.             |
+| `size`      | `data-size`                            | `small`, `main`, `large`                 | none        | Opt-in text size; padding scales with it.                             |
+| `radius`    | `data-radius`                          | `none`, `small`, `main`, `round`         | none        | Opt-in corner radius. Ignored by `link`, which has no box.            |
+| `type`      | `type`                                 | `button`, `submit`, `reset`              | `button`    | Native button type. Buttons only.                                     |
+| `href`      | `href`                                 | URL                                      | none        | Destination. Links only.                                              |
+| `render`    | none                                   | `true`, `false`                          | `true`      | `false` omits the component.                                          |
+
+Leave `size` and `radius` out to keep each variant's own look. A written button (`main` or `link`) with an empty slot renders nothing.
+
+## States
+
+- **Hover** (pointer devices only): primary and secondary fill with `--button-background-hover`. The link variant draws its underline from left to right.
+- **Focus**: the global `:focus-visible` outline.
+- **Disabled** (`disabled` attribute, buttons only): half opacity and a not-allowed cursor. Hover is suppressed. Links can't be disabled. Remove the `href` or don't render the link instead.
+- **Pressed** (`play` only): `aria-pressed="true"` swaps the play icon for pause.
+
+## Accessibility
+
+- Use `<button>` for actions and `<a href>` for navigation. Don't put a click handler on a link with no destination.
+- Icon-only buttons need an `aria-label`. The Astro component provides a default for each one. Override it when the default is too vague, for example "Close dialog".
+- The play button's `aria-pressed` tells screen readers whether playback is running. Update it whenever the state changes.
+- The text and background colors come from theme role tokens. Check contrast if you override them.
+
+## Behavior
+
+None: native HTML. A play button only shows its state. Your own script toggles `aria-pressed`, as Marquee does.
+
+## Tokens
+
+<ComponentTokens id="button" />
+
+## Related
+
+- [InputWrapper](/components/input-wrapper/) for rows of buttons and controls.
+- [Themes](/foundations/themes/): the `--button-*`, `--button-2-*` and `--link-*` role tokens.
+- [How the stylesheets work](/foundations/styles-architecture/): `data-size` and `data-radius` come from `controls.css`.

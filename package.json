@@ -17,8 +17,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:components": "playwright test tests/components",
-    "test:docs": "bun run check:examples && PW_DOCS=1 playwright test tests/docs",
-    "check:examples": "tsc -p tests/fixtures/react/tsconfig.json && bun --tsconfig-override tests/fixtures/react/tsconfig.json tests/fixtures/react/render.tsx"
+    "test:docs": "bun run check:examples && bun run check:docs && PW_DOCS=1 playwright test tests/docs",
+    "check:examples": "tsc -p tests/fixtures/react/tsconfig.json && bun --tsconfig-override tests/fixtures/react/tsconfig.json tests/fixtures/react/render.tsx",
+    "check:docs": "bun scripts/check-docs.ts",
+    "check:docs-sync": "bun scripts/check-docs-sync.ts"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0",

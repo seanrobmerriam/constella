@@ -10,7 +10,8 @@
     "./styles/index.css": "./src/styles/index.css",
     "./contracts/*": "./src/contracts/*",
     "./behaviors/*": "./src/behaviors/*",
-    "./examples/*": "./src/examples/*"
+    "./examples/*": "./src/examples/*",
+    "./manifest.ts": "./src/manifest.ts"
   },
   "scripts": {
     "check": "astro check",

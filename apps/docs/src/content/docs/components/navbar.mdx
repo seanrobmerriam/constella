@@ -1,10 +1,120 @@
 ---
 title: Navbar
-description: A responsive navbar with an optional mobile menu.
+description: The site header with brand, links, optional search, icon links and theme toggle, and a mobile menu.
 ---
 
 import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
 
-The navbar is sticky by default; add the `static` class on `nav_wrap` for normal flow. Without the behavior script the links stay visible and usable.
+The site header. Its brand and links come from configuration, and search, icon links and a light/dark toggle are optional. On narrow screens the links collapse into a menu behind a toggle button. Put it in the layout's header slot, outside `<main>`.
+
+## Example
 
 <ComponentExample id="navbar" />
+
+## Markup
+
+```html
+<header class="nav_wrap" data-navbar>
+  <div class="nav_inner">
+    <a class="nav_logo" href="/" aria-label="Acme">…</a>
+    <button
+      class="nav_toggle"
+      type="button"
+      aria-label="Menu"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      data-navbar-toggle
+    >
+      <span class="nav_toggle_icon"></span>
+    </button>
+    <nav class="nav_menu" id="site-menu" aria-label="Main" data-navbar-menu>
+      <div class="nav_menu_inner">
+        <ul class="nav_links">
+          <li><a class="nav_link" href="/" aria-current="page">Home</a></li>
+        </ul>
+        <div class="nav_tools">…</div>
+      </div>
+    </nav>
+  </div>
+</header>
+```
+
+- The `data-navbar`, `data-navbar-toggle` and `data-navbar-menu` attributes are what the behavior looks for.
+- `aria-controls` on the toggle must match the menu's `id`. Give every navbar on a page its own id. The Astro component generates one per instance.
+- `nav_tools` is optional and holds the search form (`nav_search`), icon links (`nav_icons` with `nav_icon` links) and the theme button (`nav_theme`).
+- For the brand, use an inline logo, an `<img class="nav_brand_logo">` or `<span class="nav_brand_text">`.
+
+## Variants and props
+
+| Astro prop    | HTML equivalent                             | Values          | Default                | Effect                                                                             |
+| ------------- | ------------------------------------------- | --------------- | ---------------------- | ---------------------------------------------------------------------------------- |
+| `sticky`      | `static` class when `false`                 | `true`, `false` | `true`                 | Sticks to the top while scrolling. `false` leaves it in normal flow.               |
+| `search`      | `nav_search` form                           | `true`, `false` | `false`                | Shows a search form. Needs `config.search` or a `search` slot, or the build fails. |
+| `themeToggle` | `nav_theme` button with `data-theme-toggle` | `true`, `false` | `false`                | Shows the light/dark toggle. Hidden when the page locks a theme.                   |
+| `icons`       | `nav_icons` list                            | `IconLink[]`    | `[]`                   | Icon links such as GitHub. Unknown icon keys fail the build.                       |
+| `config`      | the brand and links you write               | `NavbarConfig`  | `src/config/navbar.ts` | Brand, links and search settings.                                                  |
+| `render`      | none                                        | `true`, `false` | `true`                 | `false` omits the component.                                                       |
+
+**Configuration** (`NavbarConfig`, from `@constella/shared/contracts/navigation.ts`):
+
+- `brand`: `{ mode: "site-name" }` uses the site logo labelled with `SITE_NAME`. `{ mode: "custom", text, logo? }` uses your own text or image.
+- `links`: `{ label, href }[]`. The link to the current page gets `aria-current="page"` automatically.
+- `search`: `{ action, name, label, placeholder? }` for a native GET form. The `search` slot replaces the form entirely, for example with your own search widget.
+
+## States
+
+- **Current page**: `aria-current="page"` on a link marks it.
+- **Menu open** (narrow screens): the behavior adds `open` to `nav_wrap` and sets `aria-expanded="true"`. The menu expands and the toggle icon animates.
+- **Locked theme**: `data-theme-locked` on `<html>` hides the theme button.
+
+## Accessibility
+
+- `<header>` and `<nav aria-label="Main">` give the page its banner and main-navigation landmarks.
+- The toggle has an accessible name ("Menu") and reports its state with `aria-expanded`.
+- Escape closes the open menu and returns focus to the toggle. Choosing a link or clicking outside also closes it.
+- The search field has a visually hidden `<label>`. The theme button reports its state with `aria-pressed`.
+
+## Behavior
+
+`behaviors/navbar.js` runs the mobile menu:
+
+```html
+<script type="module">
+  import { initNavbar } from "./behaviors/navbar.js";
+  document
+    .querySelectorAll("[data-navbar]")
+    .forEach((root) => initNavbar(root));
+</script>
+```
+
+`initNavbar(root)` returns a cleanup function that removes its listeners and closes the menu. The menu also closes when the viewport grows past 48rem. The theme button needs `initThemeToggle` from `behaviors/theme.js`; see [Themes](/foundations/themes/#theme-toggle).
+
+**Without the script**, the Astro component hides the toggle and shows the links (a `<noscript>` style), so navigation still works. In plain HTML, add the same fallback:
+
+```html
+<noscript>
+  <style>
+    .nav_toggle,
+    .nav_theme {
+      display: none;
+    }
+    .nav_menu {
+      grid-template-rows: 1fr;
+      visibility: visible;
+    }
+    .nav_menu_inner {
+      opacity: 1;
+    }
+  </style>
+</noscript>
+```
+
+## Tokens
+
+<ComponentTokens id="navbar" />
+
+## Related
+
+- [Footer](/components/footer/): shares the link and icon configuration types.
+- [Themes](/foundations/themes/): the theme toggle and locked themes.

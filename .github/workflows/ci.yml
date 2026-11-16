@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Build, type-check and docs coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile
+      - name: Build shared CSS and behaviors
+        run: bun run --cwd apps/shared build
+      - run: bun run build
+      - run: bun run check
+      - run: bun run format:check
+      - name: Compile and render the React examples
+        run: bun run check:examples
+      - name: Every component has its stylesheet, example and docs page
+        run: bun run check:docs
+
+  docs-sync:
+    name: Component changes update their docs
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile
+      - run: bun run check:docs-sync origin/${{ github.base_ref }}
+
+  browser-tests:
+    name: Browser tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile
+      - name: Build shared CSS and behaviors
+        run: bun run --cwd apps/shared build
+      # `bunx playwright install` does not work here (see
+      # docs/implementation/baseline.md), so call the CLI with Node.
+      - name: Install Chromium
+        run: node node_modules/@playwright/test/cli.js install --with-deps chromium
+      - run: bun run test:components
+      - run: bun run test:docs
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: test-results/
+          retention-days: 7

@@ -1,10 +1,56 @@
 ---
 title: InputWrapper
-description: Layout for buttons and other controls.
+description: A wrapping row for buttons and form controls.
 ---
 
 import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
 
-`input-wrapper` lays controls out in a wrapping row. It adds no validation and no group role; use a fieldset for related controls that need a group label.
+Lays buttons and other controls out in a row that wraps on narrow screens. It only does layout: it adds no validation, no grouping semantics and no label. For related controls that need a group label, use a `<fieldset>`.
+
+## Example
 
 <ComponentExample id="input-wrapper" />
+
+## Markup
+
+```html
+<div class="input-wrapper">
+  <a class="button_wrap" href="/start">…</a>
+  <a class="button_wrap secondary" href="/docs">…</a>
+</div>
+```
+
+Any controls can go inside: buttons, form fields, a select next to a button. Children are vertically centered and wrap onto new lines with `--space-2` gaps.
+
+## Variants and props
+
+| Astro prop  | HTML equivalent      | Values                     | Default   | Effect                                                                 |
+| ----------- | -------------------- | -------------------------- | --------- | ---------------------------------------------------------------------- |
+| `marginTop` | `margin-top-*` class | `default`, `0`–`8`, `auto` | `default` | Replaces the default `--space-6` top margin with a spacing-scale step. |
+| `render`    | none                 | `true`, `false`            | `true`    | `false` omits the component. It also renders nothing when empty.       |
+
+**Alignment** follows the surrounding layout. The row reads `--_alignment`, so inside a centered container or ContentWrapper the controls center too. Use an `alignment-*` utility on the wrapper to override it.
+
+## States
+
+None. The controls inside keep their own states.
+
+## Accessibility
+
+- It's a plain `<div>` and adds nothing to the accessibility tree.
+- Keyboard order follows source order, including after the row wraps. Put controls in the order you want them reached.
+- Labels stay attached to their fields when the row wraps. Each field keeps its own `<label>`.
+
+## Behavior
+
+None: native HTML.
+
+## Tokens
+
+<ComponentTokens id="input-wrapper" also={["--space-2", "--space-6"]} />
+
+## Related
+
+- [Button](/components/button/)
+- [Spacing and layout](/foundations/spacing-and-layout/): the alignment system and other layout patterns.

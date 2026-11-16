@@ -31,14 +31,7 @@ export default defineConfig({
         },
         {
           label: "Components",
-          items: [
-            { label: "Button", slug: "components/button" },
-            { label: "InputWrapper", slug: "components/input-wrapper" },
-            { label: "Details", slug: "components/details" },
-            { label: "Accordion", slug: "components/accordion" },
-            { label: "Navbar", slug: "components/navbar" },
-            { label: "Footer", slug: "components/footer" },
-          ],
+          items: [{ autogenerate: { directory: "components" } }],
         },
       ],
     }),

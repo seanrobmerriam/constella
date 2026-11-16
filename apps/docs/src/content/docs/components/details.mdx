@@ -1,10 +1,78 @@
 ---
 title: Details
-description: A standalone native disclosure.
+description: A native disclosure that shows and hides content, with an animated open and close.
 ---
 
 import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
 
-`details_wrap` with a `details_summary` as its first child and a `details_body`. It works without any script.
+A single question-and-answer or show-more block, built on the native `<details>` and `<summary>` elements. It works without JavaScript. To group several so only one opens at a time, use an [Accordion](/components/accordion/).
+
+## Example
 
 <ComponentExample id="details" />
+
+## Markup
+
+```html
+<details class="details_wrap">
+  <summary class="details_summary">
+    <h3 class="heading text-style-h5">Question</h3>
+    <svg class="icon small details_icon" aria-hidden="true">…</svg>
+  </summary>
+  <div class="details_body margin-trim">
+    <p class="text">Answer.</p>
+  </div>
+</details>
+```
+
+- `details_summary` must be the first child of `details_wrap`. Don't put a `<button>` inside it: the summary already is the control.
+- A heading directly inside the summary loses its margins, so the summary's padding controls the spacing.
+- `details_icon` is optional. It points right when closed and turns when open.
+- `margin-trim` on `details_body` removes the outer margins of its first and last children.
+
+In Astro, `Details` renders the root and body. Its `summary` slot takes a `Summary`, which renders the `<summary>` and the icon.
+
+## Variants and props
+
+**Details**
+
+| Astro prop | HTML equivalent | Values          | Default | Effect                                                                 |
+| ---------- | --------------- | --------------- | ------- | ---------------------------------------------------------------------- |
+| `open`     | `open`          | `true`, `false` | `false` | Open on load.                                                          |
+| `name`     | `name`          | text            | none    | Native exclusive group: details with the same name open one at a time. |
+| `render`   | none            | `true`, `false` | `true`  | `false` omits the component.                                           |
+
+**Summary**
+
+| Astro prop | HTML equivalent        | Values          | Default | Effect                       |
+| ---------- | ---------------------- | --------------- | ------- | ---------------------------- |
+| `icon`     | the `details_icon` svg | `true`, `false` | `true`  | Show the open/close arrow.   |
+| `render`   | none                   | `true`, `false` | `true`  | `false` omits the component. |
+
+## States
+
+- **Open** (`[open]`): the body expands to its full height and the icon rotates.
+- **Hover** (pointer devices only): the bottom border darkens to the text color.
+- **Focus**: the global `:focus-visible` outline on the summary.
+
+The open and close height animation uses `interpolate-size` and `::details-content`. Browsers without them open and close instantly. Visitors who ask for reduced motion get no animation either way.
+
+## Accessibility
+
+- The browser provides the semantics: the summary is announced as a button with its expanded state, and Enter or Space toggles it.
+- If the summary contains a heading, keep the heading levels in order with the rest of the page.
+- The icon is decorative and marked `aria-hidden`.
+
+## Behavior
+
+None: native HTML. The `name` attribute gives native one-at-a-time grouping without any script.
+
+## Tokens
+
+<ComponentTokens id="details" />
+
+## Related
+
+- [Accordion](/components/accordion/): a managed group of Details.
+- [Typography](/foundations/typography/): heading styles used in the summary.

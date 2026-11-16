@@ -215,7 +215,7 @@ edit that brings the page across.
 | ---------------------------------------------------------------------- | -------------------------------------------------------------- |
 | `u-section` + `u-container` + `u-section-spacer` + `u-background-slot` | one `Wrapper/Section` — it renders all four                    |
 | `u-content-wrapper`, `u-layout-column-*`                               | `Wrapper/ContentWrapper` and a `variant`                       |
-| `u-input-wrapper`                                                     | `Wrapper/InputWrapper`                                        |
+| `u-input-wrapper`                                                      | `Wrapper/InputWrapper`                                         |
 | `button_main_wrap`, `clickable`                                        | `Button`                                                       |
 | `u-heading` wrapping `<h1>`–`<h6>`                                     | `Typography/Heading`, inner tag → `tag`, attribute → `variant` |
 | `u-text`                                                               | `Typography/Paragraph`                                         |
@@ -278,7 +278,7 @@ is a token: `--h1-margin-top` … `--h6-margin-bottom`, `--display-*`,
 | `margin-bottom` on `u-eyebrow-wrapper`          | `--h*-margin-top` on the heading below — `Eyebrow` carries no margin     |
 | `margin-bottom` on `u-heading`                  | `--h*-margin-bottom`, and only when `.heading:has(+ .text)` matches      |
 | `margin-top` on `u-text` under a heading        | nothing — `.heading + .text` zeroes it; the heading's bottom margin wins |
-| `margin-top` on `u-input-wrapper`              | `.input-wrapper`'s own, or `InputWrapper`'s `marginTop` prop           |
+| `margin-top` on `u-input-wrapper`               | `.input-wrapper`'s own, or `InputWrapper`'s `marginTop` prop             |
 | margins between the blocks inside `u-container` | `Section`'s `gap` — the container zeroes its children's margins          |
 
 **Port the number, not the declaration.** Read the value off the Webflow rule,
@@ -393,7 +393,9 @@ just made or in one the framework ships:
 ```astro
 <style is:global>
   @layer components {
-    .dot-grid_wrap { … }
+    .dot-grid_wrap {
+      /* … */
+    }
   }
 </style>
 ```
@@ -698,7 +700,7 @@ the prop values:
 | `spacer` `none`/`small`/`main`/`large`/`page-top`                              | `Section` padding (`main`→`medium`, `page-top`→`navoverlap`) |
 | `layout` `stack`/`columns`/`contain`/`breakout`/`card`/`auto-width`/`sticky-*` | `Wrapper/ContentWrapper` `variant`, `-reversed` → `reverse`  |
 | `button-main` `primary`/`secondary`/`tertiary`/`link*`                         | `Button` `emphasis` and `variant`                            |
-| `input-wrapper`                                                               | `Wrapper/InputWrapper`                                      |
+| `input-wrapper`                                                                | `Wrapper/InputWrapper`                                       |
 | `form-input`, `form-label-text` `hidden`                                       | `Form/Input`, `labelHidden`                                  |
 | `data-{xsmall,small,medium,large}-columns`                                     | `Wrapper/Grid`'s four column props                           |
 | `u-text-style-*`                                                               | the `text-style-*` utilities, same names                     |

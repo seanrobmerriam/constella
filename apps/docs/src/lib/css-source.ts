@@ -6,11 +6,6 @@
 import baseCss from "@constella/shared/styles/base.css?raw";
 import utilitiesCss from "@constella/shared/styles/utilities.css?raw";
 
-const componentSheets = import.meta.glob<string>(
-  "../../../shared/src/styles/components/*.css",
-  { query: "?raw", import: "default", eager: true },
-);
-
 export interface Block {
   selector: string;
   body: string;
@@ -161,41 +156,33 @@ export function utilityGroups(): UtilityGroup[] {
   return groups;
 }
 
-export interface StylesheetInfo {
-  file: string;
-  component: string;
-  root: string;
-  docs: string[];
-}
+const sheetSources = import.meta.glob<string>(
+  [
+    "../../../shared/src/styles/components/*.css",
+    "../../../shared/src/styles/controls.css",
+  ],
+  { query: "?raw", import: "default", eager: true },
+);
 
-/** One row per components/*.css file, read from its header comment. */
-export function componentStylesheets(): StylesheetInfo[] {
-  return Object.entries(componentSheets)
-    .map(([path, css]) => {
-      const header = css.match(/^\/\*([\s\S]*?)\*\//)?.[1] ?? "";
-      const text = header
-        .split("\n")
-        .map((l) => l.replace(/^\s*\*\s?/, ""))
-        .join("\n");
-      const field = (key: string) =>
-        text
-          .match(
-            new RegExp(`^${key}:\\s*([\\s\\S]*?)(?=^\\w+:|$(?![\\s\\S]))`, "m"),
-          )?.[1]
-          .replace(/\s+/g, " ")
-          .trim() ?? "";
-      const file = path.split("/").pop()!;
-      const component = field("Component");
-      if (!component)
-        throw new Error(`${file} has no "Component:" header comment`);
-      return {
-        file,
-        component,
-        root: field("Root"),
-        docs: [...field("Docs").matchAll(/\/components\/[\w-]+\//g)].map(
-          (m) => m[0],
-        ),
-      };
-    })
-    .sort((a, b) => a.file.localeCompare(b.file));
+/**
+ * Design tokens read by the given stylesheets (paths relative to
+ * `apps/shared/src/styles/`, as in the manifest). Only component files and
+ * controls.css are scanned; foundation files style many components at once.
+ * A "design token" is any custom property declared in base.css (on :root or
+ * in a theme), so private `--_*` values are left out, while a role token a
+ * variant redeclares (like `--button-background` in `.secondary`) is kept.
+ */
+export function tokensReadBy(styles: readonly string[]): string[] {
+  const known = new Set([...rootTokens().keys(), ...themeRoles().roles]);
+  const tokens = new Set<string>();
+  for (const style of styles) {
+    const entry = Object.entries(sheetSources).find(([path]) =>
+      path.endsWith(`/styles/${style}`),
+    );
+    if (!entry) continue;
+    const css = entry[1].replace(/\/\*[\s\S]*?\*\//g, "");
+    for (const m of css.matchAll(/var\((--[\w-]+)/g))
+      if (known.has(m[1])) tokens.add(m[1]);
+  }
+  return [...tokens].sort();
 }
