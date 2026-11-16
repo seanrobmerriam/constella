@@ -33,6 +33,20 @@ import overlayHtml from "./overlay/example.html?raw";
 import overlayTsx from "./overlay/Example.tsx?raw";
 import cardHtml from "./card/example.html?raw";
 import cardTsx from "./card/Example.tsx?raw";
+import formHtml from "./form/example.html?raw";
+import formTsx from "./form/Example.tsx?raw";
+import fieldsetHtml from "./fieldset/example.html?raw";
+import fieldsetTsx from "./fieldset/Example.tsx?raw";
+import inputHtml from "./input/example.html?raw";
+import inputTsx from "./input/Example.tsx?raw";
+import textareaHtml from "./textarea/example.html?raw";
+import textareaTsx from "./textarea/Example.tsx?raw";
+import selectHtml from "./select/example.html?raw";
+import selectTsx from "./select/Example.tsx?raw";
+import choiceHtml from "./choice/example.html?raw";
+import choiceTsx from "./choice/Example.tsx?raw";
+import rangeHtml from "./range/example.html?raw";
+import rangeTsx from "./range/Example.tsx?raw";
 
 /**
  * The closed registry. Only these entries can be previewed; the preview route
@@ -189,6 +203,69 @@ export const examples: readonly ExampleDefinition[] = [
     html: cardHtml,
     tsx: cardTsx,
     previewHeight: 51,
+  },
+  {
+    id: "form",
+    title: "Form",
+    description:
+      "A contact form that submits without leaving the page. The preview has no endpoint, so it shows the error note.",
+    html: formHtml,
+    tsx: formTsx,
+    behaviorEntry: "form",
+    previewHeight: 50,
+  },
+  {
+    id: "fieldset",
+    title: "Fieldset",
+    description:
+      "Two-column name fields, and an inline radio group with a label-style legend.",
+    html: fieldsetHtml,
+    tsx: fieldsetTsx,
+    previewHeight: 22,
+  },
+  {
+    id: "input",
+    title: "Input",
+    description:
+      "Required email, an autofilling first name, and a small, round search with a hidden label.",
+    html: inputHtml,
+    tsx: inputTsx,
+    previewHeight: 20,
+  },
+  {
+    id: "textarea",
+    title: "Textarea",
+    description:
+      "A message field that grows with its content between three and eight lines.",
+    html: textareaHtml,
+    tsx: textareaTsx,
+    previewHeight: 14,
+  },
+  {
+    id: "select",
+    title: "Select",
+    description: "A required native select with a prompt and a custom arrow.",
+    html: selectHtml,
+    tsx: selectTsx,
+    previewHeight: 10,
+  },
+  {
+    id: "choice",
+    title: "Choice",
+    description: "A checkbox, a toggle and a pair of radio chips.",
+    html: choiceHtml,
+    tsx: choiceTsx,
+    previewHeight: 14,
+  },
+  {
+    id: "range",
+    title: "Range",
+    description:
+      "A slider with its value shown above the handle. Needs the range behavior.",
+    html: rangeHtml,
+    tsx: rangeTsx,
+    behaviorEntry: "range",
+    previewHeight: 10,
   },
 ];
 

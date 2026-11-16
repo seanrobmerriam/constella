@@ -1,0 +1,27 @@
+<div class="field form-range" style="--_progress: 0.4">
+  <label class="field-label text-style-main" for="budget"
+    ><span>Budget</span></label
+  >
+  <span class="form-range_control">
+    <input
+      class="form-range_input"
+      type="range"
+      id="budget"
+      name="budget"
+      min="0"
+      max="100"
+      step="5"
+      value="40"
+    />
+    <span class="form-range_track" aria-hidden="true"></span>
+    <span class="form-range_fill" aria-hidden="true"></span>
+    <span class="form-range_handle" aria-hidden="true"></span>
+  </span>
+  <output class="form-range_output text-style-small" for="budget"
+    ><span class="form-range_value">40</span><span>k</span></output
+  >
+</div>
+<script type="module">
+  import { initRange } from "./behaviors/range.js";
+  document.querySelectorAll(".form-range").forEach((root) => initRange(root));
+</script>

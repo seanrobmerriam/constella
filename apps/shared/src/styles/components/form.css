@@ -4,10 +4,10 @@
  * Root:      .form_wrap
  * Children:  .form_fields, .form_note, .form_note-sent, .form_note-failed
  * Variants:  none
- * State:     [data-state="sent" | "failed"] set by the form script
+ * State:     [data-state="sent" | "failed"] set by behaviors/form.ts
  * Tokens:    --border, --border-width, --radius-small, --space-4, --space-5,
  *            --space-8, --text
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/form/
  */
 @layer components {
   .form_wrap {

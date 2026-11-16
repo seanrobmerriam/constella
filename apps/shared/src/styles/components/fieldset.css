@@ -7,7 +7,7 @@
  * Variants:  .inline, .columns, .thirds
  * State:     none
  * Tokens:    --space-2, --space-3, --space-5
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/fieldset/
  */
 @layer components {
   .form-fieldset {

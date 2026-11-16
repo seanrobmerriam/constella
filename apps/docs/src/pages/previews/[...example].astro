@@ -29,10 +29,17 @@ const markup = example.html.replace(/<script[\s\S]*?<\/script>/g, "");
 <script>
   import { initAccordion } from "@constella/shared/behaviors/accordion.ts";
   import { initNavbar } from "@constella/shared/behaviors/navbar.ts";
+  import { initForm } from "@constella/shared/behaviors/form.ts";
+  import { initRange } from "@constella/shared/behaviors/range.ts";
 
   const entry = document.body.dataset.behavior;
   const roots = (selector: string) =>
     document.querySelectorAll<HTMLElement>(selector);
   if (entry === "accordion") roots("[data-accordion]").forEach(initAccordion);
   if (entry === "navbar") roots("[data-navbar]").forEach(initNavbar);
+  if (entry === "form") {
+    roots(".form_wrap").forEach(initForm);
+    roots(".form-range").forEach(initRange);
+  }
+  if (entry === "range") roots(".form-range").forEach(initRange);
 </script>

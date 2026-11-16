@@ -1,0 +1,92 @@
+---
+title: Form
+description: A form that sends without leaving the page and shows a sent or failed message.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+Wraps your fields in a form that sends them in the background and then shows a thank-you message, or an error message with the fields left in place to try again. Without JavaScript, it's an ordinary form that submits to its `action`.
+
+## Example
+
+<ComponentExample id="form" />
+
+The preview has no real endpoint, so submitting a valid form there shows the error message.
+
+## Markup
+
+```html
+<div class="form_wrap" data-state="idle" data-endpoint="/api/contact">
+  <form class="form_fields" name="contact" action="/api/contact" method="post">
+    <!-- fields -->
+    <div class="input-wrapper">
+      <button class="button_wrap" type="submit">…</button>
+    </div>
+  </form>
+  <p class="form_note form_note-sent text-style-main" role="status">Thanks…</p>
+  <p class="form_note form_note-failed text-style-main" role="alert">
+    That did not send…
+  </p>
+</div>
+```
+
+- `data-endpoint` is where the behavior sends the data. Keep it the same as the form's `action`, so the form also works without the script.
+- Both notes are hidden until `data-state` shows them. Their roles make screen readers announce them when they appear.
+- Fields stack with `--space-8` between them. Use a [Fieldset](/components/fieldset/) for columns.
+
+## Variants and props
+
+| Astro prop       | HTML equivalent              | Values          | Default                                | Effect                             |
+| ---------------- | ---------------------------- | --------------- | -------------------------------------- | ---------------------------------- |
+| `name`           | the form's `name`            | text            | required                               | Renders nothing without it.        |
+| `action`         | `action` and `data-endpoint` | URL             | none                                   | Where the data goes. See Behavior. |
+| `method`         | `method`                     | `post`, `get`   | `post`                                 |                                    |
+| `successMessage` | the `form_note-sent` text    | text            | "Thanks — we will be in touch."        |                                    |
+| `errorMessage`   | the `form_note-failed` text  | text            | "That did not send. Please try again." |                                    |
+| `render`         | none                         | `true`, `false` | `true`                                 | `false` omits the component.       |
+
+Other `<form>` attributes, such as `novalidate`, pass through.
+
+## States
+
+`data-state` on the root, set by the behavior:
+
+| State     | What shows                                                                               |
+| --------- | ---------------------------------------------------------------------------------------- |
+| `idle`    | The fields.                                                                              |
+| `sending` | The fields, with the submit button disabled.                                             |
+| `sent`    | Only the sent note. The fields are cleared and hidden.                                   |
+| `failed`  | The fields with their values kept, the failed note, and the submit button enabled again. |
+
+## Accessibility
+
+- Invalid fields stop the submit, and the browser shows its own messages. Nothing is sent until every field is valid.
+- The sent note has `role="status"` and the failed note `role="alert"`, so both are announced without moving focus.
+- Every field needs a visible label. The field components all provide one.
+
+## Behavior
+
+`behaviors/form.js` sends the form with `fetch`:
+
+```html
+<script type="module">
+  import { initForm } from "./behaviors/form.js";
+  document.querySelectorAll(".form_wrap").forEach((root) => initForm(root));
+</script>
+```
+
+- **POST** sends the fields as the request body. **GET** sends them as the query string.
+- The request asks for JSON (`Accept: application/json`). Any 2xx answer counts as sent; anything else, or a network error, counts as failed.
+- `initForm(root)` returns a cleanup function that removes its submit listener.
+- **Without `data-endpoint`**, nothing is sent and the form shows the sent note anyway. That's only for prototypes; don't publish a form without an endpoint.
+- **Without the script**, the browser submits the form normally to `action` and loads the response page.
+
+## Tokens
+
+<ComponentTokens id="form" />
+
+## Related
+
+- [Input](/components/input/), [Textarea](/components/textarea/), [Select](/components/select/), [Choice](/components/choice/) and [Range](/components/range/): the fields.
+- [Fieldset](/components/fieldset/): groups and columns of fields.

@@ -1,0 +1,70 @@
+---
+title: Textarea
+description: A labeled multi-line text field that grows with what is typed.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A labeled field for longer text, such as a message. It starts at a minimum number of lines and grows as the visitor types, up to a maximum, then scrolls.
+
+## Example
+
+<ComponentExample id="textarea" />
+
+## Markup
+
+The same field pattern as [Input](/components/input/#markup), with a `<textarea>` as the control:
+
+```html
+<label class="field form-textarea" style="--_min-lines: 3; --_max-lines: 8">
+  <span class="field-label text-style-main"><span>Message</span></span>
+  <textarea
+    class="field-control form-textarea_field text-style-main"
+    name="message"
+    rows="3"
+  ></textarea>
+</label>
+```
+
+Set `rows` to the same number as `--_min-lines`. Browsers that can't grow the field use `rows` as its height.
+
+## Variants and props
+
+| Astro prop       | HTML equivalent                 | Values          | Default             | Effect                                        |
+| ---------------- | ------------------------------- | --------------- | ------------------- | --------------------------------------------- |
+| `label`          | the label text                  | text            | required            | Renders nothing without it.                   |
+| `minLines`       | `--_min-lines` and `rows`       | whole number    | `3`                 | Starting height in lines.                     |
+| `maxLines`       | `--_max-lines`                  | whole number    | `12`                | Height at which it stops growing and scrolls. |
+| `name`           | `name`                          | text            | the label as a slug | The submitted key.                            |
+| `placeholder`    | `placeholder`                   | text            | none                |                                               |
+| `value`          | the textarea's content          | text            | none                | Initial text.                                 |
+| `required`       | `required` and the `field-star` | `true`, `false` | `false`             |                                               |
+| `size`, `radius` | `data-size`, `data-radius`      | as for Input    | none                | Opt-in size and corner radius.                |
+| `render`         | none                            | `true`, `false` | `true`              | `false` omits the component.                  |
+
+## States
+
+The same as [Input](/components/input/#states): hover, focus, disabled and placeholder. The visitor can also drag the field taller.
+
+Growing with the content uses `field-sizing: content`. Browsers without it show a fixed field of `rows` lines that the visitor can resize.
+
+## Accessibility
+
+- The label is part of the `<label>`, so clicking it focuses the field and screen readers announce it.
+- If the text has a length limit, say so in the label or nearby text, not only in a `maxlength` attribute.
+
+## Behavior
+
+None: native HTML and CSS.
+
+## Tokens
+
+<ComponentTokens
+  id="textarea"
+  also={["--background-2", "--background-3", "--text-2"]}
+/>
+
+## Related
+
+- [Input](/components/input/) and [Form](/components/form/).

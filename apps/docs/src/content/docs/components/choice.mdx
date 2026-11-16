@@ -1,0 +1,70 @@
+---
+title: Choice
+description: Checkboxes and radio buttons, as a box, a toggle or a chip.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A checkbox or radio button with a custom look: a box with a tick or dot (`default`), a sliding switch (`toggle`), or a pill (`chip`). The native input is still there and still does all the work.
+
+## Example
+
+<ComponentExample id="choice" />
+
+## Markup
+
+```html
+<label class="form-choice">
+  <input class="form-choice_input" type="checkbox" name="updates" />
+  <span class="form-choice_mark" aria-hidden="true">
+    <svg class="icon small form-choice_tick">…</svg>
+  </span>
+  <span class="form-choice_text text-style-main">Email me product updates</span>
+</label>
+```
+
+- The `<input>` is visually hidden but stays focusable and keeps its native behavior. `form-choice_mark` is drawn in its place.
+- A checkbox's mark holds a tick `svg` with `form-choice_tick`. A radio's mark holds `<span class="form-choice_dot"></span>` and is round.
+- Group radios with the same `name`, inside a [Fieldset](/components/fieldset/) whose legend names the group.
+
+## Variants and props
+
+| Astro prop | HTML equivalent          | Values                      | Default             | Effect                       |
+| ---------- | ------------------------ | --------------------------- | ------------------- | ---------------------------- |
+| `variant`  | `toggle` or `chip` class | `default`, `toggle`, `chip` | `default`           | A box, a switch or a pill.   |
+| `type`     | `type`                   | `checkbox`, `radio`         | `checkbox`          | Radios need a shared `name`. |
+| `label`    | `form-choice_text`       | text                        | required            | Renders nothing without it.  |
+| `name`     | `name`                   | text                        | the label as a slug | Required for radios.         |
+| `value`    | `value`                  | text                        | `on`                | Submitted when checked.      |
+| `checked`  | `checked`                | `true`, `false`             | `false`             | Initially checked.           |
+| `required` | `required`               | `true`, `false`             | `false`             |                              |
+| `render`   | none                     | `true`, `false`             | `true`              | `false` omits the component. |
+
+Choices aren't resized by `data-size`. They scale with their own font size.
+
+## States
+
+- **Checked**: the box fills with the text color and shows its tick or dot. A toggle slides its knob. A chip fills with the text color and its text inverts.
+- **Hover** (pointer devices only): the unchecked mark, or the chip, darkens one step.
+- **Focus**: the outline is on the mark, or around the whole chip.
+
+## Accessibility
+
+- The real input does the work, so Space toggles a checkbox and the arrow keys move between radios in a group.
+- A `toggle` is still a checkbox to assistive technology. If it acts immediately, like a setting, add `role="switch"` to the input so it's announced as a switch.
+- Label each group of radios with a Fieldset legend. The chips in the example are grouped this way.
+
+## Behavior
+
+None: native HTML. The checked styles use `:has(:checked)`.
+
+## Tokens
+
+<ComponentTokens id="choice" />
+
+## Related
+
+- [Fieldset](/components/fieldset/): labels a group of choices.
+- [Select](/components/select/): for longer lists.
+- [Form](/components/form/).

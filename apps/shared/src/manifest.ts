@@ -147,47 +147,49 @@ export const components: readonly ComponentEntry[] = [
   }),
 
   // Forms
-  planned("form", {
+  documented("form", {
     name: "Form",
     astro: ["form/Form.astro"],
     root: ".form_wrap",
     styles: ["components/form.css"],
+    behaviors: ["form"],
   }),
-  planned("fieldset", {
+  documented("fieldset", {
     name: "Fieldset",
     astro: ["form/Fieldset.astro"],
     root: ".form-fieldset",
     styles: ["components/fieldset.css"],
   }),
-  planned("input", {
+  documented("input", {
     name: "Input",
     astro: ["form/Input.astro"],
     root: ".field.form-input",
     styles: ["patterns.css", "controls.css"],
   }),
-  planned("textarea", {
+  documented("textarea", {
     name: "Textarea",
     astro: ["form/Textarea.astro"],
     root: ".field.form-textarea",
     styles: ["components/textarea.css", "patterns.css", "controls.css"],
   }),
-  planned("select", {
+  documented("select", {
     name: "Select",
     astro: ["form/Select.astro"],
     root: ".field.form-select",
     styles: ["components/select.css", "patterns.css", "controls.css"],
   }),
-  planned("choice", {
+  documented("choice", {
     name: "Choice",
     astro: ["form/Choice.astro"],
     root: ".form-choice",
     styles: ["components/choice.css"],
   }),
-  planned("range", {
+  documented("range", {
     name: "Range",
     astro: ["form/Range.astro"],
     root: ".field.form-range",
     styles: ["components/range.css", "patterns.css"],
+    behaviors: ["range"],
   }),
 
   // Global

@@ -1,0 +1,96 @@
+---
+title: Range
+description: A labeled slider that shows its value above the handle.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A labeled slider for picking a number from a range, with the current value shown in a bubble that follows the handle. It's a native `<input type="range">` with a custom-drawn track and handle.
+
+## Example
+
+<ComponentExample id="range" />
+
+## Markup
+
+```html
+<div class="field form-range" style="--_progress: 0.4">
+  <label class="field-label text-style-main" for="budget"
+    ><span>Budget</span></label
+  >
+  <span class="form-range_control">
+    <input
+      class="form-range_input"
+      type="range"
+      id="budget"
+      name="budget"
+      min="0"
+      max="100"
+      step="5"
+      value="40"
+    />
+    <span class="form-range_track" aria-hidden="true"></span>
+    <span class="form-range_fill" aria-hidden="true"></span>
+    <span class="form-range_handle" aria-hidden="true"></span>
+  </span>
+  <output class="form-range_output text-style-small" for="budget">
+    <span class="form-range_value">40</span><span>k</span>
+  </output>
+</div>
+```
+
+- Unlike the other fields, the root is a `<div>` and the `<label>` points at the input by `id`, because the output sits outside the label.
+- `--_progress` is the value's position from 0 to 1. Set it to match the starting `value` so the first paint is right.
+- The track, fill and handle are drawn over the real input, which stays on top to take pointer and keyboard input.
+
+## Variants and props
+
+| Astro prop           | HTML equivalent                 | Values          | Default                     | Effect                                      |
+| -------------------- | ------------------------------- | --------------- | --------------------------- | ------------------------------------------- |
+| `label`              | the label text                  | text            | required                    | Renders nothing without it.                 |
+| `min`, `max`, `step` | `min`, `max`, `step`            | numbers         | `0`, `100`, `1`             |                                             |
+| `value`              | `value` and `--_progress`       | number          | the midpoint                | Starting value.                             |
+| `unit`               | a `<span>` after the value      | text            | none                        | Shown after the number, such as `%` or `k`. |
+| `name`               | `name`                          | text            | the label as a slug         |                                             |
+| `id`                 | `id` and the label's `for`      | text            | `range-` and the label slug | Set it when two ranges share a label.       |
+| `required`           | `required` and the `field-star` | `true`, `false` | `false`                     |                                             |
+| `render`             | none                            | `true`, `false` | `true`                      | `false` omits the component.                |
+
+Range isn't resized by `data-size`.
+
+## States
+
+- **Drawn**: the behavior adds `is-drawn` and shows the custom fill and handle. Until then, the browser's own thumb shows, so the slider is never frozen.
+- **Focus**: the outline is around the handle.
+- **Dragging**: the cursor changes to a closed hand.
+
+## Accessibility
+
+- The native slider works with the arrow keys, Page Up and Page Down, and Home and End, and is announced with its label and value.
+- The `<output>` is linked to the input with `for`, and updates as the value changes.
+- If the number needs context, put it in the label or `unit`, for example "Budget" with the unit "k".
+
+## Behavior
+
+`behaviors/range.js` keeps the fill, handle, bubble position and shown number in step with the input:
+
+```html
+<script type="module">
+  import { initRange } from "./behaviors/range.js";
+  document.querySelectorAll(".form-range").forEach((root) => initRange(root));
+</script>
+```
+
+`initRange(root)` returns a cleanup function that removes its listeners and the `is-drawn` class. It also redraws after the form is reset.
+
+**Without the script**, the slider still works and submits its value, using the browser's thumb. Only the fill and the live number are missing.
+
+## Tokens
+
+<ComponentTokens id="range" />
+
+## Related
+
+- [Input](/components/input/) with `variant="number"`: for typing an exact number.
+- [Form](/components/form/).

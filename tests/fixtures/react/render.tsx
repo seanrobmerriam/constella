@@ -18,6 +18,13 @@ import { VideoExample } from "../../../apps/shared/src/examples/video/Example";
 import { IconExample } from "../../../apps/shared/src/examples/icon/Example";
 import { OverlayExample } from "../../../apps/shared/src/examples/overlay/Example";
 import { CardExample } from "../../../apps/shared/src/examples/card/Example";
+import { FormExample } from "../../../apps/shared/src/examples/form/Example";
+import { FieldsetExample } from "../../../apps/shared/src/examples/fieldset/Example";
+import { InputExample } from "../../../apps/shared/src/examples/input/Example";
+import { TextareaExample } from "../../../apps/shared/src/examples/textarea/Example";
+import { SelectExample } from "../../../apps/shared/src/examples/select/Example";
+import { ChoiceExample } from "../../../apps/shared/src/examples/choice/Example";
+import { RangeExample } from "../../../apps/shared/src/examples/range/Example";
 
 const rendered = {
   button: renderToString(<ButtonExample />),
@@ -37,6 +44,13 @@ const rendered = {
   icon: renderToString(<IconExample />),
   overlay: renderToString(<OverlayExample />),
   card: renderToString(<CardExample />),
+  form: renderToString(<FormExample />),
+  fieldset: renderToString(<FieldsetExample />),
+  input: renderToString(<InputExample />),
+  textarea: renderToString(<TextareaExample />),
+  select: renderToString(<SelectExample />),
+  choice: renderToString(<ChoiceExample />),
+  range: renderToString(<RangeExample />),
 };
 
 for (const [name, html] of Object.entries(rendered)) {

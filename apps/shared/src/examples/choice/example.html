@@ -1,0 +1,74 @@
+<div class="flex-vertical-nowrap gap-4">
+  <label class="form-choice">
+    <input class="form-choice_input" type="checkbox" name="updates" checked />
+    <span class="form-choice_mark" aria-hidden="true"
+      ><svg
+        class="icon small form-choice_tick"
+        viewBox="0 0 26 20"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 10.5L9.5 18L24 2"
+          stroke="currentColor"
+          vector-effect="non-scaling-stroke"
+          style="stroke-width: var(--border-width)"
+        /></svg
+    ></span>
+    <span class="form-choice_text text-style-main"
+      >Email me product updates</span
+    >
+  </label>
+  <label class="form-choice toggle">
+    <input class="form-choice_input" type="checkbox" name="dark-mode" />
+    <span class="form-choice_mark" aria-hidden="true"
+      ><svg
+        class="icon small form-choice_tick"
+        viewBox="0 0 26 20"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 10.5L9.5 18L24 2"
+          stroke="currentColor"
+          vector-effect="non-scaling-stroke"
+          style="stroke-width: var(--border-width)"
+        /></svg
+    ></span>
+    <span class="form-choice_text text-style-main">Dark mode</span>
+  </label>
+  <fieldset class="form-fieldset inline">
+    <legend
+      class="form-fieldset_legend form-fieldset_legend-label field-label text-style-main"
+    >
+      Billing
+    </legend>
+    <div class="form-fieldset_fields">
+      <label class="form-choice chip">
+        <input
+          class="form-choice_input"
+          type="radio"
+          name="plan"
+          value="monthly"
+          checked
+        />
+        <span class="form-choice_mark" aria-hidden="true"
+          ><span class="form-choice_dot"></span
+        ></span>
+        <span class="form-choice_text text-style-main">Monthly</span>
+      </label>
+      <label class="form-choice chip">
+        <input
+          class="form-choice_input"
+          type="radio"
+          name="plan"
+          value="yearly"
+        />
+        <span class="form-choice_mark" aria-hidden="true"
+          ><span class="form-choice_dot"></span
+        ></span>
+        <span class="form-choice_text text-style-main">Yearly</span>
+      </label>
+    </div>
+  </fieldset>
+</div>
