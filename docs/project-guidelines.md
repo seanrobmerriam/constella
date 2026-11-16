@@ -281,6 +281,6 @@ Before accepting a component change, confirm:
 
 Repository styling and conventions were read from `apps/constella/CONSTELLA.md` and `src/styles/{global,base,patterns,utilities}.css` in [the Constella repository](https://github.com/seanrobmerriam/constella). The recorded baseline for the existing project documents is commit `5b921a59927a2b0de66c07b51ec84923764d636c`.
 
-Approved changes are defined in [constella-requirements-and-changes.md](https://chatgpt.com/library?file_id=libfile_81a615cb36a481919e2f3f7c0ebf88bb&account_id=personal). Execution choices are described in the [implementation plan](https://chatgpt.com/library?file_id=libfile_20c0ed25f8a08191aa655144fc3d945d&account_id=personal).
+Approved changes are defined in [requirements.md](requirements.md). Execution choices are described in the [implementation plan](implementation-plan.md) (Tasks 1–9) and the [completion plan](completion-plan.md) (remaining work).
 
 Browser cascade behavior follows [CSS Cascading and Inheritance Level 5](https://www.w3.org/TR/css-cascade-5/); custom property behavior is documented in [MDN's custom property guide](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties).

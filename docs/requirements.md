@@ -2,7 +2,8 @@
 
 Status: working requirements; component API changes and associated design recommendations approved  
 Repository baseline: `5b921a59927a2b0de66c07b51ec84923764d636c`  
-Companion documents: [Project Overview](constella-overview.md) · [Component Catalog](constella-components.md)
+Companion documents: [Project Overview](project-overview.md) · [Component Catalog](components.md)  
+Source of truth: this file. Earlier copies of this spec lived outside the repository; edit this one.
 
 ## How to use this document
 
@@ -33,6 +34,8 @@ When an item is completed, record its PR or commit, validation evidence, and any
 - [ ] Identify the exact Lumos documentation site/repository and source revision.
 - [ ] Record applicable reuse terms and preserve required attribution/notices.
 - [ ] Map upstream pages to Constella destinations: retain, adapt, replace, or omit.
+
+> **Deferred (2026-11-16).** The upstream source and reuse terms are still unknown. Until they are recorded, Constella docs pages are written from scratch from the verified Constella contracts, and no Lumos text is copied. See [completion-plan.md](completion-plan.md) Phase 0.
 
 **Acceptance:** A migration map records the source, destination, disposition, and reason for each selected upstream page. Webflow- or Lumos-specific workflows are not presented as Constella requirements without verification.
 

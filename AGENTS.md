@@ -2,14 +2,17 @@
 
 Bun workspaces monorepo. Every package lives under `apps/`.
 
-| Path             | Package             | What it is                                          |
-| ---------------- | ------------------- | --------------------------------------------------- |
-| `apps/constella` | `@constella/site`   | Main Astro site, built on Constella for Astro       |
-| `apps/docs`      | `@constella/docs`   | Documentation site (Astro Starlight), port 4322     |
-| `apps/shared`    | `@constella/shared` | Components, layouts, styles, config and utils (src) |
+| Path             | Package             | What it is                                                               |
+| ---------------- | ------------------- | ------------------------------------------------------------------------ |
+| `apps/constella` | `@constella/site`   | Reference Astro site. Owns the Astro components, layouts and site config |
+| `apps/docs`      | `@constella/docs`   | Documentation site (Astro Starlight), port 4322                          |
+| `apps/shared`    | `@constella/shared` | Framework-independent source: styles, behaviors, contracts, examples     |
 
-Each app has its own `AGENTS.md`. Read it before working in that app.
-`apps/constella` also has `CONSTELLA.md` and `.agents/skills/`.
+`apps/constella` and `apps/docs` each have their own `AGENTS.md`. Read it before
+working in that app. `apps/constella` also has `CONSTELLA.md` and `.agents/skills/`.
+
+The remaining work is tracked in `docs/completion-plan.md`. Read it before
+changing a component, its styles or its docs.
 
 ## Commands (run from the repo root)
 
@@ -23,15 +26,29 @@ Each app has its own `AGENTS.md`. Read it before working in that app.
 
 ## Shared package
 
-`@constella/shared` ships its source and has no build step. Apps depend on it
-with `"@constella/shared": "workspace:*"` and import through its `exports` map:
+`@constella/shared` holds only framework-independent code. Astro components stay
+in `apps/constella/src/components/`.
+
+| Path in `apps/shared/src` | What it holds                                                     |
+| ------------------------- | ----------------------------------------------------------------- |
+| `styles/`                 | `index.css` entry, base/patterns/utilities, `components/*.css`    |
+| `behaviors/`              | Optional DOM behavior: `init…(root)` returning a cleanup function |
+| `contracts/`              | Data-only TypeScript types (controls, navigation)                 |
+| `examples/`               | Canonical HTML and TSX examples used by the docs                  |
+
+Apps depend on it with `"@constella/shared": "workspace:*"` and import through
+its `exports` map:
 
 ```astro
 ---
-import Card from "@constella/shared/components/Card.astro";
-import { slugify } from "@constella/shared/utils/slug.ts";
+import "@constella/shared/styles/index.css";
+import { initAccordion } from "@constella/shared/behaviors/accordion.ts";
+import type { NavbarConfig } from "@constella/shared/contracts/navigation.ts";
 ---
 ```
+
+Its source needs no build step. `bun run --cwd apps/shared build` writes the
+distributable `dist/constella.css` and `dist/behaviors/*.js` for non-Astro users.
 
 Import paths need the file extension. Inside `apps/shared`, use relative imports
 and avoid app-specific aliases like `@/*`.
