@@ -1,10 +1,78 @@
 ---
 title: Accordion
-description: Details grouped so one opens at a time.
+description: A group of Details that opens one item at a time.
 ---
 
 import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
 
-`accordion_wrap` with `data-accordion` coordinates grouping. `data-open-first` opens the first item; `data-single="false"` leaves items independent. An accordion owns only its direct items, so nested accordions stay independent.
+A list of [Details](/components/details/) items managed as a group: by default, opening one closes the others. Use it for FAQs and long settings lists. For a single disclosure, use Details on its own.
+
+## Example
 
 <ComponentExample id="accordion" />
+
+## Markup
+
+The root is a `<div>` with `accordion_wrap` and `data-accordion`. Its items are ordinary Details:
+
+```html
+<div class="accordion_wrap" data-accordion data-open-first>
+  <details class="details_wrap">…</details>
+  <details class="details_wrap">…</details>
+</div>
+```
+
+An accordion only manages its own items: the `<details>` elements whose nearest accordion is this one. A nested accordion manages its own items, and a plain Details inside an item is left alone.
+
+## Variants and props
+
+| Astro prop  | HTML equivalent                   | Values          | Default   | Effect                                                                        |
+| ----------- | --------------------------------- | --------------- | --------- | ----------------------------------------------------------------------------- |
+| `single`    | `data-single="false"` to turn off | `true`, `false` | `true`    | One item open at a time. With `false`, items open independently.              |
+| `openFirst` | `data-open-first`                 | `true`, `false` | `false`   | Open the first item on load and close the others.                             |
+| `group`     | `data-group`                      | text            | generated | The shared `name` given to the items. Generated in the browser if omitted.    |
+| `preview`   | `data-preview`                    | `true`, `false` | `false`   | Keeps every item open in the Astro design tool. Has no effect on a live site. |
+| `render`    | none                              | `true`, `false` | `true`    | `false` omits the component.                                                  |
+
+When the page loads with several items open, `openFirst` wins. Otherwise a single group keeps only its first open item.
+
+## States
+
+Each item has the Details states: open, hover and focus. The accordion adds none of its own.
+
+## Accessibility
+
+- Every item is a native disclosure, so keyboard and screen-reader behavior is the browser's own.
+- Grouping uses the native `name` attribute, which browsers implement as exclusive details. No ARIA roles are added.
+- Keep a heading inside each summary so screen-reader users can jump between items.
+
+## Behavior
+
+`behaviors/accordion.js` gives the items a shared `name` and applies `openFirst`:
+
+```html
+<script type="module">
+  import { initAccordion } from "./behaviors/accordion.js";
+  document
+    .querySelectorAll("[data-accordion]")
+    .forEach((root) => initAccordion(root));
+</script>
+```
+
+`initAccordion(root)` returns a cleanup function that removes any names it added. Call it when the accordion leaves the page, for example in a React effect cleanup.
+
+**Without the script**, every item still opens and closes, but independently. To keep one-at-a-time behavior without JavaScript, give every item the same `name` yourself:
+
+```html
+<details class="details_wrap" name="faq">…</details>
+<details class="details_wrap" name="faq">…</details>
+```
+
+## Tokens
+
+<ComponentTokens id="accordion" />
+
+## Related
+
+- [Details](/components/details/): the item markup and its states.

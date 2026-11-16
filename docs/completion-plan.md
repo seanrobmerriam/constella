@@ -119,7 +119,7 @@ The procedure is enforced at three levels, so it doesn't depend on anyone rememb
 
 ## 5. Phase 2 — Make documentation drift impossible
 
-- [ ] **2.1 Component manifest** at `apps/shared/src/manifest.ts`. It is typed, data only, and has one entry per public component:
+- [x] **2.1 Component manifest** at `apps/shared/src/manifest.ts`. It is typed, data only, and has one entry per public component:
   ```text
   { id: "dropdown", name: "Dropdown", family: "dropdown",
     status: "documented" | "planned" | "internal" | "astro-only",
@@ -127,17 +127,26 @@ The procedure is enforced at three levels, so it doesn't depend on anyone rememb
     behavior?: "dropdown", example?: "dropdown", docs?: "components/dropdown" }
   ```
   `internal` is for parts like NavLink and TabLink that are documented inside their parent's page. `astro-only` is for BaseHead, FormattedDate, BaseLayout and Section helpers that are integration utilities with no HTML/CSS equivalent. `planned` is allowed only until Phase 3 finishes.
-- [ ] **2.2 `bun run check:docs`** (`scripts/check-docs.ts`). It fails when:
+- [x] **2.2 `bun run check:docs`** (`scripts/check-docs.ts`). It fails when:
   - an `.astro` file under `apps/constella/src/components` has no manifest entry,
   - a `components/*.css` file has no manifest owner, or isn't imported in `index.css`,
   - a `documented` entry is missing its example registry id, its docs `.mdx`, or its sidebar presence,
   - an example registry id has no manifest entry.
     Add it to `test:docs`.
-- [ ] **2.3 Generate the sidebar.** Change `apps/docs/astro.config.mjs` to use Starlight `autogenerate` for `components/` and `foundations/`, so a new page can't be forgotten in the sidebar. Order pages with frontmatter `sidebar.order`.
-- [ ] **2.4 Change-sync check** (`scripts/check-docs-sync.ts`). Given `git diff --name-only origin/main...HEAD`, map changed files to manifest ids, and fail if a component's files changed but its docs `.mdx` didn't, unless a commit carries `Docs-Skip:`.
-- [ ] **2.5 CI.** Add `.github/workflows/ci.yml`, which runs `bun install --frozen-lockfile`, `bun run --cwd apps/shared build`, `bun run build`, `bun run check`, `bun run check:examples`, `bun run check:docs`, the docs-sync check (on PRs), and the Playwright suites. Install Chromium with `node node_modules/@playwright/test/cli.js install --with-deps chromium`, per `implementation/baseline.md`. Fix the known `format:check` failure in `constella-import-webflow/SKILL.md` (wrap the unparseable block, or add the file to `.prettierignore`) and add `format:check`.
-- [ ] **2.6 Contributor guidance.** Add the §2 procedure to root `AGENTS.md`. Add `.github/pull_request_template.md` with the eight-item checklist. Add the docs-page section template as `apps/docs/src/content/docs/components/_template.mdx.txt` (not built).
-- [ ] **2.7 Backfill the 6 existing pages** (Button, InputWrapper, Details, Accordion, Navbar, Footer) into the standard section order, so they serve as the model for Phase 3.
+- [x] **2.3 Generate the sidebar.** Change `apps/docs/astro.config.mjs` to use Starlight `autogenerate` for `components/` and `foundations/`, so a new page can't be forgotten in the sidebar. Order pages with frontmatter `sidebar.order`.
+- [x] **2.4 Change-sync check** (`scripts/check-docs-sync.ts`). Given `git diff --name-only origin/main...HEAD`, map changed files to manifest ids, and fail if a component's files changed but its docs `.mdx` didn't, unless a commit carries `Docs-Skip:`.
+- [x] **2.5 CI.** Add `.github/workflows/ci.yml`, which runs `bun install --frozen-lockfile`, `bun run --cwd apps/shared build`, `bun run build`, `bun run check`, `bun run check:examples`, `bun run check:docs`, the docs-sync check (on PRs), and the Playwright suites. Install Chromium with `node node_modules/@playwright/test/cli.js install --with-deps chromium`, per `implementation/baseline.md`. Fix the known `format:check` failure in `constella-import-webflow/SKILL.md` (wrap the unparseable block, or add the file to `.prettierignore`) and add `format:check`.
+- [x] **2.6 Contributor guidance.** Add the §2 procedure to root `AGENTS.md`. Add `.github/pull_request_template.md` with the eight-item checklist. Add the docs-page section template as `apps/docs/src/content/docs/components/_template.mdx.txt` (not built).
+- [x] **2.7 Backfill the 6 existing pages** (Button, InputWrapper, Details, Accordion, Navbar, Footer) into the standard section order, so they serve as the model for Phase 3.
+
+**Outcome (2026-11-16):**
+
+- The manifest is `apps/shared/src/manifest.ts`. It uses `behaviors: string[]` (Navbar needs two) and a `root` class per entry. Statuses are `documented`, `planned` and `astro-only`. Parts like NavLink, Summary and TabLink are listed under their parent entry instead of having an `internal` status. The Foundations stylesheet table now reads the manifest, which replaces the six hand-written rows from Phase 1.
+- `bun run check:docs` also checks each stylesheet's header `Docs:` line and the required page sections, in order. It runs in `test:docs` and CI.
+- `bun run check:docs-sync [base]` ignores the foundation files (base, patterns, controls, utilities, index), since their docs pages are generated.
+- The CI jobs are checks, docs-sync (pull requests only) and browser tests. The `format:check` failure in the Webflow skill file is fixed: a `{ … }` placeholder became a CSS comment.
+- The six existing pages now follow the standard sections. Each page's Tokens section is generated from its stylesheets by `ComponentTokens.astro`.
+- Both sidebar groups use `autogenerate`, so pages are listed alphabetically.
 
 **Done when:** CI is green, and deliberately deleting a docs page or adding an undocumented `.astro` file turns it red.
 

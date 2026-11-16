@@ -1,0 +1,37 @@
+---
+/**
+ * The design tokens a component reads, taken from its stylesheets in the
+ * component manifest at build time. Pass `also` for tokens it reads through
+ * shared patterns, which are not scanned.
+ */
+import { components } from "@constella/shared/manifest.ts";
+import { tokensReadBy } from "../lib/css-source.ts";
+
+interface Props {
+  /** Manifest id. */
+  id: string;
+  also?: string[];
+}
+
+const { id, also = [] } = Astro.props;
+const entry = components.find((c) => c.id === id);
+if (!entry) throw new Error(`No manifest entry "${id}"`);
+const tokens = [...new Set([...tokensReadBy(entry.styles), ...also])].sort();
+if (tokens.length === 0) throw new Error(`No tokens found for "${id}"`);
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<p>
+  {tokens.map((t, i) => (
+    <>
+      {i > 0 && " "}
+      <code>{t}</code>
+    </>
+  ))}
+</p>
+<p>
+  Values and what they control are on the{" "}
+  <a href={`${base}/foundations/tokens/`}>Tokens</a> and{" "}
+  <a href={`${base}/foundations/themes/`}>Themes</a> pages. This list is read
+  from the stylesheet when the docs are built.
+</p>

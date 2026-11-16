@@ -1,67 +1,42 @@
 ---
 /**
- * Which file styles which component. Stylesheet rows come from each
- * components/*.css header comment; pattern-based components are listed below.
+ * Which files style which component, read from the component manifest
+ * (apps/shared/src/manifest.ts). `bun run check:docs` keeps the manifest in
+ * step with the source, so this table cannot drift.
  */
-import { componentStylesheets } from "../../lib/css-source.ts";
+import { components } from "@constella/shared/manifest.ts";
 
-const sheets = componentStylesheets();
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-
-/** Components with no stylesheet of their own: they use shared patterns. */
-const patternBased = [
-  ["Section", ".section, .container", "patterns.css"],
-  ["Paragraph", ".text + a .text-style-* class", "patterns.css, base.css"],
-  ["InputWrapper", ".input-wrapper", "patterns.css"],
-  ["Input", ".field, .field-label, .field-control", "patterns.css"],
-  ["Img", ".image", "patterns.css"],
-  ["Video", ".video", "patterns.css"],
-] as const;
+const rows = components.filter((c) => c.status !== "astro-only");
 ---
 
 <table class="token-table">
   <thead>
     <tr>
-      <th>Stylesheet</th>
       <th>Component</th>
       <th>Root class</th>
+      <th>Stylesheets</th>
       <th>Docs</th>
     </tr>
   </thead>
   <tbody>
-    {sheets.map((s) => (
+    {rows.map((c) => (
       <tr>
+        <td>{c.name}</td>
         <td>
-          <code>components/{s.file}</code>
-        </td>
-        <td>{s.component}</td>
-        <td>
-          <code>{s.root}</code>
+          <code>{c.root}</code>
         </td>
         <td>
-          {s.docs.length === 0
-            ? "planned"
-            : s.docs.map((d, i) => (
-                <>
-                  {i > 0 && ", "}
-                  <a href={`${base}${d}`}>{d.split("/")[2]}</a>
-                </>
-              ))}
-        </td>
-      </tr>
-    ))}
-    {patternBased.map(([component, root, file]) => (
-      <tr>
-        <td>
-          <code>{file}</code>
-        </td>
-        <td>{component}</td>
-        <td>
-          <code>{root}</code>
+          {c.styles.map((s, i) => (
+            <>
+              {i > 0 && " "}
+              <code>{s}</code>
+            </>
+          ))}
         </td>
         <td>
-          {component === "InputWrapper" ? (
-            <a href={`${base}/components/input-wrapper/`}>input-wrapper</a>
+          {c.docs && c.status === "documented" ? (
+            <a href={`${base}/${c.docs}/`}>{c.name}</a>
           ) : (
             "planned"
           )}

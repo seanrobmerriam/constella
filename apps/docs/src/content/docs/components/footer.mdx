@@ -1,10 +1,86 @@
 ---
 title: Footer
-description: The simple footer variant.
+description: The site footer, as one row of links or as columns of link groups.
 ---
 
 import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
 
-`footer_wrap` takes a variant class (`simple` or `columns`) and a `spacing-small|medium|large` class. Place it outside the main content.
+The site footer, with a brand, links, legal links, social icons and a copyright line. `simple` shows one row of links; `columns` shows a brand description beside groups of links. Put it in the layout's footer slot, outside `<main>`.
+
+## Example
 
 <ComponentExample id="footer" />
+
+## Markup
+
+```html
+<footer class="footer_wrap simple spacing-small">
+  <div class="footer_inner">
+    <div class="footer_top">
+      <div class="footer_brand">
+        <a class="footer_logo" href="/" aria-label="Acme">…</a>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="footer_links">
+          <li><a class="footer_link" href="/docs">Docs</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer_bottom">
+      <p class="footer_copyright text-style-small">&copy; 2026 Acme</p>
+      <ul class="footer_legal text-style-small">
+        …
+      </ul>
+      <ul class="footer_social">
+        …
+      </ul>
+    </div>
+  </div>
+</footer>
+```
+
+For the `columns` layout, replace the single `<nav>` with a `footer_groups` element holding one `<nav class="footer_group" aria-label="…">` per group. Each group has a `footer_group_label` and its own `footer_links` list. A `footer_description` paragraph can follow the logo.
+
+## Variants and props
+
+| Astro prop | HTML equivalent               | Values                              | Default                | Effect                                                   |
+| ---------- | ----------------------------- | ----------------------------------- | ---------------------- | -------------------------------------------------------- |
+| `variant`  | `simple` or `columns` class   | `simple`, `columns`                 | `simple`               | One row of links, or a brand column plus link groups.    |
+| `spacing`  | `spacing-*` class             | `small`, `medium`, `large`          | `small`                | Vertical padding, from the section spacing scale.        |
+| `theme`    | `theme-*` class on the footer | `inherit`, `light`, `dark`, `brand` | `inherit`              | Gives the footer its own theme.                          |
+| `config`   | the content you write         | `FooterConfig`                      | `src/config/footer.ts` | Brand, links, groups, social and legal links, copyright. |
+| `render`   | none                          | `true`, `false`                     | `true`                 | `false` omits the component.                             |
+
+**Slots**, each replacing a default region:
+
+| Slot     | Replaces                                                     |
+| -------- | ------------------------------------------------------------ |
+| `brand`  | The logo, plus the description in `columns`.                 |
+| `cta`    | Nothing by default. Adds a call-to-action row when supplied. |
+| `bottom` | The copyright, legal links and social icons.                 |
+
+**Configuration** (`FooterConfig`): `brand`, optional `description`, `links` (simple), `groups` (columns), `socialLinks` (icon links, the same icon keys as Navbar), `legalLinks`, and `copyright`, the text after the year. Empty lists render nothing, not an empty `<nav>`. The Astro component writes the year when the page is built.
+
+## States
+
+Links have hover and focus styles. The footer has no states of its own.
+
+## Accessibility
+
+- `<footer>` outside `<main>` gives the page its content-info landmark.
+- Each link group is a `<nav>` labelled by its group name, so screen-reader users can tell the groups apart. The simple layout's single `<nav>` is labelled "Footer".
+- Social links are icon-only and need an `aria-label`. The Astro component uses each link's label.
+
+## Behavior
+
+None: native HTML.
+
+## Tokens
+
+<ComponentTokens id="footer" />
+
+## Related
+
+- [Navbar](/components/navbar/): shares the link and icon configuration types.
+- [Themes](/foundations/themes/) and [Spacing and layout](/foundations/spacing-and-layout/).
