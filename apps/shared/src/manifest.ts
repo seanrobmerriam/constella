@@ -206,7 +206,7 @@ export const components: readonly ComponentEntry[] = [
     root: ".footer_wrap",
     styles: ["components/footer.css"],
   }),
-  planned("skip", {
+  documented("skip", {
     name: "Skip",
     astro: ["global/Skip.astro"],
     root: ".skip-link",

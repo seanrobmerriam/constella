@@ -1,0 +1,61 @@
+---
+title: Skip
+description: A "skip to main content" link for keyboard users, hidden until focused.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+The first thing a keyboard user reaches on the page: a link that jumps past the header and navigation to the main content. It's off-screen until it receives focus, then appears in the top corner. `BaseLayout` includes it automatically, so you only add it yourself in a custom layout.
+
+## Example
+
+<ComponentExample id="skip" />
+
+## Markup
+
+```html
+<body>
+  <a class="button_wrap skip-link" href="#main">
+    <span class="button_text text-style-trim">Skip to main content</span>
+  </a>
+  <header>…</header>
+  <main id="main" tabindex="-1">…</main>
+</body>
+```
+
+- Put the link **first** in `<body>`, before the header, so it's the first thing Tab reaches.
+- The target needs an `id` that matches the link and `tabindex="-1"`. Without the `tabindex`, some browsers scroll to the target but leave focus on the link, so the next Tab goes back into the navigation.
+- The link is a [Button](/components/button/), so it looks like a primary button when it's revealed.
+
+## Variants and props
+
+| Astro prop | HTML equivalent | Values          | Default                | Effect                       |
+| ---------- | --------------- | --------------- | ---------------------- | ---------------------------- |
+| `target`   | `href="#…"`     | an `id`         | `main`                 | The element to skip to.      |
+| `label`    | the link text   | text            | "Skip to main content" |                              |
+| `render`   | none            | `true`, `false` | `true`                 | `false` omits the component. |
+
+## States
+
+- **Hidden**: moved above the top of the viewport, but still in the tab order.
+- **Focused**: fixed in the top corner, above everything else (`z-index: 100`), with the button's focus outline.
+
+## Accessibility
+
+- This is how keyboard and screen-reader users avoid tabbing through the whole navigation on every page (WCAG 2.4.1, Bypass Blocks).
+- It's hidden by moving it off-screen, not with `display: none`, so it stays focusable.
+- Keep the label explicit. "Skip to main content" is the convention people recognize.
+
+## Behavior
+
+None: native HTML. The browser follows the in-page link and moves focus to the target.
+
+## Tokens
+
+<ComponentTokens id="skip" />
+
+## Related
+
+- [Button](/components/button/): the link's look.
+- [Navbar](/components/navbar/): what it skips past.

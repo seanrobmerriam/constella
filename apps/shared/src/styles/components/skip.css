@@ -5,9 +5,9 @@
  * Root:      .skip-link
  * Children:  none
  * Variants:  none
- * State:     none
+ * State:     off-screen until :focus, then fixed in the top corner
  * Tokens:    --space-2
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/skip/
  */
 @layer components {
   .skip-link {
