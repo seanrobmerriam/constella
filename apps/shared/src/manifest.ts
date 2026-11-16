@@ -59,19 +59,19 @@ const planned = (
 
 export const components: readonly ComponentEntry[] = [
   // Layout
-  planned("section", {
+  documented("section", {
     name: "Section",
     astro: ["wrapper/Section.astro"],
     root: ".section, .container",
     styles: ["patterns.css"],
   }),
-  planned("content-wrapper", {
+  documented("content-wrapper", {
     name: "ContentWrapper",
     astro: ["wrapper/ContentWrapper.astro"],
     root: ".layout",
     styles: ["components/content-wrapper.css"],
   }),
-  planned("grid", {
+  documented("grid", {
     name: "Grid",
     astro: ["wrapper/Grid.astro"],
     root: ".grid",

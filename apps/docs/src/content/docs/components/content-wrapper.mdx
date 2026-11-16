@@ -1,0 +1,79 @@
+---
+title: ContentWrapper
+description: Arranges a text column and a visual column, stacked or side by side.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+Lays out a block of content and, optionally, a visual: stacked, side by side, contained in a box, breaking out to the screen edge, sticky while scrolling, or as a card with the visual behind the text. It goes inside a [Section](/components/section/)'s container. For a grid of equal items, use [Grid](/components/grid/).
+
+## Example
+
+<ComponentExample id="content-wrapper" />
+
+## Markup
+
+```html
+<div class="layout columns">
+  <div>
+    <h2 class="heading text-style-h2">Title</h2>
+    <p class="text">Body text.</p>
+  </div>
+  <div>
+    <img class="image" src="visual.jpg" alt="Describe the image" />
+  </div>
+</div>
+```
+
+- The root has `layout` and, except for the default stack, a variant class. It has one or two plain `<div>` columns.
+- If the last column contains only `.image`, `.video` or `.overlay` elements, it becomes a **visual**: a box with a fixed aspect ratio (3:2, or 1:1 for the sticky variants), rounded corners, and the media filling it. Anything else in that column turns this off.
+- The first column is vertically centered against the second.
+
+## Variants and props
+
+| Astro prop `variant` | HTML class               | Layout                                                                                                                  |
+| -------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `stack` (default)    | none                     | Columns stacked, full width.                                                                                            |
+| `columns`            | `columns`                | Side by side from 64rem; stacked below.                                                                                 |
+| `contain`            | `contain`                | Like `columns`, inside a rounded `--background-2` box. The visual touches the box edge.                                 |
+| `breakout`           | `breakout`               | Like `columns`, but full viewport width: the visual runs to the screen edge while the text stays aligned with the page. |
+| `sticky-content`     | `sticky-content`         | Side by side from 64rem. The text column sticks below the navbar while the visual scrolls.                              |
+| `sticky-visual`      | `sticky-visual`          | Side by side from 64rem. The visual sticks while a long text column scrolls.                                            |
+| `auto-width`         | `auto-width`             | Columns size to their content, spread apart and wrap. Good for a heading with a button beside it.                       |
+| `card`               | `card-layout theme-dark` | A dark card at least 26rem tall. The visual fills it, faded, and the text sits centered on top.                         |
+
+| Astro prop                     | HTML equivalent                | Values          | Default | Effect                                                                          |
+| ------------------------------ | ------------------------------ | --------------- | ------- | ------------------------------------------------------------------------------- |
+| `reverse`                      | `reversed` class               | `true`, `false` | `false` | `columns`, `contain`, `breakout`: from 64rem the visual comes first.            |
+| `centered`                     | `centered` class               | `true`, `false` | `false` | `stack`: centers each column's content and text.                                |
+| `mediaOpacity`                 | `--_media-opacity` in `style`  | 0 to 100        | `70`    | `card`: opacity of the visual behind the text.                                  |
+| `column1Class`, `column2Class` | classes on the column `<div>`s | text            | none    | Extra classes for each column, usually utilities.                               |
+| `render`                       | none                           | `true`, `false` | `true`  | `false` omits the component. It also renders nothing when both slots are empty. |
+
+**Slots:** the default slot is the first column. The `column2` slot is the second.
+
+Columns follow the surrounding alignment. Inside a centered section, the text centers too.
+
+## States
+
+None.
+
+## Accessibility
+
+- `reversed` changes only the visual order. Screen readers and the keyboard still follow the source order, text first, so write the source in reading order.
+- A visual that carries meaning needs real `alt` text. In `card`, the visual is decorative background (`alt=""`). The dark theme and the fade keep the text readable, but check contrast for bright images.
+- Sticky columns stay put only at 64rem and wider. On small screens the content scrolls normally.
+
+## Behavior
+
+None: native HTML.
+
+## Tokens
+
+<ComponentTokens id="content-wrapper" />
+
+## Related
+
+- [Section](/components/section/) and [Grid](/components/grid/).
+- [Spacing and layout](/foundations/spacing-and-layout/): the alignment system.

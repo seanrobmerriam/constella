@@ -1,20 +1,19 @@
 import { expect, test } from "@playwright/test";
 import { readFileSync } from "node:fs";
+import { components } from "../../apps/shared/src/manifest.ts";
 
 const dir = "apps/shared/src/examples";
-// Read the same files the registry imports with `?raw`.
-const examples = [
-  { id: "button" },
-  { id: "input-wrapper" },
-  { id: "details" },
-  { id: "accordion", behaviorEntry: "accordion" },
-  { id: "navbar", behaviorEntry: "navbar" },
-  { id: "footer" },
-].map((e) => ({
-  ...e,
-  html: readFileSync(`${dir}/${e.id}/example.html`, "utf8"),
-  tsx: readFileSync(`${dir}/${e.id}/Example.tsx`, "utf8"),
-}));
+// Every documented component, from the manifest. Read the same files the
+// registry imports with `?raw`.
+const examples = components
+  .filter((c) => c.status === "documented")
+  .map((c) => ({
+    id: c.example!,
+    docs: c.docs!,
+    behaviorEntry: c.behaviors?.[0],
+    html: readFileSync(`${dir}/${c.example}/example.html`, "utf8"),
+    tsx: readFileSync(`${dir}/${c.example}/Example.tsx`, "utf8"),
+  }));
 
 test.use({ baseURL: "http://localhost:4332" });
 
@@ -108,7 +107,7 @@ for (const example of examples) {
   test(`${example.id}: page shows both sources and a requirements list`, async ({
     page,
   }) => {
-    await page.goto(`/components/${example.id}/`);
+    await page.goto(`/${example.docs}/`);
     const requires = page.locator(
       `[data-example=${example.id}] .example-requires`,
     );
@@ -161,11 +160,13 @@ test("component pages have no horizontal overflow at mobile width", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 360, height: 800 });
-  await page.goto("/components/accordion/");
-  const overflow = await page.evaluate(
-    () =>
-      document.documentElement.scrollWidth -
-      document.documentElement.clientWidth,
-  );
-  expect(overflow).toBeLessThanOrEqual(0);
+  for (const example of examples) {
+    await page.goto(`/${example.docs}/`);
+    const overflow = await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth -
+        document.documentElement.clientWidth,
+    );
+    expect(overflow, example.docs).toBeLessThanOrEqual(0);
+  }
 });

@@ -1,0 +1,76 @@
+---
+title: Grid
+description: Equal-width columns, set per breakpoint or fitted to the space available.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A grid of equal-width columns for cards, features and logos. Set the column count per breakpoint, or let `autofit` and `autofill` fit as many columns as there is room for. For text beside a visual, use [ContentWrapper](/components/content-wrapper/) instead.
+
+## Example
+
+<ComponentExample id="grid" />
+
+## Markup
+
+```html
+<div class="grid" style="--_cols-sm: 2; --_cols-lg: 3">
+  <div>…</div>
+  <div>…</div>
+  <div>…</div>
+</div>
+```
+
+Every direct child is one cell. Column counts are custom properties in the `style` attribute. This is what the Astro component writes, and it's the supported way to set them in HTML.
+
+## Variants and props
+
+**Breakpoint columns** (the default):
+
+| Astro prop | HTML equivalent | Applies from | Default  |
+| ---------- | --------------- | ------------ | -------- |
+| `xsmall`   | `--_cols-xs`    | 0            | `1`      |
+| `small`    | `--_cols-sm`    | 30rem        | `xsmall` |
+| `medium`   | `--_cols-md`    | 48rem        | `small`  |
+| `large`    | `--_cols-lg`    | 64rem        | `medium` |
+
+Each breakpoint inherits the one below it, so `small: 2` alone means one column on phones and two everywhere else. Values are 1 to 12. The breakpoints use the viewport width, not the grid's own width.
+
+**Fitted columns:**
+
+| Astro prop       | HTML equivalent               | Values                           | Default   | Effect                                                           |
+| ---------------- | ----------------------------- | -------------------------------- | --------- | ---------------------------------------------------------------- |
+| `variant`        | `autofit` or `autofill` class | `columns`, `autofit`, `autofill` | `columns` | Fit columns to the space instead of using breakpoints.           |
+| `minColumnWidth` | `--_min-col-width` (in rem)   | number above 0                   | `12`      | Columns never get narrower than this, unless the grid itself is. |
+| `maxColumnCount` | `--_max-cols`                 | 1 to 12                          | `12`      | Never more columns than this.                                    |
+
+`autofit` stretches the cells to fill a row when there are fewer cells than columns. `autofill` keeps the empty columns, so cells stay the same width.
+
+| Astro prop | HTML equivalent | Values          | Default | Effect                                                           |
+| ---------- | --------------- | --------------- | ------- | ---------------------------------------------------------------- |
+| `render`   | none            | `true`, `false` | `true`  | `false` omits the component. It also renders nothing when empty. |
+
+**Gaps** default to `--site-gutter`. A `gap-*` utility on the grid changes both directions, and the fitted variants take the new gap into account.
+
+## States
+
+None.
+
+## Accessibility
+
+- The grid only arranges its children and has no semantics of its own. For a list of items, such as cards or logos, use `<ul class="grid">` with `<li>` cells so screen readers announce the count.
+- Reading and keyboard order follow the source order, row by row.
+
+## Behavior
+
+None: native HTML.
+
+## Tokens
+
+<ComponentTokens id="grid" />
+
+## Related
+
+- [Spacing and layout](/foundations/spacing-and-layout/): the simpler `grid-autofit` and `grid-autofill` patterns.
+- [Section](/components/section/) and [ContentWrapper](/components/content-wrapper/).

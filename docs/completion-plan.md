@@ -168,6 +168,20 @@ Work in family batches. Each batch is one PR that follows §2 for every componen
 | 3.10  | **Motion:** Slider, Marquee                                                          | Extract the behaviors. Respect reduced motion, provide a pause control, test multiple instances.                                                         |
 | 3.11  | **Astro integration page:** BaseHead, BaseLayout, CustomLayoutExample, FormattedDate | One `integrations/astro.mdx` page with complete recipes and no fake HTML tab (guidelines §13).                                                           |
 
+Progress:
+
+- [x] 3.1 Layout: Section, ContentWrapper and Grid are documented. `tests/components/layout-components.spec.ts` tests the documented examples. The docs tests and `check:docs` now read the manifest, so there are no hand-written example lists. The `content-wrapper.css` header listed `.overlay` as a variant; it's a child, and the header is fixed.
+- [ ] 3.2 Typography
+- [ ] 3.3 Media
+- [ ] 3.4 Content
+- [ ] 3.5 Forms
+- [ ] 3.6 Global
+- [ ] 3.7 Disclosure
+- [ ] 3.8 Overlay
+- [ ] 3.9 Tabs
+- [ ] 3.10 Motion
+- [ ] 3.11 Astro integration page
+
 For each batch:
 
 - [ ] Leftover `<style>` blocks in the Astro files are moved into shared CSS. `Navbar.astro`, `Tabs.astro` and `BaseHead.astro` still have one each; check whether each is truly site-specific or should be shared.

@@ -6,7 +6,7 @@
  * Variants:  .autofit, .autofill
  * State:     none; column counts come from --_cols-* custom properties
  * Tokens:    --site-gutter
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/grid/
  */
 @layer components {
   .grid {
