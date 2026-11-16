@@ -1,5 +1,7 @@
 # Constella Implementation Plan
 
+> **Status (2026-11-16):** Tasks 1–9 are complete (commits `672763e`…`71447b3`; details in [`implementation/css-contract.md`](implementation/css-contract.md)). Tasks 10–14 are superseded by [`completion-plan.md`](completion-plan.md), which is now the tracked plan.
+
 > **For agentic workers:** Use the executing-plans workflow to implement this plan task by task. Steps use checkbox syntax for tracking. This document plans the work; it does not authorize deployment, package publication, or merging.
 
 **Goal:** Deliver the approved component APIs, portable CSS, and Constella documentation with equivalent HTML / CSS and generic React TSX examples.
