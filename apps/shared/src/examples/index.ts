@@ -17,6 +17,12 @@ import contentWrapperHtml from "./content-wrapper/example.html?raw";
 import contentWrapperTsx from "./content-wrapper/Example.tsx?raw";
 import gridHtml from "./grid/example.html?raw";
 import gridTsx from "./grid/Example.tsx?raw";
+import headingHtml from "./heading/example.html?raw";
+import headingTsx from "./heading/Example.tsx?raw";
+import paragraphHtml from "./paragraph/example.html?raw";
+import paragraphTsx from "./paragraph/Example.tsx?raw";
+import richTextHtml from "./rich-text/example.html?raw";
+import richTextTsx from "./rich-text/Example.tsx?raw";
 
 /**
  * The closed registry. Only these entries can be previewed; the preview route
@@ -102,6 +108,32 @@ export const examples: readonly ExampleDefinition[] = [
     html: gridHtml,
     tsx: gridTsx,
     previewHeight: 18,
+  },
+  {
+    id: "heading",
+    title: "Heading",
+    description:
+      "Eyebrows above headings, a level styled smaller, and a line-length limit.",
+    html: headingHtml,
+    tsx: headingTsx,
+    previewHeight: 28,
+  },
+  {
+    id: "paragraph",
+    title: "Paragraph",
+    description:
+      "Large, main and small paragraphs, one with a line-length limit.",
+    html: paragraphHtml,
+    tsx: paragraphTsx,
+    previewHeight: 18,
+  },
+  {
+    id: "rich-text",
+    title: "RichText",
+    description: "Unclassed HTML (headings, lists, a quote) styled as prose.",
+    html: richTextHtml,
+    tsx: richTextTsx,
+    previewHeight: 34,
   },
 ];
 

@@ -171,7 +171,7 @@ Work in family batches. Each batch is one PR that follows §2 for every componen
 Progress:
 
 - [x] 3.1 Layout: Section, ContentWrapper and Grid are documented. `tests/components/layout-components.spec.ts` tests the documented examples. The docs tests and `check:docs` now read the manifest, so there are no hand-written example lists. The `content-wrapper.css` header listed `.overlay` as a variant; it's a child, and the header is fixed.
-- [ ] 3.2 Typography
+- [x] 3.2 Typography: Heading, Paragraph and RichText are documented, and `tests/components/typography-components.spec.ts` tests them. The Heading page now says an eyebrow must open its block, because it has no margins of its own.
 - [ ] 3.3 Media
 - [ ] 3.4 Content
 - [ ] 3.5 Forms

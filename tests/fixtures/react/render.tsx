@@ -10,6 +10,9 @@ import { FooterExample } from "../../../apps/shared/src/examples/footer/Example"
 import { SectionExample } from "../../../apps/shared/src/examples/section/Example";
 import { ContentWrapperExample } from "../../../apps/shared/src/examples/content-wrapper/Example";
 import { GridExample } from "../../../apps/shared/src/examples/grid/Example";
+import { HeadingExample } from "../../../apps/shared/src/examples/heading/Example";
+import { ParagraphExample } from "../../../apps/shared/src/examples/paragraph/Example";
+import { RichTextExample } from "../../../apps/shared/src/examples/rich-text/Example";
 
 const rendered = {
   button: renderToString(<ButtonExample />),
@@ -21,6 +24,9 @@ const rendered = {
   section: renderToString(<SectionExample />),
   contentWrapper: renderToString(<ContentWrapperExample />),
   grid: renderToString(<GridExample />),
+  heading: renderToString(<HeadingExample />),
+  paragraph: renderToString(<ParagraphExample />),
+  richText: renderToString(<RichTextExample />),
 };
 
 for (const [name, html] of Object.entries(rendered)) {

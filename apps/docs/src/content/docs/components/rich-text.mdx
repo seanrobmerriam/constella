@@ -1,0 +1,71 @@
+---
+title: RichText
+description: Styles unclassed HTML, such as CMS or Markdown output, as readable prose.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A container that styles plain HTML without classes: the kind a CMS or Markdown produces. Headings, paragraphs, lists, quotes and links inside it get their text styles and spacing. For a single paragraph, use [Paragraph](/components/paragraph/).
+
+## Example
+
+<ComponentExample id="rich-text" />
+
+## Markup
+
+```html
+<div class="text rich-text">
+  <h2>Heading</h2>
+  <p>Paragraph with a <a href="/more">link</a>.</p>
+  <ul>
+    <li>Item</li>
+  </ul>
+</div>
+```
+
+Write the content as plain elements with no classes. Inside `rich-text`:
+
+| Element                  | Styling                                                                                                                              |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `h1`–`h6`, `p`           | Their own text style and its top and bottom margins.                                                                                 |
+| `ul`, `ol`               | Indented markers: disc, then circle, then square for nested lists; numbers for `ol`. Markers are faded. Items are `--space-2` apart. |
+| `blockquote`             | Indented, with a rule on the left.                                                                                                   |
+| `a` without a class      | Underlined, in the text color.                                                                                                       |
+| `figure`, `pre`, `table` | Text-style margins only. Style these yourself if you use them.                                                                       |
+
+The first child has no top margin and the last has no bottom margin, so the block fits its container.
+
+## Variants and props
+
+| Astro prop | HTML equivalent             | Values                                                    | Default   | Effect                                                            |
+| ---------- | --------------------------- | --------------------------------------------------------- | --------- | ----------------------------------------------------------------- |
+| `variant`  | `text-style-*` class        | `inherit`, `display`, `h1`–`h6`, `large`, `main`, `small` | `inherit` | The base style for paragraphs and lists. Headings keep their own. |
+| `maxWidth` | `--_mw` in `style`, in `ch` | whole number                                              | none      | Limits the line length in characters.                             |
+| `render`   | none                        | `true`, `false`                                           | `true`    | `false` omits the component. It also renders nothing when empty.  |
+
+## States
+
+Links have the global hover and focus styles. The block has no states of its own.
+
+## Accessibility
+
+- The heading levels in the content become part of the page outline. Make sure they continue from the heading above the block, without skipping levels.
+- Use real lists, quotes and headings in the source, not bold paragraphs, so screen readers can navigate them.
+
+**Untrusted HTML.** The Astro component outputs its content as HTML. In React, CMS content needs `dangerouslySetInnerHTML`. In both cases, sanitize HTML that users or third parties can edit before rendering it. Neither RichText nor Constella does this for you.
+
+## Behavior
+
+None: native HTML.
+
+## Tokens
+
+<ComponentTokens id="rich-text" />
+
+Each element also reads its text style's tokens. They're listed on the [Typography](/foundations/typography/) page.
+
+## Related
+
+- [Paragraph](/components/paragraph/) and [Heading](/components/heading/).
+- [Typography](/foundations/typography/).

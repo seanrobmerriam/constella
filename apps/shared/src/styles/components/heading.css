@@ -7,7 +7,7 @@
  * State:     none
  * Tokens:    --background, --border-width, --radius-small, --space-1,
  *            --space-2, --text
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/heading/
  */
 @layer components {
   /* The eyebrow stays a block container, not a flex one: the global text trim

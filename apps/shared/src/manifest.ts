@@ -85,19 +85,19 @@ export const components: readonly ComponentEntry[] = [
   }),
 
   // Typography
-  planned("heading", {
+  documented("heading", {
     name: "Heading",
     astro: ["typography/Heading.astro"],
     root: ".heading",
     styles: ["components/heading.css", "patterns.css", "base.css"],
   }),
-  planned("paragraph", {
+  documented("paragraph", {
     name: "Paragraph",
     astro: ["typography/Paragraph.astro"],
     root: ".text",
     styles: ["patterns.css", "base.css"],
   }),
-  planned("rich-text", {
+  documented("rich-text", {
     name: "RichText",
     astro: ["typography/RichText.astro"],
     root: ".rich-text",
