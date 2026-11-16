@@ -33,6 +33,7 @@ const markup = example.html.replace(/<script[\s\S]*?<\/script>/g, "");
   import { initRange } from "@constella/shared/behaviors/range.ts";
   import { initDropdown } from "@constella/shared/behaviors/dropdown.ts";
   import { initModal } from "@constella/shared/behaviors/modal.ts";
+  import { initTabs } from "@constella/shared/behaviors/tabs.ts";
 
   const entry = document.body.dataset.behavior;
   const roots = (selector: string) =>
@@ -52,4 +53,5 @@ const markup = example.html.replace(/<script[\s\S]*?<\/script>/g, "");
     document
       .querySelectorAll<HTMLDialogElement>(".modal_wrap")
       .forEach(initModal);
+  if (entry === "tabs") roots(".tabs_wrap").forEach(initTabs);
 </script>

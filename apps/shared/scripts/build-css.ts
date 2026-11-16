@@ -32,6 +32,7 @@ const behaviors = [
   "modal",
   "navbar",
   "range",
+  "tabs",
   "theme",
 ];
 const result = await Bun.build({

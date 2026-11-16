@@ -15,7 +15,7 @@ export interface ExampleDefinition {
   tsx: string;
   /** Shared behavior this example needs, from the closed `behaviors` list. */
   behaviorEntry?:
-    "accordion" | "dropdown" | "form" | "modal" | "navbar" | "range";
+    "accordion" | "dropdown" | "form" | "modal" | "navbar" | "range" | "tabs";
   /** Iframe height in rem. */
   previewHeight: number;
 }

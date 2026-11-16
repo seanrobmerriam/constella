@@ -243,11 +243,12 @@ export const components: readonly ComponentEntry[] = [
     styles: ["components/modal.css"],
     behaviors: ["modal"],
   }),
-  planned("tabs", {
+  documented("tabs", {
     name: "Tabs",
     astro: ["interactive/Tabs.astro", "interactive/TabLink.astro"],
     root: ".tabs_wrap",
     styles: ["components/tabs.css"],
+    behaviors: ["tabs"],
   }),
   planned("slider", {
     name: "Slider",

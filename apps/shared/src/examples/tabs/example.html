@@ -1,0 +1,62 @@
+<div class="tabs_wrap" id="process">
+  <div class="tabs_bar">
+    <div class="tabs_links" role="tablist" aria-orientation="horizontal">
+      <button class="tabs_link" type="button">
+        <span class="tabs_link_text text-style-trim">Strategy</span>
+      </button>
+      <button class="tabs_link" type="button">
+        <span class="tabs_link_text text-style-trim">Design</span>
+      </button>
+      <button class="tabs_link" type="button">
+        <span class="tabs_link_text text-style-trim">Launch</span>
+      </button>
+    </div>
+  </div>
+  <div class="tabs_panels">
+    <div class="margin-trim">
+      <h3 class="heading text-style-h5">Strategy</h3>
+      <p class="text">
+        We start with what your visitors need, and what the site has to do for
+        them.
+      </p>
+    </div>
+    <div class="margin-trim">
+      <h3 class="heading text-style-h5">Design</h3>
+      <p class="text">
+        Pages are built from the same components, so they stay consistent as the
+        site grows.
+      </p>
+    </div>
+    <div class="margin-trim">
+      <h3 class="heading text-style-h5">Launch</h3>
+      <p class="text">
+        Every page is checked on phones, with a keyboard and with a screen
+        reader before it ships.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Without the script, show every panel and hide the tab bar. -->
+<noscript>
+  <style>
+    .tabs_bar,
+    .tabs_controls {
+      display: none;
+    }
+    .tabs_panels {
+      gap: var(--space-6);
+      overflow: visible;
+    }
+    .tabs_panels > * {
+      grid-area: auto;
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
+</noscript>
+
+<script type="module">
+  import { initTabs } from "./behaviors/tabs.js";
+  document.querySelectorAll(".tabs_wrap").forEach((root) => initTabs(root));
+</script>
