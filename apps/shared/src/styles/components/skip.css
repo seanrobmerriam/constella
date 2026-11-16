@@ -1,3 +1,14 @@
+/*
+ * Component: Skip
+ * Astro:     apps/constella/src/components/global/Skip.astro (renders a
+ *            Button)
+ * Root:      .skip-link
+ * Children:  none
+ * Variants:  none
+ * State:     none
+ * Tokens:    --space-2
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .skip-link {
     position: fixed;

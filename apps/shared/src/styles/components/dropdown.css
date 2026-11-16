@@ -1,3 +1,17 @@
+/*
+ * Component: Dropdown
+ * Astro:     apps/constella/src/components/interactive/Dropdown.astro
+ * Root:      .dropdown_wrap
+ * Children:  .dropdown_toggle, .dropdown_icon, .dropdown_body,
+ *            .dropdown_content
+ * Variants:  none
+ * State:     data-size, data-radius (controls.css)
+ * Tokens:    --background-2, --hover-duration, --hover-ease, --open-duration,
+ *            --open-ease, --radius-small, --site-margin, --space-2, --space-5
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Also styles Astro designer-preview hooks (.preview, .stacki-*), which plain
+ * HTML users can ignore.
+ */
 @layer components {
   .dropdown_wrap {
     --_control-pad: 0.75em;

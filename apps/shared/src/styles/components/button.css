@@ -1,3 +1,19 @@
+/*
+ * Component: Button
+ * Astro:     apps/constella/src/components/Button.astro (also used by Skip,
+ *            Card, Marquee and Slider controls)
+ * Root:      .button_wrap
+ * Children:  .button_mark, .button_play, .button_pause
+ * Variants:  .secondary, .link, .arrow, .back, .close, .play
+ * State:     data-size, data-radius (controls.css); [aria-pressed="true"] on
+ *            toggle buttons
+ * Tokens:    --border-width, --button-2-background, --button-2-background-
+ *            hover, --button-2-border, --button-2-border-hover,
+ *            --button-2-text, --button-2-text-hover, --hover-duration,
+ *            --hover-ease, --link-border, --link-border-hover, --link-text,
+ *            --link-text-hover, --radius-round
+ * Docs:      /components/button/
+ */
 @layer components {
   .button_wrap {
     display: inline-flex;

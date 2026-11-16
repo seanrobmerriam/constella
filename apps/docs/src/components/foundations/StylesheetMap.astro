@@ -1,0 +1,72 @@
+---
+/**
+ * Which file styles which component. Stylesheet rows come from each
+ * components/*.css header comment; pattern-based components are listed below.
+ */
+import { componentStylesheets } from "../../lib/css-source.ts";
+
+const sheets = componentStylesheets();
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+/** Components with no stylesheet of their own: they use shared patterns. */
+const patternBased = [
+  ["Section", ".section, .container", "patterns.css"],
+  ["Paragraph", ".text + a .text-style-* class", "patterns.css, base.css"],
+  ["InputWrapper", ".input-wrapper", "patterns.css"],
+  ["Input", ".field, .field-label, .field-control", "patterns.css"],
+  ["Img", ".image", "patterns.css"],
+  ["Video", ".video", "patterns.css"],
+] as const;
+---
+
+<table class="token-table">
+  <thead>
+    <tr>
+      <th>Stylesheet</th>
+      <th>Component</th>
+      <th>Root class</th>
+      <th>Docs</th>
+    </tr>
+  </thead>
+  <tbody>
+    {sheets.map((s) => (
+      <tr>
+        <td>
+          <code>components/{s.file}</code>
+        </td>
+        <td>{s.component}</td>
+        <td>
+          <code>{s.root}</code>
+        </td>
+        <td>
+          {s.docs.length === 0
+            ? "planned"
+            : s.docs.map((d, i) => (
+                <>
+                  {i > 0 && ", "}
+                  <a href={`${base}${d}`}>{d.split("/")[2]}</a>
+                </>
+              ))}
+        </td>
+      </tr>
+    ))}
+    {patternBased.map(([component, root, file]) => (
+      <tr>
+        <td>
+          <code>{file}</code>
+        </td>
+        <td>{component}</td>
+        <td>
+          <code>{root}</code>
+        </td>
+        <td>
+          {component === "InputWrapper" ? (
+            <a href={`${base}/components/input-wrapper/`}>input-wrapper</a>
+          ) : (
+            "planned"
+          )}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>

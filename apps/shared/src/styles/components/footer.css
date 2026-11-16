@@ -1,3 +1,20 @@
+/*
+ * Component: Footer
+ * Astro:     apps/constella/src/components/global/Footer.astro
+ * Root:      .footer_wrap
+ * Children:  .footer_inner, .footer_top, .footer_brand, .footer_brand_text,
+ *            .footer_logo, .footer_description, .footer_links, .footer_link,
+ *            .footer_groups, .footer_group, .footer_group_label,
+ *            .footer_bottom, .footer_copyright, .footer_legal, .footer_social
+ * Variants:  .columns, .spacing-small, .spacing-medium, .spacing-large
+ * State:     none
+ * Tokens:    --background, --border, --border-width, --hover-duration,
+ *            --hover-ease, --max-width-main, --primary-medium, --section-
+ *            space-large, --section-space-medium, --section-space-small,
+ *            --site-margin, --space-2, --space-3, --space-4, --space-6,
+ *            --space-8, --text, --text-2, --text-small
+ * Docs:      /components/footer/
+ */
 @layer components {
   .footer_wrap {
     display: flex;

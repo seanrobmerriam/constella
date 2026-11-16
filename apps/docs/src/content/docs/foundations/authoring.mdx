@@ -1,0 +1,60 @@
+---
+title: Authoring conventions
+description: How to name, place and extend component styles so they stay predictable.
+sidebar:
+  order: 7
+---
+
+These rules apply when you add a component to your own site or change Constella itself. They keep components independent: you can change one without breaking another.
+
+## Choose the right place
+
+| You need                                           | Put it in                                                                  |
+| -------------------------------------------------- | -------------------------------------------------------------------------- |
+| A different color, size or spacing across the site | A [token](/foundations/tokens/) or [theme](/foundations/themes/) override. |
+| The same arrangement in several unrelated places   | A pattern.                                                                 |
+| Another coherent look for one component            | A variant of that component.                                               |
+| A one-off adjustment to a single element           | A [utility](/foundations/utilities/).                                      |
+| Genuinely new styling or behavior                  | A new, small component.                                                    |
+| Different content per instance                     | A prop, slot or configuration, not CSS.                                    |
+
+## Name classes by family
+
+A component's root class ends in `_wrap`. Its children share the family name and are named for their role, not their layout technique:
+
+```css
+@layer components {
+  .feature-card_wrap {
+    border: var(--border-width) solid var(--border);
+
+    &.compact {
+      padding: var(--space-3);
+    }
+  }
+
+  .feature-card_title {
+    color: var(--text);
+  }
+}
+```
+
+- Name children `_title`, `_body` or `_list`, not `_flex`. The layout technique may change; the role won't.
+- Variants are short words, always qualified by the root: `.feature-card_wrap.compact`. Never define a bare `.compact` rule.
+- Put component CSS in `@layer components` and read tokens, never literal colors or sizes.
+- Use `rem` for layout and `em` for padding inside controls.
+
+A few older components use roots without the `_wrap` suffix: `.section`, `.heading`, `.layout`, `.icon`, `.grid` and the `form-*` classes. They keep their names for compatibility. New components shouldn't copy them.
+
+## Don't style another component's insides
+
+You may add utility classes to a component. Don't add your own class to reach into a component's internals, and don't style them from outside with a selector like `.my-page .dropdown_body`. Those internals can change. If you need another look, add a variant to the component.
+
+Your own component should style only the plain HTML it owns. To use a Constella component inside it, compose it, and don't restyle it.
+
+## Keep behavior separate
+
+CSS handles appearance and the HTML handles structure and meaning. Scripts only add what native HTML can't. When a component needs JavaScript, it lives in a behavior module with an `init…(root)` function that returns a cleanup function, and the docs list that requirement next to the example.
+
+## Changing a Constella component
+
+Each change updates the stylesheet, the example, the docs page and the tests together. The checklist is in [`docs/completion-plan.md`](https://github.com/seanrobmerriam/constella/blob/main/docs/completion-plan.md#2-the-component-change-procedure) in the repository.

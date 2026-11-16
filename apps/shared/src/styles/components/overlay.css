@@ -1,3 +1,13 @@
+/*
+ * Component: Overlay
+ * Astro:     apps/constella/src/components/media/Overlay.astro
+ * Root:      .overlay
+ * Children:  none
+ * Variants:  .gradient (solid is the default)
+ * State:     none
+ * Tokens:    none
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .overlay {
     position: absolute;

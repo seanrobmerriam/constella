@@ -1,3 +1,13 @@
+/*
+ * Component: Icon
+ * Astro:     apps/constella/src/components/media/Icon.astro
+ * Root:      .icon
+ * Children:  none
+ * Variants:  .small, .large, .full-width
+ * State:     none
+ * Tokens:    none
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .icon {
     --_size: 1.5em;

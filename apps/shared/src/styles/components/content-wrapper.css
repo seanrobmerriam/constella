@@ -1,3 +1,17 @@
+/*
+ * Component: ContentWrapper
+ * Astro:     apps/constella/src/components/wrapper/ContentWrapper.astro
+ * Root:      .layout
+ * Children:  its column children
+ * Variants:  .columns, .reversed, .centered, .contain, .breakout, .overlay,
+ *            .auto-width, .card-layout, .sticky-content, .sticky-visual
+ * State:     none; alignment comes from the --_alignment custom property
+ * Tokens:    --background-2, --max-width-main, --nav-height, --radius-main,
+ *            --radius-small, --section-space-medium, --section-space-small,
+ *            --site-gutter, --site-margin, --site-width, --space-5, --space-6,
+ *            --space-8
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .layout {
     /* layout defaults */

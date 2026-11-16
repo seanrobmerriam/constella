@@ -1,0 +1,33 @@
+---
+/** Every utility class, grouped as in utilities.css, read at build time. */
+import { utilityGroups } from "../../lib/css-source.ts";
+
+const groups = utilityGroups();
+const label = (stem: string, suffixes: string[]) =>
+  suffixes.length === 1 && suffixes[0] === ""
+    ? `.${stem}`
+    : suffixes.length === 1
+      ? `.${stem}-${suffixes[0]}`
+      : `.${stem}-{${suffixes.join(", ")}}`;
+---
+
+<table class="token-table">
+  <thead>
+    <tr>
+      <th>Group</th>
+      <th>Classes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {groups.map((g) => (
+      <tr>
+        <td>{g.title}</td>
+        <td>
+          {g.families.map((f) => (
+            <code class="utility-family">{label(f.stem, f.suffixes)}</code>
+          ))}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>

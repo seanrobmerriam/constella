@@ -95,23 +95,32 @@ The procedure is enforced at three levels, so it doesn't depend on anyone rememb
 
 ## 4. Phase 1 — Organize and document the stylesheets
 
-- [ ] **1.1 Rename for 1:1 mapping.** Rename `nav.css` to `navbar.css`. Fold `accordion.css` (one rule) into `details.css`, since Accordion is part of the Details family. Rename any other file whose name doesn't match its family. Class names stay the same, so nothing breaks for users.
-- [ ] **1.2 Header comment on every stylesheet.** Each `components/*.css` file starts with: family name, root class, child classes, variants, data attributes, tokens consumed, and docs page URL. The coverage check reads only the manifest, not these comments; the comments are for readers.
-- [ ] **1.3 Sort `index.css`** alphabetically, and give `controls.css` a comment explaining it is cross-cutting and must load after the component files. Confirm `tests/components/baseline.spec.ts` still passes, since import order changes source order inside the layer.
-- [ ] **1.4 Write a component-to-style map** for components without their own stylesheet (Section → `patterns.css`, Input / Textarea → `patterns.css` field rules + `textarea.css`, Paragraph → base typography, and so on). This goes into the manifest in Phase 2, so there is one map, not two.
-- [ ] **1.5 Decide whether to support per-component imports.** **Recommendation: not yet.** Document `dist/constella.css` as the only supported entry, and leave per-file imports for after the 1.0 release. Selective imports would make `base.css` and `patterns.css` dependencies part of the public contract.
-- [ ] **1.6 Docs: Foundations section** (old Task 10, item 3). New pages under `apps/docs/src/content/docs/foundations/`:
+- [x] **1.1 Rename for 1:1 mapping.** Rename `nav.css` to `navbar.css`. Fold `accordion.css` (one rule) into `details.css`, since Accordion is part of the Details family. Rename any other file whose name doesn't match its family. Class names stay the same, so nothing breaks for users.
+- [x] **1.2 Header comment on every stylesheet.** Each `components/*.css` file starts with: family name, root class, child classes, variants, data attributes, tokens consumed, and docs page URL. The coverage check reads only the manifest, not these comments; the comments are for readers.
+- [x] **1.3 Sort `index.css`** alphabetically, and give `controls.css` a comment explaining it is cross-cutting and must load after the component files. Confirm `tests/components/baseline.spec.ts` still passes, since import order changes source order inside the layer.
+- [x] **1.4 Write a component-to-style map** for components without their own stylesheet (Section → `patterns.css`, Input / Textarea → `patterns.css` field rules + `textarea.css`, Paragraph → base typography, and so on). This goes into the manifest in Phase 2, so there is one map, not two.
+- [x] **1.5 Decide whether to support per-component imports.** **Recommendation: not yet.** Document `dist/constella.css` as the only supported entry, and leave per-file imports for after the 1.0 release. Selective imports would make `base.css` and `patterns.css` dependencies part of the public contract.
+- [x] **1.6 Docs: Foundations section** (old Task 10, item 3). New pages under `apps/docs/src/content/docs/foundations/`:
   - `styles-architecture.mdx`: §1 of this plan, rewritten for users. Covers the layers, the single entry point, the `dist` artifact, why the classes are global and why that is safe, and that CSS Modules aren't used.
   - `tokens.mdx`, `themes.mdx`, `typography.mdx`, `spacing-and-layout.mdx`, `utilities.mdx`: generated or hand-written from `base.css` / `utilities.css`. Each token table must list real custom properties.
   - `authoring.mdx`: the user-facing version of `project-guidelines.md` §5–§8 (`_wrap` roots, root-qualified variants, no reaching into internals, when to use a utility vs. a variant).
-- [ ] Run `bun run build`, `bun run check`, `bun run test:components`, `bun run test:docs`, then commit.
+- [x] Run `bun run build`, `bun run check`, `bun run test:components`, `bun run test:docs`, then commit.
+
+**Outcome (2026-11-16):**
+
+- `nav.css` is now `navbar.css`, and `accordion.css` is folded into `details.css`. Every other file already matched its family. Legacy root class names (`.layout`, `.form-choice`, `.icon`, `.grid` and others) are public, so they were kept and documented, not renamed.
+- Every `components/*.css` file has a header comment. `index.css` is sorted and commented.
+- No CSS behavior changed. Computed styles of every element on all 12 site pages, at 375px and 1280px, are identical before and after. The component, docs and React-example test suites pass.
+- 1.4: the stylesheet map on the styles-architecture docs page is generated from the header comments. Its six pattern-based rows are hand-written until the Phase 2 manifest replaces them.
+- 1.5: `dist/constella.css` is documented as the only supported entry point.
+- 1.6: the seven Foundations pages are live. Token, theme, utility and stylesheet tables are generated from the CSS at build time, so they can't drift. The Foundations sidebar group uses `autogenerate`, which does the Foundations half of 2.3.
 
 **Done when:** the "why individual files / are these CSS Modules" question is answered on a public docs page, and every stylesheet name matches the component it styles.
 
 ## 5. Phase 2 — Make documentation drift impossible
 
 - [ ] **2.1 Component manifest** at `apps/shared/src/manifest.ts`. It is typed, data only, and has one entry per public component:
-  ```ts
+  ```text
   { id: "dropdown", name: "Dropdown", family: "dropdown",
     status: "documented" | "planned" | "internal" | "astro-only",
     astro: "interactive/Dropdown.astro", styles: ["components/dropdown.css", "controls.css"],

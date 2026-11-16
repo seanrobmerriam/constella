@@ -1,0 +1,60 @@
+---
+/**
+ * Lists root design tokens whose names match `pattern`, read from the shared
+ * base.css at build time. Fluid tokens show their pixel range.
+ */
+import { tokenRows, viewportRange } from "../../lib/css-source.ts";
+
+interface Props {
+  /** Regular expression source matched against the token name. */
+  pattern: string;
+  /** Show a color swatch for literal color values. */
+  swatches?: boolean;
+}
+
+const { pattern, swatches = false } = Astro.props;
+const rows = tokenRows(new RegExp(pattern));
+if (rows.length === 0) throw new Error(`No tokens match /${pattern}/`);
+const vp = viewportRange();
+const isColor = (v: string) => /^#[0-9a-f]{3,8}$/i.test(v);
+---
+
+<table class="token-table">
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    {rows.map((row) => (
+      <tr>
+        <td>
+          <code>{row.name}</code>
+        </td>
+        <td>
+          {row.fluid ? (
+            <span title={row.value}>
+              {row.fluid.min} → {row.fluid.max}
+              <span class="token-note">
+                {" "}
+                (fluid, {vp.min}–{vp.max} viewport)
+              </span>
+            </span>
+          ) : (
+            <>
+              {swatches && isColor(row.value) && (
+                <span
+                  class="token-swatch"
+                  style={`background:${row.value}`}
+                  aria-hidden="true"
+                />
+              )}
+              <code>{row.value}</code>
+            </>
+          )}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>

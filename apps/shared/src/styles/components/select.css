@@ -1,3 +1,16 @@
+/*
+ * Component: Select
+ * Astro:     apps/constella/src/components/form/Select.astro (with the shared
+ *            .field pattern)
+ * Root:      .form-select
+ * Children:  .form-select_control, .form-select_field, .form-select_mark
+ * Variants:  none
+ * State:     data-size, data-radius (controls.css)
+ * Tokens:    --background-2, --background-3, --hover-duration, --hover-ease,
+ *            --line-height-large, --open-duration, --open-ease, --radius-
+ *            small, --space-1, --space-2, --text, --text-2, --text-small
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .form-select_control {
     position: relative;

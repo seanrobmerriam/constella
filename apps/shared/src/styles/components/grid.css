@@ -1,3 +1,13 @@
+/*
+ * Component: Grid
+ * Astro:     apps/constella/src/components/wrapper/Grid.astro
+ * Root:      .grid
+ * Children:  none
+ * Variants:  .autofit, .autofill
+ * State:     none; column counts come from --_cols-* custom properties
+ * Tokens:    --site-gutter
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .grid {
     --_cols: var(--_cols-xs);

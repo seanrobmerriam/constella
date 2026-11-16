@@ -1,3 +1,13 @@
+/*
+ * Component: RichText
+ * Astro:     apps/constella/src/components/typography/RichText.astro
+ * Root:      .rich-text
+ * Children:  styles the plain HTML elements inside it
+ * Variants:  none
+ * State:     none
+ * Tokens:    --border, --border-width, --space-2, --space-4
+ * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ */
 @layer components {
   .rich-text {
     & :is(h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, figure, pre, table) {

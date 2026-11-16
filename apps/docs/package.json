@@ -15,7 +15,8 @@
     "astro": "^7.3.6",
     "sharp": "^0.35.3",
     "@astrojs/check": "^0.9.12",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "@constella/shared": "workspace:*"
   },
   "private": true
 }

@@ -26,6 +26,10 @@ export default defineConfig({
           ],
         },
         {
+          label: "Foundations",
+          items: [{ autogenerate: { directory: "foundations" } }],
+        },
+        {
           label: "Components",
           items: [
             { label: "Button", slug: "components/button" },
