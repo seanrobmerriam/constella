@@ -174,7 +174,7 @@ Progress:
 - [x] 3.2 Typography: Heading, Paragraph and RichText are documented, and `tests/components/typography-components.spec.ts` tests them. The Heading page now says an eyebrow must open its block, because it has no margins of its own.
 - [x] 3.3 Media: Img, Video, Icon and Overlay are documented, and `tests/components/media-components.spec.ts` tests them. Img and Video are documented with plain-HTML equivalents rather than as Astro-only: their styling is portable, and Img's srcset generation is described as Astro-specific. `ComponentTokens` now shows "None" for stylesheets that read no tokens.
 - [x] 3.4 Content: Card is documented, and `tests/components/card.spec.ts` tests it, including that clicking anywhere on a card follows its action. The `card.css` header was missing the `.cover` variant and the clickable and hover behavior; both are added.
-- [ ] 3.5 Forms
+- [x] 3.5 Forms: Form, Fieldset, Input, Textarea, Select, Choice and Range are documented, and `tests/components/form-components.spec.ts` tests them (14 tests). The Form and Range scripts moved into `behaviors/form.ts` and `behaviors/range.ts`, with init and cleanup functions, and are built into `dist/behaviors/`. This fixed a bug: GET forms always failed, because `fetch` rejects a GET request with a body. Range now also redraws after a form reset.
 - [ ] 3.6 Global
 - [ ] 3.7 Disclosure
 - [ ] 3.8 Overlay

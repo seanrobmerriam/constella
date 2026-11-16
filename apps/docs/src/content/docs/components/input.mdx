@@ -1,0 +1,101 @@
+---
+title: Input
+description: A labeled single-line text field, with autofill set up for common kinds of data.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A labeled text field. In Astro, a `variant` picks the input type, the mobile keyboard and the browser autofill hint together, so an email field gets an email keyboard and offers the visitor's saved address.
+
+## Example
+
+<ComponentExample id="input" />
+
+## Markup
+
+Every field in Constella uses the same pattern: a `<label class="field">` that wraps its label text and its control, so the label is always connected without an `id`.
+
+```html
+<label class="field form-input">
+  <span class="field-label text-style-main">
+    <span>Email</span>
+    <span class="field-star" aria-hidden="true">*</span>
+  </span>
+  <input
+    class="field-control text-style-main"
+    type="email"
+    name="email"
+    placeholder="Email"
+    inputmode="email"
+    autocomplete="email"
+    required
+  />
+</label>
+```
+
+- `field-label` holds the label text. Add `sr-only` to it to hide the label visually while keeping it for screen readers.
+- `field-star` is the visual required marker. It's hidden from screen readers because the `required` attribute already announces it.
+- `field-control` is the styled control itself, shared with [Textarea](/components/textarea/) and [Select](/components/select/).
+
+## Variants and props
+
+| Astro prop    | HTML equivalent                     | Values                           | Default             | Effect                                    |
+| ------------- | ----------------------------------- | -------------------------------- | ------------------- | ----------------------------------------- |
+| `variant`     | `type`, `inputmode`, `autocomplete` | see below                        | `text`              | The kind of data.                         |
+| `label`       | the label text                      | text                             | the variant's name  | Always give a specific label.             |
+| `name`        | `name`                              | text                             | the label as a slug | The submitted key.                        |
+| `placeholder` | `placeholder`                       | text                             | the label           | An example of the expected value.         |
+| `value`       | `value`                             | text                             | none                | Initial value.                            |
+| `required`    | `required` and the `field-star`     | `true`, `false`                  | `false`             | Requires a value and marks the label.     |
+| `labelHidden` | `sr-only` on `field-label`          | `true`, `false`                  | `false`             | Hides the label visually only.            |
+| `size`        | `data-size` on the label            | `small`, `main`, `large`         | none                | Opt-in text size; padding scales with it. |
+| `radius`      | `data-radius` on the label          | `none`, `small`, `main`, `round` | none                | Opt-in corner radius.                     |
+| `render`      | none                                | `true`, `false`                  | `true`              | `false` omits the component.              |
+
+| `variant`    | `type`     | `inputmode` | `autocomplete`     |
+| ------------ | ---------- | ----------- | ------------------ |
+| `text`       | `text`     | `text`      | `on`               |
+| `first-name` | `text`     | `text`      | `given-name`       |
+| `last-name`  | `text`     | `text`      | `family-name`      |
+| `email`      | `email`    | `email`     | `email`            |
+| `phone`      | `tel`      | `tel`       | `tel`              |
+| `date`       | `date`     | `text`      | `bday`             |
+| `zip-code`   | `text`     | `numeric`   | `postal-code`      |
+| `number`     | `number`   | `numeric`   | `off`              |
+| `search`     | `search`   | `search`    | `off`              |
+| `password`   | `password` | `text`      | `current-password` |
+| `url`        | `url`      | `url`       | `url`              |
+
+Other `<input>` attributes, like `minlength` or `pattern`, pass through.
+
+## States
+
+- **Hover** (pointer devices only): the background darkens one step.
+- **Focus**: the border takes the text color and the focus outline sits inside it.
+- **Disabled**: half opacity and a not-allowed cursor.
+- **Placeholder**: shown in the faded `--text-2` color.
+
+## Accessibility
+
+- Write a specific label, not just the placeholder. Placeholders disappear as soon as someone types.
+- `labelHidden` is for fields whose purpose is obvious from context, such as a search box next to a search button. The label is still read out.
+- The `variant`'s `autocomplete` value lets browsers and password managers fill the field. Keep it when you change the label.
+- The browser shows its own validation messages for `required`, `type="email"` and similar constraints.
+
+## Behavior
+
+None: native HTML. Validation is the browser's own.
+
+## Tokens
+
+<ComponentTokens
+  id="input"
+  also={["--background-2", "--background-3", "--text-2", "--radius-small"]}
+/>
+
+## Related
+
+- [Textarea](/components/textarea/), [Select](/components/select/) and [Choice](/components/choice/): the other fields.
+- [Fieldset](/components/fieldset/) and [Form](/components/form/).
+- [InputWrapper](/components/input-wrapper/): a field and a button in one row.

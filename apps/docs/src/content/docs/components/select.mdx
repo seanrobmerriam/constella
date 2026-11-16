@@ -1,0 +1,79 @@
+---
+title: Select
+description: A labeled native select with a prompt, a custom arrow and a styled list where supported.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A labeled choice from a list. It's a native `<select>`, so keyboard and screen-reader support are the browser's own. In browsers that support customizable selects, the open list is styled to match. Elsewhere it's the platform's list. The Astro component can also generate months, days, years and US states.
+
+For a short list of options, consider radio [Choices](/components/choice/), which show every option at once. For a menu of links, use a Dropdown.
+
+## Example
+
+<ComponentExample id="select" />
+
+## Markup
+
+```html
+<label class="field form-select">
+  <span class="field-label text-style-main"><span>Topic</span></span>
+  <span class="form-select_control">
+    <select
+      class="field-control form-select_field text-style-main"
+      name="topic"
+      required
+    >
+      <option value="" disabled selected hidden>Select one…</option>
+      <option value="sales">Sales</option>
+      <option value="support">Support</option>
+    </select>
+    <svg class="icon small form-select_mark" aria-hidden="true">…</svg>
+  </span>
+</label>
+```
+
+- The first `<option>` is the **prompt**: empty value, `disabled`, `selected` and `hidden`. It shows until a choice is made and can't be chosen again. While it's showing, the field text is faded.
+- `form-select_mark` is the arrow. It points down, and up while the list is open where supported.
+
+## Variants and props
+
+| Astro prop       | HTML equivalent                 | Values                                  | Default                     | Effect                                             |
+| ---------------- | ------------------------------- | --------------------------------------- | --------------------------- | -------------------------------------------------- |
+| `variant`        | the options you write           | `list`, `month`, `day`, `year`, `state` | `list`                      | `list` uses `options`. The others generate theirs. |
+| `options`        | `<option>` elements             | strings, or `{ value, label }`          | required for `list`         | Renders nothing when empty.                        |
+| `from`, `to`     | the year options                | whole numbers                           | 100 years back to this year | `year` only. Newest first.                         |
+| `label`          | the label text                  | text                                    | per variant                 | `Select`, `Month`, `Day`, `Year` or `State`.       |
+| `placeholder`    | the prompt option's text        | text                                    | per variant                 | `Select one…`, `MM`, `DD` or `YYYY`.               |
+| `value`          | `selected` on an option         | text                                    | none                        | Initially selected value.                          |
+| `name`           | `name`                          | text                                    | the label as a slug         |                                                    |
+| `required`       | `required` and the `field-star` | `true`, `false`                         | `false`                     | A choice must be made. The prompt doesn't count.   |
+| `labelHidden`    | `sr-only` on `field-label`      | `true`, `false`                         | `false`                     |                                                    |
+| `size`, `radius` | `data-size`, `data-radius`      | as for Input                            | none                        | Opt-in size and corner radius.                     |
+| `render`         | none                            | `true`, `false`                         | `true`                      | `false` omits the component.                       |
+
+## States
+
+- **Hover, focus, disabled**: as for [Input](/components/input/#states).
+- **Prompt showing**: faded text.
+- **Open** (where supported): the field and list share a background, and the arrow turns.
+
+## Accessibility
+
+- It's a native select, so it's announced with its label and current value, and works with the arrow keys and type-ahead.
+- The prompt option is hidden from the list, so screen-reader users only hear real options.
+- The arrow is decorative.
+
+## Behavior
+
+None: native HTML. The styled list uses `appearance: base-select`, a CSS feature. Browsers without it show their own list.
+
+## Tokens
+
+<ComponentTokens id="select" />
+
+## Related
+
+- [Input](/components/input/) and [Choice](/components/choice/).
+- [Form](/components/form/).

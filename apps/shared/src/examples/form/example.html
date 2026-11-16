@@ -1,0 +1,118 @@
+<div class="form_wrap" data-state="idle" data-endpoint="/api/contact">
+  <form class="form_fields" name="contact" action="/api/contact" method="post">
+    <fieldset class="form-fieldset columns">
+      <legend class="form-fieldset_legend form-fieldset_legend-hidden sr-only">
+        Your details
+      </legend>
+      <div class="form-fieldset_fields">
+        <label class="field form-input">
+          <span class="field-label text-style-main"
+            ><span>Name</span
+            ><span class="field-star" aria-hidden="true">*</span></span
+          >
+          <input
+            class="field-control text-style-main"
+            type="text"
+            name="name"
+            placeholder="Name"
+            inputmode="text"
+            autocomplete="name"
+            required
+          />
+        </label>
+        <label class="field form-input">
+          <span class="field-label text-style-main"
+            ><span>Email</span
+            ><span class="field-star" aria-hidden="true">*</span></span
+          >
+          <input
+            class="field-control text-style-main"
+            type="email"
+            name="email"
+            placeholder="Email"
+            inputmode="email"
+            autocomplete="email"
+            required
+          />
+        </label>
+      </div>
+    </fieldset>
+    <label class="field form-select">
+      <span class="field-label text-style-main"><span>Topic</span></span>
+      <span class="form-select_control">
+        <select
+          class="field-control form-select_field text-style-main"
+          name="topic"
+        >
+          <option value="" disabled selected hidden>Select one…</option>
+          <option value="sales">Sales</option>
+          <option value="support">Support</option>
+          <option value="press">Press</option>
+        </select>
+        <svg
+          class="icon small form-select_mark"
+          viewBox="0 0 66 70"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M17 2L50 34.9999L17 68"
+            stroke="currentColor"
+            vector-effect="non-scaling-stroke"
+            style="stroke-width: var(--border-width)"
+          />
+        </svg>
+      </span>
+    </label>
+    <label
+      class="field form-textarea"
+      style="--_min-lines: 3; --_max-lines: 12"
+    >
+      <span class="field-label text-style-main"
+        ><span>Message</span
+        ><span class="field-star" aria-hidden="true">*</span></span
+      >
+      <textarea
+        class="field-control form-textarea_field text-style-main"
+        name="message"
+        rows="3"
+        required
+      ></textarea>
+    </label>
+    <label class="form-choice">
+      <input class="form-choice_input" type="checkbox" name="updates" />
+      <span class="form-choice_mark" aria-hidden="true"
+        ><svg
+          class="icon small form-choice_tick"
+          viewBox="0 0 26 20"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M2 10.5L9.5 18L24 2"
+            stroke="currentColor"
+            vector-effect="non-scaling-stroke"
+            style="stroke-width: var(--border-width)"
+          /></svg
+      ></span>
+      <span class="form-choice_text text-style-main"
+        >Email me product updates</span
+      >
+    </label>
+    <div class="input-wrapper">
+      <button class="button_wrap" type="submit">
+        <span class="button_text text-style-trim">Send</span>
+      </button>
+    </div>
+  </form>
+  <p class="form_note form_note-sent text-style-main" role="status">
+    Thanks — we will be in touch.
+  </p>
+  <p class="form_note form_note-failed text-style-main" role="alert">
+    That did not send. Please try again.
+  </p>
+</div>
+<script type="module">
+  import { initForm } from "./behaviors/form.js";
+  document.querySelectorAll(".form_wrap").forEach((root) => initForm(root));
+</script>

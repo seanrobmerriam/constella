@@ -1,0 +1,69 @@
+---
+title: Fieldset
+description: Groups related fields under one label, and lays them out in a stack, columns or a row.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A native `<fieldset>` that names a group of related fields, such as an address or a set of radio buttons, and lays them out. Use it whenever fields only make sense together. For layout alone, without a group label, use [InputWrapper](/components/input-wrapper/) or a [Grid](/components/grid/).
+
+## Example
+
+<ComponentExample id="fieldset" />
+
+## Markup
+
+```html
+<fieldset class="form-fieldset columns">
+  <legend
+    class="form-fieldset_legend form-fieldset_legend-heading text-style-h5"
+  >
+    Your details
+  </legend>
+  <div class="form-fieldset_fields">
+    <label class="field form-input">…</label>
+    <label class="field form-input">…</label>
+  </div>
+</fieldset>
+```
+
+The legend must be the first child of the fieldset. The fields go in `form-fieldset_fields`.
+
+## Variants and props
+
+| Astro prop    | HTML equivalent                            | Values                                 | Default   | Effect                                                                                                          |
+| ------------- | ------------------------------------------ | -------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
+| `legend`      | the `<legend>` text                        | text                                   | required  | Renders nothing without it, or without fields.                                                                  |
+| `variant`     | `columns`, `thirds` or `inline` class      | `stack`, `columns`, `thirds`, `inline` | `stack`   | `columns` and `thirds` split into 2 or 3 from 48rem. `inline` puts fields in a wrapping row at their own width. |
+| `legendStyle` | `form-fieldset_legend-*` and a style class | `heading`, `label`, `hidden`           | `heading` | Looks like an `h5`, like a field label, or is visually hidden.                                                  |
+| `render`      | none                                       | `true`, `false`                        | `true`    | `false` omits the component.                                                                                    |
+
+| `legendStyle` | Classes on the legend                                    |
+| ------------- | -------------------------------------------------------- |
+| `heading`     | `form-fieldset_legend-heading text-style-h5`             |
+| `label`       | `form-fieldset_legend-label field-label text-style-main` |
+| `hidden`      | `form-fieldset_legend-hidden sr-only`                    |
+
+## States
+
+None. The fields inside keep their own states. A `disabled` attribute on the fieldset disables every field in it.
+
+## Accessibility
+
+- Screen readers announce the legend when focus enters the group, for example "Contact by, group", so each radio's label can stay short.
+- Use `hidden` only when the group's purpose is clear without a visible label. The legend is still read out.
+- Don't put a heading inside the legend. Use `legendStyle="heading"` to make it look like one.
+
+## Behavior
+
+None: native HTML.
+
+## Tokens
+
+<ComponentTokens id="fieldset" />
+
+## Related
+
+- [Choice](/components/choice/): radio groups belong in a fieldset.
+- [Input](/components/input/) and [Form](/components/form/).

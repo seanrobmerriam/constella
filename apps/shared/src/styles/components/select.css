@@ -9,7 +9,7 @@
  * Tokens:    --background-2, --background-3, --hover-duration, --hover-ease,
  *            --line-height-large, --open-duration, --open-ease, --radius-
  *            small, --space-1, --space-2, --text, --text-2, --text-small
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/select/
  */
 @layer components {
   .form-select_control {

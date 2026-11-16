@@ -5,11 +5,11 @@
  * Children:  .form-range_control, .form-range_track, .form-range_fill, .form-
  *            range_handle, .form-range_input, .form-range_output
  * Variants:  none
- * State:     .is-drawn is set by the range script; not resized by data-size
+ * State:     .is-drawn is set by behaviors/range.ts; not resized by data-size
  * Tokens:    --background, --background-2, --border, --border-width, --focus-
  *            offset, --focus-width, --radius-round, --radius-small, --space-1,
  *            --space-3, --text
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/range/
  */
 @layer components {
   .form-range {

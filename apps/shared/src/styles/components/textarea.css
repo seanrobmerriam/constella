@@ -7,7 +7,7 @@
  * Variants:  none
  * State:     data-size, data-radius (controls.css)
  * Tokens:    --border-width
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/textarea/
  */
 @layer components {
   .form-textarea_field {
