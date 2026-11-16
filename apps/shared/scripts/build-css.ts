@@ -25,7 +25,7 @@ await rm(`${root}dist-entry.ts`);
 console.log("wrote dist/constella.css");
 
 // Optional behavior entry points, built as standalone ES modules next to the CSS.
-const behaviors = ["accordion", "dropdown", "form", "navbar", "range", "theme"];
+const behaviors = ["accordion", "dropdown", "form", "modal", "navbar", "range", "theme"];
 const result = await Bun.build({
   entrypoints: behaviors.map((name) => `${root}src/behaviors/${name}.ts`),
   outdir: `${root}dist/behaviors`,

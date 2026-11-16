@@ -51,6 +51,8 @@ import skipHtml from "./skip/example.html?raw";
 import skipTsx from "./skip/Example.tsx?raw";
 import dropdownHtml from "./dropdown/example.html?raw";
 import dropdownTsx from "./dropdown/Example.tsx?raw";
+import modalHtml from "./modal/example.html?raw";
+import modalTsx from "./modal/Example.tsx?raw";
 
 /**
  * The closed registry. Only these entries can be previewed; the preview route
@@ -289,6 +291,16 @@ export const examples: readonly ExampleDefinition[] = [
     tsx: dropdownTsx,
     behaviorEntry: "dropdown",
     previewHeight: 18,
+  },
+  {
+    id: "modal",
+    title: "Modal",
+    description:
+      "A button that opens a small dialog. Needs the modal behavior to open.",
+    html: modalHtml,
+    tsx: modalTsx,
+    behaviorEntry: "modal",
+    previewHeight: 28,
   },
 ];
 

@@ -177,7 +177,7 @@ Progress:
 - [x] 3.5 Forms: Form, Fieldset, Input, Textarea, Select, Choice and Range are documented, and `tests/components/form-components.spec.ts` tests them (14 tests). The Form and Range scripts moved into `behaviors/form.ts` and `behaviors/range.ts`, with init and cleanup functions, and are built into `dist/behaviors/`. This fixed a bug: GET forms always failed, because `fetch` rejects a GET request with a body. Range now also redraws after a form reset.
 - [x] 3.6 Global: Skip is documented, and `tests/components/skip.spec.ts` tests it: hidden until focused, then focus moves to `main`. Navbar and Footer were already documented.
 - [x] 3.7 Disclosure: Dropdown is documented. Its script moved to `behaviors/dropdown.ts`. Two fixes: Escape now only acts on the dropdown that has focus (before, it closed every open dropdown and took focus from wherever it was), and the panel's links can take focus as soon as it opens (before, they couldn't for the whole fade-in). `tests/components/dropdown.spec.ts` has 7 tests. Details has a shorter version of the same focus delay, under 100 ms, still to fix.
-- [ ] 3.8 Overlay
+- [x] 3.8 Overlay: Modal is documented. Its script moved to `behaviors/modal.ts`, which now explicitly returns focus to the opener in browsers that don't do it themselves. `tests/components/modal.spec.ts` has 10 tests. One correction from testing: Tab can reach the browser's own toolbar from a modal dialog, which is standard behavior, but never the page behind, and the docs now say that.
 - [ ] 3.9 Tabs
 - [ ] 3.10 Motion
 - [ ] 3.11 Astro integration page

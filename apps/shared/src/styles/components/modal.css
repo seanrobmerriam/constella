@@ -5,10 +5,11 @@
  * Root:      .modal_wrap
  * Children:  .modal_scroll, .modal_content, .modal_body, .modal_close
  * Variants:  .side-panel, .full-screen
- * State:     none
+ * State:     [open] (native dialog, opened with showModal); the page behind
+ *            stops scrolling. Opening, closing and focus in behaviors/modal.ts
  * Tokens:    --background, --open-duration, --open-ease, --radius-main,
  *            --site-margin, --space-4, --space-6, --space-7, --text
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/modal/
  * Also styles Astro designer-preview hooks (.preview, .stacki-*), which plain
  * HTML users can ignore.
  */

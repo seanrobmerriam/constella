@@ -1,0 +1,57 @@
+<div class="input-wrapper">
+  <button class="button_wrap" type="button" data-modal-open="newsletter">
+    <span class="button_text text-style-trim">Subscribe</span>
+  </button>
+</div>
+
+<dialog id="newsletter" class="modal_wrap" aria-labelledby="newsletter-title">
+  <div class="modal_content">
+    <button
+      class="button_wrap secondary close modal_close"
+      type="button"
+      aria-label="Close"
+      data-modal-close
+    >
+      <svg
+        class="icon small button_mark"
+        viewBox="0 0 26 26"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 2L24.6274 24.6274"
+          stroke="currentColor"
+          vector-effect="non-scaling-stroke"
+          style="stroke-width: var(--border-width)"
+        />
+        <path
+          d="M2 25.0024L24.6274 2.375"
+          stroke="currentColor"
+          vector-effect="non-scaling-stroke"
+          style="stroke-width: var(--border-width)"
+        />
+      </svg>
+    </button>
+    <div class="modal_scroll" data-modal-scroll>
+      <div class="modal_body margin-trim">
+        <h2 id="newsletter-title" class="heading text-style-h4">
+          Get the monthly update
+        </h2>
+        <p class="text">One email a month with what changed. No spam.</p>
+        <div class="input-wrapper">
+          <a class="button_wrap" href="#"
+            ><span class="button_text text-style-trim">Subscribe</span></a
+          >
+          <button class="button_wrap secondary" type="button" data-modal-close>
+            <span class="button_text text-style-trim">Not now</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script type="module">
+  import { initModal } from "./behaviors/modal.js";
+  document.querySelectorAll(".modal_wrap").forEach((root) => initModal(root));
+</script>
