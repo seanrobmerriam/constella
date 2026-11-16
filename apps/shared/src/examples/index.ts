@@ -49,6 +49,8 @@ import rangeHtml from "./range/example.html?raw";
 import rangeTsx from "./range/Example.tsx?raw";
 import skipHtml from "./skip/example.html?raw";
 import skipTsx from "./skip/Example.tsx?raw";
+import dropdownHtml from "./dropdown/example.html?raw";
+import dropdownTsx from "./dropdown/Example.tsx?raw";
 
 /**
  * The closed registry. Only these entries can be previewed; the preview route
@@ -277,6 +279,16 @@ export const examples: readonly ExampleDefinition[] = [
     html: skipHtml,
     tsx: skipTsx,
     previewHeight: 12,
+  },
+  {
+    id: "dropdown",
+    title: "Dropdown",
+    description:
+      "A disclosure panel of links beside a button. Needs the dropdown behavior for Escape, arrow keys and outside clicks.",
+    html: dropdownHtml,
+    tsx: dropdownTsx,
+    behaviorEntry: "dropdown",
+    previewHeight: 18,
   },
 ];
 

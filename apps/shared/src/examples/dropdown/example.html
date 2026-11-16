@@ -1,0 +1,39 @@
+<div class="input-wrapper">
+  <a class="button_wrap" href="#"
+    ><span class="button_text text-style-trim">Get started</span></a
+  >
+  <details class="dropdown_wrap">
+    <summary class="dropdown_toggle">
+      <span class="dropdown_label text-style-trim">Resources</span>
+      <svg
+        class="icon small dropdown_icon"
+        viewBox="0 0 66 70"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M17 2L50 34.9999L17 68"
+          stroke="currentColor"
+          vector-effect="non-scaling-stroke"
+          style="stroke-width: var(--border-width)"
+        />
+      </svg>
+    </summary>
+    <div class="dropdown_content">
+      <div class="dropdown_body margin-trim">
+        <ul class="flex-vertical-nowrap gap-2">
+          <li><a href="#">Guides</a></li>
+          <li><a href="#">Changelog</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+      </div>
+    </div>
+  </details>
+</div>
+
+<script type="module">
+  import { initDropdown } from "./behaviors/dropdown.js";
+  document
+    .querySelectorAll(".dropdown_wrap")
+    .forEach((root) => initDropdown(root));
+</script>

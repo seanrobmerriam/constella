@@ -2,13 +2,14 @@
  * Component: Dropdown
  * Astro:     apps/constella/src/components/interactive/Dropdown.astro
  * Root:      .dropdown_wrap
- * Children:  .dropdown_toggle, .dropdown_icon, .dropdown_body,
- *            .dropdown_content
+ * Children:  .dropdown_toggle (summary), .dropdown_label, .dropdown_icon,
+ *            .dropdown_content, .dropdown_body
  * Variants:  none
- * State:     data-size, data-radius (controls.css)
+ * State:     [open] (native details); data-size, data-radius (controls.css).
+ *            Keyboard and dismissal in behaviors/dropdown.ts
  * Tokens:    --background-2, --hover-duration, --hover-ease, --open-duration,
  *            --open-ease, --radius-small, --site-margin, --space-2, --space-5
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/dropdown/
  * Also styles Astro designer-preview hooks (.preview, .stacki-*), which plain
  * HTML users can ignore.
  */
@@ -68,9 +69,12 @@
   .stacki-designer .dropdown_wrap.preview::details-content {
     opacity: 1;
     content-visibility: visible;
+    /* Visible at once on opening, so its links can take focus straight away
+       (a delayed flip left them unfocusable for the whole fade). Closing,
+       above, still waits for the fade before hiding. */
     transition:
       opacity var(--open-duration) var(--open-ease),
-      content-visibility var(--open-duration) var(--open-ease) allow-discrete;
+      content-visibility 0s allow-discrete;
   }
 
   .dropdown_content {

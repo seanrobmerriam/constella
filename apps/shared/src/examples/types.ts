@@ -14,7 +14,7 @@ export interface ExampleDefinition {
   /** Equivalent generic React TSX, shown as text. */
   tsx: string;
   /** Shared behavior this example needs, from the closed `behaviors` list. */
-  behaviorEntry?: "accordion" | "form" | "navbar" | "range";
+  behaviorEntry?: "accordion" | "dropdown" | "form" | "navbar" | "range";
   /** Iframe height in rem. */
   previewHeight: number;
 }

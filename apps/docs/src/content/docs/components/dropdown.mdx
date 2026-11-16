@@ -1,0 +1,93 @@
+---
+title: Dropdown
+description: A button that opens a small panel of links or content, built on the native details element.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A labeled toggle that opens a floating panel below it, for a short set of links or a bit of extra content. It's a native `<details>`, so it opens and closes without JavaScript. The optional behavior adds Escape, arrow-key movement and closing on an outside click.
+
+It's a disclosure, not a menu or a select. For choosing a value in a form, use [Select](/components/select/). For a panel that should block the page, use a Modal.
+
+## Example
+
+<ComponentExample id="dropdown" />
+
+## Markup
+
+```html
+<details class="dropdown_wrap">
+  <summary class="dropdown_toggle">
+    <span class="dropdown_label text-style-trim">Resources</span>
+    <svg class="icon small dropdown_icon" aria-hidden="true">…</svg>
+  </summary>
+  <div class="dropdown_content">
+    <div class="dropdown_body margin-trim">
+      <ul class="flex-vertical-nowrap gap-2">
+        <li><a href="/guides">Guides</a></li>
+      </ul>
+    </div>
+  </div>
+</details>
+```
+
+- `dropdown_toggle` must be the `<summary>`, the first child. Don't put a `<button>` inside it.
+- `dropdown_content` is the floating panel, positioned below the toggle. `dropdown_body` pads its content. The panel doesn't style what you put in it.
+- The root is an inline block, so it sits in a row of buttons, such as an [InputWrapper](/components/input-wrapper/).
+
+## Variants and props
+
+| Astro prop | HTML equivalent  | Values                           | Default  | Effect                                                                   |
+| ---------- | ---------------- | -------------------------------- | -------- | ------------------------------------------------------------------------ |
+| `label`    | `dropdown_label` | text                             | required | The toggle text. Renders nothing without it, or when empty.              |
+| `size`     | `data-size`      | `small`, `main`, `large`         | none     | Scales the toggle and panel text and padding.                            |
+| `radius`   | `data-radius`    | `none`, `small`, `main`, `round` | none     | Corner radius of the panel. The toggle has no box.                       |
+| `preview`  | `preview` class  | `true`, `false`                  | `false`  | Keeps the panel open in the Astro design tool. No effect on a live site. |
+| `render`   | none             | `true`, `false`                  | `true`   | `false` omits the component.                                             |
+
+Native `<details>` attributes pass through. `open` starts it open.
+
+## States
+
+- **Open** (`[open]`): the panel fades and slides in and the arrow turns. Visitors who ask for reduced motion get no animation.
+- **Hover** (pointer devices only): the toggle text fades.
+- **Focus**: the global focus outline on the toggle and on the items in the panel.
+
+## Accessibility
+
+- The toggle is a native `<summary>`, so it's announced as a button with its expanded state, and Enter or Space opens and closes it.
+- With the behavior, Escape closes the dropdown and returns focus to the toggle. It only does this while focus is inside the dropdown, so Escape pressed anywhere else on the page is left alone.
+- ArrowDown and ArrowUp move between the panel's links and buttons, and Tab works too.
+- No `menu` roles are added. It's a disclosure of ordinary links, which is what screen readers announce.
+
+## Behavior
+
+`behaviors/dropdown.js` adds the keyboard and dismissal handling:
+
+```html
+<script type="module">
+  import { initDropdown } from "./behaviors/dropdown.js";
+  document
+    .querySelectorAll(".dropdown_wrap")
+    .forEach((root) => initDropdown(root));
+</script>
+```
+
+- **Escape**: closes the dropdown and focuses its toggle, while focus is inside it.
+- **ArrowDown / ArrowUp**: move focus through the panel's links and enabled buttons, wrapping at the ends.
+- **Click outside**: closes it.
+
+`initDropdown(root)` returns a cleanup function that removes its listeners.
+
+**Without the script**, the dropdown still opens and closes from the toggle. It stays open until the toggle is used again.
+
+## Tokens
+
+<ComponentTokens id="dropdown" />
+
+## Related
+
+- [Details](/components/details/): the same native element as an inline disclosure.
+- [Select](/components/select/): for choosing a value.
+- [Button](/components/button/) and [InputWrapper](/components/input-wrapper/).

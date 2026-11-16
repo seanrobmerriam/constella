@@ -31,6 +31,7 @@ const markup = example.html.replace(/<script[\s\S]*?<\/script>/g, "");
   import { initNavbar } from "@constella/shared/behaviors/navbar.ts";
   import { initForm } from "@constella/shared/behaviors/form.ts";
   import { initRange } from "@constella/shared/behaviors/range.ts";
+  import { initDropdown } from "@constella/shared/behaviors/dropdown.ts";
 
   const entry = document.body.dataset.behavior;
   const roots = (selector: string) =>
@@ -42,4 +43,8 @@ const markup = example.html.replace(/<script[\s\S]*?<\/script>/g, "");
     roots(".form-range").forEach(initRange);
   }
   if (entry === "range") roots(".form-range").forEach(initRange);
+  if (entry === "dropdown")
+    document
+      .querySelectorAll<HTMLDetailsElement>(".dropdown_wrap")
+      .forEach(initDropdown);
 </script>
