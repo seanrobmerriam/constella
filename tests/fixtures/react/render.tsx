@@ -13,6 +13,10 @@ import { GridExample } from "../../../apps/shared/src/examples/grid/Example";
 import { HeadingExample } from "../../../apps/shared/src/examples/heading/Example";
 import { ParagraphExample } from "../../../apps/shared/src/examples/paragraph/Example";
 import { RichTextExample } from "../../../apps/shared/src/examples/rich-text/Example";
+import { ImgExample } from "../../../apps/shared/src/examples/img/Example";
+import { VideoExample } from "../../../apps/shared/src/examples/video/Example";
+import { IconExample } from "../../../apps/shared/src/examples/icon/Example";
+import { OverlayExample } from "../../../apps/shared/src/examples/overlay/Example";
 
 const rendered = {
   button: renderToString(<ButtonExample />),
@@ -27,6 +31,10 @@ const rendered = {
   heading: renderToString(<HeadingExample />),
   paragraph: renderToString(<ParagraphExample />),
   richText: renderToString(<RichTextExample />),
+  img: renderToString(<ImgExample />),
+  video: renderToString(<VideoExample />),
+  icon: renderToString(<IconExample />),
+  overlay: renderToString(<OverlayExample />),
 };
 
 for (const [name, html] of Object.entries(rendered)) {

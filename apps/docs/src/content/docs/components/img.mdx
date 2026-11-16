@@ -1,0 +1,73 @@
+---
+title: Img
+description: Images with a loading tint, sizing options, and responsive output in Astro.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+An image. The CSS part is small and portable: the `image` class gives a faint tint while the image loads, and two modifiers change how it fits. In Astro, the `Img` component also generates responsive `srcset` output and optimized formats.
+
+## Example
+
+<ComponentExample id="img" />
+
+## Markup
+
+```html
+<img
+  class="image"
+  src="photo-1280.jpg"
+  srcset="photo-640.jpg 640w, photo-1280.jpg 1280w"
+  sizes="100vw"
+  alt="Describe the image"
+  width="1280"
+  height="853"
+  loading="lazy"
+/>
+```
+
+Every `img` is a full-width block that covers its box, cropping if needed. `image` adds the loading tint (`--background-skeleton`). Combine it with a `ratio-*` utility, such as `ratio-3-2`, to crop to a fixed shape.
+
+Outside Astro, write `srcset` and `sizes` yourself, or let your framework's image component generate them, and add `class="image"`.
+
+## Variants and props
+
+| Astro prop        | HTML equivalent                               | Values                                     | Default      | Effect                                                                                                                       |
+| ----------------- | --------------------------------------------- | ------------------------------------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `src`             | `src`                                         | imported image, `public/` path, remote URL | required     | Imported images are optimized. `public/` files and SVGs are served as-is.                                                    |
+| `alt`             | `alt`                                         | text                                       | `""`         | Describe the image. Omit only for decorative images.                                                                         |
+| `width`, `height` | `width`, `height`                             | whole numbers                              | source size  | Display size. Giving both crops to that ratio.                                                                               |
+| `variant`         | `srcset`/`sizes` you write; `densities` class | `full-width`, `constrained`, `densities`   | `full-width` | How the srcset is built: viewport widths, a fixed maximum width, or 1x/2x. `densities` keeps the image at its natural width. |
+| `sizes`           | `sizes`                                       | text                                       | per variant  | `constrained` only.                                                                                                          |
+| `quality`         | none                                          | `low`, `mid`, `high`, `max`                | `high`       | Output quality of optimized images.                                                                                          |
+| `transparent`     | `transparent` class                           | `true`, `false`                            | `false`      | No tint, and fit without cropping. Use it for logos and PNGs with transparency.                                              |
+| `loading`         | `loading`                                     | `lazy`, `eager`                            | `lazy`       | Use `eager` for the main image at the top of the page.                                                                       |
+| `fetchPriority`   | `fetchpriority`                               | `auto`, `high`, `low`                      | `auto`       | `high` for the largest image in the first screen.                                                                            |
+| `render`          | none                                          | `true`, `false`                            | `true`       | `false` omits the component. It also renders nothing without `src`.                                                          |
+
+**Remote images** are only optimized when their host is listed in `image.remotePatterns` or `image.domains` in `astro.config.mjs`. Otherwise every srcset entry repeats the original URL, and the component warns in development.
+
+## States
+
+**Loading**: the tint shows until the image paints. `transparent` removes it.
+
+## Accessibility
+
+- `alt` describes what the image shows, in context. A decorative image (a background, a texture) gets `alt=""` so screen readers skip it.
+- Always give `width` and `height` so the page doesn't shift while images load.
+- Don't put text in images. If you must, repeat it in `alt`.
+
+## Behavior
+
+None: native HTML. Lazy loading is the browser's `loading="lazy"`.
+
+## Tokens
+
+<ComponentTokens id="img" also={["--background-skeleton"]} />
+
+## Related
+
+- [Video](/components/video/) and [Overlay](/components/overlay/).
+- [ContentWrapper](/components/content-wrapper/): an image alone in the last column becomes a ratio-locked visual.
+- [Utilities](/foundations/utilities/): the `ratio-*` and `object-fit-*` classes.

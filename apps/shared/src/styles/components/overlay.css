@@ -6,7 +6,7 @@
  * Variants:  .gradient (solid is the default)
  * State:     none
  * Tokens:    none
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/overlay/
  */
 @layer components {
   .overlay {

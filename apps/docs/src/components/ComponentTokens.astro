@@ -17,21 +17,29 @@ const { id, also = [] } = Astro.props;
 const entry = components.find((c) => c.id === id);
 if (!entry) throw new Error(`No manifest entry "${id}"`);
 const tokens = [...new Set([...tokensReadBy(entry.styles), ...also])].sort();
-if (tokens.length === 0) throw new Error(`No tokens found for "${id}"`);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
-<p>
-  {tokens.map((t, i) => (
-    <>
-      {i > 0 && " "}
-      <code>{t}</code>
-    </>
-  ))}
-</p>
-<p>
-  Values and what they control are on the{" "}
-  <a href={`${base}/foundations/tokens/`}>Tokens</a> and{" "}
-  <a href={`${base}/foundations/themes/`}>Themes</a> pages. This list is read
-  from the stylesheet when the docs are built.
-</p>
+{tokens.length === 0 ? (
+  <p>
+    None. Its stylesheet reads no design tokens. This is read from the
+    stylesheet when the docs are built, so it updates if that changes.
+  </p>
+) : (
+  <>
+    <p>
+      {tokens.map((t, i) => (
+        <>
+          {i > 0 && " "}
+          <code>{t}</code>
+        </>
+      ))}
+    </p>
+    <p>
+      Values and what they control are on the{" "}
+      <a href={`${base}/foundations/tokens/`}>Tokens</a> and{" "}
+      <a href={`${base}/foundations/themes/`}>Themes</a> pages. This list is
+      read from the stylesheet when the docs are built.
+    </p>
+  </>
+)}

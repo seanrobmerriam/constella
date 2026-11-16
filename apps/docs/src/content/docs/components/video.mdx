@@ -1,0 +1,80 @@
+---
+title: Video
+description: A native video at a fixed aspect ratio, for background loops or click-to-play.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A native `<video>` at a fixed aspect ratio. In Astro it defaults to a muted, looping, autoplaying background video. For a video people watch, turn those off and show the controls, as in the example.
+
+## Example
+
+<ComponentExample id="video" />
+
+## Markup
+
+```html
+<!-- A click-to-play video -->
+<video
+  class="video ratio-16-9"
+  src="tour.mp4"
+  poster="tour.jpg"
+  controls
+  preload="none"
+  playsinline
+>
+  <track kind="captions" src="tour.en.vtt" srclang="en" label="English" />
+</video>
+
+<!-- A decorative background loop -->
+<video
+  class="video ratio-16-9"
+  src="loop.mp4"
+  autoplay
+  muted
+  loop
+  playsinline
+></video>
+```
+
+`video` gives the full-width, cover-fit video a loading tint. A `ratio-*` class sets its shape.
+
+## Variants and props
+
+| Astro prop    | HTML equivalent           | Values                                                             | Default  | Effect                                               |
+| ------------- | ------------------------- | ------------------------------------------------------------------ | -------- | ---------------------------------------------------- |
+| `src`         | `src`                     | URL                                                                | required | Renders nothing without it.                          |
+| `poster`      | `poster`                  | URL                                                                | none     | Shown before playback.                               |
+| `variant`     | `ratio-*` class           | `16-9`, `2-1`, `3-2`, `5-4`, `1-1`, `4-5`, `2-3`, `auto`, `custom` | `16-9`   | Aspect ratio. `auto` uses the video's own.           |
+| `ratio`       | `aspect-ratio` in `style` | CSS ratio, such as `21 / 9`                                        | none     | With `variant="custom"`.                             |
+| `autoplay`    | `autoplay`                | `true`, `false`                                                    | `true`   | Starts on load. Browsers allow it only when `muted`. |
+| `muted`       | `muted`                   | `true`, `false`                                                    | `true`   | No sound.                                            |
+| `loop`        | `loop`                    | `true`, `false`                                                    | `true`   | Restarts at the end.                                 |
+| `transparent` | `transparent` class       | `true`, `false`                                                    | `false`  | No tint, and fit without cropping.                   |
+| `render`      | none                      | `true`, `false`                                                    | `true`   | `false` omits the component.                         |
+
+`playsinline` is always set, so phones don't open the video full screen. Other native attributes, like `controls` and `preload`, pass through.
+
+## States
+
+**Loading**: the tint shows until a frame or the poster paints.
+
+## Accessibility
+
+- **Autoplaying video.** Moving content that plays for more than five seconds needs a way to pause it (WCAG 2.2.2). The component doesn't add one, and it doesn't check the visitor's reduced-motion setting. For a background loop, add a pause button. Don't autoplay at all when `prefers-reduced-motion: reduce` is set.
+- **Spoken content** needs captions: a `<track kind="captions">`. Don't autoplay it.
+- Use `controls` for any video people are meant to watch.
+
+## Behavior
+
+None: native HTML. The browser handles playback.
+
+## Tokens
+
+<ComponentTokens id="video" also={["--background-skeleton"]} />
+
+## Related
+
+- [Img](/components/img/) and [Overlay](/components/overlay/).
+- [Section](/components/section/): a video as a section background.

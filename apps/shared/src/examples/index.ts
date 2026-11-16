@@ -23,6 +23,14 @@ import paragraphHtml from "./paragraph/example.html?raw";
 import paragraphTsx from "./paragraph/Example.tsx?raw";
 import richTextHtml from "./rich-text/example.html?raw";
 import richTextTsx from "./rich-text/Example.tsx?raw";
+import imgHtml from "./img/example.html?raw";
+import imgTsx from "./img/Example.tsx?raw";
+import videoHtml from "./video/example.html?raw";
+import videoTsx from "./video/Example.tsx?raw";
+import iconHtml from "./icon/example.html?raw";
+import iconTsx from "./icon/Example.tsx?raw";
+import overlayHtml from "./overlay/example.html?raw";
+import overlayTsx from "./overlay/Example.tsx?raw";
 
 /**
  * The closed registry. Only these entries can be previewed; the preview route
@@ -134,6 +142,42 @@ export const examples: readonly ExampleDefinition[] = [
     html: richTextHtml,
     tsx: richTextTsx,
     previewHeight: 34,
+  },
+  {
+    id: "img",
+    title: "Img",
+    description:
+      "Images with the skeleton tint, and a transparent logo that is never cropped.",
+    html: imgHtml,
+    tsx: imgTsx,
+    previewHeight: 14,
+  },
+  {
+    id: "video",
+    title: "Video",
+    description:
+      "A click-to-play video with a poster, captions and a fixed 16:9 ratio.",
+    html: videoHtml,
+    tsx: videoTsx,
+    previewHeight: 24,
+  },
+  {
+    id: "icon",
+    title: "Icon",
+    description:
+      "Inline SVG icons at the three sizes, and an icon inside a button.",
+    html: iconHtml,
+    tsx: iconTsx,
+    previewHeight: 8,
+  },
+  {
+    id: "overlay",
+    title: "Overlay",
+    description:
+      "A gradient overlay over a background image, keeping text readable.",
+    html: overlayHtml,
+    tsx: overlayTsx,
+    previewHeight: 16,
   },
 ];
 

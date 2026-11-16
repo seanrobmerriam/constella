@@ -1,0 +1,61 @@
+---
+title: Icon
+description: Inline SVG icons sized to the text around them.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+An inline SVG icon. Icons are sized in `em`, so they scale with the text around them, and they draw in `currentColor`, so they take the text color and theme.
+
+## Example
+
+<ComponentExample id="icon" />
+
+## Markup
+
+```html
+<svg class="icon small" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+  <path d="…" stroke="currentColor" />
+</svg>
+```
+
+- Inline the SVG; don't use `<img>`. Only inline SVG can use `currentColor` and inherit the theme.
+- Draw with `stroke="currentColor"` or `fill="currentColor"`.
+- Give it a `viewBox`. The icon class sets a square box and lets the drawing scale into it.
+
+In Astro, import the SVG file and pass it as `src`: `<Icon src={arrow} variant="small" />`.
+
+## Variants and props
+
+| Astro prop   | HTML equivalent | Values                                   | Default  | Effect                                                                                    |
+| ------------ | --------------- | ---------------------------------------- | -------- | ----------------------------------------------------------------------------------------- |
+| `src`        | the inline SVG  | imported SVG                             | required | Renders nothing without it.                                                               |
+| `variant`    | size class      | `small`, `medium`, `large`, `full-width` | `medium` | 1em, 1.5em or 2em square. `full-width` fills the width at the SVG's own ratio, for logos. |
+| `aria-label` | `aria-label`    | text                                     | none     | Names the icon and stops it being hidden. Add `role="img"` yourself. See Accessibility.   |
+| `render`     | none            | `true`, `false`                          | `true`   | `false` omits the component.                                                              |
+
+## States
+
+None. An icon inside a link or button takes that element's color, including on hover.
+
+## Accessibility
+
+- Most icons sit next to text that already says what they mean, so they should be hidden: `aria-hidden="true"`. The Astro component adds this unless you give it an `aria-label` or `aria-labelledby`.
+- An icon that stands alone needs a name. The best place for it is the button or link that contains it: `<button aria-label="Close"><svg … aria-hidden="true">`, which is how [Button](/components/button/)'s icon variants work. If the icon itself must carry meaning, give the `<svg>` `role="img"` and an `aria-label`.
+- Because icons use `currentColor`, they meet the same contrast as the text beside them.
+
+## Behavior
+
+None: native HTML.
+
+## Tokens
+
+<ComponentTokens id="icon" />
+
+Icons are sized in `em` and colored with `currentColor`, so they follow the text around them.
+
+## Related
+
+- [Button](/components/button/): icon-only buttons.
+- [Navbar](/components/navbar/): icon links from the icon registry.
