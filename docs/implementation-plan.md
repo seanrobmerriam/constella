@@ -1,6 +1,19 @@
 # Constella Implementation Plan
 
-> **Status (2026-11-16):** Tasks 1–9 are complete (commits `672763e`…`71447b3`; details in [`implementation/css-contract.md`](implementation/css-contract.md)). Tasks 10–14 are superseded by [`completion-plan.md`](completion-plan.md), which is now the tracked plan.
+> **Status (2026-11-16):** Tasks 1–9 are complete; their checkboxes below were never ticked, so read this table instead. Implementation notes for each are in [`implementation/css-contract.md`](implementation/css-contract.md). Tasks 10–14 are superseded by [`completion-plan.md`](completion-plan.md), which is now the tracked plan.
+>
+> | Task                                   | Status     | Commits                                                                |
+> | -------------------------------------- | ---------- | ---------------------------------------------------------------------- |
+> | 1 — Baseline                           | Done       | `672763e`                                                              |
+> | 2 — CSS audit and shared ownership     | Done       | `3bd10f1`, `8b986dc`                                                   |
+> | 3 — Control sizing and InputWrapper    | Done       | `c9e3937`                                                              |
+> | 4 — Details and Summary                | Done       | `ccdaea4`, `295f5ab` (docs app reset in between: `c14b564`, `d7b6113`) |
+> | 5 — Eyebrow into Heading               | Done       | `e991d7d`                                                              |
+> | 6 — Layout composition, BaseHead, Skip | Done       | `cbd0cbe`                                                              |
+> | 7 — Navbar, search, theme              | Done       | `a070ab7`                                                              |
+> | 8 — Footer variants                    | Done       | `52222b2`                                                              |
+> | 9 — Docs examples and previews         | Done       | `71447b3`                                                              |
+> | 10–14                                  | Superseded | see [`completion-plan.md`](completion-plan.md)                         |
 
 > **For agentic workers:** Use the executing-plans workflow to implement this plan task by task. Steps use checkbox syntax for tracking. This document plans the work; it does not authorize deployment, package publication, or merging.
 
@@ -10,7 +23,7 @@
 
 **Tech stack:** Bun workspaces, Astro, Starlight, CSS custom properties and layers, TypeScript, React TSX examples, and focused browser verification. Retain the installed versions unless a concrete compatibility issue requires a change.
 
-**Spec:** [Constella requirements and changes](https://chatgpt.com/library?file_id=libfile_81a615cb36a481919e2f3f7c0ebf88bb&account_id=personal), version 2. Companion documents: [overview](https://chatgpt.com/library?file_id=libfile_0df2b83dcf4081919abde2a10d86ae06&account_id=personal) and [component inventory](https://chatgpt.com/library?file_id=libfile_20fda752ed488191a0d50723351ae015&account_id=personal). The requirements supersede older component names in the inventory.
+**Spec:** [Constella requirements and changes](requirements.md), version 2. Companion documents: [overview](project-overview.md) and [component inventory](components.md). The requirements supersede older component names in the inventory.
 
 ## Global constraints
 

@@ -85,9 +85,11 @@ The procedure is enforced at three levels, so it doesn't depend on anyone rememb
 
 ## 3. Phase 0 — Clean up the plan status (small, do first)
 
-- [ ] Add a status note at the top of `docs/implementation-plan.md`: Tasks 1–9 are done (each linked to its commit), and Tasks 10–14 are replaced by this document.
-- [ ] Correct the table in root `AGENTS.md`: `apps/shared` holds styles, behaviors, contracts and examples, and `apps/constella` holds the Astro components. Delete the empty `apps/shared/src/{components,layouts,config,utils}` placeholders and their `exports` entries, unless we decide to move the Astro components into shared. **Recommendation: don't move them.** The current split already works, and moving them adds churn with no benefit.
-- [ ] Resolve or explicitly defer the open decision on upstream docs provenance (R-01, "Lumos" source and reuse terms). The old plan links the spec to ChatGPT library files, which are not in the repo. Commit the spec text, or note that `docs/requirements.md` is now the source of truth. **Default if undecided:** write original pages (old Task 10's fallback) and don't block on it.
+- [x] Add a status note at the top of `docs/implementation-plan.md`: Tasks 1–9 are done (each linked to its commit), and Tasks 10–14 are replaced by this document.
+- [x] Correct the table in root `AGENTS.md`: `apps/shared` holds styles, behaviors, contracts and examples, and `apps/constella` holds the Astro components. Delete the empty `apps/shared/src/{components,layouts,config,utils}` placeholders and their `exports` entries, unless we decide to move the Astro components into shared. **Recommendation: don't move them.** The current split already works, and moving them adds churn with no benefit.
+- [x] Resolve or explicitly defer the open decision on upstream docs provenance (R-01, "Lumos" source and reuse terms). The old plan links the spec to ChatGPT library files, which are not in the repo. Commit the spec text, or note that `docs/requirements.md` is now the source of truth. **Default if undecided:** write original pages (old Task 10's fallback) and don't block on it.
+
+**Outcome (2026-11-16):** status table added to the old plan; `AGENTS.md` corrected and the empty `apps/shared` placeholders and exports removed (Astro components stay in `apps/constella`); spec links now point to `docs/requirements.md`, the in-repo source of truth; R-01 deferred there, so docs pages are written from scratch and no Lumos text is copied until the source and terms are recorded.
 
 **Done when:** a new contributor can read `AGENTS.md` and this plan and know what is finished and what comes next.
 
