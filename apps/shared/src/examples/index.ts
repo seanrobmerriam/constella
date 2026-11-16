@@ -31,6 +31,8 @@ import iconHtml from "./icon/example.html?raw";
 import iconTsx from "./icon/Example.tsx?raw";
 import overlayHtml from "./overlay/example.html?raw";
 import overlayTsx from "./overlay/Example.tsx?raw";
+import cardHtml from "./card/example.html?raw";
+import cardTsx from "./card/Example.tsx?raw";
 
 /**
  * The closed registry. Only these entries can be previewed; the preview route
@@ -178,6 +180,15 @@ export const examples: readonly ExampleDefinition[] = [
     html: overlayHtml,
     tsx: overlayTsx,
     previewHeight: 16,
+  },
+  {
+    id: "card",
+    title: "Card",
+    description:
+      "Default, cover and stacked cards in a grid. Each is clickable as a whole.",
+    html: cardHtml,
+    tsx: cardTsx,
+    previewHeight: 51,
   },
 ];
 

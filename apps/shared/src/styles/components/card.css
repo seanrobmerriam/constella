@@ -3,11 +3,12 @@
  * Astro:     apps/constella/src/components/item/Card.astro
  * Root:      .card_wrap
  * Children:  .card_visual, .card_content
- * Variants:  .stacked
- * State:     none
+ * Variants:  .cover, .stacked
+ * State:     a card with a .button_wrap is clickable as a whole (the
+ *            button's ::after covers it) and zooms its .image on hover
  * Tokens:    --background-2, --hover-duration, --hover-ease, --radius-main,
  *            --space-6
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/card/
  */
 @layer components {
   .card_wrap {
