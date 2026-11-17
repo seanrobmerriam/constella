@@ -17,15 +17,25 @@ test("StrictMode's second mount leaves one working copy of each behavior", async
 }) => {
   await serveStatic(page, dir);
   await page.goto(`${origin}/`);
-  // A behavior left bound twice would add two slider markers per position.
-  const slider = inExample(page, "slider");
-  const markers = await slider.locator(".slider_marker").count();
-  const positions = await slider.locator(".slider_list > *").count();
-  expect(markers).toBeGreaterThan(0);
-  expect(markers).toBeLessThanOrEqual(positions);
-  // And a doubled click handler would open and close the menu in one click.
+  // Wait until the effects have run: the theme toggle's sets aria-pressed.
+  await expect(page.locator("[data-theme-toggle]")).toHaveAttribute(
+    "aria-pressed",
+    /true|false/,
+  );
+  // Every effect ran twice, with a cleanup in between.
+  expect(
+    await page.evaluate(
+      () => (window as unknown as { effectRuns: number }).effectRuns,
+    ),
+  ).toBe(2);
+  // A handler bound twice would open and close the menu in one click...
   await page.setViewportSize({ width: 400, height: 800 });
   const toggle = inExample(page, "navbar").locator("[data-navbar-toggle]");
   await toggle.click();
   await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  // ...and move two tabs for one arrow key.
+  const tabs = inExample(page, "tabs");
+  await tabs.getByRole("tab", { name: "Strategy" }).focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(tabs.getByRole("tab", { name: "Design" })).toBeFocused();
 });

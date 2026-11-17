@@ -1,5 +1,7 @@
 // React fixture: renders every canonical TSX example against the built
-// distributable, the way a React app consumes Constella. `constella/*` points
+// distributable, the way a React app consumes Constella. It is a development
+// build (see package.json), because only development React runs StrictMode's
+// second mount; TanStack Start covers a production React build. `constella/*` points
 // at apps/shared/dist (run `bun run --cwd apps/shared build` first).
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";

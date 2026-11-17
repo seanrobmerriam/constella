@@ -192,7 +192,9 @@ test("labels name their controls, and required fields are marked", async ({
   );
 });
 
-test("textarea grows with its content up to its maximum", async ({ page }) => {
+test("textarea grows with its content up to its maximum, where field-sizing is supported", async ({
+  page,
+}) => {
   await load(page, example("textarea"));
   const field = page.locator("textarea");
   const start = (await field.boundingBox())!.height;
@@ -200,9 +202,20 @@ test("textarea grows with its content up to its maximum", async ({ page }) => {
   const grown = (await field.boundingBox())!.height;
   await field.fill("line\n".repeat(40));
   const capped = (await field.boundingBox())!.height;
-  expect(grown).toBeGreaterThan(start);
-  expect(capped).toBeGreaterThan(grown);
-  expect(capped).toBeLessThan(start * 4);
+  const supported = await page.evaluate(() =>
+    CSS.supports("field-sizing", "content"),
+  );
+  if (supported) {
+    expect(grown).toBeGreaterThan(start);
+    expect(capped).toBeGreaterThan(grown);
+    expect(capped).toBeLessThan(start * 4);
+  } else {
+    // Browser support page: "Textareas keep their starting height."
+    expect(capped).toBe(start);
+    expect(
+      await field.evaluate((el) => el.scrollHeight > el.clientHeight),
+    ).toBe(true);
+  }
 });
 
 test("select fades its prompt until a choice is made", async ({ page }) => {

@@ -17,7 +17,12 @@ const examples = Object.entries(modules)
 
 function ThemeToggle() {
   const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => initThemeToggle(ref.current!), []);
+  useEffect(() => {
+    // Counted so the tests can see StrictMode's double mount happen.
+    const w = window as unknown as { effectRuns?: number };
+    w.effectRuns = (w.effectRuns ?? 0) + 1;
+    return initThemeToggle(ref.current!);
+  }, []);
   return (
     <div ref={ref}>
       <button
