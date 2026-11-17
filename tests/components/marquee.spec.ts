@@ -35,6 +35,14 @@ const playState = (page: Page, n = 0) =>
   track(page, n).evaluate((el) => getComputedStyle(el).animationPlayState);
 const offset = (page: Page, n = 0) =>
   track(page, n).evaluate((el) => el.getBoundingClientRect().left);
+// A pause takes effect on the next frame, so measure after it has rendered.
+const nextFrames = (page: Page) =>
+  page.evaluate(
+    () =>
+      new Promise((done) =>
+        requestAnimationFrame(() => requestAnimationFrame(done)),
+      ),
+  );
 const toggle = (page: Page, n = 0) =>
   wrap(page, n).locator("[data-marquee-toggle]");
 
@@ -50,6 +58,7 @@ test("plays, and the toggle pauses and resumes it", async ({ page }) => {
   await expect(toggle(page)).toHaveAttribute("aria-pressed", "false");
   await expect(toggle(page)).toHaveAccessibleName("Play");
   expect(await playState(page)).toBe("paused");
+  await nextFrames(page);
   const held = await offset(page);
   await page.waitForTimeout(300);
   expect(await offset(page)).toBe(held);
