@@ -207,6 +207,12 @@ export const components: readonly ComponentEntry[] = [
     root: ".breadcrumbs",
     styles: ["components/breadcrumbs.css"],
   }),
+  documented("pagination", {
+    name: "Pagination",
+    astro: ["global/Pagination.astro"],
+    root: ".pagination",
+    styles: ["components/pagination.css"],
+  }),
   documented("table", {
     name: "Table",
     astro: ["data/Table.astro"],

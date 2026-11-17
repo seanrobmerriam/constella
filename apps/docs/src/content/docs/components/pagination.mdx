@@ -1,0 +1,113 @@
+---
+title: Pagination
+description: Links between the pages of a long list, with the current page marked.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+Pagination links the pages of a list that's too long for one page: blog posts, search results, products. Every page has its own URL, so a visitor can bookmark it, share it, or go back to it. For moving between slides on one page, use the [Slider](/components/slider/) instead.
+
+## Example
+
+<ComponentExample id="pagination" />
+
+## Markup
+
+```html
+<nav class="pagination" aria-label="Pagination">
+  <ul class="pagination_list">
+    <li>
+      <a class="pagination_link pagination_step" href="?page=4" rel="prev">
+        <svg class="icon small pagination_icon" aria-hidden="true">…</svg>
+        <span>Previous</span>
+      </a>
+    </li>
+    <li>
+      <a class="pagination_link" href="?page=1"
+        ><span class="sr-only">Page </span>1</a
+      >
+    </li>
+    <li><span class="pagination_gap" aria-hidden="true">…</span></li>
+    <li>
+      <a class="pagination_link" href="?page=5" aria-current="page">
+        <span class="sr-only">Page </span>5
+      </a>
+    </li>
+    <!-- … -->
+    <li>
+      <a class="pagination_link pagination_step" href="?page=6" rel="next">
+        <span>Next</span>
+        <svg class="icon small pagination_icon" aria-hidden="true">…</svg>
+      </a>
+    </li>
+  </ul>
+</nav>
+```
+
+- A labelled `<nav>` around a list. Previous is the first item and Next the last; the arrow in Previous points back on its own.
+- Each page number has a hidden "Page " before it, so screen readers say "Page 5", not "5".
+- At either end, Previous or Next stays in place, but as `<a role="link" aria-disabled="true">` with no `href`: it can't be focused or followed, and the layout doesn't jump.
+- A gap (`.pagination_gap`) stands for pages that aren't listed. It's hidden from screen readers, which skip from one page number to the next.
+
+## Variants and props
+
+| Astro prop      | HTML equivalent        | Values             | Default        | Effect                                                                                                                                  |
+| --------------- | ---------------------- | ------------------ | -------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `current`       | `aria-current="page"`  | 1 to `total`       | required       | The page being shown. A value outside the range is clamped, with a warning in development.                                              |
+| `total`         | the page links         | 1 or more          | required       | How many pages there are. With one page, nothing is output.                                                                             |
+| `href`          | each link's `href`     | `(page) => string` | `?page=N`      | The URL of a page.                                                                                                                      |
+| `siblings`      | which pages are listed | 0 or more          | `1`            | Pages listed either side of the current one. The first and last are always listed, and a gap that would hide one page shows it instead. |
+| `label`         | `aria-label`           | text               | `"Pagination"` | The landmark's name. Change it if a page has two.                                                                                       |
+| `previousLabel` | the Previous text      | text               | `"Previous"`   | Text of the link to the page before.                                                                                                    |
+| `nextLabel`     | the Next text          | text               | `"Next"`       | Text of the link to the page after.                                                                                                     |
+| `render`        | none                   | `true`, `false`    | `true`         | `false` omits the component.                                                                                                            |
+
+With Astro's [`paginate()`](https://docs.astro.build/en/guides/routing/#pagination):
+
+```astro
+---
+// src/pages/blog/[...page].astro
+import Pagination from "@/components/global/Pagination.astro";
+
+export async function getStaticPaths({ paginate }) {
+  const posts = await getCollection("blog");
+  return paginate(posts, { pageSize: 10 });
+}
+const { page } = Astro.props;
+---
+
+<Pagination
+  current={page.currentPage}
+  total={page.lastPage}
+  href={(n) => (n === 1 ? "/blog/" : `/blog/${n}/`)}
+/>
+```
+
+## States
+
+- **Current page** (`aria-current="page"`): filled with the text color, with the background color as its text, in every theme.
+- **Hover:** a `--background-3` fill.
+- **Disabled** (`aria-disabled="true"`): secondary text color, no hover.
+- **Focus:** the site's focus ring.
+
+## Accessibility
+
+- The `nav` landmark lets screen-reader users find the pagination and skip past it.
+- Every target is at least 2.75rem square, above the 24px minimum in WCAG 2.2.
+- `aria-current="page"` tells screen readers which page this is. The fill shows it visually, so it isn't color alone: the shape changes too.
+- A disabled Previous or Next keeps its `link` role, so screen readers still announce it, as "dimmed" or "unavailable".
+- `rel="prev"` and `rel="next"` describe the order to browsers and search engines.
+
+## Behavior
+
+None. Each link loads its page. If your list is loaded by a script instead, render the same markup and update `aria-current` and the `href`s yourself.
+
+## Tokens
+
+<ComponentTokens id="pagination" />
+
+## Related
+
+- [Breadcrumbs](/components/breadcrumbs/): where the page sits in the site.
+- [Slider](/components/slider/): moving between slides on one page.

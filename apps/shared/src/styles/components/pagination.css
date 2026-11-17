@@ -1,0 +1,82 @@
+/*
+ * Component: Pagination
+ * Astro:     apps/constella/src/components/global/Pagination.astro
+ * Root:      .pagination
+ * Children:  .pagination_list, .pagination_link, .pagination_step,
+ *            .pagination_icon, .pagination_gap
+ * Variants:  none
+ * State:     [aria-current="page"] on the current page's link;
+ *            [aria-disabled="true"] on Previous or Next at either end
+ * Tokens:    --background, --background-3, --hover-duration, --hover-ease,
+ *            --primary-medium, --radius-small, --space-1, --space-2, --text,
+ *            --text-2, --text-small
+ * Docs:      /components/pagination/
+ */
+@layer components {
+  .pagination_list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-small);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* At least 2.75rem square, so each page is an easy target. */
+  .pagination_link,
+  .pagination_gap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding-inline: var(--space-2);
+    border-radius: var(--radius-small);
+  }
+
+  .pagination_link {
+    color: var(--text);
+    font-weight: var(--primary-medium);
+    text-decoration: none;
+    transition:
+      background-color var(--hover-duration) var(--hover-ease),
+      color var(--hover-duration) var(--hover-ease);
+
+    @media (hover: hover) {
+      &[href]:hover {
+        background-color: var(--background-3);
+      }
+    }
+
+    /* The text color as a fill: strong in every theme. */
+    &[aria-current="page"] {
+      background-color: var(--text);
+      color: var(--background);
+    }
+
+    &[aria-disabled="true"] {
+      color: var(--text-2);
+      cursor: default;
+    }
+  }
+
+  /* Two classes, to win over the icon's own size classes. */
+  .pagination_link .pagination_icon {
+    width: 0.75em;
+  }
+  /* Previous is the first item: its arrow points back. */
+  .pagination_list > :first-child .pagination_icon {
+    rotate: 180deg;
+  }
+
+  .pagination_gap {
+    min-width: 1.5rem;
+    padding-inline: 0;
+    color: var(--text-2);
+  }
+}

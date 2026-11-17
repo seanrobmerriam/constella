@@ -236,7 +236,9 @@ Phase 4 is done: every environment the docs name has a fixture that builds and p
 
   - [x] 7c-1 Avatar: `item/Avatar.astro`, `item/AvatarGroup.astro`, `components/avatar.css`. A photo (through `Img`, at twice the size for sharp screens) or initials from the name, `small`/medium/`large`, `square`, `decorative`; a group overlaps avatars with a ring in the page's background color. Tests: `tests/components/avatar.spec.ts` and axe in all three themes.
   - [x] 7c-2 Breadcrumbs: `global/Breadcrumbs.astro`, `components/breadcrumbs.css`, and a `Breadcrumb` type in `contracts/navigation.ts`. The WAI-ARIA pattern: a labelled `nav`, an ordered list, `aria-current="page"` on the last item, which is text when it has no `href`. Separators are border chevrons, since `content` alt text isn't in every supported browser. Tests: `tests/components/breadcrumbs.spec.ts` (including no overflow at 320px) and axe in all three themes.
-  - [ ] 7c-3 Pagination
+  - [x] 7c-3 Pagination: `global/Pagination.astro`, `components/pagination.css` and `utils/pagination.ts` (`pageWindow`: first, last and `siblings` either side of the current page; a gap that would hide one page shows it). Links only, `?page=N` by default or any `href(page)`; `aria-current="page"`, a hidden "Page " before each number, and `<a role="link" aria-disabled="true">` for Previous or Next at the ends. Tests: `tests/components/pagination.spec.ts` (the window, names, focus, 44px targets, 320px) and axe in all three themes.
+
+  Increment 2 is complete.
 
   The rest of the candidate catalog in `docs/components.md` stays unscheduled until the owner picks the next increment.
 

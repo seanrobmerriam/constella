@@ -7,6 +7,8 @@ import detailsHtml from "./details/example.html?raw";
 import detailsTsx from "./details/Example.tsx?raw";
 import accordionHtml from "./accordion/example.html?raw";
 import accordionTsx from "./accordion/Example.tsx?raw";
+import paginationHtml from "./pagination/example.html?raw";
+import paginationTsx from "./pagination/Example.tsx?raw";
 import navbarHtml from "./navbar/example.html?raw";
 import navbarTsx from "./navbar/Example.tsx?raw";
 import footerHtml from "./footer/example.html?raw";
@@ -356,6 +358,15 @@ export const examples: readonly ExampleDefinition[] = [
     html: breadcrumbsHtml,
     tsx: breadcrumbsTsx,
     previewHeight: 12,
+  },
+  {
+    id: "pagination",
+    title: "Pagination",
+    description:
+      "Page 5 of 10, with gaps either side, and page 1 of 3, where Previous is disabled. No script.",
+    html: paginationHtml,
+    tsx: paginationTsx,
+    previewHeight: 16,
   },
   {
     id: "table",

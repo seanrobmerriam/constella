@@ -33,6 +33,7 @@ import { AlertExample } from "../../../apps/shared/src/examples/alert/Example";
 import { AvatarExample } from "../../../apps/shared/src/examples/avatar/Example";
 import { BadgeExample } from "../../../apps/shared/src/examples/badge/Example";
 import { BreadcrumbsExample } from "../../../apps/shared/src/examples/breadcrumbs/Example";
+import { PaginationExample } from "../../../apps/shared/src/examples/pagination/Example";
 import { TableExample } from "../../../apps/shared/src/examples/table/Example";
 import { FieldMessageExample } from "../../../apps/shared/src/examples/field-message/Example";
 import { SliderExample } from "../../../apps/shared/src/examples/slider/Example";
@@ -72,6 +73,7 @@ const rendered = {
   avatar: renderToString(<AvatarExample />),
   badge: renderToString(<BadgeExample />),
   breadcrumbs: renderToString(<BreadcrumbsExample />),
+  pagination: renderToString(<PaginationExample />),
   table: renderToString(<TableExample />),
   slider: renderToString(<SliderExample />),
   marquee: renderToString(<MarqueeExample />),
