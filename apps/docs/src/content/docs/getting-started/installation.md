@@ -13,7 +13,7 @@ bun run --cwd apps/shared build
 This writes `apps/shared/dist/`:
 
 - `constella.css`: the complete stylesheet. It declares `@layer base, patterns, components, utilities;` itself, so it does not depend on any framework.
-- `behaviors/accordion.js`, `behaviors/navbar.js`, `behaviors/theme.js`: optional ES modules.
+- `behaviors/*.js`: optional ES modules, one per component that needs a script: `accordion`, `dropdown`, `form`, `marquee`, `modal`, `navbar`, `range`, `slider`, `tabs` and `theme`. Each component's page says which one it needs.
 
 `constella.css` is the only supported entry point. The per-component source files are not meant to be loaded on their own; [How the stylesheets work](/foundations/styles-architecture/) explains why.
 

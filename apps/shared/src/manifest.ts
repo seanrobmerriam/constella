@@ -37,9 +37,13 @@ export interface ComponentEntry {
   behaviors?: string[];
   /** Example registry id. Required when documented. */
   example?: string;
-  /** Docs slug under `apps/docs/src/content/docs/`. Required when documented. */
+  /** Docs slug under `apps/docs/src/content/docs/`. Required when documented
+   *  or astro-only. */
   docs?: string;
 }
+
+/** The page that documents the astro-only entries and the site layouts. */
+export const ASTRO_INTEGRATION_DOCS = "integrations/astro";
 
 const documented = (
   id: string,
@@ -265,7 +269,8 @@ export const components: readonly ComponentEntry[] = [
     behaviors: ["marquee"],
   }),
 
-  // Astro integration utilities (documented together in Phase 3, batch 3.11)
+  // Astro integration utilities, documented together with the layouts on
+  // one page: they have no HTML equivalent to preview.
   {
     id: "base-head",
     name: "BaseHead",
@@ -273,6 +278,7 @@ export const components: readonly ComponentEntry[] = [
     astro: ["utility/BaseHead.astro"],
     root: "",
     styles: [],
+    docs: ASTRO_INTEGRATION_DOCS,
   },
   {
     id: "formatted-date",
@@ -281,6 +287,7 @@ export const components: readonly ComponentEntry[] = [
     astro: ["utility/FormattedDate.astro"],
     root: "",
     styles: [],
+    docs: ASTRO_INTEGRATION_DOCS,
   },
 ];
 
