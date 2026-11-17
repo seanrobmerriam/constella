@@ -189,6 +189,12 @@ export const components: readonly ComponentEntry[] = [
     styles: ["components/alert.css"],
     behaviors: ["alert"],
   }),
+  documented("avatar", {
+    name: "Avatar",
+    astro: ["item/Avatar.astro", "item/AvatarGroup.astro"],
+    root: ".avatar, .avatar_group",
+    styles: ["components/avatar.css"],
+  }),
   documented("badge", {
     name: "Badge",
     astro: ["item/Badge.astro"],

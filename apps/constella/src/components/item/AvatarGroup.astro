@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { slotContent } from "@/utils/slots.ts";
+
+type Props = HTMLAttributes<"div"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** What the group is, for screen readers: "Project members". */
+  label: string;
+};
+
+const { render = true, label, class: className, ...rest } = Astro.props;
+const content = await slotContent(Astro.slots);
+---
+
+{render && content && (
+  <div
+    class:list={["avatar_group", className]}
+    role="group"
+    aria-label={label}
+    {...rest}
+  >
+    <Fragment set:html={content} />
+  </div>
+)}

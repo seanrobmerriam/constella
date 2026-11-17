@@ -4,6 +4,8 @@ import Section from "@/components/wrapper/Section.astro";
 import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
 import Alert from "@/components/feedback/Alert.astro";
 import Badge from "@/components/item/Badge.astro";
+import Avatar from "@/components/item/Avatar.astro";
+import AvatarGroup from "@/components/item/AvatarGroup.astro";
 ---
 
 <Layout title="Feedback regression" noindex>
@@ -33,6 +35,30 @@ import Badge from "@/components/item/Badge.astro";
           Overdue
         </Badge>
       </p>
+      <p>
+        <Avatar id="avatar-photo" name="Ada Lovelace" src="/og-image.jpg" />
+        <Avatar
+          id="avatar-initials"
+          name="grace brewster hopper"
+          size="large"
+        />
+        <Avatar
+          id="avatar-set"
+          name="Katherine Johnson"
+          initials="kj"
+          shape="square"
+        />
+        <Avatar
+          id="avatar-decorative"
+          name="Grace Hopper"
+          size="small"
+          decorative
+        />
+      </p>
+      <AvatarGroup id="avatar-group" label="Members">
+        <Avatar name="Ada Lovelace" />
+        <Avatar name="Grace Hopper" />
+      </AvatarGroup>
     </ContentWrapper>
   </Section>
 </Layout>

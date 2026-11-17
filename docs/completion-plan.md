@@ -230,7 +230,15 @@ Phase 4 is done: every environment the docs name has a fixture that builds and p
 
   The Lumos comparison is on the docs Migration page ("From Lumos"): a fresh `create-lumos` 0.3.9 matches Constella's first commit apart from branding and one later Lumos fix (ContentWrapper `breakout` at `100cqi`), which is now ported. R-01's code provenance is recorded in `docs/requirements.md`.
 
-  Increment 1 is complete. The rest of the candidate catalog in `docs/components.md` stays unscheduled until the owner picks the next increment.
+  Increment 1 is complete.
+
+- Phase 7: increment 2. The owner picked Avatar, Breadcrumbs and Pagination. The spec, with the audit, is `docs/expansion/increment-2.md`. None needs a behavior module.
+
+  - [x] 7c-1 Avatar: `item/Avatar.astro`, `item/AvatarGroup.astro`, `components/avatar.css`. A photo (through `Img`, at twice the size for sharp screens) or initials from the name, `small`/medium/`large`, `square`, `decorative`; a group overlaps avatars with a ring in the page's background color. Tests: `tests/components/avatar.spec.ts` and axe in all three themes.
+  - [ ] 7c-2 Breadcrumbs
+  - [ ] 7c-3 Pagination
+
+  The rest of the candidate catalog in `docs/components.md` stays unscheduled until the owner picks the next increment.
 
 ---
 

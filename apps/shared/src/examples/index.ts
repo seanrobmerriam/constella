@@ -55,6 +55,8 @@ import modalHtml from "./modal/example.html?raw";
 import modalTsx from "./modal/Example.tsx?raw";
 import alertHtml from "./alert/example.html?raw";
 import alertTsx from "./alert/Example.tsx?raw";
+import avatarHtml from "./avatar/example.html?raw";
+import avatarTsx from "./avatar/Example.tsx?raw";
 import badgeHtml from "./badge/example.html?raw";
 import badgeTsx from "./badge/Example.tsx?raw";
 import tableHtml from "./table/example.html?raw";
@@ -325,6 +327,15 @@ export const examples: readonly ExampleDefinition[] = [
     tsx: alertTsx,
     behaviorEntry: "alert",
     previewHeight: 30,
+  },
+  {
+    id: "avatar",
+    title: "Avatar",
+    description:
+      "Photos in three sizes, initials, a decorative avatar next to a name, and an overlapping group. No script.",
+    html: avatarHtml,
+    tsx: avatarTsx,
+    previewHeight: 20,
   },
   {
     id: "badge",
