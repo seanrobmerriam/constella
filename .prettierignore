@@ -1,5 +1,7 @@
 dist
+.output
 .astro
 node_modules
 bun.lock
 routeTree.gen.ts
+tests/fixtures/solid-start/src/examples

@@ -63,7 +63,7 @@ jobs:
         run: node node_modules/@playwright/test/cli.js install --with-deps chromium
       - run: bun run test:components
       - run: bun run test:docs
-      - name: Integration fixtures (plain HTML, React, TanStack Start)
+      - name: Integration fixtures (plain HTML, React, TanStack Start, SolidStart)
         run: bun run test:integrations
       - if: failure()
         uses: actions/upload-artifact@v4

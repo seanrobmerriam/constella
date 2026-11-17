@@ -33,6 +33,12 @@ export default defineConfig({
             env: { PORT: "4341" },
             reuseExistingServer: false,
           },
+          {
+            command: "bun run --cwd tests/fixtures/solid-start start",
+            url: "http://localhost:4342",
+            env: { PORT: "4342" },
+            reuseExistingServer: false,
+          },
         ]
       : []),
   ],

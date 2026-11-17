@@ -202,6 +202,7 @@ test("integration guides are listed in order and fit a phone screen", async ({
     ["html", "Plain HTML"],
     ["react", "React"],
     ["tanstack-start", "TanStack Start"],
+    ["solid-start", "SolidStart"],
   ]) {
     await page.goto(`/integrations/${slug}/`);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
@@ -222,6 +223,7 @@ test("integration guides are listed in order and fit a phone screen", async ({
     "Plain HTML",
     "React",
     "TanStack Start",
+    "SolidStart",
     "Astro",
   ]);
 });
