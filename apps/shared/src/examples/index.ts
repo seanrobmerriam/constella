@@ -53,6 +53,8 @@ import dropdownHtml from "./dropdown/example.html?raw";
 import dropdownTsx from "./dropdown/Example.tsx?raw";
 import modalHtml from "./modal/example.html?raw";
 import modalTsx from "./modal/Example.tsx?raw";
+import alertHtml from "./alert/example.html?raw";
+import alertTsx from "./alert/Example.tsx?raw";
 import fieldMessageHtml from "./field-message/example.html?raw";
 import fieldMessageTsx from "./field-message/Example.tsx?raw";
 import tabsHtml from "./tabs/example.html?raw";
@@ -309,6 +311,16 @@ export const examples: readonly ExampleDefinition[] = [
     tsx: modalTsx,
     behaviorEntry: "modal",
     previewHeight: 28,
+  },
+  {
+    id: "alert",
+    title: "Alert",
+    description:
+      "Info, success, warning and error alerts; the error one can be dismissed. Needs the alert behavior only for dismissing.",
+    html: alertHtml,
+    tsx: alertTsx,
+    behaviorEntry: "alert",
+    previewHeight: 30,
   },
   {
     id: "field-message",

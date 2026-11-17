@@ -1,0 +1,97 @@
+---
+title: Alert
+description: A message box for information, success, warnings and errors, with an optional dismiss button.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+An alert is a short message that stands apart from the page's content: a notice, a confirmation, a warning or an error. Its tone sets the border and icon color. Use it for messages about the page or the visitor's account. For a message about one form field, use [field errors](/components/field-message/) under that field instead.
+
+## Example
+
+<ComponentExample id="alert" />
+
+## Markup
+
+```html
+<div class="alert_wrap error">
+  <svg class="icon small alert_icon" aria-hidden="true">…</svg>
+  <div class="alert_content margin-trim">
+    <p class="alert_title text-style-main">Payment failed</p>
+    <p class="text">Your card was declined. Try another card.</p>
+  </div>
+  <button
+    class="button_wrap secondary close alert_dismiss"
+    type="button"
+    aria-label="Dismiss"
+    data-alert-dismiss
+  >
+    …
+  </button>
+</div>
+```
+
+- `alert_icon` and `alert_title` are optional. The content can hold any text, links or buttons.
+- The icon is decorative (`aria-hidden`). The title or the message has to say what kind of message it is, because color and icon alone don't reach everyone.
+- The dismiss button is optional, and needs the behavior. It's a [Button](/components/button/) with the `close` variant.
+
+## Variants and props
+
+| Astro prop    | HTML equivalent                     | Values                                | Default | Effect                                                  |
+| ------------- | ----------------------------------- | ------------------------------------- | ------- | ------------------------------------------------------- |
+| `tone`        | `success`, `warning`, `error` class | `info`, `success`, `warning`, `error` | `info`  | Border and icon color, from the `--status-*` tokens.    |
+| `title`       | `p.alert_title`                     | text                                  | none    | A short summary above the message.                      |
+| `icon`        | `svg.alert_icon`                    | `true`, `false`                       | `true`  | The tone's icon.                                        |
+| `dismissible` | `button.alert_dismiss`              | `true`, `false`                       | `false` | Adds a dismiss button.                                  |
+| `role`        | `role`                              | `none`, `status`, `alert`             | `none`  | Announces an alert added after load. See Accessibility. |
+| `render`      | none                                | `true`, `false`                       | `true`  | `false` omits the component.                            |
+
+The default slot is the message.
+
+## States
+
+- **Ready** (`.is-ready`): set by the behavior. The dismiss button only shows once it's set, because without the script it would do nothing.
+- **Dismissed** (`hidden`): the alert is removed from view and from the accessibility tree.
+
+## Accessibility
+
+**Choose the role by when the alert appears.**
+
+- **In the page from the start:** no role. It's ordinary content, read in order. This covers most alerts, including errors a server rendered after a form was sent.
+- **Added later, can wait** (`role="status"`): a screen reader announces it when the visitor pauses, for example "Saved".
+- **Added later, needs attention now** (`role="alert"`): announced immediately, interrupting. Keep it for errors that block the visitor.
+
+A role only announces an alert that's inserted, or whose text changes, after the page loads. An alert with `role="alert"` that's in the page from the start is announced on load in some screen readers and not others, so leave the role off those.
+
+**Other points:**
+
+- Each tone's color keeps at least 4.5:1 contrast with the background, and the message text uses `--text`.
+- The dismiss button is labelled "Dismiss". After dismissing, focus moves to the next focusable element after the alert, or to `<main>`, so keyboard users aren't sent back to the top of the page.
+- Don't dismiss alerts automatically after a delay. Visitors who read slowly or use a screen reader might miss them.
+
+## Behavior
+
+`behaviors/alert.js` makes the dismiss button work:
+
+```html
+<script type="module">
+  import { initAlert } from "./behaviors/alert.js";
+  document.querySelectorAll(".alert_wrap").forEach((root) => initAlert(root));
+</script>
+```
+
+- Clicking `[data-alert-dismiss]` sets `hidden` on the alert, moves focus as described above, and fires an `alert-dismiss` event that bubbles. Listen for it to remember the choice, for example in `localStorage`.
+- `initAlert(root)` returns a cleanup function. On an alert without a dismiss button, it does nothing.
+
+**Without the script**, alerts display normally, and the dismiss button stays hidden.
+
+## Tokens
+
+<ComponentTokens id="alert" />
+
+## Related
+
+- [Field help and errors](/components/field-message/): messages about one form field.
+- [Form](/components/form/): its sent and failed notes.
+- [Themes](/foundations/themes/): the status color tokens.

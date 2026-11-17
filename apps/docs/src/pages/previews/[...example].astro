@@ -36,6 +36,7 @@ const markup = example.html.replace(/<script[\s\S]*?<\/script>/g, "");
   import { initTabs } from "@constella/shared/behaviors/tabs.ts";
   import { initSlider } from "@constella/shared/behaviors/slider.ts";
   import { initMarquee } from "@constella/shared/behaviors/marquee.ts";
+  import { initAlert } from "@constella/shared/behaviors/alert.ts";
 
   const entry = document.body.dataset.behavior;
   const roots = (selector: string) =>
@@ -58,4 +59,5 @@ const markup = example.html.replace(/<script[\s\S]*?<\/script>/g, "");
   if (entry === "tabs") roots(".tabs_wrap").forEach(initTabs);
   if (entry === "slider") roots(".slider_wrap").forEach(initSlider);
   if (entry === "marquee") roots(".marquee_wrap").forEach(initMarquee);
+  if (entry === "alert") roots(".alert_wrap").forEach(initAlert);
 </script>

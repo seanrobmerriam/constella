@@ -33,6 +33,9 @@ released yet.
 
 ### Added
 
+- Alert: info, success, warning and error tones, an optional title and icon,
+  and an optional dismiss button (`behaviors/alert.js`) that moves focus on
+  instead of losing it.
 - Field help and errors: `help` and `error` props on Input, Textarea and
   Select, and the `.field-help` and `.field-error` classes. Messages sit
   outside the label and are linked with `aria-describedby`; an error also sets

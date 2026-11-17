@@ -29,6 +29,7 @@ import { SkipExample } from "../../../apps/shared/src/examples/skip/Example";
 import { DropdownExample } from "../../../apps/shared/src/examples/dropdown/Example";
 import { ModalExample } from "../../../apps/shared/src/examples/modal/Example";
 import { TabsExample } from "../../../apps/shared/src/examples/tabs/Example";
+import { AlertExample } from "../../../apps/shared/src/examples/alert/Example";
 import { FieldMessageExample } from "../../../apps/shared/src/examples/field-message/Example";
 import { SliderExample } from "../../../apps/shared/src/examples/slider/Example";
 import { MarqueeExample } from "../../../apps/shared/src/examples/marquee/Example";
@@ -63,6 +64,7 @@ const rendered = {
   modal: renderToString(<ModalExample />),
   tabs: renderToString(<TabsExample />),
   fieldMessage: renderToString(<FieldMessageExample />),
+  alert: renderToString(<AlertExample />),
   slider: renderToString(<SliderExample />),
   marquee: renderToString(<MarqueeExample />),
 };

@@ -16,6 +16,7 @@ export interface ExampleDefinition {
   /** Shared behavior this example needs, from the closed `behaviors` list. */
   behaviorEntry?:
     | "accordion"
+    | "alert"
     | "dropdown"
     | "form"
     | "marquee"

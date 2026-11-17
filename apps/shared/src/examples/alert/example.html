@@ -1,0 +1,145 @@
+<div class="flex-vertical-nowrap gap-4">
+  <div class="alert_wrap">
+    <svg
+      class="icon small alert_icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="10.5"
+        stroke="currentColor"
+        vector-effect="non-scaling-stroke"
+        style="stroke-width: var(--border-width)"
+      />
+      <path
+        d="M12 10.5V17.5"
+        stroke="currentColor"
+        vector-effect="non-scaling-stroke"
+        style="stroke-width: var(--border-width)"
+      />
+      <circle cx="12" cy="7.25" r="0.9" fill="currentColor" />
+    </svg>
+    <div class="alert_content margin-trim">
+      <p class="alert_title text-style-main">Maintenance tonight</p>
+      <p class="text">The site will be read-only from 22:00 to 23:00 UTC.</p>
+    </div>
+  </div>
+
+  <div class="alert_wrap success">
+    <svg
+      class="icon small alert_icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="10.5"
+        stroke="currentColor"
+        vector-effect="non-scaling-stroke"
+        style="stroke-width: var(--border-width)"
+      />
+      <path
+        d="M7.5 12.5L10.5 15.5L16.5 9"
+        stroke="currentColor"
+        vector-effect="non-scaling-stroke"
+        style="stroke-width: var(--border-width)"
+      />
+    </svg>
+    <div class="alert_content margin-trim">
+      <p class="alert_title text-style-main">Saved</p>
+      <p class="text">Your changes are live.</p>
+    </div>
+  </div>
+
+  <div class="alert_wrap warning">
+    <svg
+      class="icon small alert_icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 2.5L22.5 20.5H1.5L12 2.5Z"
+        stroke="currentColor"
+        vector-effect="non-scaling-stroke"
+        style="stroke-width: var(--border-width)"
+      />
+      <path
+        d="M12 9V14.5"
+        stroke="currentColor"
+        vector-effect="non-scaling-stroke"
+        style="stroke-width: var(--border-width)"
+      />
+      <circle cx="12" cy="17.25" r="0.9" fill="currentColor" />
+    </svg>
+    <div class="alert_content margin-trim">
+      <p class="text">
+        Your trial ends in 3 days. Add a payment method to keep your projects.
+      </p>
+    </div>
+  </div>
+
+  <div class="alert_wrap error">
+    <svg
+      class="icon small alert_icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="10.5"
+        stroke="currentColor"
+        vector-effect="non-scaling-stroke"
+        style="stroke-width: var(--border-width)"
+      />
+      <path
+        d="M8.5 8.5L15.5 15.5M15.5 8.5L8.5 15.5"
+        stroke="currentColor"
+        vector-effect="non-scaling-stroke"
+        style="stroke-width: var(--border-width)"
+      />
+    </svg>
+    <div class="alert_content margin-trim">
+      <p class="alert_title text-style-main">Payment failed</p>
+      <p class="text">Your card was declined. Try another card.</p>
+    </div>
+    <button
+      class="button_wrap secondary close alert_dismiss"
+      type="button"
+      aria-label="Dismiss"
+      data-alert-dismiss
+    >
+      <svg
+        class="icon small button_mark"
+        viewBox="0 0 26 26"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 2L24.6274 24.6274"
+          stroke="currentColor"
+          vector-effect="non-scaling-stroke"
+          style="stroke-width: var(--border-width)"
+        />
+        <path
+          d="M2 25.0024L24.6274 2.375"
+          stroke="currentColor"
+          vector-effect="non-scaling-stroke"
+          style="stroke-width: var(--border-width)"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script type="module">
+  import { initAlert } from "./behaviors/alert.js";
+  document.querySelectorAll(".alert_wrap").forEach((root) => initAlert(root));
+</script>

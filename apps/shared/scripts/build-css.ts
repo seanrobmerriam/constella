@@ -27,6 +27,7 @@ console.log("wrote dist/constella.css");
 // Optional behavior entry points, built as standalone ES modules next to the CSS.
 const behaviors = [
   "accordion",
+  "alert",
   "dropdown",
   "form",
   "marquee",

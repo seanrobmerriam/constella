@@ -21,6 +21,7 @@
 @import "./base.css" layer(base);
 @import "./patterns.css" layer(patterns);
 
+@import "./components/alert.css";
 @import "./components/button.css";
 @import "./components/card.css";
 @import "./components/choice.css";
