@@ -38,7 +38,7 @@ Headings, paragraphs and anything with a `text-style-*` class use [`text-box: tr
 
 ## Accent words
 
-Inside `.heading-accent`, a `<strong>` takes the theme's `--heading-accent` color instead of becoming bold:
+Inside `.heading-accent`, a `<strong>` takes the theme's accent instead of becoming bold. On dark and brand backgrounds that is a text color, `--heading-accent`. On light backgrounds, where yellow text would be too faint to read, it is a yellow highlight, `--heading-accent-background`, behind dark text. A highlight that wraps onto a second line is drawn on each line:
 
 ```html
 <h1 class="heading-accent">Build <strong>faster</strong></h1>

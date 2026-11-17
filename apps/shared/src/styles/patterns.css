@@ -161,9 +161,18 @@
   inset: 0%;
 }
 
+/* Accent words: colored text on dark and brand, a yellow highlight on light,
+   where yellow text would be too faint. The padding pulls the highlight
+   clear of the letters, and the matching negative margin keeps the words
+   where they would be without it, in every theme. */
 .heading-accent strong {
   color: var(--heading-accent);
+  background-color: var(--heading-accent-background);
   font-weight: inherit;
+  padding-inline: 0.12em;
+  margin-inline: -0.12em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 .display-contents {
