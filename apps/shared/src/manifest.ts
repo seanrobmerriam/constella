@@ -195,6 +195,12 @@ export const components: readonly ComponentEntry[] = [
     root: ".badge",
     styles: ["components/badge.css"],
   }),
+  documented("table", {
+    name: "Table",
+    astro: ["data/Table.astro"],
+    root: ".table_wrap, .table",
+    styles: ["components/table.css"],
+  }),
   documented("field-message", {
     name: "Field help and errors",
     astro: ["form/Field.astro"],

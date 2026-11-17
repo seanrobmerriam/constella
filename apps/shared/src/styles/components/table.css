@@ -1,0 +1,83 @@
+/*
+ * Component: Table
+ * Astro:     apps/constella/src/components/data/Table.astro
+ * Root:      .table_wrap (the scroll container), .table
+ * Children:  caption, th, td; .is-numeric on cells
+ * Variants:  .striped, .compact (on .table)
+ * State:     none
+ * Tokens:    --background-2, --border, --border-width, --primary-medium,
+ *            --space-2, --space-3, --space-4, --text-2
+ * Docs:      /components/table/
+ * Also styles plain tables inside .rich-text, which have no classes.
+ */
+@layer components {
+  /* Scrolls sideways when the table is wider than the page. It is
+     focusable, with a label, so keyboard users can scroll it too. */
+  .table_wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  :is(.table, .rich-text table) {
+    width: 100%;
+    border-collapse: collapse;
+    caption-side: top;
+    text-align: start;
+
+    & caption {
+      padding-bottom: var(--space-3);
+      font-weight: var(--primary-medium);
+      text-align: start;
+    }
+
+    & :is(th, td) {
+      padding: var(--space-3) var(--space-4);
+      border-bottom: var(--border-width) solid var(--border);
+      text-align: start;
+      vertical-align: top;
+    }
+
+    /* Edge cells line up with the text above and below the table. */
+    & :is(th, td):first-child {
+      padding-inline-start: 0;
+    }
+    & :is(th, td):last-child {
+      padding-inline-end: 0;
+    }
+
+    & thead th {
+      border-bottom-color: currentcolor;
+      color: var(--text-2);
+      font-weight: var(--primary-medium);
+      vertical-align: bottom;
+    }
+
+    & tbody th {
+      font-weight: var(--primary-medium);
+    }
+
+    /* Numbers line up by place value: end-aligned, equal-width digits. */
+    & .is-numeric {
+      text-align: end;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  .table.striped {
+    /* Striped rows need room on both sides, or the band touches the text. */
+    & :is(th, td):first-child {
+      padding-inline-start: var(--space-4);
+    }
+    & :is(th, td):last-child {
+      padding-inline-end: var(--space-4);
+    }
+    & tbody tr:nth-child(even) {
+      background-color: var(--background-2);
+    }
+  }
+
+  .table.compact :is(th, td) {
+    padding-block: var(--space-2);
+  }
+}

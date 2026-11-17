@@ -1,0 +1,88 @@
+---
+title: Table
+description: Styles for semantic tables, with a caption, row headers, numeric columns and sideways scrolling on narrow screens.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A table for data that has rows and columns: prices by plan, results by date. It styles a normal HTML `<table>`, so screen readers keep their table navigation. On a narrow screen, a wide table scrolls sideways inside its wrapper rather than squeezing its columns or widening the page. Don't use a table for layout. Use a [Grid](/components/grid/).
+
+## Example
+
+<ComponentExample id="table" />
+
+## Markup
+
+```html
+<div
+  class="table_wrap"
+  role="region"
+  aria-labelledby="plans-caption"
+  tabindex="0"
+>
+  <table class="table striped">
+    <caption id="plans-caption">
+      Plans and prices
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Plan</th>
+        <th scope="col" class="is-numeric">Price per month</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Team</th>
+        <td class="is-numeric">$49</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+- **`.table_wrap`** scrolls sideways when the table is too wide. `tabindex="0"` lets keyboard users focus it and scroll with the arrow keys. `role="region"` with `aria-labelledby` tells screen readers what the focused area is.
+- **`<caption>`** says what the table shows. It also labels the scroll area. Hide it visually with `sr-only` if a heading above already says the same.
+- **Headers:** `<th scope="col">` for column headers, `<th scope="row">` for the cell that names each row.
+- **`.is-numeric`** on header and data cells aligns numbers to the end, with equal-width digits so place values line up.
+
+## Variants and props
+
+| Astro prop      | HTML equivalent          | Values          | Default  | Effect                                             |
+| --------------- | ------------------------ | --------------- | -------- | -------------------------------------------------- |
+| `caption`       | `<caption>`              | text            | required | What the table shows. Also labels the scroll area. |
+| `captionHidden` | `sr-only` on the caption | `true`, `false` | `false`  | Hides the caption visually only.                   |
+| `striped`       | `striped` class          | `true`, `false` | `false`  | Shades every other body row.                       |
+| `compact`       | `compact` class          | `true`, `false` | `false`  | Less vertical padding in each row.                 |
+| `render`        | none                     | `true`, `false` | `true`   | `false` omits the component.                       |
+
+The default slot takes the `<thead>`, `<tbody>` and `<tfoot>`. The Astro component writes the wrapper, the caption and their ids.
+
+**In rich text**, a plain `<table>` gets the same styles without classes, but no scroll wrapper. Keep tables in rich text narrow, or wrap them in `.table_wrap` when you render the content.
+
+## States
+
+- **Overflowing:** the wrapper scrolls sideways. Nothing else changes.
+- **Focus:** the global focus outline on the wrapper.
+
+## Accessibility
+
+- It's a real `<table>`, so screen readers announce its size and let visitors move by row and column, reading the headers as they go.
+- Give every table a caption, and every row and column header its `scope`.
+- The scroll wrapper is focusable, labelled and named as a region, so keyboard users can reach content that's scrolled out of view.
+- Header cells use the secondary text color, which keeps at least 4.5:1 contrast. Striped rows keep the same text color as the rest.
+- Don't put interactive controls in every row unless they're needed. Each one adds a tab stop.
+
+## Behavior
+
+None. Sorting and filtering aren't part of this component.
+
+## Tokens
+
+<ComponentTokens id="table" />
+
+## Related
+
+- [RichText](/components/rich-text/): plain tables in content get these styles.
+- [Badge](/components/badge/): status labels in table cells.
+- [Grid](/components/grid/): layout without a table.

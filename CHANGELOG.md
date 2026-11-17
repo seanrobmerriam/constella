@@ -33,6 +33,10 @@ released yet.
 
 ### Added
 
+- Table: styles for semantic tables (caption, header rows, row headers,
+  `.is-numeric` cells) with `striped` and `compact` variants, in a focusable,
+  labelled wrapper that scrolls sideways on narrow screens. Plain tables in
+  rich text get the same styles.
 - Badge: an inline label for a status, category or count, in neutral, brand
   and status tones, sized relative to the surrounding text.
 - Alert: info, success, warning and error tones, an optional title and icon,

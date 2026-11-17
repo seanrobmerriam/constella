@@ -44,6 +44,8 @@ The first child has no top margin and the last has no bottom margin, so the bloc
 | `maxWidth` | `--_mw` in `style`, in `ch` | whole number                                              | none      | Limits the line length in characters.                             |
 | `render`   | none                        | `true`, `false`                                           | `true`    | `false` omits the component. It also renders nothing when empty.  |
 
+A plain `<table>` in rich text gets the [Table](/components/table/) styles: header row, row borders and aligned cells. It doesn't get the scroll wrapper, so keep tables in content narrow, or wrap them in `.table_wrap` when you render the content.
+
 ## States
 
 Links have the global hover and focus styles. The block has no states of its own.

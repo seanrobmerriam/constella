@@ -57,6 +57,8 @@ import alertHtml from "./alert/example.html?raw";
 import alertTsx from "./alert/Example.tsx?raw";
 import badgeHtml from "./badge/example.html?raw";
 import badgeTsx from "./badge/Example.tsx?raw";
+import tableHtml from "./table/example.html?raw";
+import tableTsx from "./table/Example.tsx?raw";
 import fieldMessageHtml from "./field-message/example.html?raw";
 import fieldMessageTsx from "./field-message/Example.tsx?raw";
 import tabsHtml from "./tabs/example.html?raw";
@@ -332,6 +334,15 @@ export const examples: readonly ExampleDefinition[] = [
     html: badgeHtml,
     tsx: badgeTsx,
     previewHeight: 16,
+  },
+  {
+    id: "table",
+    title: "Table",
+    description:
+      "A striped table with a caption, row headers and numeric columns, in a wrapper that scrolls on narrow screens. No script.",
+    html: tableHtml,
+    tsx: tableTsx,
+    previewHeight: 22,
   },
   {
     id: "field-message",

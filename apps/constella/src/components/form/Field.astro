@@ -13,24 +13,36 @@ import type {
 } from "@constella/shared/contracts/controls.ts";
 
 interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
   /** Classes for the root, e.g. `form-input`. */
   class?: string | (string | false | null | undefined)[];
+  /** Opt-in control size. Omit to keep the default. */
   size?: ControlSize;
+  /** Opt-in corner radius. Omit to keep the default. */
   radius?: ControlRadius;
+  /** Inline style for the root. */
   style?: string;
-  /** Label text. */
+  /** Field label. */
   label: string;
+  /** Visually hide the label. */
   labelHidden?: boolean;
+  /** Mark the label as required. */
   required?: boolean;
   /** The control's id. Required when there is help or error text. */
   controlId?: string;
+  /** Help text under the field. */
   help?: string;
+  /** Id for the help text, listed in the control's aria-describedby. */
   helpId?: string;
+  /** Error text under the field. */
   error?: string;
+  /** Id for the error text, listed in the control's aria-describedby. */
   errorId?: string;
 }
 
 const {
+  render = true,
   class: className,
   size,
   radius,
@@ -50,32 +62,34 @@ const Root = withMessages ? "div" : "label";
 const Label = withMessages ? "label" : "span";
 ---
 
-<Root
-  class:list={["field", className]}
-  data-size={size}
-  data-radius={radius}
-  style={style}
->
-  <Label
-    class:list={["field-label text-style-main", labelHidden && "sr-only"]}
-    for={withMessages ? controlId : undefined}
+{render && (
+  <Root
+    class:list={["field", className]}
+    data-size={size}
+    data-radius={radius}
+    style={style}
   >
-    <span>{label}</span>
-    {required && (
-      <span class="field-star" aria-hidden="true">
-        *
-      </span>
+    <Label
+      class:list={["field-label text-style-main", labelHidden && "sr-only"]}
+      for={withMessages ? controlId : undefined}
+    >
+      <span>{label}</span>
+      {required && (
+        <span class="field-star" aria-hidden="true">
+          *
+        </span>
+      )}
+    </Label>
+    <slot />
+    {help && (
+      <p class="field-help text-style-small" id={helpId}>
+        {help}
+      </p>
     )}
-  </Label>
-  <slot />
-  {help && (
-    <p class="field-help text-style-small" id={helpId}>
-      {help}
-    </p>
-  )}
-  {error && (
-    <p class="field-error text-style-small" id={errorId}>
-      {error}
-    </p>
-  )}
-</Root>
+    {error && (
+      <p class="field-error text-style-small" id={errorId}>
+        {error}
+      </p>
+    )}
+  </Root>
+)}

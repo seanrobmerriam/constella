@@ -1,0 +1,53 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { uid } from "@/utils/unique-id.ts";
+
+type Props = HTMLAttributes<"table"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** What the table shows. Also labels the scroll area. */
+  caption: string;
+  /** Hide the caption visually; screen readers still read it. */
+  captionHidden?: boolean;
+  /** Shade every other body row. */
+  striped?: boolean;
+  /** Less padding in each row. */
+  compact?: boolean;
+};
+
+const {
+  render = true,
+  caption,
+  captionHidden = false,
+  striped = false,
+  compact = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const captionId = uid("table-caption");
+---
+
+{render && (
+  <div
+    class="table_wrap"
+    role="region"
+    aria-labelledby={captionId}
+    tabindex="0"
+  >
+    <table
+      class:list={[
+        "table",
+        striped && "striped",
+        compact && "compact",
+        className,
+      ]}
+      {...rest}
+    >
+      <caption id={captionId} class:list={[captionHidden && "sr-only"]}>
+        {caption}
+      </caption>
+      <slot />
+    </table>
+  </div>
+)}
