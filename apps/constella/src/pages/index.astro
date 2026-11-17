@@ -9,6 +9,8 @@ import constella_background from "@/assets/graphics/constella-background.svg";
 import Icon from "@/components/media/Icon.astro";
 import logo_icon from "@/assets/logo/logo-icon.svg";
 import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+// The framework version is @constella/shared's (docs/releasing.md).
+import constella from "@constella/shared/package.json";
 ---
 
 <Layout theme="dark">
@@ -29,7 +31,7 @@ import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
       <Heading variant="display" tag="h1" class="margin-block-8">
         Style Guide
       </Heading>
-      <Heading variant="eyebrow-tag">v1.0.2</Heading>
+      <Heading variant="eyebrow-tag">v{constella.version}</Heading>
       <Img
         slot="column2"
         src={constella_background}

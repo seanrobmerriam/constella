@@ -14,10 +14,8 @@ The other packages are private and have no release of their own:
 | `@constella/site`, `@constella/docs` | Nothing. Private apps, never published.  |
 | `@constella/fixture-*`               | Nothing. Test fixtures, never published. |
 
-The `v1.0.2` label on the reference site's home page is display text. It isn't
-read from any package, and it doesn't match `@constella/shared` (`0.0.1`).
-Decide whether to remove it or have the site show the package version before
-the first release.
+The reference site's home page shows this version, read from
+`apps/shared/package.json` at build time, so it always matches.
 
 No version has been released, and nothing is published to a registry yet. A
 release needs the project owner's go-ahead. These steps don't publish anything

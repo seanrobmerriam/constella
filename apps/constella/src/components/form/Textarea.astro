@@ -9,12 +9,12 @@ import { fieldMessages } from "@/utils/field.ts";
 import Field from "@/components/form/Field.astro";
 
 interface Props extends Omit<HTMLAttributes<"textarea">, "rows"> {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
   /** Opt-in control size. Omit to keep the default. */
   size?: ControlSize;
   /** Opt-in corner radius. Omit to keep the default. */
   radius?: ControlRadius;
-  /** Set to `false` to omit the component. */
-  render?: boolean;
   /** Field label. */
   label?: string;
   /** Initial value. */
@@ -43,6 +43,8 @@ interface Props extends Omit<HTMLAttributes<"textarea">, "rows"> {
 
 const {
   render = true,
+  size,
+  radius,
   label,
   value,
   name,
@@ -52,8 +54,6 @@ const {
   required = false,
   help,
   error,
-  size,
-  radius,
   class: className,
   id,
   ...rest

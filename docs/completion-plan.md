@@ -226,6 +226,8 @@ Phase 4 is done: every environment the docs name has a fixture that builds and p
   - [x] 6c Badge: `item/Badge.astro`, `components/badge.css`. Neutral, `brand` (new `--badge-brand` tokens, so it shows in the brand theme and inside a secondary button) and four status tones (a tint behind the text color, plus a status-colored dot). Sized in `em` to fit headings, buttons and table cells. Tests: `tests/components/badge.spec.ts` and axe in all three themes.
   - [x] 6d Table: `data/Table.astro`, `components/table.css`. A focusable `.table_wrap` region labelled by the caption, which scrolls sideways at phone width without widening the page; `striped`, `compact`, `.is-numeric`; plain rich-text tables get the same styles. Tests: `tests/components/table.spec.ts` and axe in all three themes.
 
+  Follow-ups the owner approved: Input, Textarea, Select and Dropdown declare their props in the library's order (`render`, then `size` and `radius`, then the rest), so `constella-audit-props` reports no conflicts; and the home page shows the real framework version from `apps/shared/package.json` instead of a hard-coded `v1.0.2`.
+
   Increment 1 is complete. The rest of the candidate catalog in `docs/components.md` stays unscheduled until the owner picks the next increment.
 
 ---

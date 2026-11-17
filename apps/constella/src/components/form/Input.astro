@@ -22,12 +22,12 @@ type InputVariant =
   | "url";
 
 interface Props extends Omit<HTMLAttributes<"input">, "type"> {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
   /** Opt-in control size. Omit to keep the default. */
   size?: ControlSize;
   /** Opt-in corner radius. Omit to keep the default. */
   radius?: ControlRadius;
-  /** Set to `false` to omit the component. */
-  render?: boolean;
   /** Field label. Defaults to the variant name. */
   label?: string;
   /** Initial value. */
@@ -50,6 +50,8 @@ interface Props extends Omit<HTMLAttributes<"input">, "type"> {
 
 const {
   render = true,
+  size,
+  radius,
   label,
   value,
   variant = "text",
@@ -59,8 +61,6 @@ const {
   labelHidden = false,
   help,
   error,
-  size,
-  radius,
   class: className,
   id,
   ...rest
