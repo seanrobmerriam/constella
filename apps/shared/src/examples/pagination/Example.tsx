@@ -18,16 +18,16 @@ function Arrow() {
   );
 }
 
-function Pages(props: { label: string; current: number; entries: Entry[] }) {
+function Pages(props: { label: string; page: number; entries: Entry[] }) {
   const last = props.entries.at(-1) as number;
   return (
     <nav className="pagination" aria-label={props.label}>
       <ul className="pagination_list">
         <li>
-          {props.current > 1 ? (
+          {props.page > 1 ? (
             <a
               className="pagination_link pagination_step"
-              href={`#page-${props.current - 1}`}
+              href={`#page-${props.page - 1}`}
               rel="prev"
             >
               <Arrow />
@@ -56,7 +56,7 @@ function Pages(props: { label: string; current: number; entries: Entry[] }) {
               <a
                 className="pagination_link"
                 href={`#page-${entry}`}
-                aria-current={entry === props.current ? "page" : undefined}
+                aria-current={entry === props.page ? "page" : undefined}
               >
                 <span className="sr-only">Page </span>
                 {entry}
@@ -65,10 +65,10 @@ function Pages(props: { label: string; current: number; entries: Entry[] }) {
           ),
         )}
         <li>
-          {props.current < last ? (
+          {props.page < last ? (
             <a
               className="pagination_link pagination_step"
-              href={`#page-${props.current + 1}`}
+              href={`#page-${props.page + 1}`}
               rel="next"
             >
               <span>Next</span>
@@ -96,10 +96,10 @@ export function PaginationExample() {
     <div className="flex-vertical-nowrap gap-5">
       <Pages
         label="Pagination"
-        current={5}
+        page={5}
         entries={[1, "gap", 4, 5, 6, "gap", 10]}
       />
-      <Pages label="Pagination, first page" current={1} entries={[1, 2, 3]} />
+      <Pages label="Pagination, first page" page={1} entries={[1, 2, 3]} />
     </div>
   );
 }
