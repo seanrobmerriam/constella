@@ -259,3 +259,16 @@ test("the migration page covers every rename and is in the sidebar", async ({
   );
   expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test("the accessibility page states what is and isn't tested", async ({
+  page,
+}) => {
+  await page.goto("/foundations/accessibility/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Accessibility",
+  );
+  for (const name of ["Tested on every change", "Contrast", "Not tested yet"])
+    await expect(
+      page.getByRole("heading", { level: 2, name, exact: true }),
+    ).toBeVisible();
+});

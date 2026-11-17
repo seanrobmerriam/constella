@@ -101,7 +101,7 @@
     "borderRadius": "8px",
     "borderTopWidth": "1px",
     "height": "55.1406px",
-    "color": "lab(99.9988 0.0188053 -0.00110865 / 0.6)",
+    "color": "lab(99.9988 0.0188053 -0.00110865 / 0.7)",
     "backgroundColor": "rgb(47, 43, 45)"
   },
   "textarea": {

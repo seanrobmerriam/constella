@@ -10,7 +10,8 @@
  *            [data-moved] are set by behaviors/tabs.ts
  * Tokens:    --background, --border, --border-width, --hover-duration,
  *            --hover-ease, --open-duration, --open-ease, --radius-round,
- *            --space-2, --space-3, --space-4, --space-5, --space-6, --text
+ *            --space-2, --space-3, --space-4, --space-5, --space-6, --text,
+ *            --text-2
  * Docs:      /components/tabs/
  * Also styles Astro designer-preview hooks (.preview, .stacki-*), which plain
  * HTML users can ignore.
@@ -56,7 +57,7 @@
     padding-block: var(--space-3);
     background: none;
     border-bottom: var(--border-width) solid var(--border);
-    color: color-mix(in lab, currentcolor 60%, transparent);
+    color: var(--text-2);
     text-align: center;
     transition:
       color var(--hover-duration) var(--hover-ease),

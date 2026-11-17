@@ -47,12 +47,20 @@ released yet.
   React TSX examples, tokens and accessibility notes; foundations pages;
   integration guides for plain HTML, React, TanStack Start, SolidStart and
   Astro; and this migration guide.
+- Accessibility checks in CI: axe-core on every example in light, dark and
+  brand, reflow at 320px, and a visible focus indicator on every tab stop
+  (`bun run test:a11y`). A Foundations page says what is and isn't tested.
 - Checks: a component manifest and `check:docs`, `check:docs-sync`,
   `check:examples`, and Playwright suites for components, docs and the four
   integration fixtures, all run in CI.
 
 ### Changed
 
+- `--text-2` is the text color at 70% opacity (was 60%), so secondary text
+  keeps at least 4.5:1 contrast in every theme. Unselected tabs, navbar links,
+  rich-text list markers and the dropdown's hover color now use it instead of
+  their own 60% mix.
+- Slider markers are 24px targets around the same 12px dot, and sit 24px apart.
 - Marquee holds still, with its toggle hidden, until its script runs. Pressing
   play now works under reduced motion.
 - Components that had inline scripts (Form, Range, Dropdown, Modal, Tabs,
