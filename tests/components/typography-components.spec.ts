@@ -111,3 +111,38 @@ test("rich text styles unclassed HTML: trimmed ends, nested markers, quote rule"
     await cs(page, "#ref", "font-size"),
   );
 });
+
+test("accent words: a yellow highlight on light, a color on dark and brand, same position in all", async ({
+  page,
+}) => {
+  const heading = (theme: string) =>
+    `<div class="theme-${theme}"><h2 class="heading text-style-h3 heading-accent">Build <strong>faster</strong></h2><h2 class="heading text-style-h3">Build <b style="font-weight:inherit">faster</b></h2></div>`;
+  await load(page, heading("light") + heading("dark") + heading("brand"));
+  const accent = (theme: string) =>
+    page.locator(`.theme-${theme} strong`).evaluate((el) => {
+      const c = getComputedStyle(el);
+      const plain = el
+        .closest("div")!
+        .querySelector("b")!
+        .getBoundingClientRect().left;
+      return {
+        color: c.color,
+        background: c.backgroundColor,
+        shift: Math.round(
+          el.getBoundingClientRect().left +
+            0.12 * parseFloat(c.fontSize) -
+            plain,
+        ),
+      };
+    });
+  expect(await accent("light")).toEqual({
+    color: "rgb(31, 29, 30)",
+    background: "rgb(235, 230, 91)",
+    shift: 0,
+  });
+  for (const theme of ["dark", "brand"]) {
+    const { background, shift } = await accent(theme);
+    expect(background, theme).toBe("rgba(0, 0, 0, 0)");
+    expect(shift, theme).toBe(0);
+  }
+});

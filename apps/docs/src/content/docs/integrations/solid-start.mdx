@@ -1,0 +1,180 @@
+---
+title: SolidStart
+description: Use Constella in a server-rendered SolidStart app, and adapt the React TSX examples to Solid.
+sidebar:
+  order: 4
+---
+
+The **React TSX** tab on each component page is React. Solid's JSX looks similar, but it isn't the same, so the examples need a few changes before they work in Solid. This page lists them, and covers the stylesheet, the theme and behaviors in SolidStart. It is tested: `tests/fixtures/solid-start` converts every TSX example with the rules below, server-renders and hydrates them, and `bun run test:integrations` checks its production build in a browser.
+
+## Setup
+
+Start from SolidStart's [getting started](https://docs.solidjs.com/solid-start/v2/getting-started) guide, then add the two Constella aliases to `vite.config.ts`:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { solidStart } from "@solidjs/start/config";
+import { nitro } from "nitro/vite";
+
+const dist = "/path/to/constella/apps/shared/dist/";
+
+export default defineConfig({
+  resolve: {
+    alias: [
+      {
+        find: /^constella\/behaviors\/(.+)$/,
+        replacement: `${dist}behaviors/$1.js`,
+      },
+      {
+        find: /^constella\/constella\.css(\?.*)?$/,
+        replacement: `${dist}constella.css$1`,
+      },
+    ],
+  },
+  plugins: [solidStart(), nitro()],
+});
+```
+
+## Stylesheet
+
+Import the stylesheet once, in `src/app.tsx`. SolidStart puts it in the `<head>` of the server-rendered page, so the page is styled before any JavaScript runs:
+
+```tsx
+// src/app.tsx
+import { Router } from "@solidjs/router";
+import { FileRoutes } from "@solidjs/start/router";
+import { Suspense } from "solid-js";
+import "constella/constella.css";
+
+export default function App() {
+  return (
+    <Router root={(props) => <Suspense>{props.children}</Suspense>}>
+      <FileRoutes />
+    </Router>
+  );
+}
+```
+
+## Theme
+
+Put the theme script in the document in `src/entry-server.tsx`, before `props.assets`. It is `bootstrapTheme` serialized, so it runs before the body is parsed and a visitor who chose dark mode never sees the light theme:
+
+```tsx
+// src/entry-server.tsx
+import { createHandler, StartServer } from "@solidjs/start/server";
+import {
+  bootstrapTheme,
+  resolveTheme,
+  THEME_KEY,
+} from "constella/behaviors/theme";
+
+const themeScript = `(${bootstrapTheme.toString()})("inherit",${resolveTheme.toString()},${JSON.stringify(THEME_KEY)})`;
+
+export default createHandler(() => (
+  <StartServer
+    document={(props) => (
+      <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/favicon.svg" />
+          <script innerHTML={themeScript} />
+          {props.assets}
+        </head>
+        <body>
+          <div id="app">{props.children}</div>
+          {props.scripts}
+        </body>
+      </html>
+    )}
+  />
+));
+```
+
+Solid hydrates only the app inside `#app`, not `<html>`, so the class the script adds needs no hydration workaround.
+
+## From React TSX to Solid
+
+Here is the Tabs example in Solid. The markup and classes are unchanged. The ref and the effect are what differ:
+
+```tsx
+import { onCleanup, onMount } from "solid-js";
+import { initTabs } from "constella/behaviors/tabs";
+
+export function TabsExample() {
+  let ref!: HTMLDivElement;
+  onMount(() => onCleanup(initTabs(ref)));
+
+  return (
+    <div class="tabs_wrap" id="process" ref={ref}>
+      …
+    </div>
+  );
+}
+```
+
+The full set of changes:
+
+| React TSX                                      | Solid                                       |
+| ---------------------------------------------- | ------------------------------------------- |
+| `const ref = useRef<HTMLDivElement>(null)`     | `let ref!: HTMLDivElement`                  |
+| `ref.current`                                  | `ref`                                       |
+| `useEffect(() => initTabs(ref.current!), [])`  | `onMount(() => onCleanup(initTabs(ref)))`   |
+| `useEffect(() => { …; return cleanup; }, [])`  | `onMount(() => { …; onCleanup(cleanup); })` |
+| `useId()`                                      | `createUniqueId()`                          |
+| `className`, `htmlFor`, `tabIndex`             | `class`, `for`, `tabindex`                  |
+| `vectorEffect`, `strokeWidth` (SVG attributes) | `vector-effect`, `stroke-width`             |
+| `style={{ strokeWidth: "…" }}`                 | `style={{ "stroke-width": "…" }}`           |
+| `style={{ "--_cols-sm": 2 } as CSSProperties}` | `style={{ "--_cols-sm": 2 }}`               |
+| `autoComplete`, `inputMode`, `playsInline`     | `autocomplete`, `inputmode`, `playsinline`  |
+| `defaultChecked`, `defaultValue`               | `checked`, `value`                          |
+| `inert={copy}` (from an expression)            | `bool:inert={copy}`                         |
+| `key={item.id}` on list items                  | leave it out                                |
+| `ReactNode`                                    | `JSX.Element`                               |
+
+Two of these are easy to miss, because the wrong version still renders:
+
+- **Boolean attributes from an expression.** Solid writes `inert={false}` as `inert="false"`, and any `inert` attribute makes the element inert. `bool:inert` removes the attribute when the value is false. To type it, list the attribute in Solid's `ExplicitBoolAttributes`:
+
+  ```ts
+  // src/solid-jsx.d.ts
+  import "solid-js";
+
+  declare module "solid-js" {
+    namespace JSX {
+      interface ExplicitBoolAttributes {
+        inert: boolean;
+      }
+    }
+  }
+  ```
+
+- **SVG attribute names.** SVG attribute names are case-sensitive, so `vectorEffect` doesn't work. Use the attribute's real name.
+
+The fixture's `convert.ts` applies exactly these rules to every example. It fails the build if anything React-specific is left, so you can use it as a reference.
+
+## Behaviors
+
+- **`onMount` runs only in the browser**, after hydration. The server-rendered page is styled and shows each component's starting state. Behaviors start once hydration is done.
+- **`onCleanup` is required.** When a component unmounts, for example inside `<Show>` or on navigation, its cleanup removes the behavior's listeners. The fixture checks this by hiding a navbar and confirming its `document` listeners are removed.
+- **Let the behavior own what it changes.** Behaviors set classes, `aria-*`, `open` and `data-state` themselves. Don't bind those attributes to signals, or Solid and the behavior will overwrite each other.
+
+## Production server
+
+`vite build` with Nitro writes a Node server to `.output/server/index.mjs`. Run it with `node .output/server/index.mjs`, or pick another Nitro [preset](https://nitro.build/deploy). Don't run a formatter or anything else over `.output` after the build. Nitro records each file's size at build time, and a changed file is served cut short.
+
+## What the fixture checks
+
+Against the production build, in Chromium:
+
+- The server's HTML links the stylesheet in `<head>`, the stylesheet is served as CSS, and all 30 converted examples are in the HTML.
+- With JavaScript off, the page is already styled.
+- Hydration finishes with no errors, and a saved dark theme applies even with the app's scripts blocked.
+- The same checks as [Plain HTML](/integrations/html/#what-the-fixture-checks): grid, form, range, accordion, navbar, theme toggle, tabs and modal.
+- `bool:inert` leaves the attribute off when it's false, and unmounting a component runs its behavior's cleanup.
+
+## Related
+
+- [React](/integrations/react/): the TSX examples these are converted from.
+- [TanStack Start](/integrations/tanstack-start/): the same setup with React.

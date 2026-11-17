@@ -1,0 +1,150 @@
+---
+title: TanStack Start
+description: Use Constella in a server-rendered TanStack Start app, with the stylesheet in the first response and behaviors after hydration.
+sidebar:
+  order: 3
+---
+
+TanStack Start renders React on the server and hydrates it in the browser. Everything in the [React guide](/integrations/react/) applies. This page covers what server rendering adds: getting the stylesheet into the first response, applying the theme before hydration, and when behaviors start. It is tested: `tests/fixtures/tanstack-start` server-renders every TSX example, and `bun run test:integrations` checks its production build in a browser.
+
+## Setup
+
+Follow TanStack's [Build from scratch](https://tanstack.com/start/latest/docs/framework/react/build-from-scratch) guide, then add the two Constella aliases to `vite.config.ts`:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import viteReact from "@vitejs/plugin-react";
+
+const dist = "/path/to/constella/apps/shared/dist/";
+
+export default defineConfig({
+  resolve: {
+    alias: [
+      {
+        find: /^constella\/behaviors\/(.+)$/,
+        replacement: `${dist}behaviors/$1.js`,
+      },
+      {
+        find: /^constella\/constella\.css(\?.*)?$/,
+        replacement: `${dist}constella.css$1`,
+      },
+    ],
+  },
+  // React's plugin must come after Start's.
+  plugins: [tanstackStart(), viteReact()],
+});
+```
+
+The stylesheet alias keeps any `?url` suffix, which the root route needs.
+
+## Root route: stylesheet and theme
+
+Link the stylesheet from the root route's `head`, so the server puts it in the first response and the page is styled before any JavaScript runs:
+
+```tsx
+// src/routes/__root.tsx
+/// <reference types="vite/client" />
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRoute,
+} from "@tanstack/react-router";
+import type { ReactNode } from "react";
+import constellaCss from "constella/constella.css?url";
+import {
+  bootstrapTheme,
+  resolveTheme,
+  THEME_KEY,
+} from "constella/behaviors/theme";
+
+const themeScript = `(${bootstrapTheme.toString()})("inherit",${resolveTheme.toString()},${JSON.stringify(THEME_KEY)})`;
+
+export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+    ],
+    links: [
+      { rel: "stylesheet", href: constellaCss },
+      { rel: "icon", href: "/favicon.svg" },
+    ],
+  }),
+  shellComponent: RootDocument,
+  component: Outlet,
+});
+
+function RootDocument({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+```
+
+- **The theme script** is `bootstrapTheme` serialized into an inline script, the same way Astro's `BaseHead` does it. It runs before the body is parsed, so a visitor who chose dark mode never sees the light theme first. It doesn't wait for the app's JavaScript. The fixture checks this with the app's scripts blocked.
+- **`suppressHydrationWarning` on `<html>`** is needed because the theme script adds a class the server didn't render. It only covers that element's own attributes, so mismatches anywhere else are still reported.
+- **Declare an icon.** Without one, the browser requests `/favicon.ico`, which the router answers with a 404.
+
+To lock the page to one theme instead, put `className="theme-dark"` and `data-theme-locked=""` on `<html>` and leave out the theme script. See [Themes](/foundations/themes/).
+
+## Behaviors and hydration
+
+Use the TSX examples unchanged. Their behaviors start in `useEffect`, which runs only in the browser, after hydration:
+
+1. **Server HTML arrives.** It's fully styled: the layout, typography and every component's resting state are there. Interactive parts show the starting state written in their markup. For example, the first tab panel is visible, and a disclosure is open only if it was rendered with `open`.
+2. **Hydration finishes.** Each effect runs and the behaviors start: tabs get their roles and keyboard support, the navbar menu toggles, and so on.
+
+Nothing in the examples reads `window` or `document` while rendering, so they render on the server without changes. Keep that true in your own components: touch the DOM only in effects.
+
+## Production server
+
+`vite build` writes the browser files to `dist/client` and a server entry to `dist/server/server.js`, which exports a `fetch` handler. Deploy it with any of TanStack's [hosting options](https://tanstack.com/start/latest/docs/framework/react/guide/hosting). The fixture runs it with a few lines of Bun, serving `dist/client` as static files and sending everything else to the handler:
+
+```ts
+// serve.ts
+import { join, normalize } from "node:path";
+import server from "./dist/server/server.js";
+
+const client = join(import.meta.dir, "dist/client/");
+
+Bun.serve({
+  port: 3000,
+  async fetch(request) {
+    const path = decodeURIComponent(new URL(request.url).pathname);
+    const file = normalize(join(client, path));
+    // Only files inside dist/client; anything else goes to the app.
+    if (file.startsWith(client) && path !== "/") {
+      const asset = Bun.file(file);
+      if (await asset.exists()) return new Response(asset);
+    }
+    return server.fetch(request);
+  },
+});
+```
+
+## What the fixture checks
+
+Against the production build, in Chromium:
+
+- The server's HTML links the stylesheet in `<head>`, the stylesheet is served as CSS, and all 30 examples are in the HTML.
+- With JavaScript off, the page is already styled.
+- Hydration finishes with no errors or mismatch warnings.
+- A saved dark theme applies even with the app's scripts blocked.
+- After hydration, the same checks as [Plain HTML](/integrations/html/#what-the-fixture-checks): grid, form, range, accordion, navbar, theme toggle, tabs and modal.
+
+## Related
+
+- [React](/integrations/react/): the TSX examples, behaviors and HTML-to-TSX conversion.
+- [Themes](/foundations/themes/): saved, system and locked themes.

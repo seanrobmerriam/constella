@@ -1,0 +1,144 @@
+---
+title: React
+description: Use Constella's stylesheet and behaviors in a React app, with the TSX examples from each component page.
+sidebar:
+  order: 2
+---
+
+Every component page has a **React TSX** tab: the same markup as the HTML tab, as a plain React component. Constella has no React components of its own. The classes do the styling, and a component that needs a behavior calls it from an effect. This guide is tested: `tests/fixtures/react` is a Vite app that renders every TSX example inside `StrictMode`, and `bun run test:integrations` checks it in a browser.
+
+## Setup
+
+Constella isn't on a package registry yet. Build the distributable (see [Installation](/getting-started/installation/)), then point two import names at it. In Vite:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+const dist = "/path/to/constella/apps/shared/dist/";
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: [
+      {
+        find: /^constella\/behaviors\/(.+)$/,
+        replacement: `${dist}behaviors/$1.js`,
+      },
+      { find: "constella/constella.css", replacement: `${dist}constella.css` },
+    ],
+  },
+});
+```
+
+The TSX examples import behaviors as `constella/behaviors/<name>`, so this alias lets you paste them unchanged. For TypeScript, map the same name to the source files, which carry the types:
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "constella/behaviors/*": [
+        "/path/to/constella/apps/shared/src/behaviors/*.ts"
+      ]
+    }
+  }
+}
+```
+
+## Stylesheet and theme
+
+Import the stylesheet once, in the entry file, and apply the visitor's theme before the first render:
+
+```tsx
+// src/main.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "constella/constella.css";
+import {
+  bootstrapTheme,
+  resolveTheme,
+  THEME_KEY,
+} from "constella/behaviors/theme";
+import { App } from "./App";
+
+bootstrapTheme("inherit", resolveTheme, THEME_KEY);
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);
+```
+
+Without `bootstrapTheme`, nothing puts a theme class on `<html>`, so the toggle has nothing to switch from. Running it in the entry file can still show the light theme for a moment before the bundle loads. To avoid that, put the same code in an inline `<script>` in `index.html`. A theme toggle is wired like any other behavior:
+
+```tsx
+function ThemeToggle() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => initThemeToggle(ref.current!), []);
+  return (
+    <div ref={ref}>
+      <button
+        className="button_wrap secondary"
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+      >
+        <span className="button_text text-style-trim">Dark mode</span>
+      </button>
+    </div>
+  );
+}
+```
+
+## Behaviors
+
+A component that needs a behavior gives it its root element in an effect, and returns the cleanup:
+
+```tsx
+export function TabsExample() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => initTabs(ref.current!), []);
+  return (
+    <div className="tabs_wrap" id="process" ref={ref}>
+      …
+    </div>
+  );
+}
+```
+
+- **Cleanup is required.** `StrictMode` runs every effect twice in development. The cleanup removes the first setup's listeners, so only one remains. The fixture checks this: a doubled navbar handler would open and close the menu in a single click.
+- **Let the behavior own what it changes.** Behaviors set classes, `aria-*` attributes, `open` and `data-state` on the elements they manage. Render the starting values in JSX and don't change those props afterwards, or React and the behavior will overwrite each other. For example, render `<details open>` for an accordion item that starts open, and let the accordion handle it after that.
+- **Server rendering is safe.** Behaviors only touch the DOM inside effects, which don't run on the server. `check:examples` renders every TSX example with `renderToString`.
+
+## From HTML to TSX
+
+The TSX tabs already make these changes. Make the same ones if you convert other HTML:
+
+| HTML                                   | TSX                                                   |
+| -------------------------------------- | ----------------------------------------------------- |
+| `class="…"`                            | `className="…"`                                       |
+| `for="…"`                              | `htmlFor="…"`                                         |
+| `tabindex="0"`                         | `tabIndex={0}`                                        |
+| `style="--_cols-sm: 2"`                | `style={{ "--_cols-sm": 2 } as CSSProperties}`        |
+| `style="stroke-width: var(--x)"`       | `style={{ strokeWidth: "var(--x)" }}`                 |
+| `vector-effect`, `stroke-linecap`      | `vectorEffect`, `strokeLinecap`                       |
+| `inert`, `open`, `required` (no value) | `inert`, `open`, `required` (boolean props, React 19) |
+| `data-…`, `aria-…`                     | unchanged                                             |
+| inline `<script type="module">`        | `useEffect(() => init…(ref.current!), [])`            |
+
+## Forms
+
+The [Form](/components/form/) behavior sends the form with `fetch` and sets `data-state`. That suits a form that posts to an endpoint. If your app handles the submit itself, for example with React state or a form library, leave the behavior out, handle `onSubmit`, and set `data-state` on `.form_wrap` yourself to show the sent or failed note.
+
+## What the fixture checks
+
+The same browser checks as [Plain HTML](/integrations/html/#what-the-fixture-checks), run against the React build: every example loads with no errors, and the grid, form, range, accordion, navbar, theme toggle, tabs and modal all work. One more check covers the `StrictMode` double mount.
+
+## Related
+
+- [Plain HTML](/integrations/html/): the same examples without a framework.
+- [TanStack Start](/integrations/tanstack-start/): server rendering and hydration.
+- [SolidStart](/integrations/solid-start/): converting these examples to Solid.
+- [Astro](/integrations/astro/): the reference components.

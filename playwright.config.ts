@@ -24,6 +24,23 @@ export default defineConfig({
           },
         ]
       : []),
+    // Server-rendered integration fixtures, built by `bun run build:fixtures`.
+    ...(process.env.PW_INTEGRATIONS
+      ? [
+          {
+            command: "bun run --cwd tests/fixtures/tanstack-start start",
+            url: "http://localhost:4341",
+            env: { PORT: "4341" },
+            reuseExistingServer: false,
+          },
+          {
+            command: "bun run --cwd tests/fixtures/solid-start start",
+            url: "http://localhost:4342",
+            env: { PORT: "4342" },
+            reuseExistingServer: false,
+          },
+        ]
+      : []),
   ],
   projects: [{ name: "chromium", use: { browserName: "chromium" } }],
 });

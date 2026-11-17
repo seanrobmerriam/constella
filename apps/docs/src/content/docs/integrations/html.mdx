@@ -1,0 +1,108 @@
+---
+title: Plain HTML
+description: Use Constella in a static page with no framework and no build step.
+sidebar:
+  order: 1
+---
+
+Constella needs no framework. A page links one stylesheet, and the components that need a script import a small ES module. This guide is tested: `tests/fixtures/plain-html` builds a page from every example on these docs, pasted unchanged, and `bun run test:integrations` checks it in a browser.
+
+## Files
+
+Build the distributable and copy it next to your page, as [Installation](/getting-started/installation/) describes:
+
+```text
+my-site/
+  index.html
+  constella.css
+  behaviors/
+    accordion.js
+    tabs.js
+    …
+```
+
+Copy only the behaviors your page uses. Each one is self-contained.
+
+## The page
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My site</title>
+    <link rel="stylesheet" href="constella.css" />
+  </head>
+  <body>
+    <!-- Paste examples from the component pages here. -->
+  </body>
+</html>
+```
+
+Every example's **HTML / CSS** tab is complete: paste it as it is. If the component needs a behavior, the example ends with the `<script type="module">` that starts it.
+
+## Behaviors
+
+Each example's script sets up **every** instance of its component on the page:
+
+```html
+<script type="module">
+  import { initTabs } from "./behaviors/tabs.js";
+  document.querySelectorAll(".tabs_wrap").forEach((root) => initTabs(root));
+</script>
+```
+
+So when you paste two examples of the same component, keep one script. Running it twice sets each instance up twice, and, for example, every tab click is handled twice.
+
+Module scripts don't run from a `file://` address. Open the page through a local web server, for example `bunx serve .` or `python3 -m http.server`.
+
+Each `init…` function returns a cleanup function. You only need it if you remove the element from the page yourself.
+
+## Theme
+
+To follow the visitor's saved or system light/dark choice, and to give them a toggle, add the theme behavior. The first script goes in `<head>`, the second after the toggle:
+
+```html
+<head>
+  …
+  <script type="module">
+    import {
+      bootstrapTheme,
+      resolveTheme,
+      THEME_KEY,
+    } from "./behaviors/theme.js";
+    bootstrapTheme("inherit", resolveTheme, THEME_KEY);
+  </script>
+</head>
+<body>
+  <button
+    class="button_wrap secondary"
+    type="button"
+    data-theme-toggle
+    aria-pressed="false"
+  >
+    <span class="button_text text-style-trim">Dark mode</span>
+  </button>
+  <script type="module">
+    import { initThemeToggle } from "./behaviors/theme.js";
+    initThemeToggle(document.body);
+  </script>
+</body>
+```
+
+A module script runs after the page is parsed, so a visitor in dark mode can see the light theme for a moment. To avoid that, copy the body of `bootstrapTheme` into a classic inline `<script>` at the top of `<head>`, as the Astro `BaseHead` does. Without the theme behavior, the page uses the light theme, or the theme class you put on `<html>`. See [Themes](/foundations/themes/).
+
+## What the fixture checks
+
+In Chromium, against the built files:
+
+- Every example loads with no failed requests and no console errors, and the only scripts are the behavior modules.
+- The grid lays out columns, the form sends without leaving the page, and the range shows its value.
+- The accordion opens one item at a time, the navbar menu toggles on a narrow screen, tabs switch panels, and the modal opens and closes with focus returned.
+- The theme toggle switches to dark, and the choice survives a reload.
+
+## Related
+
+- [React](/integrations/react/): the same examples as components.
+- [Astro](/integrations/astro/): the reference components.

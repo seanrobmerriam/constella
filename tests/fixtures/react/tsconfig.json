@@ -8,10 +8,16 @@
     "noEmit": true,
     "skipLibCheck": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["react", "react-dom"],
+    "types": ["react", "react-dom", "vite/client"],
     "paths": {
-      "constella/behaviors/*": ["../../../apps/shared/src/behaviors/*.ts"]
+      "constella/behaviors/*": ["../../../apps/shared/src/behaviors/*.ts"],
+      "constella/constella.css": ["../../../apps/shared/dist/constella.css"]
     }
   },
-  "include": ["../../../apps/shared/src/examples/**/*.tsx", "render.tsx"]
+  "include": [
+    "../../../apps/shared/src/examples/**/*.tsx",
+    "render.tsx",
+    "src/**/*.tsx",
+    "src/**/*.ts"
+  ]
 }

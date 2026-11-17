@@ -197,6 +197,14 @@ Phase 3 is done: the manifest has 30 documented components and 2 astro-only util
 
 No change in scope: add fixtures for plain HTML, React, TanStack Start and SolidStart under `tests/fixtures/`, plus `test:integrations`, plus guide pages under `apps/docs/src/content/docs/integrations/`. Wait until Phase 3 is done, so the fixtures exercise the full set of behaviors and not just the first six examples.
 
+Progress:
+
+- [x] 4a Plain HTML and React: `tests/fixtures/plain-html` (every `example.html` pasted unchanged next to the dist files) and `tests/fixtures/react` (a Vite app rendering every `Example.tsx` in `StrictMode` against the dist files) are workspace packages named `@constella/fixture-*`. `bun run test:integrations` builds them and runs `tests/integrations/`, which checks loading, layout, forms, disclosure, navbar, theme, tabs and modal in each, and CI runs it. Guides: `integrations/html.mdx` and `integrations/react.mdx`. Versions and checks are recorded in `docs/implementation/integrations.md`. Found: a React app must call `bootstrapTheme` itself, and pasting two examples of the same component in plain HTML needs one script, not two; both guides say so.
+- [x] 4b TanStack Start: `tests/fixtures/tanstack-start` server-renders every `Example.tsx` and hydrates it. `test:integrations` runs its production server and checks, beyond the shared set, that the server HTML links the stylesheet in `<head>`, the page is styled with JavaScript off, hydration has no warnings, and a saved theme applies before the app's scripts load. Guide: `integrations/tanstack-start.mdx`. The CSS alias has to keep the `?url` suffix, and the app must declare an icon, or the browser's `/favicon.ico` request becomes a router 404.
+- [x] 4c SolidStart: `tests/fixtures/solid-start/convert.ts` converts every `Example.tsx` to Solid at build time (refs, `onMount`/`onCleanup`, `class`, SVG attribute names, `bool:inert` and so on) and fails if anything React-specific is left. The fixture server-renders and hydrates all 30, and passes the same checks as TanStack Start, plus `bool:inert` and cleanup on unmount. Guide: `integrations/solid-start.mdx`, with the conversion table. Found: Solid writes `inert={false}` as `inert="false"`, which still makes the element inert, so the guide uses `bool:inert`. `.output` was missing from `.prettierignore`, and formatting it after a build made Nitro serve truncated files.
+
+Phase 4 is done: every environment the docs name has a fixture that builds and passes browser checks, and CI runs them.
+
 ## 8. Phase 5 — Release readiness (old Task 13) and Phase 6 — Expansion (old Task 14)
 
 - Phase 5: migration page (ButtonWrapper→InputWrapper, AccordionItem→Details/Summary, Nav→Navbar, Eyebrow→Heading variants, SkipLink→Skip, explicit layout slots), accessibility pass, browser-support statement, and all checks in CI. It is no longer a large documentation push, because Phases 2–3 already kept the docs current.

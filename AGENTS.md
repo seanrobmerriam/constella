@@ -27,6 +27,10 @@ changing a component, its styles or its docs.
   and docs pages. `bun run check:docs-sync` does the per-branch docs check CI runs.
 - `bun run test:components`, `bun run test:docs`: Playwright suites. Build the shared
   CSS first (`bun run --cwd apps/shared build`).
+- `bun run test:integrations`: builds the shared package and every fixture under
+  `tests/fixtures/` (each is a workspace package named `@constella/fixture-*`),
+  then runs `tests/integrations/`. Tested versions are in
+  `docs/implementation/integrations.md`.
 
 CI (`.github/workflows/ci.yml`) runs all of these on every pull request.
 

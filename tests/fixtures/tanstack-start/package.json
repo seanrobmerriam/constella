@@ -1,0 +1,21 @@
+{
+  "name": "@constella/fixture-tanstack-start",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "start": "bun serve.ts",
+    "check": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "1.170.46",
+    "@tanstack/react-start": "1.169.5",
+    "react": "19",
+    "react-dom": "19"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.0",
+    "vite": "^8.3.6",
+    "typescript": "^6.0.3"
+  }
+}
