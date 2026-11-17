@@ -25,12 +25,13 @@ All 30 canonical examples from `apps/shared/src/examples/`, each in a
 
 ## Fixtures
 
-| Fixture    | Path                        | Build                                                                       | Served as                          | Extra checks                                                         |
-| ---------- | --------------------------- | --------------------------------------------------------------------------- | ---------------------------------- | -------------------------------------------------------------------- |
-| Plain HTML | `tests/fixtures/plain-html` | `bun build.ts`: copies the dist files, pastes each `example.html` unchanged | Static files                       | The only scripts loaded are `behaviors/*.js`                         |
-| React      | `tests/fixtures/react`      | `vite build`; renders every `Example.tsx` inside `StrictMode`               | Static files (client-rendered SPA) | `StrictMode`'s double mount leaves one working copy of each behavior |
+| Fixture        | Path                            | Build                                                                       | Served as                                                                                                       | Extra checks                                                                                                                                                                      |
+| -------------- | ------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Plain HTML     | `tests/fixtures/plain-html`     | `bun build.ts`: copies the dist files, pastes each `example.html` unchanged | Static files                                                                                                    | The only scripts loaded are `behaviors/*.js`                                                                                                                                      |
+| React          | `tests/fixtures/react`          | `vite build`; renders every `Example.tsx` inside `StrictMode`               | Static files (client-rendered SPA)                                                                              | `StrictMode`'s double mount leaves one working copy of each behavior                                                                                                              |
+| TanStack Start | `tests/fixtures/tanstack-start` | `vite build`; server-renders every `Example.tsx` and hydrates it            | Production server: `bun serve.ts` on port 4341 (`dist/client` static, the rest through `dist/server/server.js`) | The server HTML links the stylesheet in `<head>` and has all 30 examples; styled with JavaScript off; no hydration warnings; a saved theme applies with the app's scripts blocked |
 
-Static fixtures are served from a fake origin through Playwright's router
+Static fixtures (plain HTML, React) are served from a fake origin through Playwright's router
 (`tests/integrations/serve-static.ts`), so every request is a real browser
 request with its content type.
 
@@ -47,10 +48,13 @@ Recorded during Phase 4a, on base commit `fa626c7`.
 | @playwright/test     | 1.65.0        |
 | Chromium (local run) | 153.0.8010.12 |
 
+Server-rendered fixtures run their production server, which Playwright starts
+when `PW_INTEGRATIONS` is set.
+
 CI installs Chromium with `playwright install chromium`, so its browser
 version follows the Playwright release.
 
 ## Not covered yet
 
-- TanStack Start and SolidStart: Phase 4b and 4c.
+- SolidStart: Phase 4c.
 - Browsers other than Chromium.

@@ -201,6 +201,7 @@ test("integration guides are listed in order and fit a phone screen", async ({
   for (const [slug, title] of [
     ["html", "Plain HTML"],
     ["react", "React"],
+    ["tanstack-start", "TanStack Start"],
   ]) {
     await page.goto(`/integrations/${slug}/`);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
@@ -217,5 +218,10 @@ test("integration guides are listed in order and fit a phone screen", async ({
   const links = await page
     .locator('nav a[href^="/integrations/"]')
     .allTextContents();
-  expect(links.map((l) => l.trim())).toEqual(["Plain HTML", "React", "Astro"]);
+  expect(links.map((l) => l.trim())).toEqual([
+    "Plain HTML",
+    "React",
+    "TanStack Start",
+    "Astro",
+  ]);
 });

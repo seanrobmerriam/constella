@@ -200,7 +200,7 @@ No change in scope: add fixtures for plain HTML, React, TanStack Start and Solid
 Progress:
 
 - [x] 4a Plain HTML and React: `tests/fixtures/plain-html` (every `example.html` pasted unchanged next to the dist files) and `tests/fixtures/react` (a Vite app rendering every `Example.tsx` in `StrictMode` against the dist files) are workspace packages named `@constella/fixture-*`. `bun run test:integrations` builds them and runs `tests/integrations/`, which checks loading, layout, forms, disclosure, navbar, theme, tabs and modal in each, and CI runs it. Guides: `integrations/html.mdx` and `integrations/react.mdx`. Versions and checks are recorded in `docs/implementation/integrations.md`. Found: a React app must call `bootstrapTheme` itself, and pasting two examples of the same component in plain HTML needs one script, not two; both guides say so.
-- [ ] 4b TanStack Start
+- [x] 4b TanStack Start: `tests/fixtures/tanstack-start` server-renders every `Example.tsx` and hydrates it. `test:integrations` runs its production server and checks, beyond the shared set, that the server HTML links the stylesheet in `<head>`, the page is styled with JavaScript off, hydration has no warnings, and a saved theme applies before the app's scripts load. Guide: `integrations/tanstack-start.mdx`. The CSS alias has to keep the `?url` suffix, and the app must declare an icon, or the browser's `/favicon.ico` request becomes a router 404.
 - [ ] 4c SolidStart
 
 ## 8. Phase 5 — Release readiness (old Task 13) and Phase 6 — Expansion (old Task 14)

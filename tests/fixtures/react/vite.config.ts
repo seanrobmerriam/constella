@@ -17,7 +17,10 @@ export default defineConfig({
         find: /^constella\/behaviors\/(.+)$/,
         replacement: `${dist}behaviors/$1.js`,
       },
-      { find: "constella/constella.css", replacement: `${dist}constella.css` },
+      {
+        find: /^constella\/constella\.css(\?.*)?$/,
+        replacement: `${dist}constella.css$1`,
+      },
     ],
   },
   build: { outDir: "dist", emptyOutDir: true },

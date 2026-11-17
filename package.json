@@ -23,7 +23,7 @@
     "check:docs": "bun scripts/check-docs.ts",
     "check:docs-sync": "bun scripts/check-docs-sync.ts",
     "build:fixtures": "bun run --cwd apps/shared build && bun run --filter '@constella/fixture-*' build",
-    "test:integrations": "bun run build:fixtures && playwright test tests/integrations"
+    "test:integrations": "bun run build:fixtures && PW_INTEGRATIONS=1 playwright test tests/integrations"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0",
