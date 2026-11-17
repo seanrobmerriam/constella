@@ -2,6 +2,10 @@
 // all canonical examples, each inside `[data-example="<id>"]`, plus a theme
 // toggle. `open(page)` loads it however that fixture is served.
 import { expect, test, type Page } from "@playwright/test";
+import { components } from "../../apps/shared/src/manifest.ts";
+
+/** Every documented component has one example, and every fixture renders them all. */
+const exampleCount = components.filter((c) => c.status === "documented").length;
 
 type Open = (page: Page) => Promise<void>;
 
@@ -28,7 +32,7 @@ export function integrationChecks(open: Open) {
   }) => {
     const problems = watch(page);
     await open(page);
-    await expect(page.locator("[data-example]")).toHaveCount(30);
+    await expect(page.locator("[data-example]")).toHaveCount(exampleCount);
     const button = inExample(page, "button").locator(".button_wrap").first();
     await expect(button).toHaveCSS("display", /flex/);
     await expect(button).not.toHaveCSS("padding-top", "0px");
@@ -148,7 +152,7 @@ export function serverRenderedChecks(url: string) {
     expect(sheet.ok()).toBe(true);
     expect(sheet.headers()["content-type"]).toContain("text/css");
     expect(await sheet.text()).toContain(".button_wrap");
-    expect(html.match(/data-example="/g)).toHaveLength(30);
+    expect(html.match(/data-example="/g)).toHaveLength(exampleCount);
   });
 
   test.describe("without JavaScript", () => {

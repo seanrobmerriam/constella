@@ -39,19 +39,21 @@ For a short list of options, consider radio [Choices](/components/choice/), whic
 
 ## Variants and props
 
-| Astro prop       | HTML equivalent                 | Values                                  | Default                     | Effect                                             |
-| ---------------- | ------------------------------- | --------------------------------------- | --------------------------- | -------------------------------------------------- |
-| `variant`        | the options you write           | `list`, `month`, `day`, `year`, `state` | `list`                      | `list` uses `options`. The others generate theirs. |
-| `options`        | `<option>` elements             | strings, or `{ value, label }`          | required for `list`         | Renders nothing when empty.                        |
-| `from`, `to`     | the year options                | whole numbers                           | 100 years back to this year | `year` only. Newest first.                         |
-| `label`          | the label text                  | text                                    | per variant                 | `Select`, `Month`, `Day`, `Year` or `State`.       |
-| `placeholder`    | the prompt option's text        | text                                    | per variant                 | `Select one…`, `MM`, `DD` or `YYYY`.               |
-| `value`          | `selected` on an option         | text                                    | none                        | Initially selected value.                          |
-| `name`           | `name`                          | text                                    | the label as a slug         |                                                    |
-| `required`       | `required` and the `field-star` | `true`, `false`                         | `false`                     | A choice must be made. The prompt doesn't count.   |
-| `labelHidden`    | `sr-only` on `field-label`      | `true`, `false`                         | `false`                     |                                                    |
-| `size`, `radius` | `data-size`, `data-radius`      | as for Input                            | none                        | Opt-in size and corner radius.                     |
-| `render`         | none                            | `true`, `false`                         | `true`                      | `false` omits the component.                       |
+| Astro prop       | HTML equivalent                              | Values                                  | Default                     | Effect                                                                         |
+| ---------------- | -------------------------------------------- | --------------------------------------- | --------------------------- | ------------------------------------------------------------------------------ |
+| `variant`        | the options you write                        | `list`, `month`, `day`, `year`, `state` | `list`                      | `list` uses `options`. The others generate theirs.                             |
+| `options`        | `<option>` elements                          | strings, or `{ value, label }`          | required for `list`         | Renders nothing when empty.                                                    |
+| `from`, `to`     | the year options                             | whole numbers                           | 100 years back to this year | `year` only. Newest first.                                                     |
+| `label`          | the label text                               | text                                    | per variant                 | `Select`, `Month`, `Day`, `Year` or `State`.                                   |
+| `placeholder`    | the prompt option's text                     | text                                    | per variant                 | `Select one…`, `MM`, `DD` or `YYYY`.                                           |
+| `value`          | `selected` on an option                      | text                                    | none                        | Initially selected value.                                                      |
+| `name`           | `name`                                       | text                                    | the label as a slug         |                                                                                |
+| `required`       | `required` and the `field-star`              | `true`, `false`                         | `false`                     | A choice must be made. The prompt doesn't count.                               |
+| `help`           | a `field-help` paragraph, `aria-describedby` | text                                    | none                        | Help under the field. See [Field help and errors](/components/field-message/). |
+| `error`          | a `field-error` paragraph, `aria-invalid`    | text                                    | none                        | An error you report. Renders the field as a `<div>` with `<label for>`.        |
+| `labelHidden`    | `sr-only` on `field-label`                   | `true`, `false`                         | `false`                     |                                                                                |
+| `size`, `radius` | `data-size`, `data-radius`                   | as for Input                            | none                        | Opt-in size and corner radius.                                                 |
+| `render`         | none                                         | `true`, `false`                         | `true`                      | `false` omits the component.                                                   |
 
 ## States
 

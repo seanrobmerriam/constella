@@ -182,6 +182,12 @@ export const components: readonly ComponentEntry[] = [
     root: ".field.form-select",
     styles: ["components/select.css", "patterns.css", "controls.css"],
   }),
+  documented("field-message", {
+    name: "Field help and errors",
+    astro: ["form/Field.astro"],
+    root: ".field-help, .field-error",
+    styles: ["components/field-message.css", "patterns.css"],
+  }),
   documented("choice", {
     name: "Choice",
     astro: ["form/Choice.astro"],

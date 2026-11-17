@@ -33,6 +33,14 @@ released yet.
 
 ### Added
 
+- Field help and errors: `help` and `error` props on Input, Textarea and
+  Select, and the `.field-help` and `.field-error` classes. Messages sit
+  outside the label and are linked with `aria-describedby`; an error also sets
+  `aria-invalid`. The control gets an error border from `aria-invalid` or the
+  browser's `:user-invalid`.
+- Status color tokens: `--status-error`, `--status-success`,
+  `--status-warning`, `--status-info`, each at least 4.5:1 on its theme's
+  backgrounds.
 - `@constella/shared`: one stylesheet per component family, bundled as
   `dist/constella.css`, plus optional behavior modules in `dist/behaviors/`
   (accordion, dropdown, form, marquee, modal, navbar, range, slider, tabs,

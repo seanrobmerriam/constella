@@ -5,7 +5,7 @@ Requirement R-12. Run with `bun run test:a11y` after
 
 ## Method
 
-`tests/a11y/axe.spec.ts` loads each of the 30 documented examples alone, inside
+`tests/a11y/axe.spec.ts` loads each documented example alone, inside
 a Section and container, with the built `constella.css` and the example's
 behaviors started as its own script would start them. Then:
 

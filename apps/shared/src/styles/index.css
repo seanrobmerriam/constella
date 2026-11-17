@@ -27,6 +27,7 @@
 @import "./components/content-wrapper.css";
 @import "./components/details.css";
 @import "./components/dropdown.css";
+@import "./components/field-message.css";
 @import "./components/fieldset.css";
 @import "./components/footer.css";
 @import "./components/form.css";

@@ -246,6 +246,12 @@
   --heading-accent: var(--brand-text);
   --heading-accent-background: var(--brand-500);
 
+  /* Status colors: at least 4.5:1 on this theme's three backgrounds. */
+  --status-error: #a1161b;
+  --status-success: #1d6b34;
+  --status-warning: #7a4b00;
+  --status-info: #1f4f9a;
+
   --selection-background: var(--text);
   --selection-text: var(--background);
 
@@ -283,6 +289,12 @@
   --heading-accent: var(--brand-500);
   --heading-accent-background: transparent;
 
+  /* Status colors: at least 4.5:1 on this theme's three backgrounds. */
+  --status-error: #ff8f86;
+  --status-success: #6fd68c;
+  --status-warning: #f2c14e;
+  --status-info: #8ab4ff;
+
   --selection-background: var(--text);
   --selection-text: var(--background);
 
@@ -318,6 +330,12 @@
   --border: color-mix(in lab, var(--text) 20%, transparent);
   --heading-accent: color-mix(in srgb, var(--text), white 20%);
   --heading-accent-background: transparent;
+
+  /* Status colors: at least 4.5:1 on this theme's three backgrounds. */
+  --status-error: #8a1016;
+  --status-success: #154a24;
+  --status-warning: #5c3a00;
+  --status-info: #163f80;
 
   --selection-background: var(--text);
   --selection-text: var(--background);

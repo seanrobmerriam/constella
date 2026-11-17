@@ -53,6 +53,8 @@ import dropdownHtml from "./dropdown/example.html?raw";
 import dropdownTsx from "./dropdown/Example.tsx?raw";
 import modalHtml from "./modal/example.html?raw";
 import modalTsx from "./modal/Example.tsx?raw";
+import fieldMessageHtml from "./field-message/example.html?raw";
+import fieldMessageTsx from "./field-message/Example.tsx?raw";
 import tabsHtml from "./tabs/example.html?raw";
 import tabsTsx from "./tabs/Example.tsx?raw";
 import sliderHtml from "./slider/example.html?raw";
@@ -307,6 +309,15 @@ export const examples: readonly ExampleDefinition[] = [
     tsx: modalTsx,
     behaviorEntry: "modal",
     previewHeight: 28,
+  },
+  {
+    id: "field-message",
+    title: "Field help and errors",
+    description:
+      "Help text under a field, and an error the server reported, linked to the inputs with aria-describedby. No script.",
+    html: fieldMessageHtml,
+    tsx: fieldMessageTsx,
+    previewHeight: 22,
   },
   {
     id: "tabs",

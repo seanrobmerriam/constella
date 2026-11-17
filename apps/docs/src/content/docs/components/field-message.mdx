@@ -1,0 +1,85 @@
+---
+title: Field help and errors
+description: Help text and error messages under form fields, linked to the control for screen readers.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+Help text explains what a field expects. An error message says what's wrong with the value and how to fix it. Both sit under the control, and both are linked to it with `aria-describedby`, so screen readers read them after the field's name. They work with [Input](/components/input/), [Textarea](/components/textarea/) and [Select](/components/select/).
+
+## Example
+
+<ComponentExample id="field-message" />
+
+## Markup
+
+A field with messages is a `<div class="field">`, with a `<label for>` that points at the control's `id`:
+
+```html
+<div class="field form-input">
+  <label class="field-label text-style-main" for="email">Email</label>
+  <input
+    class="field-control text-style-main"
+    id="email"
+    type="email"
+    aria-describedby="email-help email-error"
+    aria-invalid="true"
+  />
+  <p class="field-help text-style-small" id="email-help">…</p>
+  <p class="field-error text-style-small" id="email-error">…</p>
+</div>
+```
+
+- **Keep the messages outside the `<label>`.** Text inside a label becomes part of the field's name, so a screen reader would read "Email We only use it to send your receipt" as the name. That's why a field with messages isn't the usual `<label class="field">`.
+- **`aria-describedby`** lists the ids of the help and error text, in reading order.
+- **Write `.field-error` only while there's an error.** A hidden element listed in `aria-describedby` is still read out. Remove the element, and its id from `aria-describedby`, once the value is fixed.
+- Fields without messages keep the plain `<label class="field">` markup.
+
+In Astro, pass `help` or `error` to Input, Textarea or Select. The component switches to the `<div>` form and generates the ids:
+
+```astro
+<Input variant="email" help="We only use it to send your receipt." />
+<Input
+  label="Username"
+  value="ada lovelace"
+  error="Usernames can't contain spaces."
+/>
+```
+
+## Variants and props
+
+| Astro prop | HTML equivalent                                | Values | Default | Effect                                                             |
+| ---------- | ---------------------------------------------- | ------ | ------- | ------------------------------------------------------------------ |
+| `help`     | `.field-help` with an id in `aria-describedby` | text   | none    | Help under the field, in the secondary text color.                 |
+| `error`    | `.field-error`, `aria-invalid="true"`          | text   | none    | An error message in `--status-error`, and an error-colored border. |
+
+Both props are on Input, Textarea and Select. Pass `id` to choose the control's id; otherwise one is generated.
+
+## States
+
+- **Error you report** (`aria-invalid="true"` on the control): the control gets an error-colored border, and `.field-error` shows your message. Use it for errors the browser can't detect: a username already taken, or a server-side check that failed.
+- **Error the browser found** (`:user-invalid`): after the visitor has edited the field or tried to submit, an invalid value, such as a malformed email or an empty required field, gets the same border. The browser shows its own message. Before the visitor interacts, nothing is marked.
+- **Focus:** the global focus outline, in both states.
+
+## Accessibility
+
+- The control's name comes from its label. The help and error text are its description, read after the name and the role.
+- `aria-invalid="true"` tells screen readers the value is wrong. Set it together with the error text, and remove both together.
+- The error is never shown by color alone: the message says what's wrong. The dot before it is decoration and isn't announced.
+- `--status-error` keeps at least 4.5:1 contrast on every background in every theme.
+- Write errors that say how to fix the value: "Enter an email address, like name@example.com", not "Invalid input".
+
+## Behavior
+
+None. To show an error after a server check, render the field with `.field-error` and `aria-invalid="true"`. A script that validates in the browser should add and remove both the same way. The [Form](/components/form/) behavior sends the form and shows its sent or failed note. Field-level errors are up to your server or script.
+
+## Tokens
+
+<ComponentTokens id="field-message" />
+
+## Related
+
+- [Input](/components/input/), [Textarea](/components/textarea/), [Select](/components/select/): the controls these attach to.
+- [Form](/components/form/): sending the form, and its sent and failed notes.
+- [Themes](/foundations/themes/): the status color tokens.

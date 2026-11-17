@@ -219,6 +219,13 @@ Phase 4 is done: every environment the docs name has a fixture that builds and p
 
 - Phase 6: unchanged. Pick a small first increment (for example Badge + Alert), and add each new component through §2 from its first commit.
 
+  The owner chose field help and errors, Alert, Badge and Table. The spec, with the audit of what already existed, is `docs/expansion/increment-1.md`.
+
+  - [x] 6a Field help and errors: `help` and `error` props on Input, Textarea and Select, through a shared `form/Field.astro` shell that keeps the plain `<label class="field">` when there are no messages. Messages are outside the label, linked with `aria-describedby`; errors set `aria-invalid`; `:user-invalid` adds the same border after interaction. Adds the four `--status-*` tokens. Tests: `tests/components/field-message.spec.ts`, on the example and an Astro regression page.
+  - [ ] 6b Alert
+  - [ ] 6c Badge
+  - [ ] 6d Table
+
 ---
 
 ## Recommended order and rough size

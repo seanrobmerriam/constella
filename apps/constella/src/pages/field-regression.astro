@@ -1,0 +1,37 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Input from "@/components/form/Input.astro";
+import Textarea from "@/components/form/Textarea.astro";
+import Select from "@/components/form/Select.astro";
+---
+
+<Layout title="Field regression" noindex>
+  <Section>
+    <ContentWrapper>
+      <form id="fields" novalidate>
+        <Input id="plain" label="Plain" />
+        <Input
+          id="email"
+          variant="email"
+          required
+          help="We only use it to send your receipt."
+        />
+        <Input
+          id="username"
+          label="Username"
+          value="ada lovelace"
+          help="Letters, numbers and dashes."
+          error="Usernames can't contain spaces."
+        />
+        <Textarea label="Message" help="A few lines is plenty." />
+        <Select
+          label="Plan"
+          options={["Starter", "Team"]}
+          error="Choose a plan to continue."
+        />
+      </form>
+    </ContentWrapper>
+  </Section>
+</Layout>

@@ -1,0 +1,81 @@
+---
+/**
+ * The shell shared by Input, Textarea and Select. Without messages it is a
+ * <label class="field"> around the label text and the control. With help or
+ * error text it is a <div class="field"> with a <label for>, so the messages
+ * sit outside the label and don't become part of the field's name. The
+ * control (the default slot) carries the matching id, aria-describedby and
+ * aria-invalid; see fieldMessages() in utils/field.ts.
+ */
+import type {
+  ControlRadius,
+  ControlSize,
+} from "@constella/shared/contracts/controls.ts";
+
+interface Props {
+  /** Classes for the root, e.g. `form-input`. */
+  class?: string | (string | false | null | undefined)[];
+  size?: ControlSize;
+  radius?: ControlRadius;
+  style?: string;
+  /** Label text. */
+  label: string;
+  labelHidden?: boolean;
+  required?: boolean;
+  /** The control's id. Required when there is help or error text. */
+  controlId?: string;
+  help?: string;
+  helpId?: string;
+  error?: string;
+  errorId?: string;
+}
+
+const {
+  class: className,
+  size,
+  radius,
+  style,
+  label,
+  labelHidden = false,
+  required = false,
+  controlId,
+  help,
+  helpId,
+  error,
+  errorId,
+} = Astro.props;
+
+const withMessages = Boolean(help || error);
+const Root = withMessages ? "div" : "label";
+const Label = withMessages ? "label" : "span";
+---
+
+<Root
+  class:list={["field", className]}
+  data-size={size}
+  data-radius={radius}
+  style={style}
+>
+  <Label
+    class:list={["field-label text-style-main", labelHidden && "sr-only"]}
+    for={withMessages ? controlId : undefined}
+  >
+    <span>{label}</span>
+    {required && (
+      <span class="field-star" aria-hidden="true">
+        *
+      </span>
+    )}
+  </Label>
+  <slot />
+  {help && (
+    <p class="field-help text-style-small" id={helpId}>
+      {help}
+    </p>
+  )}
+  {error && (
+    <p class="field-error text-style-small" id={errorId}>
+      {error}
+    </p>
+  )}
+</Root>
