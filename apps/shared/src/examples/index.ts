@@ -7,6 +7,8 @@ import detailsHtml from "./details/example.html?raw";
 import detailsTsx from "./details/Example.tsx?raw";
 import accordionHtml from "./accordion/example.html?raw";
 import accordionTsx from "./accordion/Example.tsx?raw";
+import paginationHtml from "./pagination/example.html?raw";
+import paginationTsx from "./pagination/Example.tsx?raw";
 import navbarHtml from "./navbar/example.html?raw";
 import navbarTsx from "./navbar/Example.tsx?raw";
 import footerHtml from "./footer/example.html?raw";
@@ -55,8 +57,12 @@ import modalHtml from "./modal/example.html?raw";
 import modalTsx from "./modal/Example.tsx?raw";
 import alertHtml from "./alert/example.html?raw";
 import alertTsx from "./alert/Example.tsx?raw";
+import avatarHtml from "./avatar/example.html?raw";
+import avatarTsx from "./avatar/Example.tsx?raw";
 import badgeHtml from "./badge/example.html?raw";
 import badgeTsx from "./badge/Example.tsx?raw";
+import breadcrumbsHtml from "./breadcrumbs/example.html?raw";
+import breadcrumbsTsx from "./breadcrumbs/Example.tsx?raw";
 import tableHtml from "./table/example.html?raw";
 import tableTsx from "./table/Example.tsx?raw";
 import fieldMessageHtml from "./field-message/example.html?raw";
@@ -327,12 +333,39 @@ export const examples: readonly ExampleDefinition[] = [
     previewHeight: 30,
   },
   {
+    id: "avatar",
+    title: "Avatar",
+    description:
+      "Photos in three sizes, initials, a decorative avatar next to a name, and an overlapping group. No script.",
+    html: avatarHtml,
+    tsx: avatarTsx,
+    previewHeight: 20,
+  },
+  {
     id: "badge",
     title: "Badge",
     description:
       "Neutral, brand and status badges, a count next to a heading, and a count in a button. No script.",
     html: badgeHtml,
     tsx: badgeTsx,
+    previewHeight: 16,
+  },
+  {
+    id: "breadcrumbs",
+    title: "Breadcrumbs",
+    description:
+      "A trail whose current page is a link, with a long label that wraps, and one whose current page is text. No script.",
+    html: breadcrumbsHtml,
+    tsx: breadcrumbsTsx,
+    previewHeight: 12,
+  },
+  {
+    id: "pagination",
+    title: "Pagination",
+    description:
+      "Page 5 of 10, with gaps either side, and page 1 of 3, where Previous is disabled. No script.",
+    html: paginationHtml,
+    tsx: paginationTsx,
     previewHeight: 16,
   },
   {

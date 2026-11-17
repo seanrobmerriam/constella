@@ -13,12 +13,12 @@ import arrow from "@/assets/icons/arrow.svg";
 type SelectOption = string | { value: string; label: string };
 
 type Base = {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
   /** Opt-in control size. Omit to keep the default. */
   size?: ControlSize;
   /** Opt-in corner radius. Omit to keep the default. */
   radius?: ControlRadius;
-  /** Set to `false` to omit the component. */
-  render?: boolean;
   /** Field label. Defaults to the variant name. */
   label?: string;
   /** Initially selected value. */
@@ -78,6 +78,8 @@ type AllProps = HTMLAttributes<"select"> &
 
 const {
   render = true,
+  size,
+  radius,
   label,
   value,
   variant = "list",
@@ -90,8 +92,6 @@ const {
   labelHidden = false,
   help,
   error,
-  size,
-  radius,
   class: className,
   id,
   ...rest

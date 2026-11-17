@@ -1,0 +1,134 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Icon from "@/components/media/Icon.astro";
+import arrow from "@/assets/icons/arrow.svg";
+import { pageWindow } from "@/utils/pagination.ts";
+
+type Props = HTMLAttributes<"nav"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /**
+   * The page being shown, from 1.
+   *
+   * @min 1
+   * @int
+   */
+  current: number;
+  /**
+   * How many pages there are.
+   *
+   * @min 1
+   * @int
+   */
+  total: number;
+  /** The URL of a page. Defaults to `?page=N`. */
+  href?: (page: number) => string;
+  /**
+   * Pages to show either side of the current one.
+   *
+   * @min 0
+   * @int
+   */
+  siblings?: number;
+  /** The landmark's name for screen readers. */
+  label?: string;
+  /** Text of the link to the page before. */
+  previousLabel?: string;
+  /** Text of the link to the page after. */
+  nextLabel?: string;
+};
+
+const {
+  render = true,
+  current: currentProp,
+  total,
+  href = (page: number) => `?page=${page}`,
+  siblings = 1,
+  label = "Pagination",
+  previousLabel = "Previous",
+  nextLabel = "Next",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const current = Math.min(Math.max(1, currentProp), Math.max(1, total));
+
+if (import.meta.env.DEV && (currentProp < 1 || currentProp > total)) {
+  console.warn(
+    `[constella] <Pagination current={${currentProp}} total={${total}}>: current is outside 1–${total}; page ${current} is shown as current.`,
+  );
+}
+
+const entries = pageWindow(current, total, siblings);
+const steps = [
+  { page: current - 1, text: previousLabel, rel: "prev", enabled: current > 1 },
+  { page: current + 1, text: nextLabel, rel: "next", enabled: current < total },
+] as const;
+---
+
+{render && total > 1 && (
+  <nav class:list={["pagination", className]} aria-label={label} {...rest}>
+    <ul class="pagination_list">
+      <li>
+        {steps[0].enabled ? (
+          <a
+            class="pagination_link pagination_step"
+            href={href(steps[0].page)}
+            rel="prev"
+          >
+            <Icon src={arrow} variant="small" class="pagination_icon" />
+            <span>{steps[0].text}</span>
+          </a>
+        ) : (
+          <a
+            class="pagination_link pagination_step"
+            role="link"
+            aria-disabled="true"
+          >
+            <Icon src={arrow} variant="small" class="pagination_icon" />
+            <span>{steps[0].text}</span>
+          </a>
+        )}
+      </li>
+      {entries.map((entry) => (
+        <li>
+          {entry === "gap" ? (
+            <span class="pagination_gap" aria-hidden="true">
+              …
+            </span>
+          ) : (
+            <a
+              class="pagination_link"
+              href={href(entry)}
+              aria-current={entry === current ? "page" : undefined}
+            >
+              <span class="sr-only">Page </span>
+              {entry}
+            </a>
+          )}
+        </li>
+      ))}
+      <li>
+        {steps[1].enabled ? (
+          <a
+            class="pagination_link pagination_step"
+            href={href(steps[1].page)}
+            rel="next"
+          >
+            <span>{steps[1].text}</span>
+            <Icon src={arrow} variant="small" class="pagination_icon" />
+          </a>
+        ) : (
+          <a
+            class="pagination_link pagination_step"
+            role="link"
+            aria-disabled="true"
+          >
+            <span>{steps[1].text}</span>
+            <Icon src={arrow} variant="small" class="pagination_icon" />
+          </a>
+        )}
+      </li>
+    </ul>
+  </nav>
+)}

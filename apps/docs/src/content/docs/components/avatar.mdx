@@ -1,0 +1,95 @@
+---
+title: Avatar
+description: A person's photo or initials at a fixed size, alone or in an overlapping group.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+An avatar shows who someone is: their photo, or their initials if there's no photo. It has a fixed size and crops the photo to a circle or a rounded square. To show several people at once, put avatars in a group. For other images, use [Img](/components/img/).
+
+## Example
+
+<ComponentExample id="avatar" />
+
+## Markup
+
+```html
+<!-- A photo: the alt is the person's name -->
+<span class="avatar">
+  <img src="/ada.jpg" alt="Ada Lovelace" width="44" height="44" />
+</span>
+
+<!-- Initials, named for screen readers -->
+<span class="avatar" role="img" aria-label="Grace Hopper">GH</span>
+
+<!-- A group -->
+<div class="avatar_group" role="group" aria-label="Project members">
+  <span class="avatar">…</span>
+  <span class="avatar" role="img" aria-label="3 more members">+3</span>
+</div>
+```
+
+- `.avatar` is a `<span>`, so it can sit inline in text. It holds either one `<img>` or the initials as text.
+- Give the `<img>` a `width` and `height` that match the size (32, 44 or 64), so the page doesn't shift while it loads.
+- `.avatar_group` holds avatars only. Give it `role="group"` and a label.
+
+## Variants and props
+
+`Avatar`:
+
+| Astro prop   | HTML equivalent                    | Values                       | Default     | Effect                                                                                           |
+| ------------ | ---------------------------------- | ---------------------------- | ----------- | ------------------------------------------------------------------------------------------------ |
+| `size`       | `small`, `large` class             | `small`, `medium`, `large`   | `medium`    | 2rem, 2.75rem or 4rem square.                                                                    |
+| `shape`      | `square` class                     | `round`, `square`            | `round`     | `square` rounds the corners with `--radius-small`.                                               |
+| `name`       | the image's `alt`, or `aria-label` | text                         | required    | Who it is. Screen readers read it.                                                               |
+| `src`        | the `<img>`                        | an imported image, or a path | none        | The photo. Imports are optimized at twice the size for sharp screens. Without it, initials show. |
+| `initials`   | the text                           | text                         | from `name` | The first letters of the name's first and last words, unless you set them.                       |
+| `decorative` | `alt=""` or `aria-hidden="true"`   | `true`, `false`              | `false`     | Hides it from screen readers. Use it when the name is shown next to it.                          |
+| `render`     | none                               | `true`, `false`              | `true`      | `false` omits the component.                                                                     |
+
+`AvatarGroup`:
+
+| Astro prop | HTML equivalent | Values          | Default  | Effect                                |
+| ---------- | --------------- | --------------- | -------- | ------------------------------------- |
+| `label`    | `aria-label`    | text            | required | What the group is: "Project members". |
+| `render`   | none            | `true`, `false` | `true`   | `false` omits the component.          |
+
+The group's default slot is its avatars.
+
+```astro
+---
+import Avatar from "@/components/item/Avatar.astro";
+import AvatarGroup from "@/components/item/AvatarGroup.astro";
+import ada from "@/assets/people/ada.jpg";
+---
+
+<AvatarGroup label="Project members">
+  <Avatar name="Ada Lovelace" src={ada} />
+  <Avatar name="Grace Hopper" />
+</AvatarGroup>
+```
+
+## States
+
+None. While a photo loads, the avatar shows its `--background-3` disc.
+
+## Accessibility
+
+- **Every avatar needs a name or needs to be hidden.** A photo's name is its `alt`. Initials need `role="img"` and an `aria-label`, because "GH" alone means nothing to a screen reader.
+- **Don't name it twice.** An avatar next to the person's visible name is decorative: `alt=""` on the photo, or `aria-hidden="true"` on initials. Otherwise screen readers read the name twice.
+- **Overflow counts** like "+3" need words: `aria-label="3 more members"`.
+- Initials keep at least 4.5:1 contrast, because they use `--text` on `--background-3` in every theme.
+
+## Behavior
+
+None. If a photo fails to load, the browser shows its alt text in the avatar. To show initials in that case, replace the image in your own error handler.
+
+## Tokens
+
+<ComponentTokens id="avatar" />
+
+## Related
+
+- [Img](/components/img/): images that aren't avatars.
+- [Badge](/components/badge/): a label or count next to a name.

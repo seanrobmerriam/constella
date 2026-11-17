@@ -1,0 +1,52 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import type { Breadcrumb } from "@constella/shared/contracts/navigation.ts";
+
+type Props = HTMLAttributes<"nav"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** The trail, from the top level down. The last item is the current page. */
+  items: Breadcrumb[];
+  /** The landmark's name for screen readers. */
+  label?: string;
+};
+
+const {
+  render = true,
+  items,
+  label = "Breadcrumb",
+  class: className,
+  ...rest
+} = Astro.props;
+
+if (import.meta.env.DEV && items.length === 0) {
+  console.warn("[constella] <Breadcrumbs> has no items; nothing was output.");
+}
+---
+
+{render && items.length > 0 && (
+  <nav class:list={["breadcrumbs", className]} aria-label={label} {...rest}>
+    <ol class="breadcrumbs_list">
+      {items.map((item, index) => {
+        const current = index === items.length - 1 ? "page" : undefined;
+        return (
+          <li class="breadcrumbs_item">
+            {item.href ? (
+              <a
+                class="breadcrumbs_link"
+                href={item.href}
+                aria-current={current}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <span class="breadcrumbs_link" aria-current={current}>
+                {item.label}
+              </span>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  </nav>
+)}

@@ -5,7 +5,7 @@ description: What changed since the first Constella release, with before and aft
 
 This page covers what changed in Constella between its first monorepo commit (the baseline, `5b921a5`) and now. Every "before" below is taken from that commit's source, and every "after" from the current one. For the full list of changes, see [`CHANGELOG.md`](https://github.com/seanrobmerriam/constella/blob/main/CHANGELOG.md).
 
-Constella is a fork of Lumos. A comparison with Lumos itself isn't here yet, because the upstream source and its reuse terms haven't been recorded (requirement R-01). Until they are, this page only describes changes within Constella.
+Constella is a fork of [Lumos](https://lumosframework.com). If your site started from Lumos rather than Constella, read [From Lumos](#from-lumos) first: it shows that the same changes apply to you.
 
 ## At a glance
 
@@ -217,6 +217,38 @@ These came from fixes and new behavior modules. Check them if your pages relied 
 - **Dropdown:** Escape now closes only the dropdown that has focus, not every open dropdown on the page.
 - **Form:** a `method="get"` form sends its fields as a query string. Before, it always failed.
 - **Behaviors are modules.** Components that used inline scripts (Form, Range, Dropdown, Modal, Tabs, Slider and Marquee) now call `behaviors/<name>.js`. In plain HTML, add each component's script, as its page shows.
+
+## From Lumos
+
+Constella was forked from Lumos for Astro. To find out what that means for a Lumos site, a fresh Lumos project (`bun create lumos@latest`, which installed `create-lumos` 0.3.9) was compared file by file with Constella's first commit. Lumos is MIT-licensed, © Timothy Ricks. The reference site keeps that notice in `apps/constella/LICENSE`.
+
+**Constella's first commit is Lumos 0.3.9 with Constella's name.** The stylesheets (`base.css`, `patterns.css`, `utilities.css`, `global.css`) are identical, and so are the components, apart from:
+
+| In Lumos 0.3.9                                            | In Constella's first commit     |
+| --------------------------------------------------------- | ------------------------------- |
+| `[lumos]` prefix on development warnings                  | `[constella]`                   |
+| Lumos logo, background graphic, name and site URL         | Constella's                     |
+| `LUMOS.md`, `lumos-*` agent skills                        | `CONSTELLA.md`, `constella-*`   |
+| `BaseHead` also links `/favicon.ico`                      | SVG favicon only                |
+| ContentWrapper `breakout` sized to its Section (`100cqi`) | Sized to the viewport (`100vw`) |
+
+The last row was a fix Lumos made that the fork didn't have: `100vw` counts a visible vertical scrollbar, so the layout overflowed the page sideways. Constella now has it too.
+
+**So, to move a Lumos 0.3.9 site to Constella:**
+
+1. **Make every change above on this page.** They apply unchanged, since a Lumos site starts where Constella's first commit did.
+2. **Move the styles out of the components.** Lumos keeps each component's CSS in a `<style is:global>` block inside the `.astro` file. Constella keeps it in `@constella/shared`, loaded once by `src/styles/global.css`:
+
+   ```css
+   @import "@constella/shared/styles/index.css";
+   ```
+
+   Replace your components with Constella's, or delete their `<style is:global>` blocks once the shared stylesheet is loaded. If you keep both, the same rules load twice.
+
+3. **Use the behavior modules.** Scripts that were inline in Lumos components are modules in `@constella/shared/behaviors/`, which Constella's components import. See [Astro](/integrations/astro/#behaviors-in-astro).
+4. **Rename the agent files** if you use them: `LUMOS.md` → `CONSTELLA.md`, and the `lumos-*` skills in `.agents/skills/` and `.claude/skills/` → `constella-*`.
+
+Class names, tokens and utilities are otherwise the same as Lumos 0.3.9. Only the renames and additions on this page differ. Lumos releases after 0.3.9 aren't covered here.
 
 ## Related
 

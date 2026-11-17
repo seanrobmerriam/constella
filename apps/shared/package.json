@@ -11,7 +11,8 @@
     "./contracts/*": "./src/contracts/*",
     "./behaviors/*": "./src/behaviors/*",
     "./examples/*": "./src/examples/*",
-    "./manifest.ts": "./src/manifest.ts"
+    "./manifest.ts": "./src/manifest.ts",
+    "./package.json": "./package.json"
   },
   "scripts": {
     "check": "astro check",

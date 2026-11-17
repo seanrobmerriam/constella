@@ -226,7 +226,21 @@ Phase 4 is done: every environment the docs name has a fixture that builds and p
   - [x] 6c Badge: `item/Badge.astro`, `components/badge.css`. Neutral, `brand` (new `--badge-brand` tokens, so it shows in the brand theme and inside a secondary button) and four status tones (a tint behind the text color, plus a status-colored dot). Sized in `em` to fit headings, buttons and table cells. Tests: `tests/components/badge.spec.ts` and axe in all three themes.
   - [x] 6d Table: `data/Table.astro`, `components/table.css`. A focusable `.table_wrap` region labelled by the caption, which scrolls sideways at phone width without widening the page; `striped`, `compact`, `.is-numeric`; plain rich-text tables get the same styles. Tests: `tests/components/table.spec.ts` and axe in all three themes.
 
-  Increment 1 is complete. The rest of the candidate catalog in `docs/components.md` stays unscheduled until the owner picks the next increment.
+  Follow-ups the owner approved: Input, Textarea, Select and Dropdown declare their props in the library's order (`render`, then `size` and `radius`, then the rest), so `constella-audit-props` reports no conflicts; and the home page shows the real framework version from `apps/shared/package.json` instead of a hard-coded `v1.0.2`.
+
+  The Lumos comparison is on the docs Migration page ("From Lumos"): a fresh `create-lumos` 0.3.9 matches Constella's first commit apart from branding and one later Lumos fix (ContentWrapper `breakout` at `100cqi`), which is now ported. R-01's code provenance is recorded in `docs/requirements.md`.
+
+  Increment 1 is complete.
+
+- Phase 7: increment 2. The owner picked Avatar, Breadcrumbs and Pagination. The spec, with the audit, is `docs/expansion/increment-2.md`. None needs a behavior module.
+
+  - [x] 7c-1 Avatar: `item/Avatar.astro`, `item/AvatarGroup.astro`, `components/avatar.css`. A photo (through `Img`, at twice the size for sharp screens) or initials from the name, `small`/medium/`large`, `square`, `decorative`; a group overlaps avatars with a ring in the page's background color. Tests: `tests/components/avatar.spec.ts` and axe in all three themes.
+  - [x] 7c-2 Breadcrumbs: `global/Breadcrumbs.astro`, `components/breadcrumbs.css`, and a `Breadcrumb` type in `contracts/navigation.ts`. The WAI-ARIA pattern: a labelled `nav`, an ordered list, `aria-current="page"` on the last item, which is text when it has no `href`. Separators are border chevrons, since `content` alt text isn't in every supported browser. Tests: `tests/components/breadcrumbs.spec.ts` (including no overflow at 320px) and axe in all three themes.
+  - [x] 7c-3 Pagination: `global/Pagination.astro`, `components/pagination.css` and `utils/pagination.ts` (`pageWindow`: first, last and `siblings` either side of the current page; a gap that would hide one page shows it). Links only, `?page=N` by default or any `href(page)`; `aria-current="page"`, a hidden "Page " before each number, and `<a role="link" aria-disabled="true">` for Previous or Next at the ends. Tests: `tests/components/pagination.spec.ts` (the window, names, focus, 44px targets, 320px) and axe in all three themes.
+
+  Increment 2 is complete.
+
+  The rest of the candidate catalog in `docs/components.md` stays unscheduled until the owner picks the next increment.
 
 ---
 

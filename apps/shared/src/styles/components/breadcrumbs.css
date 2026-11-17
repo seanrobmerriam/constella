@@ -1,0 +1,62 @@
+/*
+ * Component: Breadcrumbs
+ * Astro:     apps/constella/src/components/global/Breadcrumbs.astro
+ * Root:      .breadcrumbs
+ * Children:  .breadcrumbs_list, .breadcrumbs_item, .breadcrumbs_link
+ * Variants:  none
+ * State:     [aria-current="page"] on the current page's link
+ * Tokens:    --border-width, --hover-duration, --hover-ease, --space-2,
+ *            --text, --text-2, --text-small
+ * Docs:      /components/breadcrumbs/
+ */
+@layer components {
+  .breadcrumbs_list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-small);
+  }
+
+  .breadcrumbs_item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+
+    /* A chevron drawn with borders: no text, so screen readers skip it. */
+    & + &::before {
+      content: "";
+      flex: none;
+      width: 0.4em;
+      height: 0.4em;
+      border-block-start: var(--border-width) solid currentcolor;
+      border-inline-end: var(--border-width) solid currentcolor;
+      color: var(--text-2);
+      rotate: 45deg;
+      translate: -0.1em 0;
+    }
+  }
+
+  .breadcrumbs_link {
+    color: var(--text-2);
+    text-decoration: none;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: var(--border-width);
+    overflow-wrap: anywhere;
+    transition: color var(--hover-duration) var(--hover-ease);
+
+    &[aria-current="page"] {
+      color: var(--text);
+    }
+    @media (hover: hover) {
+      &:is(a[href]:hover) {
+        color: var(--text);
+        text-decoration-line: underline;
+      }
+    }
+  }
+}

@@ -11,22 +11,22 @@ import { slotContent } from "@/utils/slots.ts";
 type Props = HTMLAttributes<"div"> & {
   /** Set to `false` to omit the component. */
   render?: boolean;
-  /** Trigger text. */
-  label?: string;
-  /** Keep the panel open in design mode. */
-  preview?: boolean;
   /** Opt-in control size. Omit to keep the default. */
   size?: ControlSize;
   /** Opt-in corner radius. Omit to keep the default. */
   radius?: ControlRadius;
+  /** Trigger text. */
+  label?: string;
+  /** Keep the panel open in design mode. */
+  preview?: boolean;
 };
 
 const {
   render = true,
-  label,
-  preview = false,
   size,
   radius,
+  label,
+  preview = false,
   class: className,
   ...rest
 } = Astro.props;

@@ -1,0 +1,86 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Img from "@/components/media/Img.astro";
+
+type AvatarSize = "small" | "medium" | "large";
+
+type Props = HTMLAttributes<"span"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Avatar size: 2rem, 2.75rem or 4rem. */
+  size?: AvatarSize;
+  /** Round, or a rounded square. */
+  shape?: "round" | "square";
+  /** The person's name: the photo's alt text, or the initials' label. */
+  name: string;
+  /** Photo. Imports are optimized; `public/` files are served as-is.
+   * Omit to show initials. */
+  src?: ImageMetadata | string;
+  /** Initials to show without a photo. Defaults to the first letters of the
+   * name's first and last words. */
+  initials?: string;
+  /** Hide it from screen readers, when the name is shown next to it. */
+  decorative?: boolean;
+};
+
+const {
+  render = true,
+  size = "medium",
+  shape = "round",
+  name,
+  src,
+  initials,
+  decorative = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+/** Pixel size of each `size`, for the image's width and height. */
+const PIXELS: Record<AvatarSize, number> = { small: 32, medium: 44, large: 64 };
+const pixels = PIXELS[size];
+
+const words = name.trim().split(/\s+/).filter(Boolean);
+const shown =
+  initials ??
+  (words.length > 1
+    ? `${words[0][0]}${words.at(-1)![0]}`
+    : (words[0]?.slice(0, 2) ?? "")
+  ).toUpperCase();
+
+if (import.meta.env.DEV && !name.trim()) {
+  console.warn(
+    "[constella] <Avatar> has no `name`, so screen readers have nothing to read. Set `decorative` if the name is shown next to it.",
+  );
+}
+
+const classes = [
+  "avatar",
+  size !== "medium" && size,
+  shape === "square" && "square",
+  className,
+];
+/** Initials are text, so they need a role and a name to be read as one. */
+const named = !src && !decorative;
+---
+
+{render && (
+  <span
+    class:list={classes}
+    aria-hidden={decorative ? "true" : undefined}
+    role={named ? "img" : undefined}
+    aria-label={named ? name : undefined}
+    {...rest}
+  >
+    {src ? (
+      <Img
+        src={src}
+        alt={decorative ? "" : name}
+        width={pixels}
+        height={pixels}
+        {...(typeof src === "string" ? {} : { variant: "densities" as const })}
+      />
+    ) : (
+      shown
+    )}
+  </span>
+)}

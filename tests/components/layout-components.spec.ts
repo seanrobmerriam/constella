@@ -144,3 +144,33 @@ test("a non-container child of a section is a background layer behind the conten
   });
   expect(bg).toEqual({ position: "absolute", pointer: "none", covers: true });
 });
+
+test("breakout spans its Section, not the viewport, so it can't overflow the page", async ({
+  page,
+}) => {
+  // A Section narrower than the window stands in for a page with a visible
+  // vertical scrollbar, which 100vw would count and overflow.
+  await load(
+    page,
+    `<div style="width: 700px">
+      <section class="section"><div class="container">
+        <div class="layout breakout">
+          <div><p class="text">Text</p></div>
+          <div class="image"></div>
+        </div>
+      </div></section>
+    </div>`,
+    1000,
+  );
+  const widths = await page.evaluate(() => ({
+    section: document.querySelector(".section")!.getBoundingClientRect().width,
+    breakout: document
+      .querySelector(".layout.breakout")!
+      .getBoundingClientRect().width,
+    overflow:
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
+  }));
+  expect(widths.breakout).toBe(widths.section);
+  expect(widths.overflow).toBeLessThanOrEqual(0);
+});

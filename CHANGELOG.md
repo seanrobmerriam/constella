@@ -33,6 +33,16 @@ released yet.
 
 ### Added
 
+- Avatar: a person's photo, cropped to a circle or rounded square, or their
+  initials, in three sizes, plus `.avatar_group` for overlapping avatars
+  with a ring in the page's background color.
+- Breadcrumbs: a labelled `nav` with an ordered trail, CSS-drawn separators
+  that screen readers skip, and `aria-current="page"` on the last item. New
+  contract type: `Breadcrumb`.
+- Pagination: links between the pages of a list, with the first, last and
+  neighbouring pages, gaps for the rest, 2.75rem targets, `aria-current="page"`
+  and a disabled Previous or Next at either end. Works with Astro's
+  `paginate()`.
 - Table: styles for semantic tables (caption, header rows, row headers,
   `.is-numeric` cells) with `striped` and `compact` variants, in a focusable,
   labelled wrapper that scrolls sideways on narrow screens. Plain tables in
@@ -88,6 +98,9 @@ released yet.
 
 ### Fixed
 
+- ContentWrapper `breakout`: sized to its Section (`100cqi`) instead of the
+  viewport (`100vw`), which counted a visible vertical scrollbar and
+  overflowed the page sideways. Ported from Lumos 0.3.9.
 - Form: `method="get"` forms always failed to send.
 - Dropdown: Escape closed every open dropdown and moved focus.
 - Dropdown and Details: content couldn't take focus while opening.

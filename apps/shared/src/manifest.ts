@@ -189,11 +189,29 @@ export const components: readonly ComponentEntry[] = [
     styles: ["components/alert.css"],
     behaviors: ["alert"],
   }),
+  documented("avatar", {
+    name: "Avatar",
+    astro: ["item/Avatar.astro", "item/AvatarGroup.astro"],
+    root: ".avatar, .avatar_group",
+    styles: ["components/avatar.css"],
+  }),
   documented("badge", {
     name: "Badge",
     astro: ["item/Badge.astro"],
     root: ".badge",
     styles: ["components/badge.css"],
+  }),
+  documented("breadcrumbs", {
+    name: "Breadcrumbs",
+    astro: ["global/Breadcrumbs.astro"],
+    root: ".breadcrumbs",
+    styles: ["components/breadcrumbs.css"],
+  }),
+  documented("pagination", {
+    name: "Pagination",
+    astro: ["global/Pagination.astro"],
+    root: ".pagination",
+    styles: ["components/pagination.css"],
   }),
   documented("table", {
     name: "Table",

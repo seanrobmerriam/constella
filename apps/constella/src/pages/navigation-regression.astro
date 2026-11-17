@@ -1,0 +1,44 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Breadcrumbs from "@/components/global/Breadcrumbs.astro";
+import Pagination from "@/components/global/Pagination.astro";
+---
+
+<Layout title="Navigation regression" noindex>
+  <Section>
+    <ContentWrapper>
+      <Breadcrumbs
+        id="crumbs-linked"
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Docs", href: "/docs/" },
+          { label: "Install", href: "/docs/install/" },
+        ]}
+      />
+      <Breadcrumbs
+        id="crumbs-text"
+        label="Search breadcrumb"
+        items={[{ label: "Home", href: "/" }, { label: "Results" }]}
+      />
+      <Breadcrumbs id="crumbs-none" items={[]} />
+      <Pagination id="pages-middle" current={5} total={10} />
+      <Pagination
+        id="pages-first"
+        label="First"
+        current={1}
+        total={4}
+        href={(page) => (page === 1 ? "/blog/" : `/blog/${page}/`)}
+      />
+      <Pagination
+        id="pages-last"
+        label="Last"
+        current={3}
+        total={3}
+        siblings={0}
+      />
+      <Pagination id="pages-one" current={1} total={1} />
+    </ContentWrapper>
+  </Section>
+</Layout>
