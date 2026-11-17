@@ -29,6 +29,8 @@ import { SkipExample } from "../../../apps/shared/src/examples/skip/Example";
 import { DropdownExample } from "../../../apps/shared/src/examples/dropdown/Example";
 import { ModalExample } from "../../../apps/shared/src/examples/modal/Example";
 import { TabsExample } from "../../../apps/shared/src/examples/tabs/Example";
+import { SliderExample } from "../../../apps/shared/src/examples/slider/Example";
+import { MarqueeExample } from "../../../apps/shared/src/examples/marquee/Example";
 
 const rendered = {
   button: renderToString(<ButtonExample />),
@@ -59,6 +61,8 @@ const rendered = {
   dropdown: renderToString(<DropdownExample />),
   modal: renderToString(<ModalExample />),
   tabs: renderToString(<TabsExample />),
+  slider: renderToString(<SliderExample />),
+  marquee: renderToString(<MarqueeExample />),
 };
 
 for (const [name, html] of Object.entries(rendered)) {

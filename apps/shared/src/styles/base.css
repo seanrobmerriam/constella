@@ -466,14 +466,24 @@ select:has(option[value=""]:checked) {
   color: var(--selection-text);
 }
 
+/* Motion collapses to a moment for visitors who ask for less of it. The one
+   exception is motion they start themselves: a component marks it with
+   data-motion="chosen" (the Marquee's play button does). It has to be
+   exempted here, because an !important rule in this first layer beats any
+   later layer's. */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
   ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  :not([data-motion="chosen"], [data-motion="chosen"] *),
+  :not([data-motion="chosen"], [data-motion="chosen"] *)::before,
+  :not([data-motion="chosen"], [data-motion="chosen"] *)::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 

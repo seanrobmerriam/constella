@@ -1,0 +1,108 @@
+---
+title: Slider
+description: A row of slides that scrolls sideways, with previous and next buttons, position markers and mouse dragging.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A horizontal list of slides, usually [Cards](/components/card/), that the visitor moves through themselves. It is a native scroller with snap points, so touch, trackpad and keyboard scrolling work without JavaScript. The behavior adds the buttons, markers and mouse dragging. It never moves on its own. For content that should move continuously, use a [Marquee](/components/marquee/).
+
+## Example
+
+<ComponentExample id="slider" />
+
+## Markup
+
+```html
+<div class="slider_wrap" style="--_visible-sm: 2; --_visible-md: 3">
+  <div class="slider_list" role="group" aria-label="Services" tabindex="0">
+    <div class="card_wrap">…</div>
+    <div class="card_wrap">…</div>
+    …
+  </div>
+  <div class="slider_controls">
+    <div class="slider_markers"></div>
+    <div class="slider_steps">
+      <button
+        class="button_wrap secondary arrow back"
+        type="button"
+        aria-label="Previous slide"
+        data-step="-1"
+      >
+        …
+      </button>
+      <button
+        class="button_wrap secondary arrow"
+        type="button"
+        aria-label="Next slide"
+        data-step="1"
+      >
+        …
+      </button>
+    </div>
+  </div>
+</div>
+```
+
+- Every direct child of `slider_list` is one slide. Any element works.
+- Give `slider_list` an `aria-label` that names the set, and keep `tabindex="0"` so keyboard users can scroll it with the arrow keys.
+- Leave `slider_markers` empty. The behavior fills it.
+- The buttons are [Buttons](/components/button/) with the `arrow` variant. `data-step` is how many slides each one moves.
+
+## Variants and props
+
+| Astro prop | HTML equivalent      | Values                             | Default  | Effect                                                                                                          |
+| ---------- | -------------------- | ---------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------- |
+| `variant`  | class on the root    | `bleed`, `crop-start`, `contained` | `bleed`  | `bleed` runs the list to both edges of the window. `crop-start` only to the end edge. `contained` stays inside. |
+| `xsmall`   | `--_visible-xs`      | number above 0                     | `1.02`   | Slides in view below 30rem. A fraction shows the edge of the next slide.                                        |
+| `small`    | `--_visible-sm`      | number above 0                     | `xsmall` | Slides in view from 30rem.                                                                                      |
+| `medium`   | `--_visible-md`      | number above 0                     | `small`  | Slides in view from 48rem.                                                                                      |
+| `large`    | `--_visible-lg`      | number above 0                     | `medium` | Slides in view from 64rem.                                                                                      |
+| `label`    | `aria-label` on list | text                               | `Slider` | Names the set for screen readers.                                                                               |
+| `render`   | none                 | `true`, `false`                    | `true`   | `false` omits the component.                                                                                    |
+
+Each size inherits the one below it, so `small={2}` alone means two slides from 30rem up. The Astro component ignores a count that isn't above 0 and warns in development.
+
+## States
+
+- **Ready** (`.is-ready`): set once the behavior runs. Before that, the controls are hidden and the list is an ordinary scroller.
+- **Current marker** (`.is-active`, `aria-current="true"`): the marker for the slide at the start of the view.
+- **At either end**: the previous or next button is `disabled`.
+- **Dragging** (`.is-dragging` on the list): snapping is off while the mouse moves the list, and back on when it lets go.
+- **Everything fits** (`.is-empty` on `slider_controls`): the controls are hidden, because there is nothing to scroll.
+
+## Accessibility
+
+- The list is a labelled group, and each slide is a group labelled with its position, such as "2 of 5".
+- The list is in the tab order, so the arrow keys scroll it. Links and buttons in the slides are reachable with Tab as usual, and the browser scrolls each one into view.
+- The buttons have text labels: "Previous slide", "Next slide" and "Go to slide 3".
+- For visitors who prefer reduced motion, every button and marker jumps instead of scrolling smoothly.
+- The slider only moves when the visitor moves it, so it needs no pause control.
+
+## Behavior
+
+`behaviors/slider.js` adds the buttons, markers, slide labels and mouse dragging:
+
+```html
+<script type="module">
+  import { initSlider } from "./behaviors/slider.js";
+  document.querySelectorAll(".slider_wrap").forEach((root) => initSlider(root));
+</script>
+```
+
+- The number of markers is the number of positions the list can scroll to, so five slides with three in view have three markers. They are redrawn when the list is resized.
+- A mouse drag of more than a few pixels scrolls the list and snaps to the nearest slide on release. The click that ends a drag doesn't follow a link in the slide. Touch and trackpads use native scrolling.
+- `initSlider(root)` returns a cleanup function that removes its listeners, observer, markers and the slide labels it added. Each slider on a page is independent.
+
+**Without the script**, the list still scrolls and snaps by touch, trackpad and keyboard. The controls stay hidden.
+
+## Tokens
+
+<ComponentTokens id="slider" />
+
+## Related
+
+- [Card](/components/card/): the usual slide.
+- [Button](/components/button/): the `arrow` variant used for previous and next.
+- [Marquee](/components/marquee/): a strip that moves on its own.

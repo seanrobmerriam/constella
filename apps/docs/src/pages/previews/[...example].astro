@@ -34,6 +34,8 @@ const markup = example.html.replace(/<script[\s\S]*?<\/script>/g, "");
   import { initDropdown } from "@constella/shared/behaviors/dropdown.ts";
   import { initModal } from "@constella/shared/behaviors/modal.ts";
   import { initTabs } from "@constella/shared/behaviors/tabs.ts";
+  import { initSlider } from "@constella/shared/behaviors/slider.ts";
+  import { initMarquee } from "@constella/shared/behaviors/marquee.ts";
 
   const entry = document.body.dataset.behavior;
   const roots = (selector: string) =>
@@ -54,4 +56,6 @@ const markup = example.html.replace(/<script[\s\S]*?<\/script>/g, "");
       .querySelectorAll<HTMLDialogElement>(".modal_wrap")
       .forEach(initModal);
   if (entry === "tabs") roots(".tabs_wrap").forEach(initTabs);
+  if (entry === "slider") roots(".slider_wrap").forEach(initSlider);
+  if (entry === "marquee") roots(".marquee_wrap").forEach(initMarquee);
 </script>

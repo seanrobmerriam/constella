@@ -5,12 +5,12 @@
  * Children:  .slider_list, .slider_controls, .slider_steps, .slider_markers,
  *            .slider_marker
  * Variants:  .contained, .crop-start
- * State:     .is-ready, .is-active, .is-dragging, .is-empty are set by the
- *            slider script
+ * State:     .is-ready, .is-active, .is-dragging, .is-empty are set by
+ *            behaviors/slider.ts
  * Tokens:    --border-width, --hover-duration, --hover-ease, --max-width-main,
  *            --radius-round, --site-gutter, --site-margin, --space-2,
  *            --space-4, --space-6, --text
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/slider/
  */
 @layer components {
   .slider_wrap {

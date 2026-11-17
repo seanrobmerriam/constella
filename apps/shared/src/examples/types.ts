@@ -15,7 +15,15 @@ export interface ExampleDefinition {
   tsx: string;
   /** Shared behavior this example needs, from the closed `behaviors` list. */
   behaviorEntry?:
-    "accordion" | "dropdown" | "form" | "modal" | "navbar" | "range" | "tabs";
+    | "accordion"
+    | "dropdown"
+    | "form"
+    | "marquee"
+    | "modal"
+    | "navbar"
+    | "range"
+    | "slider"
+    | "tabs";
   /** Iframe height in rem. */
   previewHeight: number;
 }

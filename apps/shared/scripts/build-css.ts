@@ -29,14 +29,19 @@ const behaviors = [
   "accordion",
   "dropdown",
   "form",
+  "marquee",
   "modal",
   "navbar",
   "range",
+  "slider",
   "tabs",
   "theme",
 ];
 const result = await Bun.build({
   entrypoints: behaviors.map((name) => `${root}src/behaviors/${name}.ts`),
+  /* Explicit, so the files land at dist/behaviors/<name>.js however many
+     entry points there are (Bun otherwise widens it past eight). */
+  root: `${root}src/behaviors`,
   outdir: `${root}dist/behaviors`,
   format: "esm",
   target: "browser",

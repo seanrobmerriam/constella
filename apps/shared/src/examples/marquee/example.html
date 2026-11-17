@@ -1,0 +1,57 @@
+<div
+  class="marquee_wrap"
+  style="--_count: 5"
+  role="group"
+  aria-label="What we do"
+>
+  <div class="marquee_viewport">
+    <div class="marquee_track">
+      <div class="marquee_panel">
+        <p class="text text-style-large">Strategy</p>
+        <p class="text text-style-large">Design</p>
+        <p class="text text-style-large">Build</p>
+        <p class="text text-style-large">Launch</p>
+        <p class="text text-style-large">Support</p>
+      </div>
+      <div class="marquee_panel" aria-hidden="true" inert>
+        <p class="text text-style-large">Strategy</p>
+        <p class="text text-style-large">Design</p>
+        <p class="text text-style-large">Build</p>
+        <p class="text text-style-large">Launch</p>
+        <p class="text text-style-large">Support</p>
+      </div>
+    </div>
+  </div>
+  <button
+    class="button_wrap secondary play marquee_toggle"
+    type="button"
+    aria-label="Pause"
+    aria-pressed="true"
+    data-marquee-toggle
+  >
+    <svg
+      class="icon small button_mark button_play"
+      viewBox="0 0 1393 1394"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path d="M1271 696.5L280 1393V0L1271 696.5Z" fill="currentColor" />
+    </svg>
+    <svg
+      class="icon small button_mark button_pause"
+      viewBox="0 0 1277 1277"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path d="M1087 0H766V1277H1087V0Z" fill="currentColor" />
+      <path d="M510 0H189V1277H510V0Z" fill="currentColor" />
+    </svg>
+  </button>
+</div>
+
+<script type="module">
+  import { initMarquee } from "./behaviors/marquee.js";
+  document
+    .querySelectorAll(".marquee_wrap")
+    .forEach((root) => initMarquee(root));
+</script>
