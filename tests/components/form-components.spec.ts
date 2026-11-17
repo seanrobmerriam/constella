@@ -205,8 +205,13 @@ test("textarea grows with its content up to its maximum, where field-sizing is s
   const supported = await page.evaluate(() =>
     CSS.supports("field-sizing", "content"),
   );
+  // Reported with any failure, so a browser that differs shows why.
+  const computed = await field.evaluate((el) => {
+    const s = getComputedStyle(el);
+    return `field-sizing=${s.getPropertyValue("field-sizing")} height=${s.height} min=${s.minHeight} max=${s.maxHeight} scroll=${el.scrollHeight} client=${el.clientHeight}`;
+  });
   if (supported) {
-    expect(grown).toBeGreaterThan(start);
+    expect(grown, computed).toBeGreaterThan(start);
     expect(capped).toBeGreaterThan(grown);
     expect(capped).toBeLessThan(start * 4);
   } else {
