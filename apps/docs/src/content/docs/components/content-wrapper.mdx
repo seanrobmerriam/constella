@@ -32,16 +32,16 @@ Lays out a block of content and, optionally, a visual: stacked, side by side, co
 
 ## Variants and props
 
-| Astro prop `variant` | HTML class               | Layout                                                                                                                  |
-| -------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `stack` (default)    | none                     | Columns stacked, full width.                                                                                            |
-| `columns`            | `columns`                | Side by side from 64rem; stacked below.                                                                                 |
-| `contain`            | `contain`                | Like `columns`, inside a rounded `--background-2` box. The visual touches the box edge.                                 |
-| `breakout`           | `breakout`               | Like `columns`, but full viewport width: the visual runs to the screen edge while the text stays aligned with the page. |
-| `sticky-content`     | `sticky-content`         | Side by side from 64rem. The text column sticks below the navbar while the visual scrolls.                              |
-| `sticky-visual`      | `sticky-visual`          | Side by side from 64rem. The visual sticks while a long text column scrolls.                                            |
-| `auto-width`         | `auto-width`             | Columns size to their content, spread apart and wrap. Good for a heading with a button beside it.                       |
-| `card`               | `card-layout theme-dark` | A dark card at least 26rem tall. The visual fills it, faded, and the text sits centered on top.                         |
+| Astro prop `variant` | HTML class               | Layout                                                                                                                                                              |
+| -------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `stack` (default)    | none                     | Columns stacked, full width.                                                                                                                                        |
+| `columns`            | `columns`                | Side by side from 64rem; stacked below.                                                                                                                             |
+| `contain`            | `contain`                | Like `columns`, inside a rounded `--background-2` box. The visual touches the box edge.                                                                             |
+| `breakout`           | `breakout`               | Like `columns`, but as wide as its Section: the visual runs to the screen edge while the text stays aligned with the page. Put it in a Section that spans the page. |
+| `sticky-content`     | `sticky-content`         | Side by side from 64rem. The text column sticks below the navbar while the visual scrolls.                                                                          |
+| `sticky-visual`      | `sticky-visual`          | Side by side from 64rem. The visual sticks while a long text column scrolls.                                                                                        |
+| `auto-width`         | `auto-width`             | Columns size to their content, spread apart and wrap. Good for a heading with a button beside it.                                                                   |
+| `card`               | `card-layout theme-dark` | A dark card at least 26rem tall. The visual fills it, faded, and the text sits centered on top.                                                                     |
 
 | Astro prop                     | HTML equivalent                | Values          | Default | Effect                                                                          |
 | ------------------------------ | ------------------------------ | --------------- | ------- | ------------------------------------------------------------------------------- |

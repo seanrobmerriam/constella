@@ -88,6 +88,9 @@ released yet.
 
 ### Fixed
 
+- ContentWrapper `breakout`: sized to its Section (`100cqi`) instead of the
+  viewport (`100vw`), which counted a visible vertical scrollbar and
+  overflowed the page sideways. Ported from Lumos 0.3.9.
 - Form: `method="get"` forms always failed to send.
 - Dropdown: Escape closed every open dropdown and moved focus.
 - Dropdown and Details: content couldn't take focus while opening.

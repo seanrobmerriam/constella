@@ -35,7 +35,7 @@ When an item is completed, record its PR or commit, validation evidence, and any
 - [ ] Record applicable reuse terms and preserve required attribution/notices.
 - [ ] Map upstream pages to Constella destinations: retain, adapt, replace, or omit.
 
-> **Deferred (2026-11-16).** The upstream source and reuse terms are still unknown. Until they are recorded, Constella docs pages are written from scratch from the verified Constella contracts, and no Lumos text is copied. See [completion-plan.md](completion-plan.md) Phase 0.
+> **Code provenance recorded (2026-11-17).** Lumos for Astro, `create-lumos` 0.3.9 from npm (repository `lumosframework/lumos-for-astro`), MIT License, © Timothy Ricks. A fresh copy was compared file by file with Constella's first commit: identical stylesheets and components apart from branding and one later Lumos fix. The MIT notice is kept in `apps/constella/LICENSE`. The docs pages stay original, written from the verified Constella contracts. No Lumos documentation text is copied, so no page-by-page docs map is needed. The comparison is on the docs Migration page, under "From Lumos".
 
 **Acceptance:** A migration map records the source, destination, disposition, and reason for each selected upstream page. Webflow- or Lumos-specific workflows are not presented as Constella requirements without verification.
 
@@ -146,7 +146,7 @@ When an item is completed, record its PR or commit, validation evidence, and any
 
 ### R-13 — Add migration and release guidance
 
-- [ ] Document verified differences from Lumos, including markup, classes, tokens, components, and runtime expectations.
+- [x] Document verified differences from Lumos, including markup, classes, tokens, components, and runtime expectations. (Migration page, "From Lumos", against `create-lumos` 0.3.9.)
 - [ ] Define how framework releases relate to app/package versions.
 - [ ] Establish a changelog and a process for flagging breaking changes.
 

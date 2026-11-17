@@ -242,6 +242,7 @@ test("the migration page covers every rename and is in the sidebar", async ({
     "Footer",
     "SkipLink → Skip",
     "Behavior changes",
+    "From Lumos",
   ])
     await expect(
       page.getByRole("heading", { level: 2, name, exact: true }),

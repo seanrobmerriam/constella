@@ -228,6 +228,8 @@ Phase 4 is done: every environment the docs name has a fixture that builds and p
 
   Follow-ups the owner approved: Input, Textarea, Select and Dropdown declare their props in the library's order (`render`, then `size` and `radius`, then the rest), so `constella-audit-props` reports no conflicts; and the home page shows the real framework version from `apps/shared/package.json` instead of a hard-coded `v1.0.2`.
 
+  The Lumos comparison is on the docs Migration page ("From Lumos"): a fresh `create-lumos` 0.3.9 matches Constella's first commit apart from branding and one later Lumos fix (ContentWrapper `breakout` at `100cqi`), which is now ported. R-01's code provenance is recorded in `docs/requirements.md`.
+
   Increment 1 is complete. The rest of the candidate catalog in `docs/components.md` stays unscheduled until the owner picks the next increment.
 
 ---

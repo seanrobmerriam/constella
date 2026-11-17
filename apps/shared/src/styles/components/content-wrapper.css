@@ -113,9 +113,12 @@
         }
       }
     }
+    /* The Section's width, not the viewport's: 100vw includes a visible
+       vertical scrollbar and overflows the page sideways. (Fixed upstream
+       in Lumos 0.3.9.) */
     &.breakout {
       display: grid;
-      width: 100vw;
+      width: 100cqi;
       flex-shrink: 0;
       align-self: center;
       column-gap: 0;
@@ -197,5 +200,10 @@
         pointer-events: none;
       }
     }
+  }
+
+  /* The container breakout's width is measured against. */
+  .section:has(.layout.breakout) {
+    container-type: inline-size;
   }
 }
