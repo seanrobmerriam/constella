@@ -1,6 +1,8 @@
 ---
 title: Astro
 description: Set up an Astro site with Constella, and use its layouts, BaseHead and FormattedDate.
+sidebar:
+  order: 5
 ---
 
 The reference site in `apps/constella` is an Astro project. Every component on the [Components](/components/button/) pages has an Astro version there. This page covers the parts that only exist in Astro: the site setup, the two layouts, `BaseHead` and `FormattedDate`. They have no HTML tab because they produce the document around your markup, not markup you would copy.
@@ -228,6 +230,6 @@ Astro bundles the script once per page, however many instances there are. The `W
 
 ## Related
 
-- [Installation](/getting-started/installation/): plain HTML and React.
+- [Plain HTML](/integrations/html/) and [React](/integrations/react/): the same components without Astro.
 - [Themes](/foundations/themes/): what a locked theme does.
 - [How the stylesheets work](/foundations/styles-architecture/): the cascade layers `BaseHead` declares.

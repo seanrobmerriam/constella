@@ -1,0 +1,16 @@
+{
+  "name": "@constella/fixture-react",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {
+    "react": "19",
+    "react-dom": "19"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.0",
+    "vite": "^8.3.6"
+  }
+}

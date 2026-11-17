@@ -1,0 +1,8 @@
+{
+  "name": "@constella/fixture-plain-html",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun build.ts"
+  }
+}

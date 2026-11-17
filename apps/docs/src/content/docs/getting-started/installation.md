@@ -36,8 +36,8 @@ Examples that need behavior include a module script, for example:
 </script>
 ```
 
-Each `init…` function returns a cleanup function. Call it if you remove the element.
+Each `init…` function returns a cleanup function. Call it if you remove the element. The [Plain HTML guide](/integrations/html/) covers the rest, including the theme and pasting several examples on one page.
 
 ## React
 
-Import the stylesheet once, then use the TSX examples. They call the same behavior in `useEffect` and return its cleanup.
+Import the stylesheet once, then use the TSX examples. They call the same behavior in `useEffect` and return its cleanup. The [React guide](/integrations/react/) covers the setup, the theme and converting HTML to TSX.

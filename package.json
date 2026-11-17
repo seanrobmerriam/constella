@@ -4,7 +4,8 @@
   "type": "module",
   "packageManager": "bun@1.4.4",
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "tests/fixtures/*"
   ],
   "scripts": {
     "dev": "bun run --filter '@constella/site' --filter '@constella/docs' dev",
@@ -20,7 +21,9 @@
     "test:docs": "bun run check:examples && bun run check:docs && PW_DOCS=1 playwright test tests/docs",
     "check:examples": "tsc -p tests/fixtures/react/tsconfig.json && bun --tsconfig-override tests/fixtures/react/tsconfig.json tests/fixtures/react/render.tsx",
     "check:docs": "bun scripts/check-docs.ts",
-    "check:docs-sync": "bun scripts/check-docs-sync.ts"
+    "check:docs-sync": "bun scripts/check-docs-sync.ts",
+    "build:fixtures": "bun run --cwd apps/shared build && bun run --filter '@constella/fixture-*' build",
+    "test:integrations": "bun run build:fixtures && playwright test tests/integrations"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0",

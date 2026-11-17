@@ -193,3 +193,29 @@ test("the Astro integration page has recipes and no example tabs", async ({
   );
   expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test("integration guides are listed in order and fit a phone screen", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  for (const [slug, title] of [
+    ["html", "Plain HTML"],
+    ["react", "React"],
+  ]) {
+    await page.goto(`/integrations/${slug}/`);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
+    await expect(
+      page.getByRole("heading", { level: 2, name: "What the fixture checks" }),
+    ).toBeVisible();
+    const overflow = await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth -
+        document.documentElement.clientWidth,
+    );
+    expect(overflow, slug).toBeLessThanOrEqual(0);
+  }
+  const links = await page
+    .locator('nav a[href^="/integrations/"]')
+    .allTextContents();
+  expect(links.map((l) => l.trim())).toEqual(["Plain HTML", "React", "Astro"]);
+});
