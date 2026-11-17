@@ -227,3 +227,60 @@ test("integration guides are listed in order and fit a phone screen", async ({
     "Astro",
   ]);
 });
+
+test("the migration page covers every rename and is in the sidebar", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto("/migration/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Migration");
+  for (const name of [
+    "ButtonWrapper → InputWrapper",
+    "AccordionItem → Details and Summary",
+    "Eyebrow → Heading variants",
+    "Nav → Navbar",
+    "Footer",
+    "SkipLink → Skip",
+    "Behavior changes",
+  ])
+    await expect(
+      page.getByRole("heading", { level: 2, name, exact: true }),
+    ).toBeVisible();
+  // Every link in the summary table points at a section on this page.
+  for (const href of await page
+    .locator('table a[href^="#"]')
+    .evaluateAll((links) => links.map((a) => a.getAttribute("href")!)))
+    await expect(page.locator(href), href).toHaveCount(1);
+  await expect(page.locator('nav a[href="/migration/"]')).toHaveCount(1);
+  const overflow = await page.evaluate(
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test("the accessibility page states what is and isn't tested", async ({
+  page,
+}) => {
+  await page.goto("/foundations/accessibility/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Accessibility",
+  );
+  for (const name of ["Tested on every change", "Contrast", "Not tested yet"])
+    await expect(
+      page.getByRole("heading", { level: 2, name, exact: true }),
+    ).toBeVisible();
+});
+
+test("the browser support page lists the minimum versions", async ({
+  page,
+}) => {
+  await page.goto("/getting-started/browser-support/");
+  const table = page.locator("table").first();
+  for (const text of ["Chrome, Edge", "111", "Firefox", "121", "16.2"])
+    await expect(table).toContainText(text);
+  await expect(
+    page.locator('nav a[href="/getting-started/browser-support/"]'),
+  ).toHaveCount(1);
+});

@@ -2,6 +2,11 @@ import { defineConfig } from "@playwright/test";
 
 const viewport = { width: 1280, height: 800 };
 
+type Browser = "chromium" | "firefox" | "webkit";
+const browsers = (process.env.PW_BROWSERS ?? "chromium")
+  .split(",")
+  .map((name) => name.trim()) as Browser[];
+
 export default defineConfig({
   testDir: "./tests",
   fullyParallel: true,
@@ -42,5 +47,12 @@ export default defineConfig({
         ]
       : []),
   ],
-  projects: [{ name: "chromium", use: { browserName: "chromium" } }],
+  // Chromium by default. PW_BROWSERS=firefox,webkit runs the other engines
+  // (CI's "Other browsers" job). The computed-style baseline is a Chromium
+  // snapshot: other engines serialize the same colors differently.
+  projects: browsers.map((name) => ({
+    name,
+    use: { browserName: name },
+    testIgnore: name === "chromium" ? [] : ["**/baseline.spec.ts"],
+  })),
 });

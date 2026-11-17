@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-Every component page has a **React TSX** tab: the same markup as the HTML tab, as a plain React component. Constella has no React components of its own. The classes do the styling, and a component that needs a behavior calls it from an effect. This guide is tested: `tests/fixtures/react` is a Vite app that renders every TSX example inside `StrictMode`, and `bun run test:integrations` checks it in a browser.
+Every component page has a **React TSX** tab: the same markup as the HTML tab, as a plain React component. Constella has no React components of its own. The classes do the styling, and a component that needs a behavior calls it from an effect. This guide is tested: `tests/fixtures/react` is a Vite app that renders every TSX example inside `StrictMode`, and `bun run test:integrations` checks it in a browser. It's a development build, because only development React mounts components twice in `StrictMode`. [TanStack Start](/integrations/tanstack-start/) covers a production React build.
 
 ## Setup
 
@@ -108,7 +108,7 @@ export function TabsExample() {
 }
 ```
 
-- **Cleanup is required.** `StrictMode` runs every effect twice in development. The cleanup removes the first setup's listeners, so only one remains. The fixture checks this: a doubled navbar handler would open and close the menu in a single click.
+- **Cleanup is required.** `StrictMode` runs every effect twice in development. The cleanup removes the first setup's listeners, so only one remains. The fixture checks this: it confirms each effect ran twice, then that one click opens the navbar menu and one arrow key moves one tab. A doubled handler would close the menu again and skip a tab.
 - **Let the behavior own what it changes.** Behaviors set classes, `aria-*` attributes, `open` and `data-state` on the elements they manage. Render the starting values in JSX and don't change those props afterwards, or React and the behavior will overwrite each other. For example, render `<details open>` for an accordion item that starts open, and let the accordion handle it after that.
 - **Server rendering is safe.** Behaviors only touch the DOM inside effects, which don't run on the server. `check:examples` renders every TSX example with `renderToString`.
 

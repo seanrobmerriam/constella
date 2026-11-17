@@ -1,0 +1,224 @@
+---
+title: Migration
+description: What changed since the first Constella release, with before and after markup for every renamed or removed component.
+---
+
+This page covers what changed in Constella between its first monorepo commit (the baseline, `5b921a5`) and now. Every "before" below is taken from that commit's source, and every "after" from the current one. For the full list of changes, see [`CHANGELOG.md`](https://github.com/seanrobmerriam/constella/blob/main/CHANGELOG.md).
+
+Constella is a fork of Lumos. A comparison with Lumos itself isn't here yet, because the upstream source and its reuse terms haven't been recorded (requirement R-01). Until they are, this page only describes changes within Constella.
+
+## At a glance
+
+| Before                             | After                                                                         | Breaking for                     |
+| ---------------------------------- | ----------------------------------------------------------------------------- | -------------------------------- |
+| `ButtonWrapper`, `.button-wrapper` | [`InputWrapper`](#buttonwrapper--inputwrapper), `.input-wrapper`              | Astro and HTML                   |
+| `AccordionItem`, `.accordion_item` | [`Details` + `Summary`](#accordionitem--details-and-summary), `.details_wrap` | Astro and HTML                   |
+| `Eyebrow`, `.eyebrow_wrap`         | [`Heading variant="eyebrow"`](#eyebrow--heading-variants), `.heading.eyebrow` | Astro and HTML                   |
+| `Nav`, added by `BaseLayout`       | [`Navbar`](#nav--navbar), placed in the `header` slot                         | Astro                            |
+| `Footer`, added by `BaseLayout`    | [`Footer`](#footer), placed in the `footer` slot                              | Astro                            |
+| `BaseLayout overlap`               | [Removed](#the-overlap-option-is-gone)                                        | Astro                            |
+| `SkipLink`                         | [`Skip`](#skiplink--skip)                                                     | Astro, only if imported directly |
+
+The [behavior changes](#behavior-changes) at the end can affect a page even if no names changed.
+
+## ButtonWrapper → InputWrapper
+
+The wrapper now groups any controls, not just buttons: an input next to its button, a select with a reset, and so on. The props are unchanged.
+
+```astro
+---
+// Before
+import ButtonWrapper from "@/components/wrapper/ButtonWrapper.astro";
+---
+
+<ButtonWrapper marginTop="4">
+  <Button element="link" href="/start">
+    Get started
+  </Button>
+</ButtonWrapper>
+```
+
+```astro
+---
+// After
+import InputWrapper from "@/components/wrapper/InputWrapper.astro";
+---
+
+<InputWrapper marginTop="4">
+  <Button element="link" href="/start">
+    Get started
+  </Button>
+</InputWrapper>
+```
+
+In HTML, rename the class: `button-wrapper` → `input-wrapper`. See [InputWrapper](/components/input-wrapper/).
+
+## AccordionItem → Details and Summary
+
+An accordion item is now a plain [Details](/components/details/), and its header is a `Summary` you write yourself. This lets you put any content in the header and use the same disclosure outside an accordion.
+
+```astro
+---
+// Before
+import Accordion from "@/components/interactive/Accordion.astro";
+import AccordionItem from "@/components/interactive/AccordionItem.astro";
+---
+
+<Accordion openFirst={true}>
+  <AccordionItem heading="Is it accessible?" headingTag="h3">
+    <Paragraph>Native details and summary keep keyboard support.</Paragraph>
+  </AccordionItem>
+</Accordion>
+```
+
+```astro
+---
+// After
+import Accordion from "@/components/interactive/Accordion.astro";
+import Details from "@/components/interactive/Details.astro";
+import Summary from "@/components/interactive/Summary.astro";
+---
+
+<Accordion openFirst={true}>
+  <Details>
+    <Summary slot="summary">
+      <Heading tag="h3" variant="h5">
+        Is it accessible?
+      </Heading>
+    </Summary>
+    <Paragraph>Native details and summary keep keyboard support.</Paragraph>
+  </Details>
+</Accordion>
+```
+
+In HTML, the classes change:
+
+| Before              | After                                |
+| ------------------- | ------------------------------------ |
+| `.accordion_item`   | `.details_wrap`                      |
+| `.accordion_toggle` | `.details_summary`                   |
+| `.accordion_title`  | none: any heading inside the summary |
+| `.accordion_icon`   | `.details_icon`                      |
+| `.accordion_body`   | `.details_body`                      |
+
+The accordion root also gains `data-accordion`, which the behavior looks for. See [Accordion](/components/accordion/).
+
+**Grouping without JavaScript changed.** The old Accordion wrote a shared `name` into every item on the server, so one-at-a-time worked with no script. The new one adds the name in the browser. Without the script, items open independently, unless you give each `Details` the same `name` yourself.
+
+## Eyebrow → Heading variants
+
+The eyebrow is now a [Heading](/components/heading/) style. It renders one element instead of three.
+
+```astro
+---
+// Before
+import Eyebrow from "@/components/typography/Eyebrow.astro";
+---
+
+<Eyebrow>Case study</Eyebrow>
+<Eyebrow variant="tag">New</Eyebrow>
+```
+
+```astro
+---
+// After
+import Heading from "@/components/typography/Heading.astro";
+---
+
+<Heading variant="eyebrow">Case study</Heading>
+<Heading variant="eyebrow-tag">New</Heading>
+```
+
+In HTML:
+
+```html
+<!-- Before -->
+<div class="eyebrow_wrap">
+  <span class="eyebrow_marker" aria-hidden="true"></span>
+  <p class="eyebrow_text text-style-small">Case study</p>
+</div>
+
+<!-- After -->
+<p class="heading eyebrow text-style-small">Case study</p>
+```
+
+`tag` still sets the element, and still defaults to `p`. The marker is now drawn by CSS (`::before`), so there's no marker element to write.
+
+## Nav → Navbar
+
+`BaseLayout` no longer adds a navigation bar. Put a [Navbar](/components/navbar/) in its `header` slot. Its links come from `src/config/navbar.ts` instead of being written in the component.
+
+```astro
+---
+// Before: the nav was always there
+import Layout from "@/layouts/BaseLayout.astro";
+---
+
+<Layout title="About">
+  <Section>…</Section>
+</Layout>
+```
+
+```astro
+---
+// After
+import Layout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/global/Navbar.astro";
+---
+
+<Layout title="About">
+  <Navbar slot="header" />
+  <Section>…</Section>
+</Layout>
+```
+
+The Navbar adds options the Nav didn't have: `sticky`, `search`, `themeToggle` and `icons`. The HTML classes (`nav_wrap`, `nav_toggle`, `nav_menu` and so on) are unchanged. The menu now needs `data-navbar`, `data-navbar-toggle` and `data-navbar-menu` for its behavior.
+
+### The overlap option is gone
+
+`<BaseLayout overlap>` fixed the old nav over the top of the page, and the first section used `paddingTop="navoverlap"` to clear it. There is no replacement. The Navbar always takes its own space and sticks to the top as you scroll, or scrolls away with `sticky={false}`.
+
+To migrate, remove `overlap` from the layout, and change the first section's `paddingTop="navoverlap"` to the padding you want below the bar.
+
+## Footer
+
+Like the nav, the footer is no longer added by `BaseLayout`. Put it in the `footer` slot:
+
+```astro
+<Layout title="About">
+  <Navbar slot="header" />
+  <Section>…</Section>
+  <Footer slot="footer" />
+</Layout>
+```
+
+Its content comes from `src/config/footer.ts`. It also gains `variant`, `theme` and `spacing` props. See [Footer](/components/footer/).
+
+## SkipLink → Skip
+
+Only the name changed. The props (`target`, `label`) and the `.skip-link` class are the same, and `BaseLayout` still includes it. Change your import only if you used it in a layout of your own:
+
+```astro
+---
+// Before
+import SkipLink from "@/components/global/SkipLink.astro";
+// After
+import Skip from "@/components/global/Skip.astro";
+---
+```
+
+## Behavior changes
+
+These came from fixes and new behavior modules. Check them if your pages relied on the old behavior.
+
+- **Brand color.** `--brand-500` changed from `#c6fb50` to `#ebe65b`. Set it back in your own stylesheet if you need the old color.
+- **Light-theme accent words.** A `<strong>` inside `.heading-accent` was brand-colored text on light backgrounds. It's now dark text on a brand-yellow highlight. See [Typography](/foundations/typography/#accent-words).
+- **Marquee without JavaScript** now holds still, and its toggle is hidden. Before, it moved with a pause button that did nothing.
+- **Dropdown:** Escape now closes only the dropdown that has focus, not every open dropdown on the page.
+- **Form:** a `method="get"` form sends its fields as a query string. Before, it always failed.
+- **Behaviors are modules.** Components that used inline scripts (Form, Range, Dropdown, Modal, Tabs, Slider and Marquee) now call `behaviors/<name>.js`. In plain HTML, add each component's script, as its page shows.
+
+## Related
+
+- [Installation](/getting-started/installation/)
+- [Astro integration](/integrations/astro/): the layouts and their slots.

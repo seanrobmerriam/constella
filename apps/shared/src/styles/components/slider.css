@@ -99,26 +99,38 @@
     }
   }
 
+  /* The markers' 24px targets touch, so the dots sit 24px apart. */
   .slider_markers {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
   }
 
+  /* A 24px button, the minimum touch target, around a 12px dot. */
   .slider_marker {
-    width: 0.75rem;
-    height: 0.75rem;
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
     padding: 0;
-    border: var(--border-width) solid var(--text);
+    border: 0;
     border-radius: var(--radius-round);
     background: none;
-    transition: background-color var(--hover-duration) var(--hover-ease);
+    color: inherit;
 
-    &.is-active {
+    &::before {
+      content: "";
+      width: 0.75rem;
+      height: 0.75rem;
+      border: var(--border-width) solid var(--text);
+      border-radius: var(--radius-round);
+      transition: background-color var(--hover-duration) var(--hover-ease);
+    }
+
+    &.is-active::before {
       background-color: var(--text);
     }
     @media (hover: hover) {
-      &:hover {
+      &:hover::before {
         background-color: var(--text);
       }
     }

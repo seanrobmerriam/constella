@@ -13,7 +13,13 @@
 - [ ] Manifest entry in `apps/shared/src/manifest.ts`
 - [ ] Docs page, with all required sections
 - [ ] Tests
-- [ ] Migration note, if a public name or behavior changed
+- [ ] Migration page section, if a public name or behavior changed
+
+## Changelog
+
+<!-- Add a line under "Unreleased" in CHANGELOG.md (Breaking, Added, Changed or Fixed), or say why it isn't needed. See docs/releasing.md. -->
+
+- [ ] `CHANGELOG.md` updated
 
 ## Verification
 

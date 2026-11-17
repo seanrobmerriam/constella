@@ -182,14 +182,20 @@ export function serverRenderedChecks(url: string) {
   });
 }
 
+/**
+ * Waits until the behaviors have started. It looks for something only a
+ * behavior adds: the tabs behavior gives each tab its role. (The theme
+ * toggle's aria-pressed is no good: it is in the server's HTML already.)
+ */
+export const waitForBehaviors = (page: Page) =>
+  expect(
+    inExample(page, "tabs").locator('[role="tab"]').first(),
+  ).toBeAttached();
+
 /** Opens a server-rendered fixture and waits for hydration to finish. */
 export const openHydrated = (url: string) => async (page: Page) => {
   await page.goto(url);
-  // Behaviors start after hydration; the theme toggle's is one of them.
-  await expect(page.locator("[data-theme-toggle]")).toHaveAttribute(
-    "aria-pressed",
-    /true|false/,
-  );
+  await waitForBehaviors(page);
   await page.waitForLoadState("networkidle");
 };
 

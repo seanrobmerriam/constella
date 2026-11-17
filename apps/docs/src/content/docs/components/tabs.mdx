@@ -88,6 +88,7 @@ For `auto`, add `.auto` to the root and the controls after the panels:
 
 - It follows the ARIA tabs pattern. Only the selected tab is in the tab order, so Tab moves from the tab list into the panel. ArrowLeft/ArrowRight, and ArrowUp/ArrowDown in `side`, move between tabs and wrap around. Home and End jump to the first and last.
 - Each panel is focusable and labelled by its tab.
+- Unselected tabs use the secondary text color, `--text-2`, which keeps at least 4.5:1 contrast in every theme.
 - **Auto-rotation** pauses while anything in the tabs has focus, while they're offscreen, and when the visitor asks for reduced motion. Those pauses lift on their own. Pressing the pause button, or opening the page on a specific tab, pauses it until the button is pressed again, and the button always shows that choice. This is the control WCAG 2.2.2 requires for content that moves on its own. Reduced motion always wins.
 
 ## Behavior

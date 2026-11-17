@@ -27,6 +27,9 @@ changing a component, its styles or its docs.
   and docs pages. `bun run check:docs-sync` does the per-branch docs check CI runs.
 - `bun run test:components`, `bun run test:docs`: Playwright suites. Build the shared
   CSS first (`bun run --cwd apps/shared build`).
+- `bun run test:a11y`: axe-core, reflow at 320px and visible focus on every example,
+  in each theme. Build the shared CSS first. Findings are in
+  `docs/implementation/accessibility.md`.
 - `bun run test:integrations`: builds the shared package and every fixture under
   `tests/fixtures/` (each is a workspace package named `@constella/fixture-*`),
   then runs `tests/integrations/`. Tested versions are in
@@ -53,7 +56,9 @@ if the docs fall behind.
    in order: Example, Markup, Variants and props, States, Accessibility, Behavior,
    Tokens, Related.
 7. Tests: `tests/components/` for behavior and styling, `tests/docs/` for the page.
-8. Migration note if a public name or behavior changes (`docs/completion-plan.md` Phase 5).
+8. A line in `CHANGELOG.md` under Unreleased. If a public name or behavior changes,
+   list it under Breaking and add a section to the docs Migration page
+   (`apps/docs/src/content/docs/migration.mdx`). Versions and releases: `docs/releasing.md`.
 
 If a change can't affect the docs (formatting, a refactor with identical output), add
 `Docs-Skip: <reason>` to a commit message so `check:docs-sync` lets it through.

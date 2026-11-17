@@ -5,7 +5,7 @@
  * Children:  styles the plain HTML elements inside it
  * Variants:  none
  * State:     none
- * Tokens:    --border, --border-width, --space-2, --space-4
+ * Tokens:    --border, --border-width, --space-2, --space-4, --text-2
  * Docs:      /components/rich-text/
  */
 @layer components {
@@ -40,7 +40,7 @@
       list-style-type: decimal;
     }
     & li::marker {
-      color: color-mix(in lab, currentcolor 60%, transparent);
+      color: var(--text-2);
     }
     & li + li {
       margin-top: var(--space-2);

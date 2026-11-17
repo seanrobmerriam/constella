@@ -8,7 +8,8 @@
  * State:     [open] (native details); data-size, data-radius (controls.css).
  *            Keyboard and dismissal in behaviors/dropdown.ts
  * Tokens:    --background-2, --hover-duration, --hover-ease, --open-duration,
- *            --open-ease, --radius-small, --site-margin, --space-2, --space-5
+ *            --open-ease, --radius-small, --site-margin, --space-2, --space-5,
+ *            --text-2
  * Docs:      /components/dropdown/
  * Also styles Astro designer-preview hooks (.preview, .stacki-*), which plain
  * HTML users can ignore.
@@ -39,7 +40,7 @@
     }
     @media (hover: hover) {
       &:hover {
-        color: color-mix(in lab, currentcolor 60%, transparent);
+        color: var(--text-2);
       }
     }
   }

@@ -1,0 +1,51 @@
+---
+title: Accessibility
+description: What Constella checks for accessibility, how, and what it leaves to you.
+sidebar:
+  order: 8
+---
+
+Constella's components start from native HTML: real buttons, `<details>`, `<dialog>`, form controls with labels. Each component page lists its keyboard support, roles and states under **Accessibility**. This page covers what is tested across all of them, and what isn't.
+
+Constella doesn't claim WCAG conformance. Conformance belongs to a finished page, and depends on your content, your colors and how you combine components. The checks below make sure the components themselves don't stand in your way.
+
+## Tested on every change
+
+CI runs these on all 30 examples, each alone on a page inside a Section and container, against the built stylesheet and behaviors:
+
+| Check                                | How                                                                                                                              | Themes             |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| WCAG 2.2 A and AA rules axe can test | axe-core, rule tags `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`, `wcag22aa`: names, labels, roles, contrast, target size and more | light, dark, brand |
+| Reflow (1.4.10)                      | At 320px wide, the width of 1280px at 400% zoom, the page never scrolls sideways                                                 | light              |
+| Focus visible (2.4.7)                | Every stop in the tab order shows an outline or focus ring                                                                       | light              |
+
+Each interactive component also has its own keyboard and focus tests: the arrow keys in tabs and dropdowns, Escape and focus return for modals and menus, and focus moving straight into content that has just opened. Its page describes the behavior.
+
+## Contrast
+
+Every text role keeps at least 4.5:1 against the backgrounds its theme uses:
+
+- `--text` on every background.
+- `--text-2`, the secondary text color for unselected tabs, navigation links, list markers and placeholder-style text. It is `--text` at 70% opacity, which measures at least 4.85:1 in all three themes.
+- Accent words. On light backgrounds they're dark text on a yellow highlight, because yellow text on a light background can't reach 4.5:1.
+
+If you change a theme's colors, the axe checks in `tests/a11y/` measure them again. Run `bun run test:a11y`.
+
+## Motion
+
+- With reduced motion requested, transitions and animations finish instantly.
+- Content that moves on its own pauses for reduced motion, and has a pause button. That covers [Tabs](/components/tabs/) with auto-rotation and the [Marquee](/components/marquee/).
+- A visitor who presses play gets the motion they asked for. See `data-motion="chosen"` on [Tokens](/foundations/tokens/).
+
+## Not tested yet
+
+- **Screen readers.** No component has been tried with VoiceOver, NVDA, JAWS or TalkBack. Their roles and names follow the ARIA patterns, and axe checks them, but how each one is announced hasn't been heard.
+- **Other browsers.** The checks run in Chromium.
+- **Windows High Contrast and forced colors.** Not checked.
+- **Text spacing (1.4.12)** and **200% text-only zoom** aren't tested separately. Reflow at 320px covers most layout problems.
+- **Your content.** Heading order, link text, alt text and color contrast in your own theme are up to you.
+
+## Related
+
+- [Themes](/foundations/themes/): changing colors safely.
+- [Typography](/foundations/typography/): accent words.

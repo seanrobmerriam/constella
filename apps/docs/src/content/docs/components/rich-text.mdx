@@ -52,6 +52,7 @@ Links have the global hover and focus styles. The block has no states of its own
 
 - The heading levels in the content become part of the page outline. Make sure they continue from the heading above the block, without skipping levels.
 - Use real lists, quotes and headings in the source, not bold paragraphs, so screen readers can navigate them.
+- List numbers and bullets use the secondary text color, `--text-2`, which keeps at least 4.5:1 contrast in every theme.
 
 **Untrusted HTML.** The Astro component outputs its content as HTML. In React, CMS content needs `dangerouslySetInnerHTML`. In both cases, sanitize HTML that users or third parties can edit before rendering it. Neither RichText nor Constella does this for you.
 

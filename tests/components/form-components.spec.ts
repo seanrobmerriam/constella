@@ -192,7 +192,10 @@ test("labels name their controls, and required fields are marked", async ({
   );
 });
 
-test("textarea grows with its content up to its maximum", async ({ page }) => {
+test("textarea grows with its content up to its maximum, where field-sizing is supported", async ({
+  page,
+  browserName,
+}) => {
   await load(page, example("textarea"));
   const field = page.locator("textarea");
   const start = (await field.boundingBox())!.height;
@@ -200,9 +203,28 @@ test("textarea grows with its content up to its maximum", async ({ page }) => {
   const grown = (await field.boundingBox())!.height;
   await field.fill("line\n".repeat(40));
   const capped = (await field.boundingBox())!.height;
-  expect(grown).toBeGreaterThan(start);
-  expect(capped).toBeGreaterThan(grown);
-  expect(capped).toBeLessThan(start * 4);
+  // Firefox (159 in CI) accepts field-sizing: content but doesn't size a
+  // textarea to its content, so it gets the documented fallback. If this
+  // starts failing in Firefox, it grows now: update the browser support page.
+  const supported =
+    browserName !== "firefox" &&
+    (await page.evaluate(() => CSS.supports("field-sizing", "content")));
+  // Reported with any failure, so a browser that differs shows why.
+  const computed = await field.evaluate((el) => {
+    const s = getComputedStyle(el);
+    return `field-sizing=${s.getPropertyValue("field-sizing")} height=${s.height} min=${s.minHeight} max=${s.maxHeight} scroll=${el.scrollHeight} client=${el.clientHeight}`;
+  });
+  if (supported) {
+    expect(grown, computed).toBeGreaterThan(start);
+    expect(capped).toBeGreaterThan(grown);
+    expect(capped).toBeLessThan(start * 4);
+  } else {
+    // Browser support page: "Textareas keep their starting height."
+    expect(capped).toBe(start);
+    expect(
+      await field.evaluate((el) => el.scrollHeight > el.clientHeight),
+    ).toBe(true);
+  }
 });
 
 test("select fades its prompt until a choice is made", async ({ page }) => {

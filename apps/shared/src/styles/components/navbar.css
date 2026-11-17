@@ -14,8 +14,8 @@
  * Tokens:    --background, --border, --border-width, --hover-duration,
  *            --hover-ease, --max-width-main, --nav-height, --open-duration,
  *            --open-ease, --primary-medium, --radius-small, --site-margin,
- *            --space-2, --space-3, --space-4, --space-6, --text, --text-main,
- *            --text-small
+ *            --space-2, --space-3, --space-4, --space-6, --text, --text-2,
+ *            --text-main, --text-small
  * Docs:      /components/navbar/
  */
 @layer components {
@@ -159,7 +159,7 @@
   .nav_link {
     display: block;
     padding-block: var(--space-3);
-    color: color-mix(in lab, currentcolor 60%, transparent);
+    color: var(--text-2);
     text-decoration: none;
     text-underline-offset: 0.4em;
     text-decoration-thickness: var(--border-width);
