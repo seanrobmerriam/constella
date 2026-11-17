@@ -194,6 +194,7 @@ test("labels name their controls, and required fields are marked", async ({
 
 test("textarea grows with its content up to its maximum, where field-sizing is supported", async ({
   page,
+  browserName,
 }) => {
   await load(page, example("textarea"));
   const field = page.locator("textarea");
@@ -202,9 +203,12 @@ test("textarea grows with its content up to its maximum, where field-sizing is s
   const grown = (await field.boundingBox())!.height;
   await field.fill("line\n".repeat(40));
   const capped = (await field.boundingBox())!.height;
-  const supported = await page.evaluate(() =>
-    CSS.supports("field-sizing", "content"),
-  );
+  // Firefox (159 in CI) accepts field-sizing: content but doesn't size a
+  // textarea to its content, so it gets the documented fallback. If this
+  // starts failing in Firefox, it grows now: update the browser support page.
+  const supported =
+    browserName !== "firefox" &&
+    (await page.evaluate(() => CSS.supports("field-sizing", "content")));
   // Reported with any failure, so a browser that differs shows why.
   const computed = await field.evaluate((el) => {
     const s = getComputedStyle(el);

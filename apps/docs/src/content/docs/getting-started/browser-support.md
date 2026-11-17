@@ -42,8 +42,10 @@ These features are newer than the minimums. Browsers without them still work, wi
 | `interpolate-size` with `::details-content` | Details and accordions open and close without animating their height | 131    | none    | none   |
 | `@starting-style`, `allow-discrete`         | Dropdowns and modals appear without fading in                        | 117    | 129     | 17.5   |
 | `text-box-trim`                             | Text keeps the space above capitals and below the baseline           | 133    | 154     | 18.2   |
-| `field-sizing: content`                     | Textareas keep their starting height instead of growing as you type  | 123    | 152     | 26.2   |
+| `field-sizing: content`                     | Textareas keep their starting height instead of growing as you type  | 123    | none¹   | 26.2   |
 | `scrollend` event                           | The Slider ends a mouse drag after a short delay instead             | 114    | 109     | 26.2   |
+
+¹ Firefox accepts `field-sizing: content`, but Firefox 159, the version CI tests, doesn't size a textarea to its content. Textareas there keep their starting height and scroll.
 
 ## JavaScript
 
