@@ -56,7 +56,7 @@ In Astro, `Details` renders the root and body. Its `summary` slot takes a `Summa
 - **Hover** (pointer devices only): the bottom border darkens to the text color.
 - **Focus**: the global `:focus-visible` outline on the summary.
 
-The open and close height animation uses `interpolate-size` and `::details-content`. Browsers without them open and close instantly. Visitors who ask for reduced motion get no animation either way.
+Links and buttons in the body can take focus as soon as it opens, while the height is still animating. The open and close height animation uses `interpolate-size` and `::details-content`. Browsers without them open and close instantly. Visitors who ask for reduced motion get no animation either way.
 
 ## Accessibility
 

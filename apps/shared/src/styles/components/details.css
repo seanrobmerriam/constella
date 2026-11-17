@@ -64,6 +64,15 @@
         block-size var(--open-duration) var(--open-ease),
         content-visibility var(--open-duration) var(--open-ease) allow-discrete;
     }
+
+    /* Visible at once on opening, so its links can take focus straight away
+       (a delayed flip left them unfocusable at the start of the animation).
+       Closing, above, still waits for the height to collapse. */
+    .details_wrap:is([open], .stacki-opened)::details-content {
+      transition:
+        block-size var(--open-duration) var(--open-ease),
+        content-visibility 0s allow-discrete;
+    }
   }
 
   .details_wrap:is([open], .stacki-opened)::details-content,
