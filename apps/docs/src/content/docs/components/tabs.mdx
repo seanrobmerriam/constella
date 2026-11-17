@@ -1,0 +1,117 @@
+---
+title: Tabs
+description: Panels that share one space, chosen from a row or column of tabs, with optional auto-rotation.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A set of panels that take turns in one place, chosen from a row of tabs, or a column with the `side` variant. With `auto`, they advance on their own, with previous, next and pause controls. Use tabs for parallel, comparable content. If people need to read everything in order, use headings, or an [Accordion](/components/accordion/) on long pages.
+
+## Example
+
+<ComponentExample id="tabs" />
+
+## Markup
+
+```html
+<div class="tabs_wrap" id="process">
+  <div class="tabs_bar">
+    <div class="tabs_links" role="tablist" aria-orientation="horizontal">
+      <button class="tabs_link" type="button">
+        <span class="tabs_link_text text-style-trim">Strategy</span>
+      </button>
+      …
+    </div>
+  </div>
+  <div class="tabs_panels">
+    <div>…</div>
+    …
+  </div>
+</div>
+```
+
+- One `button.tabs_link` per panel, in the same order. The behavior pairs them by position and adds `role="tab"`, `role="tabpanel"`, the IDs and `aria-controls` / `aria-labelledby`, so you don't write those.
+- Give the root an `id`. The selected tab is stored in the URL under that name. Without an id, every tab set uses `tab` and they overwrite each other's links.
+- Add the `<noscript>` style from the example, so visitors without JavaScript see every panel and no dead tab bar. The Astro component includes it.
+
+For `auto`, add `.auto` to the root and the controls after the panels:
+
+```html
+<div class="tabs_controls">
+  <div class="tabs_steps">
+    <button
+      class="button_wrap secondary arrow back"
+      aria-label="Previous tab"
+      data-step="-1"
+    >
+      …
+    </button>
+    <button
+      class="button_wrap secondary arrow"
+      aria-label="Next tab"
+      data-step="1"
+    >
+      …
+    </button>
+  </div>
+  <button
+    class="button_wrap secondary play"
+    aria-label="Pause automatic rotation"
+    aria-pressed="true"
+    data-toggle
+  >
+    …
+  </button>
+</div>
+```
+
+## Variants and props
+
+| Astro prop | HTML equivalent                    | Values               | Default      | Effect                                                                                                      |
+| ---------- | ---------------------------------- | -------------------- | ------------ | ----------------------------------------------------------------------------------------------------------- |
+| `variant`  | `side` class                       | `horizontal`, `side` | `horizontal` | A row of underlined tabs that scrolls when it overflows, or a column of pills beside the panels from 48rem. |
+| `playback` | `auto` class, plus `tabs_controls` | `manual`, `auto`     | `manual`     | `auto` advances every 6 seconds and adds previous, next and pause.                                          |
+| `preview`  | `preview` class                    | `true`, `false`      | `false`      | Shows every panel in the Astro design tool. No effect on a live site.                                       |
+| `render`   | none                               | `true`, `false`      | `true`       | `false` omits the component.                                                                                |
+
+**Slots:** `links` takes the `TabLink`s. The default slot takes the panels, one element each. `TabLink` renders a `button.tabs_link` around its content.
+
+## States
+
+- **Selected** (`.is-active`, `aria-selected="true"`): underlined tab, or a filled pill in `side`. Its panel shows.
+- **Ready** (`.is-ready`): set once the behavior runs. Before that, the first panel shows.
+- **Auto, running** (`.running`): a line fills under the selected tab over the 6-second interval. In `auto`, panels slide in the direction of travel.
+- **Paused** (`.is-paused`): the progress line stops. The pause button has `aria-pressed="false"` and the label "Start automatic rotation" only when the visitor chose to pause.
+
+## Accessibility
+
+- It follows the ARIA tabs pattern. Only the selected tab is in the tab order, so Tab moves from the tab list into the panel. ArrowLeft/ArrowRight, and ArrowUp/ArrowDown in `side`, move between tabs and wrap around. Home and End jump to the first and last.
+- Each panel is focusable and labelled by its tab.
+- **Auto-rotation** pauses while anything in the tabs has focus, while they're offscreen, and when the visitor asks for reduced motion. Those pauses lift on their own. Pressing the pause button, or opening the page on a specific tab, pauses it until the button is pressed again, and the button always shows that choice. This is the control WCAG 2.2.2 requires for content that moves on its own. Reduced motion always wins.
+
+## Behavior
+
+`behaviors/tabs.js` does all of the above:
+
+```html
+<script type="module">
+  import { initTabs } from "./behaviors/tabs.js";
+  document.querySelectorAll(".tabs_wrap").forEach((root) => initTabs(root));
+</script>
+```
+
+- Each tab's slug comes from its text, so "Strategy" is `strategy`. A link to `?process=design` opens on the Design tab and scrolls the tabs into view.
+- Selecting a tab updates the URL with `replaceState`, without adding history entries.
+- `initTabs(root)` returns a cleanup function that clears its timers, listeners and observer.
+
+**Without the script**, the `<noscript>` style shows every panel stacked, with no tab bar.
+
+## Tokens
+
+<ComponentTokens id="tabs" />
+
+## Related
+
+- [Accordion](/components/accordion/): content that can be read in sequence.
+- [Button](/components/button/): the arrow and play buttons used by `auto`.

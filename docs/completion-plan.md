@@ -178,7 +178,7 @@ Progress:
 - [x] 3.6 Global: Skip is documented, and `tests/components/skip.spec.ts` tests it: hidden until focused, then focus moves to `main`. Navbar and Footer were already documented.
 - [x] 3.7 Disclosure: Dropdown is documented. Its script moved to `behaviors/dropdown.ts`. Two fixes: Escape now only acts on the dropdown that has focus (before, it closed every open dropdown and took focus from wherever it was), and the panel's links can take focus as soon as it opens (before, they couldn't for the whole fade-in). `tests/components/dropdown.spec.ts` has 7 tests. Details has a shorter version of the same focus delay, under 100 ms, still to fix.
 - [x] 3.8 Overlay: Modal is documented. Its script moved to `behaviors/modal.ts`, which now explicitly returns focus to the opener in browsers that don't do it themselves. `tests/components/modal.spec.ts` has 10 tests. One correction from testing: Tab can reach the browser's own toolbar from a modal dialog, which is standard behavior, but never the page behind, and the docs now say that.
-- [ ] 3.9 Tabs
+- [x] 3.9 Tabs: Tabs and TabLink are documented. Their script moved to `behaviors/tabs.ts`, which adds Home and End and a full cleanup. Fixed: the auto-rotation pause button couldn't hold a pause, because focus inside already paused rotation, the click flipped it back on, and leaving resumed it. The `<noscript>` block in `Tabs.astro` stays where it is: it's the no-script fallback, not component CSS, and the docs show it as copyable markup. `tests/components/tabs.spec.ts` has 10 tests.
 - [ ] 3.10 Motion
 - [ ] 3.11 Astro integration page
 

@@ -7,11 +7,11 @@
  *            .tabs_steps
  * Variants:  .side, .auto
  * State:     .is-ready, .is-active, .is-leaving, .is-paused, .running and
- *            [data-moved] are set by the tabs script
+ *            [data-moved] are set by behaviors/tabs.ts
  * Tokens:    --background, --border, --border-width, --hover-duration,
  *            --hover-ease, --open-duration, --open-ease, --radius-round,
  *            --space-2, --space-3, --space-4, --space-5, --space-6, --text
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/tabs/
  * Also styles Astro designer-preview hooks (.preview, .stacki-*), which plain
  * HTML users can ignore.
  */

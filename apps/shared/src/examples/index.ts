@@ -53,6 +53,8 @@ import dropdownHtml from "./dropdown/example.html?raw";
 import dropdownTsx from "./dropdown/Example.tsx?raw";
 import modalHtml from "./modal/example.html?raw";
 import modalTsx from "./modal/Example.tsx?raw";
+import tabsHtml from "./tabs/example.html?raw";
+import tabsTsx from "./tabs/Example.tsx?raw";
 
 /**
  * The closed registry. Only these entries can be previewed; the preview route
@@ -301,6 +303,16 @@ export const examples: readonly ExampleDefinition[] = [
     tsx: modalTsx,
     behaviorEntry: "modal",
     previewHeight: 28,
+  },
+  {
+    id: "tabs",
+    title: "Tabs",
+    description:
+      "Three tabs, chosen by click or arrow keys. Needs the tabs behavior; without it every panel shows.",
+    html: tabsHtml,
+    tsx: tabsTsx,
+    behaviorEntry: "tabs",
+    previewHeight: 16,
   },
 ];
 
