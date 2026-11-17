@@ -180,14 +180,16 @@ Progress:
 - [x] 3.8 Overlay: Modal is documented. Its script moved to `behaviors/modal.ts`, which now explicitly returns focus to the opener in browsers that don't do it themselves. `tests/components/modal.spec.ts` has 10 tests. One correction from testing: Tab can reach the browser's own toolbar from a modal dialog, which is standard behavior, but never the page behind, and the docs now say that.
 - [x] 3.9 Tabs: Tabs and TabLink are documented. Their script moved to `behaviors/tabs.ts`, which adds Home and End and a full cleanup. Fixed: the auto-rotation pause button couldn't hold a pause, because focus inside already paused rotation, the click flipped it back on, and leaving resumed it. The `<noscript>` block in `Tabs.astro` stays where it is: it's the no-script fallback, not component CSS, and the docs show it as copyable markup. `tests/components/tabs.spec.ts` has 10 tests.
 - [x] 3.10 Motion: Slider and Marquee are documented. Their scripts moved to `behaviors/slider.ts` and `behaviors/marquee.ts`, with init and cleanup. `tests/components/slider.spec.ts` (9 tests) and `marquee.spec.ts` (10 tests) cover keyboard, reduced motion, several instances, cleanup and the no-script fallback. Fixes: after a mouse drag, the Slider swallowed the next click in it, including Enter on a link; the Marquee now holds still without its script, since it would otherwise move with no pause control; text-only marquees lost their descenders, because the text styles trim to cap height and the strip clips; and pressing play under reduced motion did nothing, because the `base.css` reset's `!important` beats any later layer. The reset now exempts `data-motion="chosen"`, which the Marquee sets when the visitor presses the toggle. The behaviors build also pins Bun's `root`: with more than eight entry points it wrote the files to `dist/behaviors/src/behaviors/`. Slider has no auto-advance, so it needs no pause control.
-- [ ] 3.11 Astro integration page
+- [x] 3.11 Astro integration page: `integrations/astro.mdx` covers setup, BaseLayout, a layout of your own (CustomLayoutExample), BaseHead, FormattedDate and the behavior binding pattern, as recipes with no HTML tab. The astro-only manifest entries point to it, and `check:docs` fails if the page stops using one of them or stops covering a file in `src/layouts/`. The Installation page listed only three of the ten behaviors; it now lists them all.
 
 For each batch:
 
-- [ ] Leftover `<style>` blocks in the Astro files are moved into shared CSS. `Navbar.astro`, `Tabs.astro` and `BaseHead.astro` still have one each; check whether each is truly site-specific or should be shared.
-- [ ] Example HTML and TSX are added to the registry, `check:examples` compiles them, and previews render.
-- [ ] Manifest status goes to `documented`, and `check:docs` passes.
-- [ ] Interactive batches: keyboard and focus tests, multiple-instance tests, a cleanup test, and the no-script fallback.
+- [x] Leftover `<style>` blocks in the Astro files are moved into shared CSS. The three that remain belong where they are: `Navbar.astro` and `Tabs.astro` each hold a `<noscript>` fallback, which their docs pages show as copyable markup, and `BaseHead.astro` declares the cascade layer order before any stylesheet loads.
+- [x] Example HTML and TSX are added to the registry, `check:examples` compiles them, and previews render.
+- [x] Manifest status goes to `documented`, and `check:docs` passes.
+- [x] Interactive batches: keyboard and focus tests, multiple-instance tests, a cleanup test, and the no-script fallback. Accordion and Navbar, documented before this checklist existed, had no cleanup test, and Tabs and Modal had no multiple-instance test; `tests/components/behavior-lifecycle.spec.ts` adds the four.
+
+Phase 3 is done: the manifest has 30 documented components and 2 astro-only utilities, and no `planned` entries. Phase 4 is next.
 
 **Done when:** the manifest has no `planned` entries.
 

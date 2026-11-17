@@ -1,0 +1,233 @@
+---
+title: Astro
+description: Set up an Astro site with Constella, and use its layouts, BaseHead and FormattedDate.
+---
+
+The reference site in `apps/constella` is an Astro project. Every component on the [Components](/components/button/) pages has an Astro version there. This page covers the parts that only exist in Astro: the site setup, the two layouts, `BaseHead` and `FormattedDate`. They have no HTML tab because they produce the document around your markup, not markup you would copy.
+
+## Setup
+
+**1. Depend on the shared package.** In a workspace, the site's `package.json` has:
+
+```json
+{
+  "dependencies": {
+    "@constella/shared": "workspace:*"
+  }
+}
+```
+
+**2. Import the stylesheet once.** The site does it in `src/styles/global.css`, which each layout imports:
+
+```css
+/* src/styles/global.css */
+@import "@constella/shared/styles/index.css";
+```
+
+**3. Configure `site` and the font** in `astro.config.mjs`. `BaseHead` needs both: `site` to build canonical and social image URLs, and a font with the CSS variable `--font-inter`.
+
+```js
+// astro.config.mjs
+import { defineConfig, fontProviders } from "astro/config";
+import sitemap from "@astrojs/sitemap";
+import { SITE_URL } from "./src/consts.ts";
+import { isNoindexRoute } from "./src/utils/seo.ts";
+
+export default defineConfig({
+  site: SITE_URL,
+  integrations: [
+    sitemap({ filter: (page) => !isNoindexRoute(new URL(page).pathname) }),
+  ],
+  fonts: [
+    {
+      name: "Inter",
+      cssVariable: "--font-inter",
+      provider: fontProviders.local(),
+      options: {
+        variants: [
+          {
+            weight: 400,
+            style: "normal",
+            src: ["./src/assets/fonts/inter-regular.woff2"],
+          },
+        ],
+      },
+    },
+  ],
+  vite: { build: { cssTarget: "safari15.4" } },
+});
+```
+
+Without `site`, `BaseHead` fails the build, because it can't resolve a relative URL. If you use a different font, keep the `--font-inter` variable name or change `--primary-family` in your own styles.
+
+**4. Set the site constants** in `src/consts.ts`:
+
+| Constant           | Used for                                                                          |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `SITE_NAME`        | Appended to every page title, and `og:site_name`.                                 |
+| `SITE_DESCRIPTION` | The description for pages that don't set one.                                     |
+| `SITE_URL`         | `site` in the config. Reads `PUBLIC_SITE_URL`, falling back to localhost.         |
+| `SITE_LOCALE`      | The default locale for `FormattedDate`.                                           |
+| `NOINDEX_ROUTES`   | Routes that get `noindex, nofollow` and are left out of the sitemap, e.g. `/404`. |
+
+## BaseLayout
+
+`src/layouts/BaseLayout.astro` is the document shell every page in the reference site uses. It renders `<html>`, `<head>` with `BaseHead`, a [Skip](/components/skip/) link, and a `<main id="main">` that the skip link moves focus to.
+
+```astro
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Navbar from "@/components/global/Navbar.astro";
+import Footer from "@/components/global/Footer.astro";
+import Section from "@/components/wrapper/Section.astro";
+---
+
+<Layout title="About" description="Who we are and how we work.">
+  <Navbar slot="header" />
+  <Section>…</Section>
+  <Footer slot="footer" />
+</Layout>
+```
+
+| Prop          | Values                              | Default               | Effect                                                                                   |
+| ------------- | ----------------------------------- | --------------------- | ---------------------------------------------------------------------------------------- |
+| `title`       | text                                | none                  | Page title. The site name is appended: "About \| Constella Framework".                   |
+| `description` | text                                | `SITE_DESCRIPTION`    | Meta and social description.                                                             |
+| `image`       | path                                | `/og-image.jpg`       | Social image, resolved against `site`.                                                   |
+| `type`        | `website`, `article`                | `website`             | `og:type`.                                                                               |
+| `noindex`     | `true`, `false`                     | from `NOINDEX_ROUTES` | Adds or removes the robots `noindex` tag for this page.                                  |
+| `theme`       | `inherit`, `light`, `dark`, `brand` | `inherit`             | Anything but `inherit` locks the page to that theme. See [Themes](/foundations/themes/). |
+
+| Slot      | Where it renders                                                                 |
+| --------- | -------------------------------------------------------------------------------- |
+| `head`    | Inside `<head>`, after `BaseHead`. For page-specific tags.                       |
+| `header`  | After the skip link, before `<main>`. Usually the [Navbar](/components/navbar/). |
+| (default) | Inside `<main>`.                                                                 |
+| `footer`  | After `<main>`. Usually the [Footer](/components/footer/).                       |
+
+With no `header` or `footer`, the page is just the skip link and `<main>`.
+
+## A layout of your own
+
+`src/layouts/CustomLayoutExample.astro` shows the minimum a layout needs if you write your own instead of using `BaseLayout`:
+
+```astro
+---
+import "@/styles/global.css";
+import BaseHead from "@/components/utility/BaseHead.astro";
+import Skip from "@/components/global/Skip.astro";
+import type { SeoProps } from "@/types.ts";
+
+type Props = SeoProps & { theme?: "inherit" | "light" | "dark" | "brand" };
+const { theme = "inherit", ...seo } = Astro.props;
+---
+
+<!doctype html>
+<html
+  lang="en"
+  class:list={[theme !== "inherit" && `theme-${theme}`]}
+  data-theme-locked={theme !== "inherit" ? "" : undefined}
+>
+  <head>
+    <BaseHead {...seo} theme={theme} />
+  </head>
+  <body>
+    <Skip />
+    <slot name="header" />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>
+```
+
+Keep these parts:
+
+- **The stylesheet import**, once per page.
+- **`BaseHead` first in `<head>`.** It declares the cascade layer order before any other CSS loads.
+- **The theme on `<html>`.** `BaseHead`'s `theme` only decides whether the theme script runs. A locked theme also needs its class and `data-theme-locked` on `<html>`, as above.
+- **`Skip` and `<main id="main" tabindex="-1">`**, so keyboard users can jump past the header.
+
+## BaseHead
+
+`src/components/utility/BaseHead.astro` renders everything a page's `<head>` needs. Use it once, at the top of `<head>`:
+
+```astro
+<head>
+  <BaseHead title="About" description="Who we are." theme="inherit" />
+</head>
+```
+
+It takes the same `title`, `description`, `image`, `type`, `noindex` and `theme` props as `BaseLayout`, and outputs, in order:
+
+1. `<meta charset>` and the `@layer base, patterns, components, utilities;` order, so third-party CSS loaded later can't jump ahead of Constella's layers.
+2. The viewport meta tag.
+3. An inline theme script, which applies the visitor's saved or system theme before the first paint. It does nothing when `theme` is locked.
+4. The `--font-inter` font, preloaded.
+5. `<title>`, the meta description, the canonical link and, for noindex pages, the robots tag.
+6. Open Graph and Twitter card tags, with absolute URLs.
+7. The SVG favicon from `public/favicon.svg`, and the generator tag.
+
+## FormattedDate
+
+`src/components/utility/FormattedDate.astro` renders a date as a `<time>` element with a machine-readable `datetime`:
+
+```astro
+---
+import FormattedDate from "@/components/utility/FormattedDate.astro";
+const published = new Date("2026-03-04T09:00:00Z");
+---
+
+<p class="text text-style-small">
+  Published <FormattedDate date={published} />
+</p>
+<!-- Published <time datetime="2026-03-04T09:00:00.000Z">March 4, 2026</time> -->
+```
+
+| Prop       | Values                             | Default                 | Effect                           |
+| ---------- | ---------------------------------- | ----------------------- | -------------------------------- |
+| `date`     | `Date`                             | required                | The date to show.                |
+| `locale`   | BCP 47 tag, e.g. `de-DE`           | `SITE_LOCALE`           | Language and order of the parts. |
+| `timeZone` | IANA zone, e.g. `America/New_York` | `UTC`                   | The zone the date is shown in.   |
+| `format`   | `Intl.DateTimeFormatOptions`       | `{ dateStyle: "long" }` | Which parts to show and how.     |
+| `render`   | `true`, `false`                    | `true`                  | `false` omits the component.     |
+
+The default time zone is UTC, so a build server in another zone shows the same date. An invalid date renders nothing, with a warning in development.
+
+```astro
+<FormattedDate
+  date={published}
+  locale="de-DE"
+  timeZone="Europe/Berlin"
+  format={{ day: "numeric", month: "short", year: "numeric" }}
+/>
+<!-- <time datetime="2026-03-04T09:00:00.000Z">4. März 2026</time> -->
+```
+
+## Behaviors in Astro
+
+Components with a behavior, such as [Tabs](/components/tabs/) or [Modal](/components/modal/), already run it: each one's `<script>` imports the shared module and calls it for every instance on the page. The pattern, if you write a component of your own:
+
+```astro
+<script>
+  import { initTabs } from "@constella/shared/behaviors/tabs.ts";
+
+  const cleanups = new WeakMap<HTMLElement, () => void>();
+  const bind = () => {
+    for (const root of document.querySelectorAll<HTMLElement>(".tabs_wrap")) {
+      if (!cleanups.has(root)) cleanups.set(root, initTabs(root));
+    }
+  };
+  bind();
+  document.addEventListener("astro:page-load", bind);
+</script>
+```
+
+Astro bundles the script once per page, however many instances there are. The `WeakMap` stops an element from being set up twice, and `astro:page-load` binds new elements after a client-side navigation when view transitions are on.
+
+## Related
+
+- [Installation](/getting-started/installation/): plain HTML and React.
+- [Themes](/foundations/themes/): what a locked theme does.
+- [How the stylesheets work](/foundations/styles-architecture/): the cascade layers `BaseHead` declares.

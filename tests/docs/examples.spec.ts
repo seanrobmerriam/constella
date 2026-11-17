@@ -170,3 +170,26 @@ test("component pages have no horizontal overflow at mobile width", async ({
     expect(overflow, example.docs).toBeLessThanOrEqual(0);
   }
 });
+
+test("the Astro integration page has recipes and no example tabs", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto("/integrations/astro/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Astro");
+  for (const name of ["Setup", "BaseLayout", "BaseHead", "FormattedDate"])
+    await expect(
+      page.getByRole("heading", { level: 2, name, exact: true }),
+    ).toBeVisible();
+  // Integration utilities have no HTML equivalent, so no preview or tabs.
+  await expect(page.locator("[data-example]")).toHaveCount(0);
+  await expect(page.locator("pre").first()).toBeVisible();
+  // Listed in the sidebar (collapsed into the menu at this width).
+  await expect(page.locator('nav a[aria-current="page"]')).toHaveText("Astro");
+  const overflow = await page.evaluate(
+    () =>
+      document.documentElement.scrollWidth -
+      document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(0);
+});

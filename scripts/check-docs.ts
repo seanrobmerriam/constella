@@ -9,6 +9,7 @@
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
 import {
+  ASTRO_INTEGRATION_DOCS,
   components,
   requiredDocsSections,
 } from "../apps/shared/src/manifest.ts";
@@ -16,6 +17,7 @@ import {
 const root = join(import.meta.dir, "..");
 const p = (...parts: string[]) => join(root, ...parts);
 const COMPONENTS = p("apps/constella/src/components");
+const LAYOUTS = p("apps/constella/src/layouts");
 const STYLES = p("apps/shared/src/styles");
 const BEHAVIORS = p("apps/shared/src/behaviors");
 const EXAMPLES = p("apps/shared/src/examples");
@@ -199,6 +201,30 @@ for (const c of components) {
   if (at < requiredDocsSections.length)
     fail(
       `${c.docs}.mdx: section "## ${requiredDocsSections[at]}" is missing or out of order. Required order: ${requiredDocsSections.join(" → ")}`,
+    );
+}
+
+// Astro-only utilities and the site layouts have no HTML preview. They are
+// documented as recipes on one page, which must name each of them.
+const integrationFile = join(DOCS, `${ASTRO_INTEGRATION_DOCS}.mdx`);
+const integration = existsSync(integrationFile)
+  ? readFileSync(integrationFile, "utf8")
+  : "";
+if (!integration) fail(`${ASTRO_INTEGRATION_DOCS}.mdx does not exist`);
+for (const c of components) {
+  if (c.status !== "astro-only") continue;
+  if (c.docs !== ASTRO_INTEGRATION_DOCS)
+    fail(
+      `${c.id}: astro-only entries are documented on ${ASTRO_INTEGRATION_DOCS}`,
+    );
+  else if (integration && !integration.includes(`<${c.name}`))
+    fail(`${ASTRO_INTEGRATION_DOCS}.mdx has no recipe using <${c.name}>`);
+}
+for (const file of walk(LAYOUTS, ".astro")) {
+  const name = relative(LAYOUTS, file).replace(/\.astro$/, "");
+  if (integration && !integration.includes(`layouts/${name}.astro`))
+    fail(
+      `apps/constella/src/layouts/${name}.astro is not covered on ${ASTRO_INTEGRATION_DOCS}.mdx`,
     );
 }
 

@@ -33,6 +33,10 @@ export default defineConfig({
           label: "Components",
           items: [{ autogenerate: { directory: "components" } }],
         },
+        {
+          label: "Integrations",
+          items: [{ autogenerate: { directory: "integrations" } }],
+        },
       ],
     }),
   ],
