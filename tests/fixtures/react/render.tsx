@@ -30,6 +30,7 @@ import { DropdownExample } from "../../../apps/shared/src/examples/dropdown/Exam
 import { ModalExample } from "../../../apps/shared/src/examples/modal/Example";
 import { TabsExample } from "../../../apps/shared/src/examples/tabs/Example";
 import { AlertExample } from "../../../apps/shared/src/examples/alert/Example";
+import { BadgeExample } from "../../../apps/shared/src/examples/badge/Example";
 import { FieldMessageExample } from "../../../apps/shared/src/examples/field-message/Example";
 import { SliderExample } from "../../../apps/shared/src/examples/slider/Example";
 import { MarqueeExample } from "../../../apps/shared/src/examples/marquee/Example";
@@ -65,6 +66,7 @@ const rendered = {
   tabs: renderToString(<TabsExample />),
   fieldMessage: renderToString(<FieldMessageExample />),
   alert: renderToString(<AlertExample />),
+  badge: renderToString(<BadgeExample />),
   slider: renderToString(<SliderExample />),
   marquee: renderToString(<MarqueeExample />),
 };

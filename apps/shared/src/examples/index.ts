@@ -55,6 +55,8 @@ import modalHtml from "./modal/example.html?raw";
 import modalTsx from "./modal/Example.tsx?raw";
 import alertHtml from "./alert/example.html?raw";
 import alertTsx from "./alert/Example.tsx?raw";
+import badgeHtml from "./badge/example.html?raw";
+import badgeTsx from "./badge/Example.tsx?raw";
 import fieldMessageHtml from "./field-message/example.html?raw";
 import fieldMessageTsx from "./field-message/Example.tsx?raw";
 import tabsHtml from "./tabs/example.html?raw";
@@ -321,6 +323,15 @@ export const examples: readonly ExampleDefinition[] = [
     tsx: alertTsx,
     behaviorEntry: "alert",
     previewHeight: 30,
+  },
+  {
+    id: "badge",
+    title: "Badge",
+    description:
+      "Neutral, brand and status badges, a count next to a heading, and a count in a button. No script.",
+    html: badgeHtml,
+    tsx: badgeTsx,
+    previewHeight: 16,
   },
   {
     id: "field-message",

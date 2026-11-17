@@ -258,6 +258,8 @@
   --button-background: var(--brand-500);
   --button-border: var(--button-background);
   --button-text: var(--brand-text);
+  --badge-brand: var(--brand-500);
+  --badge-brand-text: var(--brand-text);
   --button-background-hover: var(--text);
   --button-border-hover: var(--button-background-hover);
   --button-text-hover: var(--background);
@@ -301,6 +303,8 @@
   --button-background: var(--brand-500);
   --button-border: var(--button-background);
   --button-text: var(--brand-text);
+  --badge-brand: var(--brand-500);
+  --badge-brand-text: var(--brand-text);
   --button-background-hover: var(--text);
   --button-border-hover: var(--button-background-hover);
   --button-text-hover: var(--background);
@@ -343,6 +347,8 @@
   --button-background: var(--brand-text);
   --button-border: var(--button-background);
   --button-text: var(--background);
+  --badge-brand: var(--brand-text);
+  --badge-brand-text: var(--brand-500);
   --button-background-hover: var(--light-100);
   --button-border-hover: var(--button-background-hover);
   --button-text-hover: var(--dark-900);

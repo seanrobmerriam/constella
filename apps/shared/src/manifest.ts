@@ -189,6 +189,12 @@ export const components: readonly ComponentEntry[] = [
     styles: ["components/alert.css"],
     behaviors: ["alert"],
   }),
+  documented("badge", {
+    name: "Badge",
+    astro: ["item/Badge.astro"],
+    root: ".badge",
+    styles: ["components/badge.css"],
+  }),
   documented("field-message", {
     name: "Field help and errors",
     astro: ["form/Field.astro"],

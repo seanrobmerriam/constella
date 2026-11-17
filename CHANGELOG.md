@@ -33,6 +33,8 @@ released yet.
 
 ### Added
 
+- Badge: an inline label for a status, category or count, in neutral, brand
+  and status tones, sized relative to the surrounding text.
 - Alert: info, success, warning and error tones, an optional title and icon,
   and an optional dismiss button (`behaviors/alert.js`) that moves focus on
   instead of losing it.

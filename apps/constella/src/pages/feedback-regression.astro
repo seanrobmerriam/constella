@@ -3,6 +3,7 @@ import Layout from "@/layouts/BaseLayout.astro";
 import Section from "@/components/wrapper/Section.astro";
 import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
 import Alert from "@/components/feedback/Alert.astro";
+import Badge from "@/components/item/Badge.astro";
 ---
 
 <Layout title="Feedback regression" noindex>
@@ -23,6 +24,15 @@ import Alert from "@/components/feedback/Alert.astro";
       <a id="after" href="#">
         After
       </a>
+      <p>
+        <Badge id="badge-neutral">Draft</Badge>
+        <Badge id="badge-brand" tone="brand">
+          New
+        </Badge>
+        <Badge id="badge-error" tone="error">
+          Overdue
+        </Badge>
+      </p>
     </ContentWrapper>
   </Section>
 </Layout>

@@ -1,0 +1,60 @@
+---
+title: Badge
+description: A small inline label for a status, a category or a count.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A badge is a short label that sits inline with other content: a status ("Paid"), a category ("Beta") or a count ("12"). It's sized relative to the text around it, so it fits in a sentence, a heading, a button or a table cell. To label a heading itself, the small line above a section title, use [Heading](/components/heading/)'s `eyebrow-tag` variant instead.
+
+## Example
+
+<ComponentExample id="badge" />
+
+## Markup
+
+```html
+<span class="badge success">Paid</span>
+```
+
+- One element, inline. Put it in running text, a heading, a button or a table cell.
+- Its text is its label. A badge that's only a number needs words for screen readers: `<span class="badge">3<span class="sr-only"> unread</span></span>`.
+- It isn't interactive. For a badge that does something, put it inside a link or button, or use a [Button](/components/button/).
+
+## Variants and props
+
+| Astro prop | HTML equivalent                                      | Values                                                    | Default   | Effect                        |
+| ---------- | ---------------------------------------------------- | --------------------------------------------------------- | --------- | ----------------------------- |
+| `tone`     | `brand`, `info`, `success`, `warning`, `error` class | `neutral`, `brand`, `info`, `success`, `warning`, `error` | `neutral` | The badge's color. See below. |
+| `render`   | none                                                 | `true`, `false`                                           | `true`    | `false` omits the component.  |
+
+The default slot is the label.
+
+- **Neutral:** `--background-3` behind the text color.
+- **Brand:** `--badge-brand` behind `--badge-brand-text`. That's brand yellow on light and dark pages, and dark on yellow in the brand theme, where a yellow badge would vanish.
+- **Status tones:** a light tint of the status color behind the ordinary text color, with a dot in the full status color.
+
+## States
+
+None. A badge is static. If its text changes while the page is open, for example a count, see Accessibility.
+
+## Accessibility
+
+- **Don't rely on color.** "Paid" and "Overdue" say the status, and the dot and tint only repeat it. A badge whose meaning is only its color fails for many visitors.
+- The text keeps at least 4.5:1 contrast in every tone and theme, because it stays in the theme's text color on a light tint.
+- **Counts:** give a number its meaning in text, visibly or with `sr-only`. A count that updates while the page is open is only announced if it sits inside a live region (`role="status"`) that you add.
+
+## Behavior
+
+None.
+
+## Tokens
+
+<ComponentTokens id="badge" />
+
+## Related
+
+- [Heading](/components/heading/): the `eyebrow-tag` variant labels a heading.
+- [Alert](/components/alert/): a status message, rather than a label.
+- [Themes](/foundations/themes/): the status color tokens.

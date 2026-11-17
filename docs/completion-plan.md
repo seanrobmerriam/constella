@@ -223,7 +223,7 @@ Phase 4 is done: every environment the docs name has a fixture that builds and p
 
   - [x] 6a Field help and errors: `help` and `error` props on Input, Textarea and Select, through a shared `form/Field.astro` shell that keeps the plain `<label class="field">` when there are no messages. Messages are outside the label, linked with `aria-describedby`; errors set `aria-invalid`; `:user-invalid` adds the same border after interaction. Adds the four `--status-*` tokens. Tests: `tests/components/field-message.spec.ts`, on the example and an Astro regression page.
   - [x] 6b Alert: `feedback/Alert.astro`, `components/alert.css`, `behaviors/alert.ts` (dismiss: hides the alert, moves focus to the next focusable element or `<main>`, fires `alert-dismiss`). Four tones from the status tokens, an optional title, icon and dismiss button; the button stays hidden without the script. No role by default, with `status` and `alert` for alerts added after load, and the docs explain the choice. Tests: `tests/components/alert.spec.ts`, on the example and an Astro regression page.
-  - [ ] 6c Badge
+  - [x] 6c Badge: `item/Badge.astro`, `components/badge.css`. Neutral, `brand` (new `--badge-brand` tokens, so it shows in the brand theme and inside a secondary button) and four status tones (a tint behind the text color, plus a status-colored dot). Sized in `em` to fit headings, buttons and table cells. Tests: `tests/components/badge.spec.ts` and axe in all three themes.
   - [ ] 6d Table
 
 ---
