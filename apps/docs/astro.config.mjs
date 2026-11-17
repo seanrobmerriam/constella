@@ -37,6 +37,7 @@ export default defineConfig({
           label: "Integrations",
           items: [{ autogenerate: { directory: "integrations" } }],
         },
+        { label: "Migration", slug: "migration" },
       ],
     }),
   ],

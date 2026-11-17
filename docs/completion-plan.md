@@ -208,6 +208,13 @@ Phase 4 is done: every environment the docs name has a fixture that builds and p
 ## 8. Phase 5 — Release readiness (old Task 13) and Phase 6 — Expansion (old Task 14)
 
 - Phase 5: migration page (ButtonWrapper→InputWrapper, AccordionItem→Details/Summary, Nav→Navbar, Eyebrow→Heading variants, SkipLink→Skip, explicit layout slots), accessibility pass, browser-support statement, and all checks in CI. It is no longer a large documentation push, because Phases 2–3 already kept the docs current.
+
+  Progress:
+
+  - [x] 5a Migration and release guidance: `apps/docs/src/content/docs/migration.mdx` gives before and after markup, taken from the baseline commit and current source, for each rename and removal, plus the behavior changes. `CHANGELOG.md` starts with an Unreleased section covering everything since the baseline. `docs/releasing.md` makes `@constella/shared`'s version the framework version, sets the versioning rules and the release steps, and the pull request template and `AGENTS.md` now ask for a changelog line. Two things the migration page states plainly: the Lumos comparison (R-13) waits on R-01, and the new Accordion no longer groups items without JavaScript. Open for the owner: the home page's `v1.0.2` label doesn't match any package version.
+  - [ ] 5b Accessibility pass
+  - [ ] 5c Browser support
+
 - Phase 6: unchanged. Pick a small first increment (for example Badge + Alert), and add each new component through §2 from its first commit.
 
 ---

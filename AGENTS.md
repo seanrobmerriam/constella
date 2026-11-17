@@ -53,7 +53,9 @@ if the docs fall behind.
    in order: Example, Markup, Variants and props, States, Accessibility, Behavior,
    Tokens, Related.
 7. Tests: `tests/components/` for behavior and styling, `tests/docs/` for the page.
-8. Migration note if a public name or behavior changes (`docs/completion-plan.md` Phase 5).
+8. A line in `CHANGELOG.md` under Unreleased. If a public name or behavior changes,
+   list it under Breaking and add a section to the docs Migration page
+   (`apps/docs/src/content/docs/migration.mdx`). Versions and releases: `docs/releasing.md`.
 
 If a change can't affect the docs (formatting, a refactor with identical output), add
 `Docs-Skip: <reason>` to a commit message so `check:docs-sync` lets it through.
