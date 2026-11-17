@@ -21,12 +21,15 @@
 @import "./base.css" layer(base);
 @import "./patterns.css" layer(patterns);
 
+@import "./components/alert.css";
+@import "./components/badge.css";
 @import "./components/button.css";
 @import "./components/card.css";
 @import "./components/choice.css";
 @import "./components/content-wrapper.css";
 @import "./components/details.css";
 @import "./components/dropdown.css";
+@import "./components/field-message.css";
 @import "./components/fieldset.css";
 @import "./components/footer.css";
 @import "./components/form.css";
@@ -42,6 +45,7 @@
 @import "./components/select.css";
 @import "./components/skip.css";
 @import "./components/slider.css";
+@import "./components/table.css";
 @import "./components/tabs.css";
 @import "./components/textarea.css";
 

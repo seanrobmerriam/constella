@@ -1,0 +1,95 @@
+---
+/**
+ * The shell shared by Input, Textarea and Select. Without messages it is a
+ * <label class="field"> around the label text and the control. With help or
+ * error text it is a <div class="field"> with a <label for>, so the messages
+ * sit outside the label and don't become part of the field's name. The
+ * control (the default slot) carries the matching id, aria-describedby and
+ * aria-invalid; see fieldMessages() in utils/field.ts.
+ */
+import type {
+  ControlRadius,
+  ControlSize,
+} from "@constella/shared/contracts/controls.ts";
+
+interface Props {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Classes for the root, e.g. `form-input`. */
+  class?: string | (string | false | null | undefined)[];
+  /** Opt-in control size. Omit to keep the default. */
+  size?: ControlSize;
+  /** Opt-in corner radius. Omit to keep the default. */
+  radius?: ControlRadius;
+  /** Inline style for the root. */
+  style?: string;
+  /** Field label. */
+  label: string;
+  /** Visually hide the label. */
+  labelHidden?: boolean;
+  /** Mark the label as required. */
+  required?: boolean;
+  /** The control's id. Required when there is help or error text. */
+  controlId?: string;
+  /** Help text under the field. */
+  help?: string;
+  /** Id for the help text, listed in the control's aria-describedby. */
+  helpId?: string;
+  /** Error text under the field. */
+  error?: string;
+  /** Id for the error text, listed in the control's aria-describedby. */
+  errorId?: string;
+}
+
+const {
+  render = true,
+  class: className,
+  size,
+  radius,
+  style,
+  label,
+  labelHidden = false,
+  required = false,
+  controlId,
+  help,
+  helpId,
+  error,
+  errorId,
+} = Astro.props;
+
+const withMessages = Boolean(help || error);
+const Root = withMessages ? "div" : "label";
+const Label = withMessages ? "label" : "span";
+---
+
+{render && (
+  <Root
+    class:list={["field", className]}
+    data-size={size}
+    data-radius={radius}
+    style={style}
+  >
+    <Label
+      class:list={["field-label text-style-main", labelHidden && "sr-only"]}
+      for={withMessages ? controlId : undefined}
+    >
+      <span>{label}</span>
+      {required && (
+        <span class="field-star" aria-hidden="true">
+          *
+        </span>
+      )}
+    </Label>
+    <slot />
+    {help && (
+      <p class="field-help text-style-small" id={helpId}>
+        {help}
+      </p>
+    )}
+    {error && (
+      <p class="field-error text-style-small" id={errorId}>
+        {error}
+      </p>
+    )}
+  </Root>
+)}

@@ -1,0 +1,25 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { slotContent } from "@/utils/slots.ts";
+
+type Props = HTMLAttributes<"span"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** Color. Status tones add a dot; the text should still say the status. */
+  tone?: "neutral" | "brand" | "info" | "success" | "warning" | "error";
+};
+
+const {
+  render = true,
+  tone = "neutral",
+  class: className,
+  ...rest
+} = Astro.props;
+const content = await slotContent(Astro.slots);
+---
+
+{render && content && (
+  <span class:list={["badge", tone !== "neutral" && tone, className]} {...rest}>
+    <Fragment set:html={content} />
+  </span>
+)}

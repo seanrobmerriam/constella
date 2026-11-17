@@ -7,30 +7,30 @@ and every `@constella/fixture-*` workspace under `tests/fixtures/`, then runs
 
 ## What every fixture renders
 
-All 30 canonical examples from `apps/shared/src/examples/`, each in a
+Every canonical example from `apps/shared/src/examples/`, each in a
 `[data-example="<id>"]` wrapper, plus a theme toggle. The shared checks in
 `tests/integrations/shared.ts`:
 
-| Area       | Check                                                                         |
-| ---------- | ----------------------------------------------------------------------------- |
-| Loading    | 30 examples render; no failed request, 4xx/5xx, page error or console error   |
-| Stylesheet | Button styles apply                                                           |
-| Layout     | Grid lays out more than one column                                            |
-| Forms      | Form sends with `fetch` and reaches `data-state="sent"`; range output updates |
-| Disclosure | Accordion keeps one item open                                                 |
-| Navbar     | Menu toggles at 400px wide                                                    |
-| Theme      | Toggle switches to dark; the choice survives a reload                         |
-| Tabs       | Selecting a tab shows its panel                                               |
-| Modal      | Opens from its trigger; Escape closes it and returns focus                    |
+| Area       | Check                                                                          |
+| ---------- | ------------------------------------------------------------------------------ |
+| Loading    | Every example renders; no failed request, 4xx/5xx, page error or console error |
+| Stylesheet | Button styles apply                                                            |
+| Layout     | Grid lays out more than one column                                             |
+| Forms      | Form sends with `fetch` and reaches `data-state="sent"`; range output updates  |
+| Disclosure | Accordion keeps one item open                                                  |
+| Navbar     | Menu toggles at 400px wide                                                     |
+| Theme      | Toggle switches to dark; the choice survives a reload                          |
+| Tabs       | Selecting a tab shows its panel                                                |
+| Modal      | Opens from its trigger; Escape closes it and returns focus                     |
 
 ## Fixtures
 
-| Fixture        | Path                            | Build                                                                                                                  | Served as                                                                                                       | Extra checks                                                                                                                                                                      |
-| -------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Plain HTML     | `tests/fixtures/plain-html`     | `bun build.ts`: copies the dist files, pastes each `example.html` unchanged                                            | Static files                                                                                                    | The only scripts loaded are `behaviors/*.js`                                                                                                                                      |
-| React          | `tests/fixtures/react`          | `vite build` in development mode, so `StrictMode` really mounts twice; renders every `Example.tsx` inside `StrictMode` | Static files (client-rendered SPA)                                                                              | Each effect ran twice, and afterwards one click opens the navbar and one arrow key moves one tab                                                                                  |
-| TanStack Start | `tests/fixtures/tanstack-start` | `vite build`; server-renders every `Example.tsx` and hydrates it                                                       | Production server: `bun serve.ts` on port 4341 (`dist/client` static, the rest through `dist/server/server.js`) | The server HTML links the stylesheet in `<head>` and has all 30 examples; styled with JavaScript off; no hydration warnings; a saved theme applies with the app's scripts blocked |
-| SolidStart     | `tests/fixtures/solid-start`    | `bun convert.ts` (every `Example.tsx` to Solid, by the rules in the guide) then `vite build` with Nitro                | Production server: `node .output/server/index.mjs` on port 4342                                                 | The same server-rendering checks as TanStack Start; `bool:inert` leaves the attribute off when false; hiding a component inside `<Show>` runs its behavior's cleanup              |
+| Fixture        | Path                            | Build                                                                                                                  | Served as                                                                                                       | Extra checks                                                                                                                                                                    |
+| -------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Plain HTML     | `tests/fixtures/plain-html`     | `bun build.ts`: copies the dist files, pastes each `example.html` unchanged                                            | Static files                                                                                                    | The only scripts loaded are `behaviors/*.js`                                                                                                                                    |
+| React          | `tests/fixtures/react`          | `vite build` in development mode, so `StrictMode` really mounts twice; renders every `Example.tsx` inside `StrictMode` | Static files (client-rendered SPA)                                                                              | Each effect ran twice, and afterwards one click opens the navbar and one arrow key moves one tab                                                                                |
+| TanStack Start | `tests/fixtures/tanstack-start` | `vite build`; server-renders every `Example.tsx` and hydrates it                                                       | Production server: `bun serve.ts` on port 4341 (`dist/client` static, the rest through `dist/server/server.js`) | The server HTML links the stylesheet in `<head>` and has every example; styled with JavaScript off; no hydration warnings; a saved theme applies with the app's scripts blocked |
+| SolidStart     | `tests/fixtures/solid-start`    | `bun convert.ts` (every `Example.tsx` to Solid, by the rules in the guide) then `vite build` with Nitro                | Production server: `node .output/server/index.mjs` on port 4342                                                 | The same server-rendering checks as TanStack Start; `bool:inert` leaves the attribute off when false; hiding a component inside `<Show>` runs its behavior's cleanup            |
 
 Static fixtures (plain HTML, React) are served from a fake origin through Playwright's router
 (`tests/integrations/serve-static.ts`), so every request is a real browser

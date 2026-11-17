@@ -1,0 +1,78 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Icon from "@/components/media/Icon.astro";
+import Button from "@/components/Button.astro";
+import { slotContent } from "@/utils/slots.ts";
+import info from "@/assets/icons/status-info.svg";
+import success from "@/assets/icons/status-success.svg";
+import warning from "@/assets/icons/status-warning.svg";
+import error from "@/assets/icons/status-error.svg";
+
+type Props = Omit<HTMLAttributes<"div">, "role"> & {
+  /** Set to `false` to omit the component. */
+  render?: boolean;
+  /** What kind of message this is. Sets the border and icon color. */
+  tone?: "info" | "success" | "warning" | "error";
+  /** Short summary shown above the message. */
+  title?: string;
+  /** Show the status icon. */
+  icon?: boolean;
+  /** Add a dismiss button. Needs the alert behavior. */
+  dismissible?: boolean;
+  /**
+   * `none` for an alert in the page from the start. `status` or `alert` for
+   * one added after load: `status` waits, `alert` interrupts.
+   */
+  role?: "none" | "status" | "alert";
+};
+
+const {
+  render = true,
+  tone = "info",
+  title,
+  icon = true,
+  dismissible = false,
+  role = "none",
+  class: className,
+  ...rest
+} = Astro.props;
+
+const icons = { info, success, warning, error };
+const body = await slotContent(Astro.slots);
+---
+
+{render && (title || body) && (
+  <div
+    class:list={["alert_wrap", tone !== "info" && tone, className]}
+    role={role === "none" ? undefined : role}
+    {...rest}
+  >
+    {icon && <Icon class="alert_icon" src={icons[tone]} variant="small" />}
+    <div class="alert_content margin-trim">
+      {title && <p class="alert_title text-style-main">{title}</p>}
+      {body && <Fragment set:html={body} />}
+    </div>
+    {dismissible && (
+      <Button
+        variant="close"
+        emphasis="secondary"
+        label="Dismiss"
+        class="alert_dismiss"
+        data-alert-dismiss
+      />
+    )}
+  </div>
+)}
+
+<script>
+  import { initAlert } from "@constella/shared/behaviors/alert.ts";
+
+  const cleanups = new WeakMap<HTMLElement, () => void>();
+  const bind = () => {
+    for (const root of document.querySelectorAll<HTMLElement>(".alert_wrap")) {
+      if (!cleanups.has(root)) cleanups.set(root, initAlert(root));
+    }
+  };
+  bind();
+  document.addEventListener("astro:page-load", bind);
+</script>

@@ -1,0 +1,72 @@
+/*
+ * Component: Alert
+ * Astro:     apps/constella/src/components/feedback/Alert.astro
+ * Root:      .alert_wrap
+ * Children:  .alert_icon, .alert_content, .alert_title, .alert_dismiss
+ * Variants:  .success, .warning, .error (info is the default)
+ * State:     .is-ready (set by behaviors/alert.ts; shows the dismiss
+ *            button); [hidden] once dismissed
+ * Tokens:    --background-2, --border-width, --primary-medium, --radius-small,
+ *            --space-3, --space-4, --space-5, --status-error,
+ *            --status-info, --status-success, --status-warning, --text
+ * Docs:      /components/alert/
+ */
+@layer components {
+  .alert_wrap {
+    --_tone: var(--status-info);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    width: 100%;
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--background-2);
+    border-inline-start: calc(var(--border-width) * 4) solid var(--_tone);
+    border-radius: var(--radius-small);
+    color: var(--text);
+
+    &.success {
+      --_tone: var(--status-success);
+    }
+    &.warning {
+      --_tone: var(--status-warning);
+    }
+    &.error {
+      --_tone: var(--status-error);
+    }
+
+    /* The class sets display, which would otherwise outrank [hidden]. */
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .alert_icon {
+    flex: none;
+    color: var(--_tone);
+  }
+
+  /* A little larger than a small icon, and nudged onto the first line. It
+     has to outrank .icon.small, which loads after this file. */
+  .alert_wrap .alert_icon.icon {
+    --_size: 1.25em;
+    margin-top: 0.05em;
+  }
+
+  .alert_content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert_title {
+    font-weight: var(--primary-medium);
+  }
+
+  .alert_dismiss {
+    flex: none;
+
+    /* It does nothing until the behavior runs. */
+    .alert_wrap:not(.is-ready) & {
+      display: none;
+    }
+  }
+}

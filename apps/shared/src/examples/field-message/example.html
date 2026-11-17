@@ -1,0 +1,42 @@
+<form class="flex-vertical-nowrap gap-5" novalidate>
+  <div class="field form-input">
+    <label class="field-label text-style-main" for="signup-email"
+      ><span>Email</span
+      ><span class="field-star" aria-hidden="true">*</span></label
+    >
+    <input
+      class="field-control text-style-main"
+      id="signup-email"
+      type="email"
+      name="email"
+      autocomplete="email"
+      required
+      aria-describedby="signup-email-help"
+    />
+    <p class="field-help text-style-small" id="signup-email-help">
+      We only use it to send your receipt.
+    </p>
+  </div>
+
+  <div class="field form-input">
+    <label class="field-label text-style-main" for="signup-name"
+      ><span>Username</span></label
+    >
+    <input
+      class="field-control text-style-main"
+      id="signup-name"
+      type="text"
+      name="username"
+      value="ada lovelace"
+      autocomplete="username"
+      aria-describedby="signup-name-help signup-name-error"
+      aria-invalid="true"
+    />
+    <p class="field-help text-style-small" id="signup-name-help">
+      Letters, numbers and dashes.
+    </p>
+    <p class="field-error text-style-small" id="signup-name-error">
+      Usernames can't contain spaces. Try ada-lovelace.
+    </p>
+  </div>
+</form>

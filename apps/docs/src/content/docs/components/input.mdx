@@ -40,18 +40,20 @@ Every field in Constella uses the same pattern: a `<label class="field">` that w
 
 ## Variants and props
 
-| Astro prop    | HTML equivalent                     | Values                           | Default             | Effect                                    |
-| ------------- | ----------------------------------- | -------------------------------- | ------------------- | ----------------------------------------- |
-| `variant`     | `type`, `inputmode`, `autocomplete` | see below                        | `text`              | The kind of data.                         |
-| `label`       | the label text                      | text                             | the variant's name  | Always give a specific label.             |
-| `name`        | `name`                              | text                             | the label as a slug | The submitted key.                        |
-| `placeholder` | `placeholder`                       | text                             | the label           | An example of the expected value.         |
-| `value`       | `value`                             | text                             | none                | Initial value.                            |
-| `required`    | `required` and the `field-star`     | `true`, `false`                  | `false`             | Requires a value and marks the label.     |
-| `labelHidden` | `sr-only` on `field-label`          | `true`, `false`                  | `false`             | Hides the label visually only.            |
-| `size`        | `data-size` on the label            | `small`, `main`, `large`         | none                | Opt-in text size; padding scales with it. |
-| `radius`      | `data-radius` on the label          | `none`, `small`, `main`, `round` | none                | Opt-in corner radius.                     |
-| `render`      | none                                | `true`, `false`                  | `true`              | `false` omits the component.              |
+| Astro prop    | HTML equivalent                              | Values                           | Default             | Effect                                                                         |
+| ------------- | -------------------------------------------- | -------------------------------- | ------------------- | ------------------------------------------------------------------------------ |
+| `variant`     | `type`, `inputmode`, `autocomplete`          | see below                        | `text`              | The kind of data.                                                              |
+| `label`       | the label text                               | text                             | the variant's name  | Always give a specific label.                                                  |
+| `name`        | `name`                                       | text                             | the label as a slug | The submitted key.                                                             |
+| `placeholder` | `placeholder`                                | text                             | the label           | An example of the expected value.                                              |
+| `value`       | `value`                                      | text                             | none                | Initial value.                                                                 |
+| `required`    | `required` and the `field-star`              | `true`, `false`                  | `false`             | Requires a value and marks the label.                                          |
+| `labelHidden` | `sr-only` on `field-label`                   | `true`, `false`                  | `false`             | Hides the label visually only.                                                 |
+| `help`        | a `field-help` paragraph, `aria-describedby` | text                             | none                | Help under the field. See [Field help and errors](/components/field-message/). |
+| `error`       | a `field-error` paragraph, `aria-invalid`    | text                             | none                | An error you report. Renders the field as a `<div>` with `<label for>`.        |
+| `size`        | `data-size` on the label                     | `small`, `main`, `large`         | none                | Opt-in text size; padding scales with it.                                      |
+| `radius`      | `data-radius` on the label                   | `none`, `small`, `main`, `round` | none                | Opt-in corner radius.                                                          |
+| `render`      | none                                         | `true`, `false`                  | `true`              | `false` omits the component.                                                   |
 
 | `variant`    | `type`     | `inputmode` | `autocomplete`     |
 | ------------ | ---------- | ----------- | ------------------ |

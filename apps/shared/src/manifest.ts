@@ -182,6 +182,31 @@ export const components: readonly ComponentEntry[] = [
     root: ".field.form-select",
     styles: ["components/select.css", "patterns.css", "controls.css"],
   }),
+  documented("alert", {
+    name: "Alert",
+    astro: ["feedback/Alert.astro"],
+    root: ".alert_wrap",
+    styles: ["components/alert.css"],
+    behaviors: ["alert"],
+  }),
+  documented("badge", {
+    name: "Badge",
+    astro: ["item/Badge.astro"],
+    root: ".badge",
+    styles: ["components/badge.css"],
+  }),
+  documented("table", {
+    name: "Table",
+    astro: ["data/Table.astro"],
+    root: ".table_wrap, .table",
+    styles: ["components/table.css"],
+  }),
+  documented("field-message", {
+    name: "Field help and errors",
+    astro: ["form/Field.astro"],
+    root: ".field-help, .field-error",
+    styles: ["components/field-message.css", "patterns.css"],
+  }),
   documented("choice", {
     name: "Choice",
     astro: ["form/Choice.astro"],

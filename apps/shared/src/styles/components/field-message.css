@@ -1,0 +1,45 @@
+/*
+ * Component: Field help and errors
+ * Astro:     apps/constella/src/components/form/Field.astro, through the
+ *            help and error props of Input, Textarea and Select
+ * Root:      .field (a <div>, with <label class="field-label" for>, when it
+ *            has messages)
+ * Children:  .field-help, .field-error
+ * Variants:  none
+ * State:     [aria-invalid="true"] on the .field-control; :user-invalid after
+ *            the visitor has interacted
+ * Tokens:    --radius-round, --space-2, --status-error, --text-2
+ * Docs:      /components/field-message/
+ */
+@layer components {
+  .field-help,
+  .field-error {
+    margin: 0;
+  }
+
+  .field-help {
+    color: var(--text-2);
+  }
+
+  /* The dot is decoration: the message itself says what's wrong. */
+  .field-error {
+    color: var(--status-error);
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 0.5em;
+      height: 0.5em;
+      margin-inline-end: var(--space-2);
+      border-radius: var(--radius-round);
+      background-color: currentcolor;
+      vertical-align: 0.1em;
+    }
+  }
+
+  /* An error the author reports, or one the browser found after the
+     visitor interacted. The browser shows its own message for the second. */
+  .field-control:is([aria-invalid="true"], :user-invalid) {
+    border-color: var(--status-error);
+  }
+}

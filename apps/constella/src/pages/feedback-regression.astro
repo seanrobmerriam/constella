@@ -1,0 +1,38 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Alert from "@/components/feedback/Alert.astro";
+import Badge from "@/components/item/Badge.astro";
+---
+
+<Layout title="Feedback regression" noindex>
+  <Section>
+    <ContentWrapper>
+      <Alert id="plain" title="Plain">
+        An info alert.
+      </Alert>
+      <Alert id="status" tone="success" role="status">
+        Saved.
+      </Alert>
+      <Alert id="urgent" tone="error" role="alert" dismissible>
+        Payment failed.
+      </Alert>
+      <Alert id="no-icon" tone="warning" icon={false}>
+        No icon.
+      </Alert>
+      <a id="after" href="#">
+        After
+      </a>
+      <p>
+        <Badge id="badge-neutral">Draft</Badge>
+        <Badge id="badge-brand" tone="brand">
+          New
+        </Badge>
+        <Badge id="badge-error" tone="error">
+          Overdue
+        </Badge>
+      </p>
+    </ContentWrapper>
+  </Section>
+</Layout>

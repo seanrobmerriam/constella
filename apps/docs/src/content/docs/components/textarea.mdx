@@ -31,17 +31,19 @@ Set `rows` to the same number as `--_min-lines`. Browsers that can't grow the fi
 
 ## Variants and props
 
-| Astro prop       | HTML equivalent                 | Values          | Default             | Effect                                        |
-| ---------------- | ------------------------------- | --------------- | ------------------- | --------------------------------------------- |
-| `label`          | the label text                  | text            | required            | Renders nothing without it.                   |
-| `minLines`       | `--_min-lines` and `rows`       | whole number    | `3`                 | Starting height in lines.                     |
-| `maxLines`       | `--_max-lines`                  | whole number    | `12`                | Height at which it stops growing and scrolls. |
-| `name`           | `name`                          | text            | the label as a slug | The submitted key.                            |
-| `placeholder`    | `placeholder`                   | text            | none                |                                               |
-| `value`          | the textarea's content          | text            | none                | Initial text.                                 |
-| `required`       | `required` and the `field-star` | `true`, `false` | `false`             |                                               |
-| `size`, `radius` | `data-size`, `data-radius`      | as for Input    | none                | Opt-in size and corner radius.                |
-| `render`         | none                            | `true`, `false` | `true`              | `false` omits the component.                  |
+| Astro prop       | HTML equivalent                              | Values          | Default             | Effect                                                                         |
+| ---------------- | -------------------------------------------- | --------------- | ------------------- | ------------------------------------------------------------------------------ |
+| `label`          | the label text                               | text            | required            | Renders nothing without it.                                                    |
+| `minLines`       | `--_min-lines` and `rows`                    | whole number    | `3`                 | Starting height in lines.                                                      |
+| `maxLines`       | `--_max-lines`                               | whole number    | `12`                | Height at which it stops growing and scrolls.                                  |
+| `name`           | `name`                                       | text            | the label as a slug | The submitted key.                                                             |
+| `placeholder`    | `placeholder`                                | text            | none                |                                                                                |
+| `value`          | the textarea's content                       | text            | none                | Initial text.                                                                  |
+| `required`       | `required` and the `field-star`              | `true`, `false` | `false`             |                                                                                |
+| `help`           | a `field-help` paragraph, `aria-describedby` | text            | none                | Help under the field. See [Field help and errors](/components/field-message/). |
+| `error`          | a `field-error` paragraph, `aria-invalid`    | text            | none                | An error you report. Renders the field as a `<div>` with `<label for>`.        |
+| `size`, `radius` | `data-size`, `data-radius`                   | as for Input    | none                | Opt-in size and corner radius.                                                 |
+| `render`         | none                                         | `true`, `false` | `true`              | `false` omits the component.                                                   |
 
 ## States
 

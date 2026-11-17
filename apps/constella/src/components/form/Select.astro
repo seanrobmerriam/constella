@@ -5,6 +5,8 @@ import type {
   ControlSize,
 } from "@constella/shared/contracts/controls.ts";
 import { slug } from "@/utils/slug.ts";
+import { fieldMessages } from "@/utils/field.ts";
+import Field from "@/components/form/Field.astro";
 import Icon from "@/components/media/Icon.astro";
 import arrow from "@/assets/icons/arrow.svg";
 
@@ -29,6 +31,10 @@ type Base = {
   required?: boolean;
   /** Visually hide the label. */
   labelHidden?: boolean;
+  /** Help text under the field, linked with aria-describedby. */
+  help?: string;
+  /** Error text under the field. Also marks the control aria-invalid. */
+  error?: string;
 };
 
 type Props = HTMLAttributes<"select"> &
@@ -82,11 +88,16 @@ const {
   placeholder,
   required = false,
   labelHidden = false,
+  help,
+  error,
   size,
   radius,
   class: className,
+  id,
   ...rest
 } = Astro.props as AllProps;
+
+const messages = fieldMessages({ id, help, error });
 
 const WORDING = {
   list: { label: "Select", placeholder: "Select one…" },
@@ -176,27 +187,27 @@ const text = label ?? wording.label;
 ---
 
 {render && entries.length > 0 && (
-  <label
-    class:list={["field", "form-select", className]}
-    data-size={size}
-    data-radius={radius}
+  <Field
+    class={["form-select", className]}
+    size={size}
+    radius={radius}
+    label={text}
+    labelHidden={labelHidden}
+    required={required}
+    controlId={messages.controlId}
+    help={help}
+    helpId={messages.helpId}
+    error={error}
+    errorId={messages.errorId}
   >
-    <span
-      class:list={["field-label text-style-main", labelHidden && "sr-only"]}
-    >
-      <span>{text}</span>
-      {required && (
-        <span class="field-star" aria-hidden="true">
-          *
-        </span>
-      )}
-    </span>
-
     <span class="form-select_control">
       <select
         class="field-control form-select_field text-style-main"
+        id={messages.controlId}
         name={name ?? slug(text)}
         required={required || undefined}
+        aria-describedby={messages.describedBy}
+        aria-invalid={messages.invalid}
         {...rest}
       >
         <option value="" disabled selected={value === undefined} hidden>
@@ -210,5 +221,5 @@ const text = label ?? wording.label;
       </select>
       <Icon class="form-select_mark" src={arrow} variant="small" />
     </span>
-  </label>
+  </Field>
 )}

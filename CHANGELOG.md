@@ -33,6 +33,23 @@ released yet.
 
 ### Added
 
+- Table: styles for semantic tables (caption, header rows, row headers,
+  `.is-numeric` cells) with `striped` and `compact` variants, in a focusable,
+  labelled wrapper that scrolls sideways on narrow screens. Plain tables in
+  rich text get the same styles.
+- Badge: an inline label for a status, category or count, in neutral, brand
+  and status tones, sized relative to the surrounding text.
+- Alert: info, success, warning and error tones, an optional title and icon,
+  and an optional dismiss button (`behaviors/alert.js`) that moves focus on
+  instead of losing it.
+- Field help and errors: `help` and `error` props on Input, Textarea and
+  Select, and the `.field-help` and `.field-error` classes. Messages sit
+  outside the label and are linked with `aria-describedby`; an error also sets
+  `aria-invalid`. The control gets an error border from `aria-invalid` or the
+  browser's `:user-invalid`.
+- Status color tokens: `--status-error`, `--status-success`,
+  `--status-warning`, `--status-info`, each at least 4.5:1 on its theme's
+  backgrounds.
 - `@constella/shared`: one stylesheet per component family, bundled as
   `dist/constella.css`, plus optional behavior modules in `dist/behaviors/`
   (accordion, dropdown, form, marquee, modal, navbar, range, slider, tabs,

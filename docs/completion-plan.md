@@ -219,6 +219,15 @@ Phase 4 is done: every environment the docs name has a fixture that builds and p
 
 - Phase 6: unchanged. Pick a small first increment (for example Badge + Alert), and add each new component through §2 from its first commit.
 
+  The owner chose field help and errors, Alert, Badge and Table. The spec, with the audit of what already existed, is `docs/expansion/increment-1.md`.
+
+  - [x] 6a Field help and errors: `help` and `error` props on Input, Textarea and Select, through a shared `form/Field.astro` shell that keeps the plain `<label class="field">` when there are no messages. Messages are outside the label, linked with `aria-describedby`; errors set `aria-invalid`; `:user-invalid` adds the same border after interaction. Adds the four `--status-*` tokens. Tests: `tests/components/field-message.spec.ts`, on the example and an Astro regression page.
+  - [x] 6b Alert: `feedback/Alert.astro`, `components/alert.css`, `behaviors/alert.ts` (dismiss: hides the alert, moves focus to the next focusable element or `<main>`, fires `alert-dismiss`). Four tones from the status tokens, an optional title, icon and dismiss button; the button stays hidden without the script. No role by default, with `status` and `alert` for alerts added after load, and the docs explain the choice. Tests: `tests/components/alert.spec.ts`, on the example and an Astro regression page.
+  - [x] 6c Badge: `item/Badge.astro`, `components/badge.css`. Neutral, `brand` (new `--badge-brand` tokens, so it shows in the brand theme and inside a secondary button) and four status tones (a tint behind the text color, plus a status-colored dot). Sized in `em` to fit headings, buttons and table cells. Tests: `tests/components/badge.spec.ts` and axe in all three themes.
+  - [x] 6d Table: `data/Table.astro`, `components/table.css`. A focusable `.table_wrap` region labelled by the caption, which scrolls sideways at phone width without widening the page; `striped`, `compact`, `.is-numeric`; plain rich-text tables get the same styles. Tests: `tests/components/table.spec.ts` and axe in all three themes.
+
+  Increment 1 is complete. The rest of the candidate catalog in `docs/components.md` stays unscheduled until the owner picks the next increment.
+
 ---
 
 ## Recommended order and rough size

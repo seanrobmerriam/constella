@@ -53,6 +53,14 @@ import dropdownHtml from "./dropdown/example.html?raw";
 import dropdownTsx from "./dropdown/Example.tsx?raw";
 import modalHtml from "./modal/example.html?raw";
 import modalTsx from "./modal/Example.tsx?raw";
+import alertHtml from "./alert/example.html?raw";
+import alertTsx from "./alert/Example.tsx?raw";
+import badgeHtml from "./badge/example.html?raw";
+import badgeTsx from "./badge/Example.tsx?raw";
+import tableHtml from "./table/example.html?raw";
+import tableTsx from "./table/Example.tsx?raw";
+import fieldMessageHtml from "./field-message/example.html?raw";
+import fieldMessageTsx from "./field-message/Example.tsx?raw";
 import tabsHtml from "./tabs/example.html?raw";
 import tabsTsx from "./tabs/Example.tsx?raw";
 import sliderHtml from "./slider/example.html?raw";
@@ -307,6 +315,43 @@ export const examples: readonly ExampleDefinition[] = [
     tsx: modalTsx,
     behaviorEntry: "modal",
     previewHeight: 28,
+  },
+  {
+    id: "alert",
+    title: "Alert",
+    description:
+      "Info, success, warning and error alerts; the error one can be dismissed. Needs the alert behavior only for dismissing.",
+    html: alertHtml,
+    tsx: alertTsx,
+    behaviorEntry: "alert",
+    previewHeight: 30,
+  },
+  {
+    id: "badge",
+    title: "Badge",
+    description:
+      "Neutral, brand and status badges, a count next to a heading, and a count in a button. No script.",
+    html: badgeHtml,
+    tsx: badgeTsx,
+    previewHeight: 16,
+  },
+  {
+    id: "table",
+    title: "Table",
+    description:
+      "A striped table with a caption, row headers and numeric columns, in a wrapper that scrolls on narrow screens. No script.",
+    html: tableHtml,
+    tsx: tableTsx,
+    previewHeight: 22,
+  },
+  {
+    id: "field-message",
+    title: "Field help and errors",
+    description:
+      "Help text under a field, and an error the server reported, linked to the inputs with aria-describedby. No script.",
+    html: fieldMessageHtml,
+    tsx: fieldMessageTsx,
+    previewHeight: 22,
   },
   {
     id: "tabs",
