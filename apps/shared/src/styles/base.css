@@ -243,7 +243,7 @@
   --text: var(--dark-900);
   --text-2: color-mix(in lab, currentcolor 60%, transparent);
   --border: color-mix(in lab, var(--text) 20%, transparent);
-  --heading-accent: color-mix(in srgb, var(--brand-500), black 20%);
+  --heading-accent: color-mix(in srgb, var(--brand-500), black 60%);
 
   --selection-background: var(--text);
   --selection-text: var(--background);
