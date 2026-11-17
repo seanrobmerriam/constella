@@ -23,6 +23,10 @@ export default defineConfig({
           items: [
             { label: "Introduction", slug: "getting-started/introduction" },
             { label: "Installation", slug: "getting-started/installation" },
+            {
+              label: "Browser support",
+              slug: "getting-started/browser-support",
+            },
           ],
         },
         {

@@ -73,3 +73,28 @@ jobs:
           name: playwright-results
           path: test-results/
           retention-days: 7
+
+  other-browsers:
+    name: Other browsers (Firefox, WebKit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile
+      - name: Build shared CSS, behaviors and integration fixtures
+        run: bun run build:fixtures
+      - name: Install Firefox and WebKit
+        run: node node_modules/@playwright/test/cli.js install --with-deps firefox webkit
+      - name: Components, accessibility and integrations
+        env:
+          PW_BROWSERS: firefox,webkit
+          PW_INTEGRATIONS: "1"
+        run: node node_modules/@playwright/test/cli.js test tests/components tests/a11y tests/integrations
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results-other-browsers
+          path: test-results/
+          retention-days: 7

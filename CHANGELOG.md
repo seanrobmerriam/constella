@@ -47,6 +47,9 @@ released yet.
   React TSX examples, tokens and accessibility notes; foundations pages;
   integration guides for plain HTML, React, TanStack Start, SolidStart and
   Astro; and this migration guide.
+- Browser support: Chrome and Edge 111, Firefox 121, Safari 16.2 and later.
+  CI runs the component, accessibility and integration suites in Firefox and
+  WebKit as well as Chromium. See the docs Browser support page.
 - Accessibility checks in CI: axe-core on every example in light, dark and
   brand, reflow at 320px, and a visible focus indicator on every tab stop
   (`bun run test:a11y`). A Foundations page says what is and isn't tested.

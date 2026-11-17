@@ -272,3 +272,15 @@ test("the accessibility page states what is and isn't tested", async ({
       page.getByRole("heading", { level: 2, name, exact: true }),
     ).toBeVisible();
 });
+
+test("the browser support page lists the minimum versions", async ({
+  page,
+}) => {
+  await page.goto("/getting-started/browser-support/");
+  const table = page.locator("table").first();
+  for (const text of ["Chrome, Edge", "111", "Firefox", "121", "16.2"])
+    await expect(table).toContainText(text);
+  await expect(
+    page.locator('nav a[href="/getting-started/browser-support/"]'),
+  ).toHaveCount(1);
+});

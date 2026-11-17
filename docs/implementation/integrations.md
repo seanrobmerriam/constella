@@ -57,4 +57,5 @@ version follows the Playwright release.
 
 ## Not covered yet
 
-- Browsers other than Chromium.
+- Firefox and WebKit run in CI only (the "Other browsers" job): the agent
+  container can't download them.
