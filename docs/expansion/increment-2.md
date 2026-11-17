@@ -84,8 +84,9 @@ None of them needs a behavior module.
   current item uses `--text`.
 - **Narrow screens:** the list wraps. There's no collapse menu in this
   increment.
-- **Astro:** `global/Breadcrumbs.astro` takes `items: SiteLink[]` (from
-  `contracts/navigation.ts`) and a `label`. The last item is the current page.
+- **Astro:** `global/Breadcrumbs.astro` takes `items: Breadcrumb[]` (a new
+  `{ label, href? }` type in `contracts/navigation.ts`; the last item may
+  have no `href`) and a `label`. The last item is the current page.
 
 ## 7c-3: Pagination
 

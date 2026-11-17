@@ -235,7 +235,7 @@ Phase 4 is done: every environment the docs name has a fixture that builds and p
 - Phase 7: increment 2. The owner picked Avatar, Breadcrumbs and Pagination. The spec, with the audit, is `docs/expansion/increment-2.md`. None needs a behavior module.
 
   - [x] 7c-1 Avatar: `item/Avatar.astro`, `item/AvatarGroup.astro`, `components/avatar.css`. A photo (through `Img`, at twice the size for sharp screens) or initials from the name, `small`/medium/`large`, `square`, `decorative`; a group overlaps avatars with a ring in the page's background color. Tests: `tests/components/avatar.spec.ts` and axe in all three themes.
-  - [ ] 7c-2 Breadcrumbs
+  - [x] 7c-2 Breadcrumbs: `global/Breadcrumbs.astro`, `components/breadcrumbs.css`, and a `Breadcrumb` type in `contracts/navigation.ts`. The WAI-ARIA pattern: a labelled `nav`, an ordered list, `aria-current="page"` on the last item, which is text when it has no `href`. Separators are border chevrons, since `content` alt text isn't in every supported browser. Tests: `tests/components/breadcrumbs.spec.ts` (including no overflow at 320px) and axe in all three themes.
   - [ ] 7c-3 Pagination
 
   The rest of the candidate catalog in `docs/components.md` stays unscheduled until the owner picks the next increment.

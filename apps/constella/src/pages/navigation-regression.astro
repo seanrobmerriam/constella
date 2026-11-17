@@ -1,0 +1,27 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import Section from "@/components/wrapper/Section.astro";
+import ContentWrapper from "@/components/wrapper/ContentWrapper.astro";
+import Breadcrumbs from "@/components/global/Breadcrumbs.astro";
+---
+
+<Layout title="Navigation regression" noindex>
+  <Section>
+    <ContentWrapper>
+      <Breadcrumbs
+        id="crumbs-linked"
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Docs", href: "/docs/" },
+          { label: "Install", href: "/docs/install/" },
+        ]}
+      />
+      <Breadcrumbs
+        id="crumbs-text"
+        label="Search breadcrumb"
+        items={[{ label: "Home", href: "/" }, { label: "Results" }]}
+      />
+      <Breadcrumbs id="crumbs-none" items={[]} />
+    </ContentWrapper>
+  </Section>
+</Layout>

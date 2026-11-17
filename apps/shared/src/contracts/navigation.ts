@@ -43,3 +43,10 @@ export interface FooterConfig {
   /** Text after the year, e.g. the company name. */
   copyright: string;
 }
+
+/** One step in a breadcrumb trail. The last one is the current page, and
+ * its `href` is optional. */
+export interface Breadcrumb {
+  label: string;
+  href?: string;
+}

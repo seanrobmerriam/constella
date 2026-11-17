@@ -36,6 +36,9 @@ released yet.
 - Avatar: a person's photo, cropped to a circle or rounded square, or their
   initials, in three sizes, plus `.avatar_group` for overlapping avatars
   with a ring in the page's background color.
+- Breadcrumbs: a labelled `nav` with an ordered trail, CSS-drawn separators
+  that screen readers skip, and `aria-current="page"` on the last item. New
+  contract type: `Breadcrumb`.
 - Table: styles for semantic tables (caption, header rows, row headers,
   `.is-numeric` cells) with `striped` and `compact` variants, in a focusable,
   labelled wrapper that scrolls sideways on narrow screens. Plain tables in

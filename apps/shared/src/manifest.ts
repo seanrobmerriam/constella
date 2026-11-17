@@ -201,6 +201,12 @@ export const components: readonly ComponentEntry[] = [
     root: ".badge",
     styles: ["components/badge.css"],
   }),
+  documented("breadcrumbs", {
+    name: "Breadcrumbs",
+    astro: ["global/Breadcrumbs.astro"],
+    root: ".breadcrumbs",
+    styles: ["components/breadcrumbs.css"],
+  }),
   documented("table", {
     name: "Table",
     astro: ["data/Table.astro"],

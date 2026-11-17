@@ -1,0 +1,87 @@
+---
+title: Breadcrumbs
+description: A trail of links from the top of the site down to the current page.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+Breadcrumbs show where a page sits in the site, and link to each level above it. Use them on sites with more than two levels, near the top of the page and below the [Navbar](/components/navbar/). They're a list of links, not a replacement for the site's navigation.
+
+## Example
+
+<ComponentExample id="breadcrumbs" />
+
+## Markup
+
+```html
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol class="breadcrumbs_list">
+    <li class="breadcrumbs_item">
+      <a class="breadcrumbs_link" href="/">Home</a>
+    </li>
+    <li class="breadcrumbs_item">
+      <a class="breadcrumbs_link" href="/guides/">Guides</a>
+    </li>
+    <li class="breadcrumbs_item">
+      <a class="breadcrumbs_link" href="/guides/install/" aria-current="page">
+        Install
+      </a>
+    </li>
+  </ol>
+</nav>
+```
+
+- A `<nav>` landmark with a label, around an ordered list: the order is the hierarchy.
+- The last item is the current page and has `aria-current="page"`. It can be a link to itself, as above, or a `<span class="breadcrumbs_link">` when the page has no URL of its own, such as search results.
+- The separators are drawn by CSS between items. Don't write them in the markup.
+
+## Variants and props
+
+| Astro prop | HTML equivalent | Values               | Default        | Effect                                                                                                 |
+| ---------- | --------------- | -------------------- | -------------- | ------------------------------------------------------------------------------------------------------ |
+| `items`    | the list items  | `{ label, href? }[]` | required       | The trail, from the top level down. The last item is the current page. An item without `href` is text. |
+| `label`    | `aria-label`    | text                 | `"Breadcrumb"` | The landmark's name. Change it if a page has two trails.                                               |
+| `render`   | none            | `true`, `false`      | `true`         | `false` omits the component.                                                                           |
+
+The item type is `Breadcrumb`, from `@constella/shared/contracts/navigation.ts`:
+
+```astro
+---
+import Breadcrumbs from "@/components/global/Breadcrumbs.astro";
+---
+
+<Breadcrumbs
+  items={[
+    { label: "Home", href: "/" },
+    { label: "Guides", href: "/guides/" },
+    { label: "Install", href: "/guides/install/" },
+  ]}
+/>
+```
+
+## States
+
+- **Current page** (`aria-current="page"`): the text color, where earlier items use the secondary text color.
+- **Hover** on earlier items: the text color, underlined.
+- **Focus:** the site's focus ring.
+
+## Accessibility
+
+- This follows the WAI-ARIA [breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/): a labelled `nav` landmark, a list, and `aria-current="page"` on the last item.
+- The separators have no text, so screen readers don't read them. Constella draws them with borders, because the CSS syntax for hiding text separators (`content: "/" / ""`) isn't in every supported browser.
+- Each label is a link's whole name, so keep it the page's own title, not "Click here".
+- Long labels wrap rather than being cut off, so nothing is hidden at narrow widths.
+
+## Behavior
+
+None.
+
+## Tokens
+
+<ComponentTokens id="breadcrumbs" />
+
+## Related
+
+- [Navbar](/components/navbar/): the site's main navigation, which marks the current page the same way.
+- [Pagination](/components/pagination/): links between the pages of one list.

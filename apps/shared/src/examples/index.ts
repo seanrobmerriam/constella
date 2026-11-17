@@ -59,6 +59,8 @@ import avatarHtml from "./avatar/example.html?raw";
 import avatarTsx from "./avatar/Example.tsx?raw";
 import badgeHtml from "./badge/example.html?raw";
 import badgeTsx from "./badge/Example.tsx?raw";
+import breadcrumbsHtml from "./breadcrumbs/example.html?raw";
+import breadcrumbsTsx from "./breadcrumbs/Example.tsx?raw";
 import tableHtml from "./table/example.html?raw";
 import tableTsx from "./table/Example.tsx?raw";
 import fieldMessageHtml from "./field-message/example.html?raw";
@@ -345,6 +347,15 @@ export const examples: readonly ExampleDefinition[] = [
     html: badgeHtml,
     tsx: badgeTsx,
     previewHeight: 16,
+  },
+  {
+    id: "breadcrumbs",
+    title: "Breadcrumbs",
+    description:
+      "A trail whose current page is a link, with a long label that wraps, and one whose current page is text. No script.",
+    html: breadcrumbsHtml,
+    tsx: breadcrumbsTsx,
+    previewHeight: 12,
   },
   {
     id: "table",
