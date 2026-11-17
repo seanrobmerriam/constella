@@ -250,17 +250,19 @@ export const components: readonly ComponentEntry[] = [
     styles: ["components/tabs.css"],
     behaviors: ["tabs"],
   }),
-  planned("slider", {
+  documented("slider", {
     name: "Slider",
     astro: ["interactive/Slider.astro"],
     root: ".slider_wrap",
     styles: ["components/slider.css"],
+    behaviors: ["slider"],
   }),
-  planned("marquee", {
+  documented("marquee", {
     name: "Marquee",
     astro: ["interactive/Marquee.astro"],
     root: ".marquee_wrap",
     styles: ["components/marquee.css"],
+    behaviors: ["marquee"],
   }),
 
   // Astro integration utilities (documented together in Phase 3, batch 3.11)

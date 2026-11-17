@@ -105,28 +105,16 @@ const locals = `--_count: ${count}`;
 )}
 
 <script>
-  for (const marquee of document.querySelectorAll<HTMLElement>(
-    ".marquee_wrap",
-  )) {
-    const toggle = marquee.querySelector<HTMLButtonElement>(
-      "[data-marquee-toggle]",
-    );
-    if (!toggle) continue;
+  import { initMarquee } from "@constella/shared/behaviors/marquee.ts";
 
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-
-    const setPlaying = (playing: boolean) => {
-      marquee.dataset.state = playing ? "playing" : "paused";
-      toggle.setAttribute("aria-pressed", String(playing));
-      toggle.setAttribute("aria-label", playing ? "Pause" : "Play");
-    };
-
-    /* Anyone who asked for less motion gets it still, and can start it. */
-    setPlaying(!reduced.matches);
-    reduced.addEventListener("change", () => setPlaying(!reduced.matches));
-
-    toggle.addEventListener("click", () => {
-      setPlaying(marquee.dataset.state !== "playing");
-    });
-  }
+  const cleanups = new WeakMap<HTMLElement, () => void>();
+  const bind = () => {
+    for (const root of document.querySelectorAll<HTMLElement>(
+      ".marquee_wrap",
+    )) {
+      if (!cleanups.has(root)) cleanups.set(root, initMarquee(root));
+    }
+  };
+  bind();
+  document.addEventListener("astro:page-load", bind);
 </script>

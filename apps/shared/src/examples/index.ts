@@ -55,6 +55,10 @@ import modalHtml from "./modal/example.html?raw";
 import modalTsx from "./modal/Example.tsx?raw";
 import tabsHtml from "./tabs/example.html?raw";
 import tabsTsx from "./tabs/Example.tsx?raw";
+import sliderHtml from "./slider/example.html?raw";
+import sliderTsx from "./slider/Example.tsx?raw";
+import marqueeHtml from "./marquee/example.html?raw";
+import marqueeTsx from "./marquee/Example.tsx?raw";
 
 /**
  * The closed registry. Only these entries can be previewed; the preview route
@@ -313,6 +317,26 @@ export const examples: readonly ExampleDefinition[] = [
     tsx: tabsTsx,
     behaviorEntry: "tabs",
     previewHeight: 16,
+  },
+  {
+    id: "slider",
+    title: "Slider",
+    description:
+      "Five cards that scroll sideways, with previous, next and markers. Needs the slider behavior; without it the list still scrolls.",
+    html: sliderHtml,
+    tsx: sliderTsx,
+    behaviorEntry: "slider",
+    previewHeight: 20,
+  },
+  {
+    id: "marquee",
+    title: "Marquee",
+    description:
+      "A strip of words that loops sideways, with a pause button. Needs the marquee behavior; without it the strip holds still.",
+    html: marqueeHtml,
+    tsx: marqueeTsx,
+    behaviorEntry: "marquee",
+    previewHeight: 6,
   },
 ];
 

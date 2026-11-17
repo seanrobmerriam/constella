@@ -5,9 +5,12 @@
  * Children:  .marquee_viewport, .marquee_track, .marquee_panel,
  *            .marquee_toggle
  * Variants:  .backwards
- * State:     [data-state="playing" | "paused"] set by the marquee script
+ * State:     [data-state="playing" | "paused"] set by behaviors/marquee.ts;
+ *            without it the strip holds still and the toggle is hidden.
+ *            [data-motion="chosen"] once the visitor presses the toggle, so
+ *            it can play under reduced motion
  * Tokens:    --space-4, --space-6
- * Docs:      not documented yet (docs/completion-plan.md, Phase 3)
+ * Docs:      /components/marquee/
  */
 @layer components {
   .marquee_wrap {
@@ -51,10 +54,17 @@
       animation-direction: reverse;
     }
 
+    /* Still until the behavior says it may play, so a strip without the
+       script, and so without a pause control, never moves. */
+    animation-play-state: paused;
+
+    .marquee_wrap[data-state="playing"] & {
+      animation-play-state: running;
+    }
+
     /* Held while something inside has focus, so a link can't travel out from
        under the person reading it. The toggle sits outside the track. */
-    &:focus-within,
-    .marquee_wrap[data-state="paused"] & {
+    .marquee_wrap[data-state="playing"] &:focus-within {
       animation-play-state: paused;
     }
   }
@@ -71,10 +81,13 @@
     align-items: center;
     gap: var(--_gap-size);
 
-    /* The type patterns carry block margins that mean nothing in a row. */
+    /* The type patterns carry block margins that mean nothing in a row, and
+       trim text to its cap height, which leaves descenders outside the box
+       for the viewport to clip. A one-line item needs neither. */
     > * {
       flex: none;
       margin-block: 0;
+      text-box: normal;
     }
 
     /* Media fills its container by default, which here is the whole strip.
@@ -90,6 +103,12 @@
 
   .marquee_toggle {
     flex: none;
+
+    /* It does nothing until the behavior runs. Hidden rather than removed,
+       so the strip doesn't change width when it appears. */
+    .marquee_wrap:not([data-state]) & {
+      visibility: hidden;
+    }
   }
 
   @keyframes marquee {
@@ -99,16 +118,12 @@
   }
 
   /* The reset collapses every animation to a moment, which would snap the
-     track to its end. It holds still instead, and runs its full length only
-     for someone who starts it themselves. */
+     track to its end. It holds still instead, and runs only for someone who
+     starts it themselves: the behavior then sets data-motion="chosen", which
+     the reset leaves alone. */
   @media (prefers-reduced-motion: reduce) {
-    .marquee_track {
+    .marquee_wrap:not([data-motion="chosen"]) .marquee_track {
       animation-name: none;
-    }
-
-    .marquee_wrap[data-state="playing"] .marquee_track {
-      animation-name: marquee;
-      animation-duration: var(--_duration) !important;
     }
   }
 }

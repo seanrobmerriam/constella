@@ -1,0 +1,104 @@
+---
+title: Marquee
+description: A strip of items that loops sideways at a steady pace, with a pause button.
+---
+
+import ComponentExample from "../../../components/ComponentExample.astro";
+import ComponentTokens from "../../../components/ComponentTokens.astro";
+
+A continuous strip of short items, such as services or client logos, that scrolls on its own and loops without a seam. Use it for decoration and lists people don't need to read in full. If visitors need to read or act on every item, use a [Slider](/components/slider/), which only moves when they move it.
+
+## Example
+
+<ComponentExample id="marquee" />
+
+## Markup
+
+```html
+<div
+  class="marquee_wrap"
+  style="--_count: 5"
+  role="group"
+  aria-label="What we do"
+>
+  <div class="marquee_viewport">
+    <div class="marquee_track">
+      <div class="marquee_panel">
+        <p class="text text-style-large">Strategy</p>
+        …
+      </div>
+      <div class="marquee_panel" aria-hidden="true" inert>
+        <p class="text text-style-large">Strategy</p>
+        …
+      </div>
+    </div>
+  </div>
+  <button
+    class="button_wrap secondary play marquee_toggle"
+    type="button"
+    aria-label="Pause"
+    aria-pressed="true"
+    data-marquee-toggle
+  >
+    …
+  </button>
+</div>
+```
+
+- `marquee_track` holds **two identical panels**. The second carries the loop, and `aria-hidden="true"` and `inert` keep it out of screen readers and the tab order, so nothing is met twice.
+- Set `--_count` to the number of items in one panel. Each item gets the same time on screen, so a longer list takes longer to loop rather than moving faster. The Astro component counts them for you.
+- Images and videos in a panel take a fixed height, `--_item-height` (3rem), and their width from their aspect ratio. Give them `width` and `height` attributes, so the panel doesn't change width when they load.
+- The toggle is a [Button](/components/button/) with the `play` variant and both icons.
+
+## Variants and props
+
+| Astro prop  | HTML equivalent   | Values                  | Default    | Effect                            |
+| ----------- | ----------------- | ----------------------- | ---------- | --------------------------------- |
+| `direction` | `backwards` class | `forwards`, `backwards` | `forwards` | `backwards` travels to the right. |
+| `label`     | `aria-label`      | text                    | `Marquee`  | Names the strip.                  |
+| `render`    | none              | `true`, `false`         | `true`     | `false` omits the component.      |
+
+The pace is 4 seconds per item. To change it, set `--_speed` on the root, for example `style="--_count: 5; --_speed: 6s"`.
+
+## States
+
+- **Playing** (`data-state="playing"`): the strip moves. The toggle shows the pause icon, `aria-pressed="true"` and the label "Pause".
+- **Paused** (`data-state="paused"`): the strip holds where it is. The toggle shows the play icon, `aria-pressed="false"` and the label "Play".
+- **Focus inside**: the strip holds while a link or button in it has focus, so it can't move out from under the reader.
+- **Chosen** (`data-motion="chosen"`): set once the visitor presses the toggle. The strip can then play even with reduced motion on.
+- **No script** (no `data-state`): the strip holds still and the toggle is hidden.
+
+## Accessibility
+
+- **Pause control**: anything that moves on its own for more than 5 seconds needs a way to stop it (WCAG 2.2.2). The toggle is that control, and it is always visible once the behavior runs.
+- **Reduced motion**: visitors who prefer reduced motion get a still strip. They can start it with the toggle, which also sets `data-motion="chosen"` on the root. That exempts the strip from the stylesheet's reduced-motion reset, because the visitor asked for this motion. Once a visitor presses the toggle, their choice stands, even if the setting changes later.
+- The root is a group labelled by `aria-label`. Only the first panel is read out.
+- The toggle's label says what it will do: "Pause" while playing, "Play" while paused.
+
+## Behavior
+
+`behaviors/marquee.js` starts the strip and runs the toggle:
+
+```html
+<script type="module">
+  import { initMarquee } from "./behaviors/marquee.js";
+  document
+    .querySelectorAll(".marquee_wrap")
+    .forEach((root) => initMarquee(root));
+</script>
+```
+
+- It sets `data-state` to `playing`, or to `paused` for reduced motion, and flips it when the toggle is pressed. The first press also sets `data-motion="chosen"`. The animation itself is CSS.
+- `initMarquee(root)` returns a cleanup function that removes its listeners and the `data-state`, which stops the strip. Each marquee on a page is independent.
+
+**Without the script**, the strip shows its first items and holds still, so nothing moves without a way to pause it.
+
+## Tokens
+
+<ComponentTokens id="marquee" />
+
+## Related
+
+- [Slider](/components/slider/): slides the visitor moves themselves.
+- [Button](/components/button/): the `play` variant used for the toggle.
+- [Img](/components/img/): sizing images inside a panel.

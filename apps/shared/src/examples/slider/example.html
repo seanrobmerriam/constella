@@ -1,0 +1,106 @@
+<div class="slider_wrap" style="--_visible-sm: 2; --_visible-md: 3">
+  <div class="slider_list" role="group" aria-label="Services" tabindex="0">
+    <div class="card_wrap">
+      <div class="card_content margin-trim">
+        <h3 class="heading text-style-h5">Strategy</h3>
+        <p class="text">
+          What your visitors need, and what the site has to do for them.
+        </p>
+      </div>
+    </div>
+    <div class="card_wrap">
+      <div class="card_content margin-trim">
+        <h3 class="heading text-style-h5">Design</h3>
+        <p class="text">
+          Pages built from the same components, so they stay consistent.
+        </p>
+      </div>
+    </div>
+    <div class="card_wrap">
+      <div class="card_content margin-trim">
+        <h3 class="heading text-style-h5">Build</h3>
+        <p class="text">
+          Plain HTML and CSS first, with scripts only where they help.
+        </p>
+      </div>
+    </div>
+    <div class="card_wrap">
+      <div class="card_content margin-trim">
+        <h3 class="heading text-style-h5">Launch</h3>
+        <p class="text">
+          Checked on phones, with a keyboard and with a screen reader.
+        </p>
+      </div>
+    </div>
+    <div class="card_wrap">
+      <div class="card_content margin-trim">
+        <h3 class="heading text-style-h5">Support</h3>
+        <p class="text">
+          Small fixes and new pages after launch, as the site grows.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="slider_controls">
+    <div class="slider_markers"></div>
+    <div class="slider_steps">
+      <button
+        class="button_wrap secondary arrow back"
+        type="button"
+        aria-label="Previous slide"
+        data-step="-1"
+      >
+        <svg
+          class="icon small button_mark"
+          viewBox="0 0 240 188"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M135 184.805L234 93.8053L135 2.80469"
+            stroke="currentColor"
+            vector-effect="non-scaling-stroke"
+            style="stroke-width: var(--border-width)"
+          />
+          <path
+            d="M234 93.8047H0"
+            stroke="currentColor"
+            vector-effect="non-scaling-stroke"
+            style="stroke-width: var(--border-width)"
+          />
+        </svg>
+      </button>
+      <button
+        class="button_wrap secondary arrow"
+        type="button"
+        aria-label="Next slide"
+        data-step="1"
+      >
+        <svg
+          class="icon small button_mark"
+          viewBox="0 0 240 188"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M135 184.805L234 93.8053L135 2.80469"
+            stroke="currentColor"
+            vector-effect="non-scaling-stroke"
+            style="stroke-width: var(--border-width)"
+          />
+          <path
+            d="M234 93.8047H0"
+            stroke="currentColor"
+            vector-effect="non-scaling-stroke"
+            style="stroke-width: var(--border-width)"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initSlider } from "./behaviors/slider.js";
+  document.querySelectorAll(".slider_wrap").forEach((root) => initSlider(root));
+</script>
